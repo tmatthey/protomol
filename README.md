@@ -1,3 +1,5 @@
+# ProtoMol #
+
 ProtoMol is an object-oriented, component based, framework for molecular dynamics (MD) simulations. The framework supports the CHARMM 19 and 28a2 force fields and is able to process PDB, PSF, XYZ and DCD trajectory files. It is designed for high flexibility, easy extendibility and maintenance, and high performance demands, including parallelization. The technique of multiple time-stepping is used to improve long-term efficiency. The use of fast electrostatic force evaluation algorithms like Ewald, particle Mesh Ewald (PME), and Multigrid (MG) summation further enhances performance. Longer time steps are possible using MOLLY, Langevin Molly and Hybrid Monte Carlo, Nose-Hoover, and Langevin integrators.
 
 ProtoMol v2.0 has been designed to interact with VMD, a visualization engine developed by the University of Illinois that is used for displaying large biomolecular systems in three dimensions. Protomol v3.0 simulations can be visualized using the Open Source Jave Molecular Viewer, included in the download package.
@@ -12,19 +14,19 @@ ProtoMol is freely distributed software, and the source code is available.
 *    Support of generic multiple time-stepping integration schemes
 *    Generic forces and potentials
 *    Fast electrostatic force evaluation algorithms:
-* *         Ewald summation, O(N3/2)
+* *         Ewald summation, O(N^3/2)
 * *        Particle-Mesh-Ewald, O(N log N)
 * *       Multi-grid method, O(N) 
 *    Support of common I/O formats (pre- & post-processing)
-*    106 particle systems
+*    10^6 particle systems
 
 *    Supported platforms:
-**        Sun/Solaris
-**        AIX (optional with MPI)
-**        HP-UX (optional with MPI)
-**        IRIX (optional with MPI)
-**        Linux (optional with MPIch or LAMMPI)
-**        Windows 
+* *        Sun/Solaris
+* *        AIX (optional with MPI)
+* *        HP-UX (optional with MPI)
+* *        IRIX (optional with MPI)
+* *        Linux (optional with MPIch or LAMMPI)
+* *        Windows 
 
 # HOWTO install ProtoMol - Linux #
 
@@ -33,6 +35,8 @@ ProtoMol is freely distributed software, and the source code is available.
 
 1) Run one configure script for your platform:
 
+```
+#!text
 ./configure                           # tries to find best preset
 ./configure --with-aix-xlc            # xlC   for AIX with optimization flags
 ./configure --with-aix-xlc-mpi        # xlC   for AIX with MPI and optimization flags
@@ -48,10 +52,15 @@ ProtoMol is freely distributed software, and the source code is available.
 ./configure --with-irix-mipspro-mpi   # CC    for IRIX with MPI and optimization flags
 ./configure --with-ppc-xlc            # xlC   for PPC with optimization flags
 ./configure --with-sun-gcc            # g++   for SUN with optimization flags
+```
+
 
 2) Run depend target to generate dependencies and compile the framework:
 
+```
+#!text
    make depend; make
+```
 
 
 
@@ -59,6 +68,8 @@ ProtoMol is freely distributed software, and the source code is available.
 
 1) Run one configure script for your platform:
 
+```
+#!text
 ./configure --with-aix-xlc                  #  xlC   for AIX with optimization flags
 ./configure --with-aix-xlc-debug            #  xlC   for AIX with debugging flags
 ./configure --with-aix-xlc-mpi              #  xlC   for AIX with MPI and optimization flags
@@ -83,13 +94,17 @@ ProtoMol is freely distributed software, and the source code is available.
 ./configure --with-ppc-xlc                  #  xlC   for PPC with optimization flags
 ./configure --with-pcc-xlc-debug            #  xlC   for PPC with debugging flags
 ./configure --with-sun-gcc                  #  g++   for SUN with optimization flags
-   					    #
-    We recommend for testing purpose to use debugging since it takes less time to compile.
+```
+   					    
+We recommend for testing purpose to use debugging since it takes less time to compile.
 
 
 2) Run depend target to generate dependencies and compile the framework:
 
-   make clean; make depend; make
+```
+#!text
+make clean; make depend; make
+```
 
    We recommend to do a "make clean" since the dependencies are not always
    correctly encountered.
@@ -102,15 +117,24 @@ ProtoMol is freely distributed software, and the source code is available.
 
 2) Generate the new configure file:
 
+```
+#!text
 autoreconf -f -i  --verbose
+```
 
    or
 
+```
+#!text
 ./realmake <arguments>                          # cleans up all and runs autoconf
+```
 
    or if you do not have autoconf >= V2.53
 
+```
+#!text
 aclocal; autoheader; autoconf; automake -a      
+```
 
 
 ## Adding new Makefile directories ##
@@ -134,11 +158,17 @@ aclocal; autoheader; autoconf; automake -a
    (e.g. setenv CXXFLAGS "-O3")
 
    Example:
+```
+#!text
 ./configure 'LIBS=-lm -lnsl' 'CC=/opt/scali/bin/mpicc' 'CFLAGS=-Wall -O9 -ffast-math -finline-functions -funroll-loops -DHAVE_APP_MPI -DHAVE_MPI -DNDEBUG' 'CXX=/opt/scali/bin/mpic++' 'CXXFLAGS=-Wall -O9 -ffast-math -finline-functions -funroll-loops  -DHAVE_APP_MPI -DHAVE_MPI -DNDEBUG' '--with-fftw3=/local/fftw'
+```
 
  
    For more detailed informations:
+```
+#!text
 ./configure --help
+```
 
 
 ## Compiler troubles ##
@@ -177,29 +207,38 @@ aclocal; autoheader; autoconf; automake -a
 
 ### FFT ###
 
-   ProtoMol supports different FFT interfaces: FFTW (version 3 and 2), ESSL (AIX), complib.sgimath (IRIX).
+   ProtoMol supports different FFT interfaces: 
+* FFTW (version 3 and 2)
+* ESSL (AIX)
+* complib.sgimath (IRIX)
    You can specify your FFT of choice by --with-fft=[sgi|essl|fftw2|fftw3|zfft].
+
    Use '--with-fftw3=<path>' to specify install path of FFTW, ESSL and complib.sgimath are assumed to
    be at default locations. If you do not have any of these FFT libraries, ZFFT is used by default,
    which is a subsitute for complib.sgimath. Note that ZFFT does not support all kind of numbers.
    Note that ESSL's FFT does not handle all kind of numbers. ESSL aborts with the error message 
    "DCFT3 : 2538-2030 The transform length (ARG NO. 7, 8 or 9)", where 7 stands for the z-dim, 
-   8 the y-dim and 9 the x-dim.
-   http:://www.fftw.org
+   8 the y-dim and 9 the x-dim. [www.fftw.org](http:://www.fftw.org)
+   
 
 
 ## Timing ##
 
+```
+#!text
    wall        : totale time, incl. initialization & IO
    run         : running the simulation for n steps, incl. output
    integration : running the simulation for n steps, excl. output
    forces      : evaluating the forces, excl. communication
    com         : sending and recieving data
    idle        : waiting for the master to send next work package and waiting for barrieres 
+```
 
 
 ## Parallel ##
 
+```
+#!text
    useBarrier   : boolean =false  : if MPI_Barrier should be called before global communication
    parallelMode : string          : static, dynamic or masterSlave
                   =static     : static load balancing, no com. between master and slaves, only slaves
@@ -210,6 +249,7 @@ aclocal; autoheader; autoconf; automake -a
                                     packages, better load balance, but more communication
    parallelPipe : int             : pipe size of packages send to each slave; increased pipe less idle
                                     slaves, but less load balancing
+```
 
 
 
@@ -219,5 +259,7 @@ aclocal; autoheader; autoconf; automake -a
 
    To clean the whole package:
 
-   ./realclean
-
+```
+#!text
+./realclean
+```
