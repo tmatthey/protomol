@@ -1,0 +1,10 @@
+#PBS -N Butane_REM
+#PBS -o output
+#PBS -e error
+#PBS -l nodes=4:ppn=2
+
+source ~/.cshrc
+
+cd /home/dvonhand/biocomp/ProtoMol/protomol/examples/butane_4
+
+mpirun -np 8 -machinefile $PBS_NODEFILE ~/bin/rem UA_butane.rem.conf --REMTemperaturefile UA_butane.rem.temps

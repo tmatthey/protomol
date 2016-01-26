@@ -1,0 +1,328 @@
+No MPI compilation.
+
+######                                  #     #
+#     #  #####    ####   #####   ####   ##   ##   ####   #
+#     #  #    #  #    #    #    #    #  # # # #  #    #  #
+######   #    #  #    #    #    #    #  #  #  #  #    #  #
+#        #####   #    #    #    #    #  #     #  #    #  #
+#        #   #   #    #    #    #    #  #     #  #    #  #
+#        #    #   ####     #     ####   #     #   ####   ######
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Please cite T. Matthey, T. Cickovski, S. S. Hampton, A. Ko, Q. Ma, M. Nyerges, T. Raeder,
+T. Slabach, and J. A. Izaguirre. ProtoMol: An object-oriented framework for prototyping
+novel algorithms for molecular dynamics. ACM Trans. Math. Softw., 30(3):237­265, 2004.
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+ProtoMol Version 2.1
+
+tcickovs Dec  4 2007 10:56:40
+Linux manganese 2.6.9-42.ELsmp #1 SMP Wed Jul 12 23:27:17 EDT 2006 i686 i686 i386 GNU/Linux
+icpc -Wall -wd810,383,981,279,444,1572 -O3 -ip -DNDEBUG -Wl,-rpath,-L/afs/nd.edu/user25/tcickovs/Research/LAPACK/lib
+32-bit
+Intel(R) C++ Compiler for 32-bit applications, Version 8.1    Build 20050823Z Package ID: l_cc_pc_8.1.034
+Copyright (C) 1985-2005 Intel Corporation.  All rights reserved.
+Version 8.1 
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Information:
+
+protomol@cse.nd.edu
+http://protomol.sourceforge.net
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+
+Undefined keyword(s):
+allEnergiesFileOutputFreq     <int,positive>
+BSDLFile                      <string,non-empty>
+BSDLFileOutputFreq            <int,positive>
+cellBasisVector1              <coordinates,non-zero>
+cellBasisVector2              <coordinates,non-zero>
+cellBasisVector3              <coordinates,non-zero>
+cellorigin                    <coordinates>
+DCDFileMinimalImage           <boolean>
+DCDFileNoWater                <string,non-empty>
+DCDFileNoWaterMinimalImage    <boolean>
+DCDFileNoWaterOutputFreq      <int,positive>
+DCDFileOutputFreq             <int,positive>
+DCDVELFile                    <string,non-empty>
+DCDVELFileMinimalImage        <boolean>
+DCDVELFileOutputFreq          <int,positive>
+diffusionFile                 <string,non-empty>
+diffusionFileOutputFreq       <int,positive>
+dihedralMultPSF               <boolean>
+dihedralsFile                 <string,non-empty>
+dihedralsFileMinimalImage     <boolean>
+dihedralsFileOutputFreq       <int,positive>
+dihedralsIndex                <int,non-negative>
+doallEnergiesFile             <boolean>
+doBSDLFile                    <boolean>
+doDCDFile                     <boolean>
+doDCDFileNoWater              <boolean>
+doDCDVELFile                  <boolean>
+dodiffusionFile               <boolean>
+dodihedralsFile               <boolean>
+dofinPDBPosFile               <boolean>
+dofinXYZBinPosFile            <boolean>
+dofinXYZBinVelFile            <boolean>
+dofinXYZBinVelRevFile         <boolean>
+dofinXYZPosFile               <boolean>
+dofinXYZVelFile               <boolean>
+domomentumFile                <boolean>
+dopaulFile                    <boolean>
+doPaulLowFile                 <boolean>
+doPDBPosFile                  <boolean>
+doREMExchangeRatesFile        <boolean>
+doREMHistoryFile              <boolean>
+dostateFile                   <boolean>
+doTempFile                    <boolean>
+doXYZBinPosFile               <boolean>
+doXYZBinVelFile               <boolean>
+doXYZForceFile                <boolean>
+doXYZPosFile                  <boolean>
+doXYZVelFile                  <boolean>
+eigvalfile                    <string,non-empty>
+finPDBPosFile                 <string,non-empty>
+finPDBPosFileMinimalImage     <boolean>
+finXYZBinPosFile              <string,non-empty>
+finXYZBinPosFileMinimalImage  <boolean>
+finXYZBinVelFile              <string,non-empty>
+finXYZBinVelRevFile           <string,non-empty>
+finXYZPosFileMinimalImage     <boolean>
+momentumFile                  <string,non-empty>
+momentumFileOutputFreq        <int,positive>
+paulFile                      <string,non-empty>
+paulFileOutputFreq            <int,positive>
+paulOmega                     <real,non-negative>
+paulOmegaZ                    <real,non-negative>
+PDBPosFile                    <string,non-empty>
+PDBPosFileMinimalImage        <boolean>
+REMExchangeRatesFile          <string,non-empty>
+REMExchangeRatesFileOutputFreq<int,positive>
+REMHistoryFile                <string,non-empty>
+REMHistoryFileOutputFreq      <int,positive>
+ScreenOutputFreq              <int,positive>
+ScreenPaulTrap                <boolean>
+stateFile                     <string,non-empty>
+stateFileOutputFreq           <int,positive>
+statesInputFile               <string,non-empty>
+TempFile                      <string,non-empty>
+TempFileOutputFreq            <int,positive>
+velfile                       <string,non-empty>
+XYZBinPosFile                 <string,non-empty>
+XYZBinPosFileMinimalImage     <boolean>
+XYZBinPosFileOutputFreq       <int,positive>
+XYZBinVelFile                 <string,non-empty>
+XYZBinVelFileOutputFreq       <int,positive>
+XYZForceFile                  <string,non-empty>
+XYZForceFileOutputFreq        <int,positive>
+XYZPosFile                    <string,non-empty>
+XYZPosFileMinimalImage        <boolean>
+XYZPosFileOutputFreq          <int,positive>
+XYZVelFile                    <string,non-empty>
+XYZVelFileOutputFreq          <int,positive>
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Using seed 1234.
+Using report level 0.
+Using PDB posfile 'minC7eq.pdb' (22).
+Using temperature 300K for the velocities  (22).
+Using PDB eigfile 'eigVmC7eq' (22).
+Recoverable Error:  [PSF::read] Record !NUMLP with 0 entries not recognized.
+Using PSF file 'alan_mineq.psf' (22).
+Using PAR file 'par_all27_prot_lipid.inp', new charmm force field.
+Hint:  Reduced fast delta max of ExclusionTable from 31 to 10.
+Random temperature : 402.219K
+Removed linear momentum: (-0.214284,-0.127007,0.321863)
+Removed angular momentum : (0.336095,0.472391,0.0705352)
+Actual start temperature : 451.407K
+NULL: 0
+VALUE: 0.189705
+Using Normal Mode integrator. 
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Virial tensor : false
+Molecular virial tensor : false
+Hint:  [NormModeInt::initialize] mpi = true
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Output allEnergiesFile alan.out.energy 20 1 0 1 false false.
+Output DCDFile nml-100ns.dcd 20 true.
+Output finXYZPosFile nml-100ns.pos.xyz true.
+Output finXYZVelFile nml-100ns.vel.xyz.
+Output Screen true 20.
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+integrator {
+  Level 1 NormModeInt {
+      cyclelength 1
+      fixmodes 40	 # Number of high frequency modes constrained
+      gamma 91	 # Langevin Gamma
+      seed 1234	 # Langevin random seed
+      temperature 300	 # Langevin temperature
+      nve 0	 # NVE simulation if not 0
+      Berendsen 0	 # Berendsen tau in fs
+      fdof 0	 # Fixed degrees of freedom
+    Force Improper
+    Force Dihedral
+    Force Bond
+    Force Angle
+    Force LennardJones -switchingFunction C2 -algorithm NonbondedCutoff
+      -switchon 9	 # C2 swf switch on
+      -cutoff 12	 # C2 swf cutoff
+      -cutoff 12	 # algorithm cutoff
+    Force CoulombDiElec -switchingFunction C2 -algorithm NonbondedCutoff
+      -EPS 1	 # DiElect EPSILON
+      -D 78	 # DiElect Dval
+      -S 0.3	 # DiElect Sval
+      -switchon 9	 # C2 swf switch on
+      -cutoff 12	 # C2 swf cutoff
+      -cutoff 12	 # algorithm cutoff
+  }
+  Level 0 NormModeMin {
+      timestep 4
+      minimlim 0.5	 # Minimizer target PE difference kcal mole^{-1}
+      forcePEcheck true	 # Force PE/calcForces check at end of loop.
+      avModeMass 3	 # Average mode mass for mass weighted minimization
+      randforce true	 # Add random force
+      rediag false	 # Force re-digonalize
+    Force Improper
+    Force Dihedral
+    Force Bond
+    Force Angle
+    Force LennardJones -switchingFunction C2 -algorithm NonbondedCutoff
+      -switchon 4.5	 # C2 swf switch on
+      -cutoff 5.5	 # C2 swf cutoff
+      -cutoff 5.5	 # algorithm cutoff
+    Force CoulombDiElec -switchingFunction C2 -algorithm NonbondedCutoff
+      -EPS 1	 # DiElect EPSILON
+      -D 78	 # DiElect Dval
+      -S 0.3	 # DiElect Sval
+      -switchon 4.5	 # C2 swf switch on
+      -cutoff 5.5	 # C2 swf cutoff
+      -cutoff 5.5	 # algorithm cutoff
+  }
+}
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Atoms                : 22
+AtomTypes            : 8
+Bonds                : 21
+Angles               : 36
+Dihedrals            : 42 (45)
+Impropers            : 4
+Molecules            : 1
+Water                : 0
+Pairs                : 29
+Degree of freedom    : 23
+Molecule pair dist's : true
+Exclusion pairs      : 98
+Max exclusion dist   : 10
+Time                 : 4
+CellManager          : Cubic
+BoundaryConditions   : Vacuum orthogonal
+coulombScalingFactor : 1
+exclude              : scaled1-4
+cellSize             : 5
+Atom density         : 0.130413310721164
+Atom/cell            : 16.3016638401456
+Real cell size       : (5,5,5)
+Cell dimension       : (2,1,2)
+Simulation box       : (-inf,-inf,-inf)-(inf,inf,inf) (inf,inf,inf)
+Particle             : (6.57653,1.18663,-12.912)-(13.4362,5.68271,-7.4423) (6.85967,4.49608,5.4697)
+Particle extended    : (6.57653,1.18663,-12.912)-(13.4362,5.68271,-7.4423) (6.85967,4.49608,5.4697)
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Step :          1, Time :              0.004 [ps], TE :          28.3719 [kcal/mol], T :  1236.4635 [K], V :           168.69 [AA^3]
+Step :         21, Time :              0.084 [ps], TE :          20.5775 [kcal/mol], T :   808.3045 [K], V :           155.07 [AA^3]
+Step :         41, Time :              0.164 [ps], TE :          18.4124 [kcal/mol], T :   681.2146 [K], V :           174.31 [AA^3]
+Step :         61, Time :              0.244 [ps], TE :          15.2136 [kcal/mol], T :   571.1976 [K], V :           171.74 [AA^3]
+Step :         81, Time :              0.324 [ps], TE :          15.8839 [kcal/mol], T :   609.9221 [K], V :           174.84 [AA^3]
+Step :        101, Time :              0.404 [ps], TE :          23.2510 [kcal/mol], T :   922.9654 [K], V :           171.93 [AA^3]
+Step :        121, Time :              0.484 [ps], TE :          17.7769 [kcal/mol], T :   701.7282 [K], V :           190.80 [AA^3]
+Step :        141, Time :              0.564 [ps], TE :          21.9501 [kcal/mol], T :   877.9282 [K], V :           184.06 [AA^3]
+Step :        161, Time :              0.644 [ps], TE :          22.4624 [kcal/mol], T :   867.8672 [K], V :           164.61 [AA^3]
+Step :        181, Time :              0.724 [ps], TE :          22.4273 [kcal/mol], T :   869.8992 [K], V :           170.38 [AA^3]
+Step :        201, Time :              0.804 [ps], TE :          19.2678 [kcal/mol], T :   733.4220 [K], V :           160.74 [AA^3]
+Step :        221, Time :              0.884 [ps], TE :          13.2230 [kcal/mol], T :   508.3683 [K], V :           176.33 [AA^3]
+Step :        241, Time :              0.964 [ps], TE :          27.7200 [kcal/mol], T :  1102.7564 [K], V :           179.52 [AA^3]
+Step :        261, Time :              1.044 [ps], TE :          17.5796 [kcal/mol], T :   618.3529 [K], V :           173.09 [AA^3]
+Step :        281, Time :              1.124 [ps], TE :          19.7660 [kcal/mol], T :   744.2401 [K], V :           189.65 [AA^3]
+Step :        301, Time :              1.204 [ps], TE :          18.0913 [kcal/mol], T :   702.2702 [K], V :           176.05 [AA^3]
+Step :        321, Time :              1.284 [ps], TE :          19.8977 [kcal/mol], T :   769.3371 [K], V :           175.49 [AA^3]
+Step :        341, Time :              1.364 [ps], TE :          19.1793 [kcal/mol], T :   774.0545 [K], V :           174.45 [AA^3]
+Step :        361, Time :              1.444 [ps], TE :          21.7694 [kcal/mol], T :   777.4722 [K], V :           165.41 [AA^3]
+Step :        381, Time :              1.524 [ps], TE :          16.2327 [kcal/mol], T :   594.2238 [K], V :           163.46 [AA^3]
+Step :        401, Time :              1.604 [ps], TE :          20.3312 [kcal/mol], T :   771.6744 [K], V :           162.99 [AA^3]
+Step :        421, Time :              1.684 [ps], TE :          17.2336 [kcal/mol], T :   660.1400 [K], V :           152.71 [AA^3]
+Step :        441, Time :              1.764 [ps], TE :          19.1561 [kcal/mol], T :   705.2315 [K], V :           148.30 [AA^3]
+Step :        461, Time :              1.844 [ps], TE :          18.6692 [kcal/mol], T :   689.7426 [K], V :           154.09 [AA^3]
+Step :        481, Time :              1.924 [ps], TE :          20.8164 [kcal/mol], T :   815.8732 [K], V :           158.81 [AA^3]
+Step :        501, Time :              2.004 [ps], TE :          24.8217 [kcal/mol], T :   949.9995 [K], V :           149.90 [AA^3]
+Step :        521, Time :              2.084 [ps], TE :          18.3271 [kcal/mol], T :   718.0445 [K], V :           160.66 [AA^3]
+Step :        541, Time :              2.164 [ps], TE :          19.4156 [kcal/mol], T :   770.3739 [K], V :           157.24 [AA^3]
+Step :        561, Time :              2.244 [ps], TE :          18.1491 [kcal/mol], T :   681.7404 [K], V :           169.77 [AA^3]
+Step :        581, Time :              2.324 [ps], TE :          16.7106 [kcal/mol], T :   621.9791 [K], V :           158.39 [AA^3]
+Step :        601, Time :              2.404 [ps], TE :          17.9484 [kcal/mol], T :   714.1788 [K], V :           154.70 [AA^3]
+Step :        621, Time :              2.484 [ps], TE :          16.2394 [kcal/mol], T :   627.9658 [K], V :           161.49 [AA^3]
+Step :        641, Time :              2.564 [ps], TE :          23.1624 [kcal/mol], T :   928.6113 [K], V :           176.64 [AA^3]
+Step :        661, Time :              2.644 [ps], TE :          20.0747 [kcal/mol], T :   765.4811 [K], V :           174.31 [AA^3]
+Step :        681, Time :              2.724 [ps], TE :          15.7612 [kcal/mol], T :   568.8809 [K], V :           186.58 [AA^3]
+Step :        701, Time :              2.804 [ps], TE :          21.2283 [kcal/mol], T :   759.6378 [K], V :           183.68 [AA^3]
+Step :        721, Time :              2.884 [ps], TE :          18.9574 [kcal/mol], T :   723.9140 [K], V :           178.77 [AA^3]
+Step :        741, Time :              2.964 [ps], TE :          19.9662 [kcal/mol], T :   741.5757 [K], V :           182.94 [AA^3]
+Step :        761, Time :              3.044 [ps], TE :          13.8078 [kcal/mol], T :   557.1356 [K], V :           177.16 [AA^3]
+Step :        781, Time :              3.124 [ps], TE :          22.2369 [kcal/mol], T :   892.4991 [K], V :           186.76 [AA^3]
+Step :        801, Time :              3.204 [ps], TE :          19.0467 [kcal/mol], T :   752.9200 [K], V :           191.17 [AA^3]
+Step :        821, Time :              3.284 [ps], TE :          17.2760 [kcal/mol], T :   642.9191 [K], V :           194.79 [AA^3]
+Step :        841, Time :              3.364 [ps], TE :          21.2789 [kcal/mol], T :   820.0204 [K], V :           197.98 [AA^3]
+Step :        861, Time :              3.444 [ps], TE :          16.3188 [kcal/mol], T :   568.3247 [K], V :           206.56 [AA^3]
+Step :        881, Time :              3.524 [ps], TE :          20.5212 [kcal/mol], T :   738.4925 [K], V :           211.03 [AA^3]
+Step :        901, Time :              3.604 [ps], TE :          16.7072 [kcal/mol], T :   622.7954 [K], V :           208.70 [AA^3]
+Step :        921, Time :              3.684 [ps], TE :          17.4857 [kcal/mol], T :   667.6564 [K], V :           196.53 [AA^3]
+Step :        941, Time :              3.764 [ps], TE :          15.6959 [kcal/mol], T :   612.9747 [K], V :           193.18 [AA^3]
+Step :        961, Time :              3.844 [ps], TE :          20.6681 [kcal/mol], T :   779.6008 [K], V :           194.03 [AA^3]
+Step :        981, Time :              3.924 [ps], TE :          15.4315 [kcal/mol], T :   565.7982 [K], V :           193.13 [AA^3]
+Step :       1001, Time :              4.004 [ps], TE :          20.0983 [kcal/mol], T :   813.2323 [K], V :           192.83 [AA^3]
+Step :       1021, Time :              4.084 [ps], TE :          22.5877 [kcal/mol], T :   896.1647 [K], V :           183.80 [AA^3]
+Step :       1041, Time :              4.164 [ps], TE :          29.9978 [kcal/mol], T :  1188.6772 [K], V :           184.91 [AA^3]
+Step :       1061, Time :              4.244 [ps], TE :          23.1310 [kcal/mol], T :   901.4144 [K], V :           185.15 [AA^3]
+Step :       1081, Time :              4.324 [ps], TE :          16.0959 [kcal/mol], T :   626.4055 [K], V :           184.82 [AA^3]
+Step :       1101, Time :              4.404 [ps], TE :          16.2763 [kcal/mol], T :   650.7508 [K], V :           187.06 [AA^3]
+Step :       1121, Time :              4.484 [ps], TE :          21.9004 [kcal/mol], T :   865.4388 [K], V :           193.58 [AA^3]
+Step :       1141, Time :              4.564 [ps], TE :          18.2670 [kcal/mol], T :   712.2862 [K], V :           176.76 [AA^3]
+Step :       1161, Time :              4.644 [ps], TE :          22.0118 [kcal/mol], T :   862.6183 [K], V :           169.42 [AA^3]
+Step :       1181, Time :              4.724 [ps], TE :          22.0055 [kcal/mol], T :   904.4304 [K], V :           176.68 [AA^3]
+Step :       1201, Time :              4.804 [ps], TE :          17.2235 [kcal/mol], T :   658.0842 [K], V :           185.52 [AA^3]
+Step :       1221, Time :              4.884 [ps], TE :          19.3388 [kcal/mol], T :   727.3640 [K], V :           163.30 [AA^3]
+Step :       1241, Time :              4.964 [ps], TE :          18.7347 [kcal/mol], T :   724.6272 [K], V :           161.94 [AA^3]
+Step :       1261, Time :              5.044 [ps], TE :          14.2281 [kcal/mol], T :   529.8116 [K], V :           150.59 [AA^3]
+Step :       1281, Time :              5.124 [ps], TE :          21.8944 [kcal/mol], T :   844.3616 [K], V :           153.18 [AA^3]
+Step :       1301, Time :              5.204 [ps], TE :          17.1164 [kcal/mol], T :   657.3595 [K], V :           153.12 [AA^3]
+Step :       1321, Time :              5.284 [ps], TE :          21.1930 [kcal/mol], T :   815.9802 [K], V :           155.47 [AA^3]
+Step :       1341, Time :              5.364 [ps], TE :          19.4606 [kcal/mol], T :   775.4883 [K], V :           149.89 [AA^3]
+Step :       1361, Time :              5.444 [ps], TE :          26.7626 [kcal/mol], T :  1070.4223 [K], V :           155.19 [AA^3]
+Step :       1381, Time :              5.524 [ps], TE :          18.2623 [kcal/mol], T :   684.7673 [K], V :           154.57 [AA^3]
+Step :       1401, Time :              5.604 [ps], TE :          15.0077 [kcal/mol], T :   573.9846 [K], V :           162.67 [AA^3]
+Step :       1421, Time :              5.684 [ps], TE :          20.9359 [kcal/mol], T :   781.7480 [K], V :           155.69 [AA^3]
+Step :       1441, Time :              5.764 [ps], TE :          20.0698 [kcal/mol], T :   744.9862 [K], V :           152.99 [AA^3]
+Step :       1461, Time :              5.844 [ps], TE :          21.2622 [kcal/mol], T :   761.2984 [K], V :           154.43 [AA^3]
+Step :       1481, Time :              5.924 [ps], TE :          24.2781 [kcal/mol], T :   941.2077 [K], V :           168.25 [AA^3]
+Step :       1501, Time :              6.004 [ps], TE :          23.4505 [kcal/mol], T :   876.8495 [K], V :           161.78 [AA^3]
+Step :       1521, Time :              6.084 [ps], TE :          18.1511 [kcal/mol], T :   640.9967 [K], V :           159.71 [AA^3]
+Step :       1541, Time :              6.164 [ps], TE :          19.6726 [kcal/mol], T :   750.4808 [K], V :           156.00 [AA^3]
+Step :       1561, Time :              6.244 [ps], TE :          19.7714 [kcal/mol], T :   761.5719 [K], V :           153.20 [AA^3]
+Step :       1581, Time :              6.324 [ps], TE :          23.3194 [kcal/mol], T :   884.0183 [K], V :           152.34 [AA^3]
+Step :       1601, Time :              6.404 [ps], TE :          21.1056 [kcal/mol], T :   796.6412 [K], V :           159.73 [AA^3]
+Step :       1621, Time :              6.484 [ps], TE :          27.1719 [kcal/mol], T :  1065.2380 [K], V :           148.86 [AA^3]
+Step :       1641, Time :              6.564 [ps], TE :          18.8107 [kcal/mol], T :   706.5491 [K], V :           154.36 [AA^3]
+Step :       1661, Time :              6.644 [ps], TE :          20.9288 [kcal/mol], T :   783.6743 [K], V :           161.92 [AA^3]
+Step :       1681, Time :              6.724 [ps], TE :          23.3764 [kcal/mol], T :   905.8579 [K], V :           165.34 [AA^3]
+Step :       1701, Time :              6.804 [ps], TE :          26.6185 [kcal/mol], T :  1083.3517 [K], V :           166.28 [AA^3]
+Step :       1721, Time :              6.884 [ps], TE :          18.6630 [kcal/mol], T :   710.0522 [K], V :           159.09 [AA^3]
+Step :       1741, Time :              6.964 [ps], TE :          17.1580 [kcal/mol], T :   630.6587 [K], V :           151.70 [AA^3]
+Step :       1761, Time :              7.044 [ps], TE :          21.1753 [kcal/mol], T :   796.8497 [K], V :           143.27 [AA^3]
+Step :       1781, Time :              7.124 [ps], TE :          16.7435 [kcal/mol], T :   634.3374 [K], V :           153.51 [AA^3]
+Step :       1801, Time :              7.204 [ps], TE :          16.8272 [kcal/mol], T :   592.4031 [K], V :           146.52 [AA^3]
+Step :       1821, Time :              7.284 [ps], TE :          19.9340 [kcal/mol], T :   795.2376 [K], V :           143.95 [AA^3]
+Step :       1841, Time :              7.364 [ps], TE :          21.3783 [kcal/mol], T :   811.4307 [K], V :           128.88 [AA^3]
+Step :       1861, Time :              7.444 [ps], TE :          19.7281 [kcal/mol], T :   758.7082 [K], V :           127.32 [AA^3]
+Step :       1881, Time :              7.524 [ps], TE :          20.1198 [kcal/mol], T :   709.8021 [K], V :           122.11 [AA^3]
+Step :       1901, Time :              7.604 [ps], TE :          17.6712 [kcal/mol], T :   641.5013 [K], V :           131.76 [AA^3]
+Step :       1921, Time :              7.684 [ps], TE :          14.5591 [kcal/mol], T :   555.8870 [K], V :           131.72 [AA^3]
+Step :       1941, Time :              7.764 [ps], TE :          22.4011 [kcal/mol], T :   892.7432 [K], V :           144.73 [AA^3]
+Step :       1961, Time :              7.844 [ps], TE :          16.4566 [kcal/mol], T :   604.9988 [K], V :           133.49 [AA^3]
+Step :       1981, Time :              7.924 [ps], TE :          21.2863 [kcal/mol], T :   840.8605 [K], V :           137.37 [AA^3]
+Step :       2001, Time :              8.004 [ps], TE :          17.6219 [kcal/mol], T :   653.1154 [K], V :           134.50 [AA^3]
+Hint:  [NormModeInt::~NormModeInt] Minimizer iterations = 4, average = 4.4135, force calcs = 9, average = 9.827
+Timing : wall: 8.28307[s] real, 2.61960[s] user, 0.24196[s] sys, run: 8.05499[s], integration: 2.55824[s], forces: 2.28554[s].

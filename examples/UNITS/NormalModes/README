@@ -1,0 +1,90 @@
+**************************************************************************
+* Scheme: Normal Mode Integration                                        *
+*         MTS integration using Normal Mode integrator and minimizer.    *
+* System: 22-atom, unsolvated, Alanine Dipeptide                         *
+* Purpose: Tests multiple timestepping, normal mode integration,         *
+*          eigenvector file reading, DCD writing, and Hessians           *
+* 	   Also the NonbondedCutoff algorithm.                           *
+**************************************************************************
+
+Parameters, descriptions, and acceptable values
+
+GENERAL:
+1. eigfile
+	DESCRIPTION: Binary file of eigenvectors for Hessian computation in the Normal Mode calculations
+	VALUES: system-specific, DO NOT VARY
+
+
+TRAJECTORY OUTPUT:
+1. dcdfile: Name of the binary DCD trajectory output file of atomic positions
+
+
+INTEGRATOR PARAMETERS:
+NormModeMin:
+1. timestep
+	VALUES: (0, ~17.0]
+	DESCRIPTION: Timestep for propagation in femtoseconds
+2. minimlim
+	VALUES: positive integer
+	DESCRIPTION: The minimizer contains a target potential energy; this is the target difference between that value and the current potential energy.
+3. avModeMass
+	VALUES: [0, 102.1]
+	DESCRIPTION: For mass-reweighted minimization, the average mode mass
+4. forcePEcheck
+	VALUES: true (default) or false
+	DESCRIPTION: Checks force and potential energy after each minimization loop cycle, prints a message upon failure
+5. randforce
+	VALUES: true (default) or false
+	DESCRIPTION: Whether or not to add a random force
+6. rediag
+	VALUES: true or false (default)
+	DESCRIPTION: Force a rediagonalization if the target potential energy was missed on this iteration.
+
+NormModeInt:
+1. cyclelength
+	VALUES: integer (0, 4]
+	DESCRIPTION: Number of times to run the inner integrator per iteration of the outer
+2. fixmodes
+	VALUES: integer (0, 66)
+	DESCRIPTION: Number of high frequency modes to constrain.
+(This propagator runs Langevin dynamics as does BBK, so the next three parameters come from this.)
+3. temperature
+	VALUES: positive integer
+	DESCRIPTION: Used as a scaling factor when adding white noise forces.  Higher values just mean higher magnitudes for these forces, yielding more rapid energy changes
+4. gamma
+	VALUES: nonnegative floating point
+	DESCRIPTION: Frictional coefficient
+5. seed
+	VALUES: nonnegative integer
+	DESCRIPTION: Random number seed for calculating random white noise force.
+6. nve
+	VALUES: integer
+	DESCRIPTION: If non-zero, run an NVE simulation
+7. Berendsen
+	VALUES: nonnegative floating point
+	DESCRIPTION: If positive, apply a Berendsen thermostat
+8. fdof
+	VALUES: integer (0, fixmodes]
+	DESCRIPTION: Number of fixed degrees of freedom
+	
+
+FORCE PARAMETERS
+The NonbondedCutoff algorithm makes the following parameters available.
+Other algorithms have different parameters available.  For more information,
+view: http://protomol.sourceforge.net and download Quick Reference 2.0.3 or
+run 'protomol -f'.
+In addition, 'protomol -i' gives a list of available integrators and parameters.
+
+1. switchingFunction
+	VALUES: Universal, C1, C2, Cn, CmpCnCn, Shift
+	DESCRIPTION: Since a cutoff is being used, apply a function to smooth its value to zero at the cutoff distance.  Universal is no smoothing, C1 is a continuous first derivative and C2 continuous second, Cn is flexible continuity, CmpCnCn is its complement, Shift is a PE shift.  These in turn accept different parameters
+2. switchon
+	VALUES: floating point, < cutoff
+	DESCRIPTION: Angstrom distance at which switching turns on
+3. switchoff
+	VALUES: floating point, > 0
+	DESCRIPTION: Angstrom distance at which switching turns off
+4. cutoff
+	VALUES: floating point, > 0
+	DESCRIPTION: Angstrom distance to cutoff forces and assume zero
+

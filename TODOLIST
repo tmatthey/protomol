@@ -1,0 +1,47 @@
+ ProtoMol ToDoList / NiceToHaveList
+===================================
+
+(+)  SourceForge Home Page update
+
+(+)  Fix Brent's Method:
+
+     The method of finding minima of dihedral functions needs a lot of work.  One
+     possible solution would be to find an optimized library that does this.  e.g.
+     fftw.
+
+
+
+(+)  Units:
+
+     Unit conversion and possibility to assign units to values/struct/class.
+
+
+(+)  Testunit:
+
+     Test unit with a set of test which should never fail.
+
+
+(+)  mailing-list:
+
+     Mailing-list for users developers, admins, etc.
+
+(+)  Validate random velocity function:
+
+     We have shown that for small molecules ( <100 atoms) the temperature 
+     {and therefore kinetic energy} can very greatly at each MC step because the
+     random sampling of velocities from the GAUSSIAN distribution is not
+     sufficiently large to approximate the proper distribution. Thierry has
+     introduced a simple rescaling random velocity function. We are awaiting
+     input from Dr. McGinn as to the viability of such a rescaling... 
+
+(+)  Determine correct method for computing the temperature.
+
+     Currently, the temperature is set to use (3N-3) DOF.  This should probably
+     be (3N) in general and possibly remove 3 DOF if linear and/or angular
+     momentum are removed.  There are numerous issues involved with implementing
+     this as well as what to do for methods that do not conserve momentum. (e.g.
+     MG).
+
+(+)  Update README file to show correct compilation options.
+
+

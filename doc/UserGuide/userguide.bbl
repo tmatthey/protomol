@@ -1,0 +1,141 @@
+\begin{thebibliography}{10}
+
+\bibitem{BOOGA}
+Booga: Berne's object-oriented graphics architecture.
+
+\bibitem{EnBr00}
+Encyclop\ae dia britannica.
+\newblock {\tt http://www.britannica.com/}.
+
+\bibitem{Topoxx}
+Topology and parameter files.
+\newblock {\tt http://www-bmb.ijs.si/doc/top\_par/top\_par.html}.
+
+\bibitem{BHAN01}
+M.~Bhandarkar, R.~Brunner, A.~Dalke, J.~Gullingsrud, A.~Gursoy, W.~Humphrey,
+  D.~Hurwitz, N.~Krawetz, M.~Nelson, J.~Phillips, A.~Shinozaki, G.~Zheng, and
+  F.~Zhu.
+\newblock Namd user's guide: Version 2.3b2.
+\newblock page~11, 405 N. Mathews, Urbana, IL 61801, 2001. Theoretical
+  Biophysics Group at the University of Illinos and Beckman Institute.
+
+\bibitem{BrBB01}
+A.~Brandt, J.~Bernholc, and K.~Binder, editors.
+\newblock {\em Multiscale Computational Methods in Chemistry and Physics},
+  volume 177 of {\em NATO Science Series: Series III Computer and Systems
+  Sciences}.
+\newblock IOS Press, Amsterdam, Netherlands, Jan. 2001.
+
+\bibitem{DaYP93}
+T.~Darden, D.~York, and L.~Pedersen.
+\newblock Particle mesh {E}wald: An {N} log({N}) method for {E}wald sums in
+  large systems.
+\newblock {\em J.\ Chem.\ Phys.}, 98(12):10089--10092, 1993.
+
+\bibitem{dePS80a}
+S.~W. de~Leeuw, J.~W. Perram, and E.~R. Smith.
+\newblock Simulation of electrostatic systems in periodic boundary conditions.
+  {I}. {L}attice sums and dielectric constants.
+\newblock {\em Proc.\ R. Soc.\ Lond. A}, 373:27--56, 1980.
+
+\bibitem{DeHo98}
+M.~Deserno and C.~Holm.
+\newblock How to mesh up {E}wald sums. {I}. {A} theoretical and numerical
+  comparison of various particle mesh routines.
+\newblock {\em J.\ Chem.\ Phys.}, 109(18):7678--7693, 1998.
+
+\bibitem{EsPB95}
+U.~Essmann, L.~Perera, and M.~L. Berkowitz.
+\newblock A smooth particle mesh {E}wald method.
+\newblock {\em J.\ Chem.\ Phys.}, 103(19):8577--8593, 1995.
+
+\bibitem{Ewal21}
+P.~Ewald.
+\newblock Die {B}erechnung optischer und elektrostatischer {G}itterpotentiale.
+\newblock {\em Ann. Phys.}, 64:253--287, 1921.
+
+\bibitem{GaSS98b}
+B.~Garc{\'{\i}}a-Archilla, J.~M. Sanz-Serna, and R.~D. Skeel.
+\newblock Long-time-step methods for oscillatory differential equations.
+\newblock {\em SIAM J. Sci.\ Comput.}, 20(3):930--963, 1998.
+
+\bibitem{HaAv91}
+R.~H. Hasse and V.~V. Avilov.
+\newblock Structure and {M}andelung energy of spherical {C}oulomb crystals.
+\newblock {\em Phys.\ Rev.\ A}, 44(7):4506--4515, 1991.
+
+\bibitem{HoEa81}
+R.~W. Hockney and J.~W. Eastwood.
+\newblock {\em Computer Simulation Using Particles}.
+\newblock McGraw-Hill, New York, 1981.
+
+\bibitem{IzagCar00}
+J.~A. Izaguirre.
+\newblock Efficient multiscale molly integrators for biomolecular simulations.
+\newblock {\tt http://www.cse.nd.edu/~izaguirr/career/node6.html}.
+
+\bibitem{Izag99}
+J.~A. Izaguirre.
+\newblock {\em Longer Time Steps for Molecular Dynamics}.
+\newblock PhD thesis, University of Illinois at Urbana-Champaign, Urbana,
+  Illinois, USA, 1999.
+
+\bibitem{Izag99b}
+J.~A. Izaguirre.
+\newblock {\em Longer Time Steps for Molecular Dynamics}.
+\newblock PhD thesis, University of Illinois at Urbana-Champaign, 1999.
+\newblock Also UIUC Technical Report UIUCDCS-R-99-2107. Available online via
+  \texttt{http://www.cs.uiuc.edu/research/tech-reports.html}.
+
+\bibitem{IzMa01}
+J.~A. Izaguirre and T.~Matthey.
+\newblock {\small \texttt{http://sourceforge.net/projects/protomol}}, 2001.
+\newblock User Guide 1.05: ProtoMol: An Object-Oriented Molecular Dynamics
+  Framework.
+
+\bibitem{IZAG98}
+J.~A. Izaguirre, S.~Reich, and R.~D. Skeel.
+\newblock Longer time steps for molecular dynamics.
+\newblock {\em J.\ Chem.\ Phys.}
+\newblock Submitted.
+
+\bibitem{IzRS99}
+J.~A. Izaguirre, S.~Reich, and R.~D. Skeel.
+\newblock Longer time steps for molecular dynamics.
+\newblock {\em J.\ Chem.\ Phys.}, 110(19):9853--9864, 1999.
+
+\bibitem{Matt02}
+Thierry Matthey.
+\newblock {\em Framework Design, Parallelization and Force Computation in
+  Molecular Dynamics}.
+\newblock PhD thesis, University of Bergen, Bergen, Norway, 2002.
+
+\bibitem{NELS96}
+M.~Nelson, W.~Humphrey, A.~Gursoy, A.~Dalke, L.~Kal{\'e}, R.~D. Skeel, and
+  K.~Schulten.
+\newblock {NAMD} -- {A} parallel, object-oriented molecular dynamics program.
+\newblock {\em Int.\ J.\ Supercomput.\ Appl.\ High Perform.\ Comput.},
+  10(4):251--268, 1996.
+
+\bibitem{Reic98}
+S.~Reich.
+\newblock Dynamical systems, numerical integration, and exponentially small
+  estimates, 1998.
+\newblock Habilitation Thesis.
+
+\bibitem{SaCa94}
+J.~M. San{z-S}erna and M.~P. Calvo.
+\newblock {\em Numerical {H}amiltonian Problems}.
+\newblock Chapman and Hall, London, 1994.
+
+\bibitem{Schi93}
+J.~P. Schiffer.
+\newblock Phase transitions in anisotropically confined ionic crystals.
+\newblock {\em Phys. Rev. Lett.}, 70(6):818--821, 1993.
+
+\bibitem{SkTH02}
+R.~D. Skeel, I.~Tezcan, and D.~J. Hardy.
+\newblock Multiple grid methods for classical molecular dynamics.
+\newblock {\em J.\ Comp.\ Chem.}, 23(6):673--684, 2002.
+
+\end{thebibliography}

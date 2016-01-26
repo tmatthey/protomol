@@ -1,0 +1,4 @@
+ REMARKS Charmm parameter set for water and ions v22 b4
+ REMARKS FILENAME="water+ions.par"
+
+ NONBONDED  EL       .0       .0       .0       .0    !

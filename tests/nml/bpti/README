@@ -1,0 +1,51 @@
+NML configuration files for the simulation of BPTI.
+------------------------------------------------------------------------
+
+bpti.hess.conf     Generates the eigenvalues for blocked alanine dipeptide.
+                   Call by: ../../../applications/protomol-app/protomol bpti.hess.conf.
+
+                   Paramiters:
+                   timestep 0.5
+                   eigvecFile eigVmBPTISCP    # Eigenvector filename
+                   eigvalFile eigEmBPTISCP    # Eigenvalue filename
+                   hessianFile        # Hessian sparse filename
+                   sortByAbs true     # Sort eigenvalues/vectors by absolute magnitude
+                   fixedModes 0       # Number of fixed modes
+                   textEigFile false  # Output eigenvectors as text file
+                   massweight true    # Mass weight Hessian?
+
+bpti.nm.conf       Simulates blocked alanine dipeptide with re-diagonalization.
+                   Requires the eigenvectors from alan.hess.conf.
+                   Call by: ../../../applications/protomol-app/protomol bpti.nm.conf.
+
+                   Paramiters, Diagonalization.
+                   cyclelength 1
+                   averageSteps 1     # Hessian averaged over number of steps.
+                   avStepSize 1       # Step size for Hessian averaging.
+                   reDiagFrequency 100        # Frequency of re-diagonalization (steps).
+                   fullDiag false     # Full diagonalization?
+                   removeRand true    # Remove last random perturbation?
+                   minSteps 0        # Max. number of minimizer steps.
+                   minLim 1         # Minimization limit kcal mol^{-1}.
+
+                   Paramiters, Langevin.
+                   cyclelength 1
+                   firstmode 1        # First mode to use in set
+                   numbermodes 100     # Number of modes propagated
+                   gamma 20   # Langevin Gamma
+                   seed 1234  # Langevin random seed
+                   temperature 300    # Langevin temperature
+                   gencompnoise false         # Generate complimentary noise
+
+                   Paramiters, Minimizer.
+                   timestep 70
+                   firstmode 1        # First mode to use in set
+                   numbermodes 100     # Number of modes propagated
+                   gamma 20   # Langevin Gamma
+                   seed 1234  # Langevin random seed
+                   temperature 300    # Langevin temperature
+                   minimlim 0.1       # Minimizer target PE difference kcal mole^{-1}
+                   randforce true     # Add random force
+                   rediag false       # Force re-digonalize
+                   simplemin true    # Simple minimizer or exact minima projection.
+

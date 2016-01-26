@@ -1,0 +1,78 @@
+\begin{thebibliography}{10}
+
+\bibitem{BaSc98b}
+E.~Barth and T.~Schlick.
+\newblock Extrapolation versus impulse in multiple-timestepping schemes. {II}.
+  {L}inear analysis and applications to {N}ewtonian and {L}angevin dynamics.
+\newblock {\em J. Chem.\ Phys.}, 109(5):1633--1642, 1998.
+
+\bibitem{BiSk93}
+J.~J. Biesiadecki and R.~D. Skeel.
+\newblock Dangers of multiple-time-step methods.
+\newblock {\em J. Comput. Phys.}, 109(2):318--328, 1993.
+
+\bibitem{BiSS97}
+T.~Bishop, R.~D. Skeel, and K.~Schulten.
+\newblock Difficulties with multiple timestepping and the fast multipole
+  algorithm in molecular dynamics.
+\newblock {\em J.\ Comp.\ Chem.}, 18(14):1785--1791, 1997.
+
+\bibitem{GaSS98b}
+B.~Garc{\'{\i}}a-Archilla, J.~M. Sanz-Serna, and R.~D. Skeel.
+\newblock Long-time-step methods for oscillatory differential equations.
+\newblock {\em SIAM J. Sci.\ Comput.}, 20(3):930--963, 1998.
+
+\bibitem{ADOL-C}
+A.~Griewank, D.~Juedes, and J.~Utke.
+\newblock {ADOL-C}, a package for the automatic differentiation of algorithms
+  written in {C}/{C\texttt{++}}.
+\newblock {\em ACM Trans.\ Math.\ Softw.}, 22(2):131--167, 1996.
+
+\bibitem{Grub89}
+H.~Grubm{\"u}ller.
+\newblock \mbox{D}ynamiksimulation sehr gro\ss er \mbox{Makromolek\"ule} auf
+  einem \mbox{Parallelrechner}.
+\newblock Master's thesis, \mbox{Physik-Dept. der Tech. Univ. M\"unchen},
+  Munich, 1989.
+
+\bibitem{GHWS91}
+H.~Grubm{\"u}ller, H.~Heller, A.~Windemuth, and K.~Schulten.
+\newblock Generalized \mbox{Verlet} algorithm for efficient molecular dynamics
+  simulations with long-range interactions.
+\newblock {\em Molecular Simulation}, 6:121--142, 1991.
+
+\bibitem{IzRS99}
+J.~A. Izaguirre, S.~Reich, and R.~D. Skeel.
+\newblock Longer time steps for molecular dynamics.
+\newblock {\em J.\ Chem.\ Phys.}, 110(19):9853--9864, 1999.
+
+\bibitem{MaIz01}
+T.~Matthey and J.~A. Izaguirre.
+\newblock Proto{M}ol: A molecular dynamics framework with incremental
+  parallelization.
+\newblock In {\em Proc. of the Tenth SIAM Conf. on Parallel Processing for
+  Scientific Computing (PP01)}, Proceedings in Applied Mathematics,
+  Philadelphia, Mar. 2001. Society for Industrial and Applied Mathematics.
+\newblock Manuscript available at
+  \url{http://www.nd.edu/~izaguirr/papers/proto.pdf}.
+
+\bibitem{SaCa94}
+J.~M. San{z-S}erna and M.~P. Calvo.
+\newblock {\em Numerical {H}amiltonian Problems}.
+\newblock Chapman and Hall, London, 1994.
+
+\bibitem{SkIz98}
+R.~D. Skeel and J.~A. Izaguirre.
+\newblock The five femtosecond time step barrier.
+\newblock In P.~Deuflhard, J.~Hermans, B.~Leimkuhler, A.~Mark, S.~Reich, and
+  R.~D. Skeel, editors, {\em Computational Molecular Dynamics: Challenges,
+  Methods, Ideas}, volume~4 of {\em Lecture Notes in Computational Science and
+  Engineering}, pages 303--318. Springer-Verlag, Berlin Heidelberg New York,
+  Nov. 1998.
+
+\bibitem{TuBM92}
+M.~Tuckerman, B.~J. Berne, and G.~J. Martyna.
+\newblock Reversible multiple time scale molecular dynamics.
+\newblock {\em J.\ Chem.\ Phys.}, 97(3):1990--2001, 1992.
+
+\end{thebibliography}

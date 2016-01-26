@@ -1,0 +1,266 @@
+No MPI compilation.
+
+######                                  #     #
+#     #  #####    ####   #####   ####   ##   ##   ####   #
+#     #  #    #  #    #    #    #    #  # # # #  #    #  #
+######   #    #  #    #    #    #    #  #  #  #  #    #  #
+#        #####   #    #    #    #    #  #     #  #    #  #
+#        #   #   #    #    #    #    #  #     #  #    #  #
+#        #    #   ####     #     ####   #     #   ####   ######
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Please cite T. Matthey, T. Cickovski, S. S. Hampton, A. Ko, Q. Ma, M. Nyerges, T. Raeder,
+T. Slabach, and J. A. Izaguirre. ProtoMol: An object-oriented framework for prototyping
+novel algorithms for molecular dynamics. ACM Trans. Math. Softw., 30(3):237­265, 2004.
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+ProtoMol Version 2.1
+
+tcickovs Dec  6 2007 11:18:30
+Linux manganese 2.6.9-42.ELsmp #1 SMP Wed Jul 12 23:27:17 EDT 2006 i686 i686 i386 GNU/Linux
+icpc -Wall -wd810,383,981,279,444,1572 -O3 -ip -DNDEBUG -L/afs/nd.edu/user25/tcickovs/Research/LAPACK/lib -lSimTKlapack -Wl,-rpath,-L/afs/nd.edu/user25/tcickovs/Research/LAPACK/lib -lSimTKlapack
+32-bit
+Intel(R) C++ Compiler for 32-bit applications, Version 8.1    Build 20050823Z Package ID: l_cc_pc_8.1.034
+Copyright (C) 1985-2005 Intel Corporation.  All rights reserved.
+Version 8.1 
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Information:
+
+protomol@cse.nd.edu
+http://protomol.sourceforge.net
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+
+Undefined keyword(s):
+allEnergiesFileOutputFreq     <int,positive>
+BSDLFile                      <string,non-empty>
+BSDLFileOutputFreq            <int,positive>
+cellBasisVector1              <coordinates,non-zero>
+cellBasisVector2              <coordinates,non-zero>
+cellBasisVector3              <coordinates,non-zero>
+cellorigin                    <coordinates>
+DCDFileMinimalImage           <boolean>
+DCDFileNoWater                <string,non-empty>
+DCDFileNoWaterMinimalImage    <boolean>
+DCDFileNoWaterOutputFreq      <int,positive>
+DCDFileOutputFreq             <int,positive>
+DCDVELFile                    <string,non-empty>
+DCDVELFileMinimalImage        <boolean>
+DCDVELFileOutputFreq          <int,positive>
+diffusionFile                 <string,non-empty>
+diffusionFileOutputFreq       <int,positive>
+dihedralMultPSF               <boolean>
+dihedralsFile                 <string,non-empty>
+dihedralsFileMinimalImage     <boolean>
+dihedralsFileOutputFreq       <int,positive>
+dihedralsIndex                <int,non-negative>
+doallEnergiesFile             <boolean>
+doBSDLFile                    <boolean>
+doDCDFile                     <boolean>
+doDCDFileNoWater              <boolean>
+doDCDVELFile                  <boolean>
+dodiffusionFile               <boolean>
+dodihedralsFile               <boolean>
+dofinPDBPosFile               <boolean>
+dofinXYZBinPosFile            <boolean>
+dofinXYZBinVelFile            <boolean>
+dofinXYZBinVelRevFile         <boolean>
+dofinXYZPosFile               <boolean>
+dofinXYZVelFile               <boolean>
+domomentumFile                <boolean>
+dopaulFile                    <boolean>
+doPaulLowFile                 <boolean>
+doPDBPosFile                  <boolean>
+doREMExchangeRatesFile        <boolean>
+doREMHistoryFile              <boolean>
+dostateFile                   <boolean>
+doTempFile                    <boolean>
+doXYZBinPosFile               <boolean>
+doXYZBinVelFile               <boolean>
+doXYZForceFile                <boolean>
+doXYZPosFile                  <boolean>
+doXYZVelFile                  <boolean>
+eigfile                       <string,non-empty>
+eigvalfile                    <string,non-empty>
+finPDBPosFileMinimalImage     <boolean>
+finXYZBinPosFile              <string,non-empty>
+finXYZBinPosFileMinimalImage  <boolean>
+finXYZBinVelFile              <string,non-empty>
+finXYZBinVelRevFile           <string,non-empty>
+finXYZPosFileMinimalImage     <boolean>
+momentumFile                  <string,non-empty>
+momentumFileOutputFreq        <int,positive>
+paulFile                      <string,non-empty>
+paulFileOutputFreq            <int,positive>
+paulOmega                     <real,non-negative>
+paulOmegaZ                    <real,non-negative>
+PDBPosFile                    <string,non-empty>
+PDBPosFileMinimalImage        <boolean>
+REMExchangeRatesFile          <string,non-empty>
+REMExchangeRatesFileOutputFreq<int,positive>
+REMHistoryFile                <string,non-empty>
+REMHistoryFileOutputFreq      <int,positive>
+ScreenOutputFreq              <int,positive>
+ScreenPaulTrap                <boolean>
+stateFile                     <string,non-empty>
+stateFileOutputFreq           <int,positive>
+statesInputFile               <string,non-empty>
+TempFile                      <string,non-empty>
+TempFileOutputFreq            <int,positive>
+velfile                       <string,non-empty>
+XYZBinPosFile                 <string,non-empty>
+XYZBinPosFileMinimalImage     <boolean>
+XYZBinPosFileOutputFreq       <int,positive>
+XYZBinVelFile                 <string,non-empty>
+XYZBinVelFileOutputFreq       <int,positive>
+XYZForceFileOutputFreq        <int,positive>
+XYZPosFile                    <string,non-empty>
+XYZPosFileMinimalImage        <boolean>
+XYZPosFileOutputFreq          <int,positive>
+XYZVelFile                    <string,non-empty>
+XYZVelFileOutputFreq          <int,positive>
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Using seed 1234.
+Using report level 0.
+Using PDB posfile 'alanC7axial_wb5_min_eq.pdb' (22).
+Using temperature 310K for the velocities  (22).
+Recoverable Error:  [PSF::read] Record !NUMLP with 0 entries not recognized.
+Using PSF file 'blockdialanineHassan05.psf' (22).
+Using PAR file 'par_all27_prot_lipid.inp', new charmm force field.
+1
+Coulomb SCPISM Parameter Table!!!
+C	0.5298	0.5	0.5	0.7273	0.77	0.0052	0	31	7.92	0.32	2	
+CA	0.5192	0.5	0.5	0.7206	0.77	0.0052	0	31	7.92	0.32	1.9924	
+CAL	0	0	0	0	0	0	0	0	0	0	1.367	
+CC	0.497	0.5	0.5	0.705	0.77	0.0052	0	31	7.92	0.32	2	
+CD	0	0	0	0	0.77	0.0052	0	31	7.92	0.32	2	
+CE1	0	0	0	0	0.77	0.0052	0	31	7.92	0.32	2.09	
+CE2	0	0	0	0	0.77	0.0052	0	31	7.92	0.32	2.08	
+CM	0	0	0	0	0.77	0.0052	0	31	7.92	0.32	2.1	
+CP1	0.4763	0.5	0.5	0.6901	0.77	0.0052	0	31	7.92	0.32	2.275	
+CP2	0.4599	0.5	0.5	0.6782	0.77	0.0052	0	31	7.92	0.32	2.175	
+CP3	0.4627	0.5	0.5	0.6802	0.77	0.0052	0	31	7.92	0.32	2.175	
+CPA	0	0	0	0	0.77	0.0052	0	31	7.92	0.32	1.8	
+CPB	0	0	0	0	0.77	0.0052	0	31	7.92	0.32	1.8	
+CPH1	0.4538	0.5	0.5	0.6736	0.77	0.0052	0	31	7.92	0.32	1.8	
+CPH2	0.4974	0.5	0.5	0.7053	0.77	0.0052	0	31	7.92	0.32	1.8	
+CPM	0	0	0	0	0.77	0.0052	0	31	7.92	0.32	1.8	
+CPT	0.5217	0.5	0.5	0.7229	0.77	0.0052	0	31	7.92	0.32	1.8	
+CS	0	0	0	0	0.77	0.0052	0	31	7.92	0.32	2.2	
+CT1	0.5209	0.5	0.5	0.7217	0.77	0.0052	0	31	7.92	0.32	2.275	
+CT2	0.5298	0.5	0.5	0.7273	0.77	0.0052	0	31	7.92	0.32	2.175	
+CT3	0.5082	0.5	0.5	0.7129	0.77	0.0052	0	31	7.92	0.32	2.06	
+CY	0.524	0.5	0.5	0.7239	0.77	0.0052	0	31	7.92	0.32	1.9924	
+DUM	0	0	0	0	0	0	0	0	0	0	0	
+FE	0	0	0	0	0	0	0	0	0	0	0.65	
+H	0.4906	0.6259	0.5	0.7004	0.37	0.0052	1	1.2	3.68	0.8	0.2245	
+HA	0.53	0.5	0.5	0.728	0.37	0.0052	0	17	9	0.5	1.32	
+HA1	0	0	0	0	0.37	0.0052	0	17	9	0.5	0.2245	
+HA2	0	0	0	0	0.37	0.0052	0	17	9	0.5	0.2245	
+HB	0.4858	0.5	0.5	0.697	0.37	0.0052	0	17	9	0.5	1.32	
+HC	0.53	9.6746	0.5	0.728	0.37	0.0052	1	1.2	3.68	0.8	0.2245	
+HE	0	0	0	0	0	0	0	0	0	0	1.48	
+HP	0.5274	0.5	0.5	0.7262	0.37	0.0052	0	17	9	0.5	1.3582	
+HR1	0.4651	0.5	0.5	0.682	0.37	0.0052	0	17	9	0.5	0.9	
+HR2	0.458	0.5	0.5	0.6768	0.37	0.0052	0	17	9	0.5	0.7	
+HR3	0.4893	0.5	0.5	0.6995	0.37	0.0052	0	17	9	0.5	1.468	
+HS	0.4859	0.5	0.5	0.6971	0.37	0.0052	0	17	9	0.5	0.45	
+HT	0.4906	2.38	0.5	0.7004	0.37	0.0052	1	1.2	3.68	0.8	0.2245	
+N	0.4894	0.5	0.5	0.6996	0.74	0.0052	0	60	9.66	0.22	1.85	
+NC2	0.5299	0.5	0.5	0.7279	0.74	0.0052	0	60	9.66	0.22	1.85	
+NE	0	0	0	0	0	0	0	0	0	0	1.53	
+NH1	0.5103	0.5	0.5	0.7144	0.74	0.0052	0	60	9.66	0.22	1.85	
+NH2	0.5045	0.5	0.5	0.7103	0.74	0.0052	0	60	9.66	0.22	1.85	
+NH3	0.53	0.5	0.5	0.728	0.74	0.0052	0	60	9.66	0.22	1.85	
+NP	0.4894	0.5	0.5	0.6996	0.74	0.0052	0	60	9.66	0.22	1.85	
+NPH	0	0	0	0	0.74	0.0052	0	60	9.66	0.22	1.85	
+NR1	0.4598	0.5	0.5	0.6781	0.74	0.0052	0	60	9.66	0.22	1.85	
+NR2	0.4839	19.4824	0.6956	0.5	0.74	0.0052	2	60	9.66	0.22	1.85	
+NR3	0.4742	0.5	0.5	0.6886	0.74	0.0052	0	60	9.66	0.22	1.85	
+NY	0.5284	0.5	0.5	0.7269	0.74	0.0052	0	60	9.66	0.22	1.85	
+O	0.481	4.0085	0.5	0.6935	0.74	0.0052	2	40	8.52	0.29	1.7	
+OB	0	0	0	0	0.74	0.0052	0	40	8.52	0.29	1.7	
+OC	0.6	8.1838	0.5	0.7746	0.74	0.0052	2	40	8.52	0.29	1.7	
+OH1	0.4843	3.3433	0.5	0.6959	0.74	0.0052	2	40	8.52	0.29	1.77	
+OM	0	0	0	0	0.74	0.0052	0	40	8.52	0.29	1.7	
+OS	0	0	0	0	0.74	0.0052	0	40	8.52	0.29	1.77	
+OT	0	0	0	0	0.74	0.0052	0	40	8.52	0.29	1.7682	
+S	0.5054	5.0037	0.5	0.7109	1.04	0.0052	2	60	9.1	0.22	2	
+SM	0.5054	0.5	0.5	0.7109	1.04	0.0052	0	60	9.1	0.22	1.975	
+SS	0	0	0	0	1.04	0.0052	0	60	9.1	0.22	2.2	
+ZN	0	0	0	0	0	0	0	0	0	0	1.09	
+Hint:  Reduced fast delta max of ExclusionTable from 31 to 10.
+Random temperature : 415.626K
+Removed linear momentum: (-0.217826,-0.129107,0.327183)
+Removed angular momentum : (0.436469,-0.558937,-0.386322)
+Actual start temperature : 462.495K
+Using MD integrator. 
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Virial tensor : false
+Molecular virial tensor : false
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Output allEnergiesFile alanine.out.energy 1 1 0 1 false false.
+Output DCDFile alanine.out.dcd 1 true.
+Output finPDBPosFile alanine.EW.fin.pdb true.
+Output finXYZPosFile alanine.EW.fin.pos.xyz true.
+Output finXYZVelFile alanine.EW.fin.vel.xyz.
+Output Screen true 1.
+Output XYZForceFile alanine.EW.forceBorn.xyz 1.
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+integrator {
+  Level 0 LangevinImpulse {
+      timestep 1
+      temperature 310
+      gamma 91
+      seed 1234
+    Force Improper
+    Force Dihedral
+    Force Bond
+    Force Angle
+    Force CoulombBornRadii -switchingFunction Cutoff -algorithm NonbondedCutoff
+      -bornswitch 1	 # Born switch
+      -cutoff 6	 # cutoff swf cutoff
+      -cutoff 6	 # algorithm cutoff
+    Force CoulombSCPISM -switchingFunction Cutoff -algorithm NonbondedCutoff
+      -D 80	 # Bulk solvent dielectric
+      -cutoff 6	 # cutoff swf cutoff
+      -cutoff 6	 # algorithm cutoff
+  }
+}
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Atoms                : 22
+AtomTypes            : 8
+Bonds                : 21
+Angles               : 36
+Dihedrals            : 42 (45)
+Impropers            : 4
+Molecules            : 1
+Water                : 0
+Pairs                : 29
+Degree of freedom    : 63
+Molecule pair dist's : true
+Exclusion pairs      : 98
+Max exclusion dist   : 10
+Time                 : 0
+CellManager          : Cubic
+BoundaryConditions   : Vacuum orthogonal
+coulombScalingFactor : 1
+exclude              : scaled1-4
+cellSize             : 5
+Atom density         : 0.108900866111517
+Atom/cell            : 13.6126082639397
+Real cell size       : (5,5,5)
+Cell dimension       : (2,2,1)
+Simulation box       : (-inf,-inf,-inf)-(inf,inf,inf) (inf,inf,inf)
+Particle             : (5.553,-72.653,-35.234)-(11.672,-65.802,-30.415) (6.119,6.851,4.819)
+Particle extended    : (5.553,-72.653,-35.234)-(11.672,-65.802,-30.415) (6.119,6.851,4.819)
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Step :          0, Time :              0.000 [fs], TE :        -292.0603 [kcal/mol], T :   462.4952 [K], V :           202.02 [AA^3]
+Step :          1, Time :              1.000 [fs], TE :        -296.9108 [kcal/mol], T :   344.5921 [K], V :           202.13 [AA^3]
+Step :          2, Time :              2.000 [fs], TE :        -296.8111 [kcal/mol], T :   307.1401 [K], V :           201.29 [AA^3]
+Step :          3, Time :              3.000 [fs], TE :        -295.4440 [kcal/mol], T :   302.4017 [K], V :           199.63 [AA^3]
+Step :          4, Time :              4.000 [fs], TE :        -295.9702 [kcal/mol], T :   270.1764 [K], V :           198.33 [AA^3]
+Step :          5, Time :              5.000 [fs], TE :        -298.6648 [kcal/mol], T :   220.4174 [K], V :           197.71 [AA^3]
+Step :          6, Time :              6.000 [fs], TE :        -298.7586 [kcal/mol], T :   236.7842 [K], V :           198.81 [AA^3]
+Step :          7, Time :              7.000 [fs], TE :        -298.4081 [kcal/mol], T :   289.2521 [K], V :           200.16 [AA^3]
+Step :          8, Time :              8.000 [fs], TE :        -301.5930 [kcal/mol], T :   297.0191 [K], V :           202.66 [AA^3]
+Step :          9, Time :              9.000 [fs], TE :        -304.0111 [kcal/mol], T :   293.6348 [K], V :           204.54 [AA^3]
+Step :         10, Time :             10.000 [fs], TE :        -304.4633 [kcal/mol], T :   290.0030 [K], V :           206.15 [AA^3]
+Timing : wall: 0.64137[s] real, 0.22996[s] user, 0.04299[s] sys, run: 0.39120[s], integration: 0.00320[s], forces: 0.00264[s].

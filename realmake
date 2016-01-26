@@ -1,0 +1,4 @@
+#!/usr/bin/perl 
+
+my $args = join(" ",@ARGV);
+system("make clean;./realclean;autoreconf -f -i  --verbose;./configure $args;make depend;make clean;make");

@@ -1,0 +1,701 @@
+PSF
+
+       5 !NTITLE
+ REMARKS FILENAME=ethane_methane_300_Pure.psf by tmorrow
+ REMARKS ProtoMol (built on Mar 14 2005 at 12:49:33)
+ REMARKS This .psf file was created by PSFWriter
+ REMARKS It was not manually assembled
+ REMARKS Time : 150000, step : 150000.
+
+     600 !NATOM
+       1 MTET 1    BTW  U1   U1    0               15.0344           0
+       2 MTET 1    BTW  U2   U2    0               15.0344           0
+       3 MTET 2    BTW  U1   U1    0               15.0344           0
+       4 MTET 2    BTW  U2   U2    0               15.0344           0
+       5 MTET 3    BTW  U1   U1    0               15.0344           0
+       6 MTET 3    BTW  U2   U2    0               15.0344           0
+       7 MTET 4    BTW  U1   U1    0               15.0344           0
+       8 MTET 4    BTW  U2   U2    0               15.0344           0
+       9 MTET 5    BTW  U1   U1    0               15.0344           0
+      10 MTET 5    BTW  U2   U2    0               15.0344           0
+      11 MTET 6    BTW  U1   U1    0               15.0344           0
+      12 MTET 6    BTW  U2   U2    0               15.0344           0
+      13 MTET 7    BTW  U1   U1    0               15.0344           0
+      14 MTET 7    BTW  U2   U2    0               15.0344           0
+      15 MTET 8    BTW  U1   U1    0               15.0344           0
+      16 MTET 8    BTW  U2   U2    0               15.0344           0
+      17 MTET 9    BTW  U1   U1    0               15.0344           0
+      18 MTET 9    BTW  U2   U2    0               15.0344           0
+      19 MTET 10   BTW  U1   U1    0               15.0344           0
+      20 MTET 10   BTW  U2   U2    0               15.0344           0
+      21 MTET 11   BTW  U1   U1    0               15.0344           0
+      22 MTET 11   BTW  U2   U2    0               15.0344           0
+      23 MTET 12   BTW  U1   U1    0               15.0344           0
+      24 MTET 12   BTW  U2   U2    0               15.0344           0
+      25 MTET 13   BTW  U1   U1    0               15.0344           0
+      26 MTET 13   BTW  U2   U2    0               15.0344           0
+      27 MTET 14   BTW  U1   U1    0               15.0344           0
+      28 MTET 14   BTW  U2   U2    0               15.0344           0
+      29 MTET 15   BTW  U1   U1    0               15.0344           0
+      30 MTET 15   BTW  U2   U2    0               15.0344           0
+      31 MTET 16   BTW  U1   U1    0               15.0344           0
+      32 MTET 16   BTW  U2   U2    0               15.0344           0
+      33 MTET 17   BTW  U1   U1    0               15.0344           0
+      34 MTET 17   BTW  U2   U2    0               15.0344           0
+      35 MTET 18   BTW  U1   U1    0               15.0344           0
+      36 MTET 18   BTW  U2   U2    0               15.0344           0
+      37 MTET 19   BTW  U1   U1    0               15.0344           0
+      38 MTET 19   BTW  U2   U2    0               15.0344           0
+      39 MTET 20   BTW  U1   U1    0               15.0344           0
+      40 MTET 20   BTW  U2   U2    0               15.0344           0
+      41 MTET 21   BTW  U1   U1    0               15.0344           0
+      42 MTET 21   BTW  U2   U2    0               15.0344           0
+      43 MTET 22   BTW  U1   U1    0               15.0344           0
+      44 MTET 22   BTW  U2   U2    0               15.0344           0
+      45 MTET 23   BTW  U1   U1    0               15.0344           0
+      46 MTET 23   BTW  U2   U2    0               15.0344           0
+      47 MTET 24   BTW  U1   U1    0               15.0344           0
+      48 MTET 24   BTW  U2   U2    0               15.0344           0
+      49 MTET 25   BTW  U1   U1    0               15.0344           0
+      50 MTET 25   BTW  U2   U2    0               15.0344           0
+      51 MTET 26   BTW  U1   U1    0               15.0344           0
+      52 MTET 26   BTW  U2   U2    0               15.0344           0
+      53 MTET 27   BTW  U1   U1    0               15.0344           0
+      54 MTET 27   BTW  U2   U2    0               15.0344           0
+      55 MTET 28   BTW  U1   U1    0               15.0344           0
+      56 MTET 28   BTW  U2   U2    0               15.0344           0
+      57 MTET 29   BTW  U1   U1    0               15.0344           0
+      58 MTET 29   BTW  U2   U2    0               15.0344           0
+      59 MTET 30   BTW  U1   U1    0               15.0344           0
+      60 MTET 30   BTW  U2   U2    0               15.0344           0
+      61 MTET 31   BTW  U1   U1    0               15.0344           0
+      62 MTET 31   BTW  U2   U2    0               15.0344           0
+      63 MTET 32   BTW  U1   U1    0               15.0344           0
+      64 MTET 32   BTW  U2   U2    0               15.0344           0
+      65 MTET 33   BTW  U1   U1    0               15.0344           0
+      66 MTET 33   BTW  U2   U2    0               15.0344           0
+      67 MTET 34   BTW  U1   U1    0               15.0344           0
+      68 MTET 34   BTW  U2   U2    0               15.0344           0
+      69 MTET 35   BTW  U1   U1    0               15.0344           0
+      70 MTET 35   BTW  U2   U2    0               15.0344           0
+      71 MTET 36   BTW  U1   U1    0               15.0344           0
+      72 MTET 36   BTW  U2   U2    0               15.0344           0
+      73 MTET 37   BTW  U1   U1    0               15.0344           0
+      74 MTET 37   BTW  U2   U2    0               15.0344           0
+      75 MTET 38   BTW  U1   U1    0               15.0344           0
+      76 MTET 38   BTW  U2   U2    0               15.0344           0
+      77 MTET 39   BTW  U1   U1    0               15.0344           0
+      78 MTET 39   BTW  U2   U2    0               15.0344           0
+      79 MTET 40   BTW  U1   U1    0               15.0344           0
+      80 MTET 40   BTW  U2   U2    0               15.0344           0
+      81 MTET 41   BTW  U1   U1    0               15.0344           0
+      82 MTET 41   BTW  U2   U2    0               15.0344           0
+      83 MTET 42   BTW  U1   U1    0               15.0344           0
+      84 MTET 42   BTW  U2   U2    0               15.0344           0
+      85 MTET 43   BTW  U1   U1    0               15.0344           0
+      86 MTET 43   BTW  U2   U2    0               15.0344           0
+      87 MTET 44   BTW  U1   U1    0               15.0344           0
+      88 MTET 44   BTW  U2   U2    0               15.0344           0
+      89 MTET 45   BTW  U1   U1    0               15.0344           0
+      90 MTET 45   BTW  U2   U2    0               15.0344           0
+      91 MTET 46   BTW  U1   U1    0               15.0344           0
+      92 MTET 46   BTW  U2   U2    0               15.0344           0
+      93 MTET 47   BTW  U1   U1    0               15.0344           0
+      94 MTET 47   BTW  U2   U2    0               15.0344           0
+      95 MTET 48   BTW  U1   U1    0               15.0344           0
+      96 MTET 48   BTW  U2   U2    0               15.0344           0
+      97 MTET 49   BTW  U1   U1    0               15.0344           0
+      98 MTET 49   BTW  U2   U2    0               15.0344           0
+      99 MTET 50   BTW  U1   U1    0               15.0344           0
+     100 MTET 50   BTW  U2   U2    0               15.0344           0
+     101 MTET 51   BTW  U1   U1    0               15.0344           0
+     102 MTET 51   BTW  U2   U2    0               15.0344           0
+     103 MTET 52   BTW  U1   U1    0               15.0344           0
+     104 MTET 52   BTW  U2   U2    0               15.0344           0
+     105 MTET 53   BTW  U1   U1    0               15.0344           0
+     106 MTET 53   BTW  U2   U2    0               15.0344           0
+     107 MTET 54   BTW  U1   U1    0               15.0344           0
+     108 MTET 54   BTW  U2   U2    0               15.0344           0
+     109 MTET 55   BTW  U1   U1    0               15.0344           0
+     110 MTET 55   BTW  U2   U2    0               15.0344           0
+     111 MTET 56   BTW  U1   U1    0               15.0344           0
+     112 MTET 56   BTW  U2   U2    0               15.0344           0
+     113 MTET 57   BTW  U1   U1    0               15.0344           0
+     114 MTET 57   BTW  U2   U2    0               15.0344           0
+     115 MTET 58   BTW  U1   U1    0               15.0344           0
+     116 MTET 58   BTW  U2   U2    0               15.0344           0
+     117 MTET 59   BTW  U1   U1    0               15.0344           0
+     118 MTET 59   BTW  U2   U2    0               15.0344           0
+     119 MTET 60   BTW  U1   U1    0               15.0344           0
+     120 MTET 60   BTW  U2   U2    0               15.0344           0
+     121 MTET 61   BTW  U1   U1    0               15.0344           0
+     122 MTET 61   BTW  U2   U2    0               15.0344           0
+     123 MTET 62   BTW  U1   U1    0               15.0344           0
+     124 MTET 62   BTW  U2   U2    0               15.0344           0
+     125 MTET 63   BTW  U1   U1    0               15.0344           0
+     126 MTET 63   BTW  U2   U2    0               15.0344           0
+     127 MTET 64   BTW  U1   U1    0               15.0344           0
+     128 MTET 64   BTW  U2   U2    0               15.0344           0
+     129 MTET 65   BTW  U1   U1    0               15.0344           0
+     130 MTET 65   BTW  U2   U2    0               15.0344           0
+     131 MTET 66   BTW  U1   U1    0               15.0344           0
+     132 MTET 66   BTW  U2   U2    0               15.0344           0
+     133 MTET 67   BTW  U1   U1    0               15.0344           0
+     134 MTET 67   BTW  U2   U2    0               15.0344           0
+     135 MTET 68   BTW  U1   U1    0               15.0344           0
+     136 MTET 68   BTW  U2   U2    0               15.0344           0
+     137 MTET 69   BTW  U1   U1    0               15.0344           0
+     138 MTET 69   BTW  U2   U2    0               15.0344           0
+     139 MTET 70   BTW  U1   U1    0               15.0344           0
+     140 MTET 70   BTW  U2   U2    0               15.0344           0
+     141 MTET 71   BTW  U1   U1    0               15.0344           0
+     142 MTET 71   BTW  U2   U2    0               15.0344           0
+     143 MTET 72   BTW  U1   U1    0               15.0344           0
+     144 MTET 72   BTW  U2   U2    0               15.0344           0
+     145 MTET 73   BTW  U1   U1    0               15.0344           0
+     146 MTET 73   BTW  U2   U2    0               15.0344           0
+     147 MTET 74   BTW  U1   U1    0               15.0344           0
+     148 MTET 74   BTW  U2   U2    0               15.0344           0
+     149 MTET 75   BTW  U1   U1    0               15.0344           0
+     150 MTET 75   BTW  U2   U2    0               15.0344           0
+     151 MTET 76   BTW  U1   U1    0               15.0344           0
+     152 MTET 76   BTW  U2   U2    0               15.0344           0
+     153 MTET 77   BTW  U1   U1    0               15.0344           0
+     154 MTET 77   BTW  U2   U2    0               15.0344           0
+     155 MTET 78   BTW  U1   U1    0               15.0344           0
+     156 MTET 78   BTW  U2   U2    0               15.0344           0
+     157 MTET 79   BTW  U1   U1    0               15.0344           0
+     158 MTET 79   BTW  U2   U2    0               15.0344           0
+     159 MTET 80   BTW  U1   U1    0               15.0344           0
+     160 MTET 80   BTW  U2   U2    0               15.0344           0
+     161 MTET 81   BTW  U1   U1    0               15.0344           0
+     162 MTET 81   BTW  U2   U2    0               15.0344           0
+     163 MTET 82   BTW  U1   U1    0               15.0344           0
+     164 MTET 82   BTW  U2   U2    0               15.0344           0
+     165 MTET 83   BTW  U1   U1    0               15.0344           0
+     166 MTET 83   BTW  U2   U2    0               15.0344           0
+     167 MTET 84   BTW  U1   U1    0               15.0344           0
+     168 MTET 84   BTW  U2   U2    0               15.0344           0
+     169 MTET 85   BTW  U1   U1    0               15.0344           0
+     170 MTET 85   BTW  U2   U2    0               15.0344           0
+     171 MTET 86   BTW  U1   U1    0               15.0344           0
+     172 MTET 86   BTW  U2   U2    0               15.0344           0
+     173 MTET 87   BTW  U1   U1    0               15.0344           0
+     174 MTET 87   BTW  U2   U2    0               15.0344           0
+     175 MTET 88   BTW  U1   U1    0               15.0344           0
+     176 MTET 88   BTW  U2   U2    0               15.0344           0
+     177 MTET 89   BTW  U1   U1    0               15.0344           0
+     178 MTET 89   BTW  U2   U2    0               15.0344           0
+     179 MTET 90   BTW  U1   U1    0               15.0344           0
+     180 MTET 90   BTW  U2   U2    0               15.0344           0
+     181 MTET 91   BTW  U1   U1    0               15.0344           0
+     182 MTET 91   BTW  U2   U2    0               15.0344           0
+     183 MTET 92   BTW  U1   U1    0               15.0344           0
+     184 MTET 92   BTW  U2   U2    0               15.0344           0
+     185 MTET 93   BTW  U1   U1    0               15.0344           0
+     186 MTET 93   BTW  U2   U2    0               15.0344           0
+     187 MTET 94   BTW  U1   U1    0               15.0344           0
+     188 MTET 94   BTW  U2   U2    0               15.0344           0
+     189 MTET 95   BTW  U1   U1    0               15.0344           0
+     190 MTET 95   BTW  U2   U2    0               15.0344           0
+     191 MTET 96   BTW  U1   U1    0               15.0344           0
+     192 MTET 96   BTW  U2   U2    0               15.0344           0
+     193 MTET 97   BTW  U1   U1    0               15.0344           0
+     194 MTET 97   BTW  U2   U2    0               15.0344           0
+     195 MTET 98   BTW  U1   U1    0               15.0344           0
+     196 MTET 98   BTW  U2   U2    0               15.0344           0
+     197 MTET 99   BTW  U1   U1    0               15.0344           0
+     198 MTET 99   BTW  U2   U2    0               15.0344           0
+     199 MTET 100  BTW  U1   U1    0               15.0344           0
+     200 MTET 100  BTW  U2   U2    0               15.0344           0
+     201 MTET 101  BTW  U1   U1    0               15.0344           0
+     202 MTET 101  BTW  U2   U2    0               15.0344           0
+     203 MTET 102  BTW  U1   U1    0               15.0344           0
+     204 MTET 102  BTW  U2   U2    0               15.0344           0
+     205 MTET 103  BTW  U1   U1    0               15.0344           0
+     206 MTET 103  BTW  U2   U2    0               15.0344           0
+     207 MTET 104  BTW  U1   U1    0               15.0344           0
+     208 MTET 104  BTW  U2   U2    0               15.0344           0
+     209 MTET 105  BTW  U1   U1    0               15.0344           0
+     210 MTET 105  BTW  U2   U2    0               15.0344           0
+     211 MTET 106  BTW  U1   U1    0               15.0344           0
+     212 MTET 106  BTW  U2   U2    0               15.0344           0
+     213 MTET 107  BTW  U1   U1    0               15.0344           0
+     214 MTET 107  BTW  U2   U2    0               15.0344           0
+     215 MTET 108  BTW  U1   U1    0               15.0344           0
+     216 MTET 108  BTW  U2   U2    0               15.0344           0
+     217 MTET 109  BTW  U1   U1    0               15.0344           0
+     218 MTET 109  BTW  U2   U2    0               15.0344           0
+     219 MTET 110  BTW  U1   U1    0               15.0344           0
+     220 MTET 110  BTW  U2   U2    0               15.0344           0
+     221 MTET 111  BTW  U1   U1    0               15.0344           0
+     222 MTET 111  BTW  U2   U2    0               15.0344           0
+     223 MTET 112  BTW  U1   U1    0               15.0344           0
+     224 MTET 112  BTW  U2   U2    0               15.0344           0
+     225 MTET 113  BTW  U1   U1    0               15.0344           0
+     226 MTET 113  BTW  U2   U2    0               15.0344           0
+     227 MTET 114  BTW  U1   U1    0               15.0344           0
+     228 MTET 114  BTW  U2   U2    0               15.0344           0
+     229 MTET 115  BTW  U1   U1    0               15.0344           0
+     230 MTET 115  BTW  U2   U2    0               15.0344           0
+     231 MTET 116  BTW  U1   U1    0               15.0344           0
+     232 MTET 116  BTW  U2   U2    0               15.0344           0
+     233 MTET 117  BTW  U1   U1    0               15.0344           0
+     234 MTET 117  BTW  U2   U2    0               15.0344           0
+     235 MTET 118  BTW  U1   U1    0               15.0344           0
+     236 MTET 118  BTW  U2   U2    0               15.0344           0
+     237 MTET 119  BTW  U1   U1    0               15.0344           0
+     238 MTET 119  BTW  U2   U2    0               15.0344           0
+     239 MTET 120  BTW  U1   U1    0               15.0344           0
+     240 MTET 120  BTW  U2   U2    0               15.0344           0
+     241 MTET 121  BTW  U1   U1    0               15.0344           0
+     242 MTET 121  BTW  U2   U2    0               15.0344           0
+     243 MTET 122  BTW  U1   U1    0               15.0344           0
+     244 MTET 122  BTW  U2   U2    0               15.0344           0
+     245 MTET 123  BTW  U1   U1    0               15.0344           0
+     246 MTET 123  BTW  U2   U2    0               15.0344           0
+     247 MTET 124  BTW  U1   U1    0               15.0344           0
+     248 MTET 124  BTW  U2   U2    0               15.0344           0
+     249 MTET 125  BTW  U1   U1    0               15.0344           0
+     250 MTET 125  BTW  U2   U2    0               15.0344           0
+     251 MTET 126  BTW  U1   U1    0               15.0344           0
+     252 MTET 126  BTW  U2   U2    0               15.0344           0
+     253 MTET 127  BTW  U1   U1    0               15.0344           0
+     254 MTET 127  BTW  U2   U2    0               15.0344           0
+     255 MTET 128  BTW  U1   U1    0               15.0344           0
+     256 MTET 128  BTW  U2   U2    0               15.0344           0
+     257 MTET 129  BTW  U1   U1    0               15.0344           0
+     258 MTET 129  BTW  U2   U2    0               15.0344           0
+     259 MTET 130  BTW  U1   U1    0               15.0344           0
+     260 MTET 130  BTW  U2   U2    0               15.0344           0
+     261 MTET 131  BTW  U1   U1    0               15.0344           0
+     262 MTET 131  BTW  U2   U2    0               15.0344           0
+     263 MTET 132  BTW  U1   U1    0               15.0344           0
+     264 MTET 132  BTW  U2   U2    0               15.0344           0
+     265 MTET 133  BTW  U1   U1    0               15.0344           0
+     266 MTET 133  BTW  U2   U2    0               15.0344           0
+     267 MTET 134  BTW  U1   U1    0               15.0344           0
+     268 MTET 134  BTW  U2   U2    0               15.0344           0
+     269 MTET 135  BTW  U1   U1    0               15.0344           0
+     270 MTET 135  BTW  U2   U2    0               15.0344           0
+     271 MTET 136  BTW  U1   U1    0               15.0344           0
+     272 MTET 136  BTW  U2   U2    0               15.0344           0
+     273 MTET 137  BTW  U1   U1    0               15.0344           0
+     274 MTET 137  BTW  U2   U2    0               15.0344           0
+     275 MTET 138  BTW  U1   U1    0               15.0344           0
+     276 MTET 138  BTW  U2   U2    0               15.0344           0
+     277 MTET 139  BTW  U1   U1    0               15.0344           0
+     278 MTET 139  BTW  U2   U2    0               15.0344           0
+     279 MTET 140  BTW  U1   U1    0               15.0344           0
+     280 MTET 140  BTW  U2   U2    0               15.0344           0
+     281 MTET 141  BTW  U1   U1    0               15.0344           0
+     282 MTET 141  BTW  U2   U2    0               15.0344           0
+     283 MTET 142  BTW  U1   U1    0               15.0344           0
+     284 MTET 142  BTW  U2   U2    0               15.0344           0
+     285 MTET 143  BTW  U1   U1    0               15.0344           0
+     286 MTET 143  BTW  U2   U2    0               15.0344           0
+     287 MTET 144  BTW  U1   U1    0               15.0344           0
+     288 MTET 144  BTW  U2   U2    0               15.0344           0
+     289 MTET 145  BTW  U1   U1    0               15.0344           0
+     290 MTET 145  BTW  U2   U2    0               15.0344           0
+     291 MTET 146  BTW  U1   U1    0               15.0344           0
+     292 MTET 146  BTW  U2   U2    0               15.0344           0
+     293 MTET 147  BTW  U1   U1    0               15.0344           0
+     294 MTET 147  BTW  U2   U2    0               15.0344           0
+     295 MTET 148  BTW  U1   U1    0               15.0344           0
+     296 MTET 148  BTW  U2   U2    0               15.0344           0
+     297 MTET 149  BTW  U1   U1    0               15.0344           0
+     298 MTET 149  BTW  U2   U2    0               15.0344           0
+     299 MTET 150  BTW  U1   U1    0               15.0344           0
+     300 MTET 150  BTW  U2   U2    0               15.0344           0
+     301 MTET 151  BTW  U1   U1    0               15.0344           0
+     302 MTET 151  BTW  U2   U2    0               15.0344           0
+     303 MTET 152  BTW  U1   U1    0               15.0344           0
+     304 MTET 152  BTW  U2   U2    0               15.0344           0
+     305 MTET 153  BTW  U1   U1    0               15.0344           0
+     306 MTET 153  BTW  U2   U2    0               15.0344           0
+     307 MTET 154  BTW  U1   U1    0               15.0344           0
+     308 MTET 154  BTW  U2   U2    0               15.0344           0
+     309 MTET 155  BTW  U1   U1    0               15.0344           0
+     310 MTET 155  BTW  U2   U2    0               15.0344           0
+     311 MTET 156  BTW  U1   U1    0               15.0344           0
+     312 MTET 156  BTW  U2   U2    0               15.0344           0
+     313 MTET 157  BTW  U1   U1    0               15.0344           0
+     314 MTET 157  BTW  U2   U2    0               15.0344           0
+     315 MTET 158  BTW  U1   U1    0               15.0344           0
+     316 MTET 158  BTW  U2   U2    0               15.0344           0
+     317 MTET 159  BTW  U1   U1    0               15.0344           0
+     318 MTET 159  BTW  U2   U2    0               15.0344           0
+     319 MTET 160  BTW  U1   U1    0               15.0344           0
+     320 MTET 160  BTW  U2   U2    0               15.0344           0
+     321 MTET 161  BTW  U1   U1    0               15.0344           0
+     322 MTET 161  BTW  U2   U2    0               15.0344           0
+     323 MTET 162  BTW  U1   U1    0               15.0344           0
+     324 MTET 162  BTW  U2   U2    0               15.0344           0
+     325 MTET 163  BTW  U1   U1    0               15.0344           0
+     326 MTET 163  BTW  U2   U2    0               15.0344           0
+     327 MTET 164  BTW  U1   U1    0               15.0344           0
+     328 MTET 164  BTW  U2   U2    0               15.0344           0
+     329 MTET 165  BTW  U1   U1    0               15.0344           0
+     330 MTET 165  BTW  U2   U2    0               15.0344           0
+     331 MTET 166  BTW  U1   U1    0               15.0344           0
+     332 MTET 166  BTW  U2   U2    0               15.0344           0
+     333 MTET 167  BTW  U1   U1    0               15.0344           0
+     334 MTET 167  BTW  U2   U2    0               15.0344           0
+     335 MTET 168  BTW  U1   U1    0               15.0344           0
+     336 MTET 168  BTW  U2   U2    0               15.0344           0
+     337 MTET 169  BTW  U1   U1    0               15.0344           0
+     338 MTET 169  BTW  U2   U2    0               15.0344           0
+     339 MTET 170  BTW  U1   U1    0               15.0344           0
+     340 MTET 170  BTW  U2   U2    0               15.0344           0
+     341 MTET 171  BTW  U1   U1    0               15.0344           0
+     342 MTET 171  BTW  U2   U2    0               15.0344           0
+     343 MTET 172  BTW  U1   U1    0               15.0344           0
+     344 MTET 172  BTW  U2   U2    0               15.0344           0
+     345 MTET 173  BTW  U1   U1    0               15.0344           0
+     346 MTET 173  BTW  U2   U2    0               15.0344           0
+     347 MTET 174  BTW  U1   U1    0               15.0344           0
+     348 MTET 174  BTW  U2   U2    0               15.0344           0
+     349 MTET 175  BTW  U1   U1    0               15.0344           0
+     350 MTET 175  BTW  U2   U2    0               15.0344           0
+     351 MTET 176  BTW  U1   U1    0               15.0344           0
+     352 MTET 176  BTW  U2   U2    0               15.0344           0
+     353 MTET 177  BTW  U1   U1    0               15.0344           0
+     354 MTET 177  BTW  U2   U2    0               15.0344           0
+     355 MTET 178  BTW  U1   U1    0               15.0344           0
+     356 MTET 178  BTW  U2   U2    0               15.0344           0
+     357 MTET 179  BTW  U1   U1    0               15.0344           0
+     358 MTET 179  BTW  U2   U2    0               15.0344           0
+     359 MTET 180  BTW  U1   U1    0               15.0344           0
+     360 MTET 180  BTW  U2   U2    0               15.0344           0
+     361 MTET 181  BTW  U1   U1    0               15.0344           0
+     362 MTET 181  BTW  U2   U2    0               15.0344           0
+     363 MTET 182  BTW  U1   U1    0               15.0344           0
+     364 MTET 182  BTW  U2   U2    0               15.0344           0
+     365 MTET 183  BTW  U1   U1    0               15.0344           0
+     366 MTET 183  BTW  U2   U2    0               15.0344           0
+     367 MTET 184  BTW  U1   U1    0               15.0344           0
+     368 MTET 184  BTW  U2   U2    0               15.0344           0
+     369 MTET 185  BTW  U1   U1    0               15.0344           0
+     370 MTET 185  BTW  U2   U2    0               15.0344           0
+     371 MTET 186  BTW  U1   U1    0               15.0344           0
+     372 MTET 186  BTW  U2   U2    0               15.0344           0
+     373 MTET 187  BTW  U1   U1    0               15.0344           0
+     374 MTET 187  BTW  U2   U2    0               15.0344           0
+     375 MTET 188  BTW  U1   U1    0               15.0344           0
+     376 MTET 188  BTW  U2   U2    0               15.0344           0
+     377 MTET 189  BTW  U1   U1    0               15.0344           0
+     378 MTET 189  BTW  U2   U2    0               15.0344           0
+     379 MTET 190  BTW  U1   U1    0               15.0344           0
+     380 MTET 190  BTW  U2   U2    0               15.0344           0
+     381 MTET 191  BTW  U1   U1    0               15.0344           0
+     382 MTET 191  BTW  U2   U2    0               15.0344           0
+     383 MTET 192  BTW  U1   U1    0               15.0344           0
+     384 MTET 192  BTW  U2   U2    0               15.0344           0
+     385 MTET 193  BTW  U1   U1    0               15.0344           0
+     386 MTET 193  BTW  U2   U2    0               15.0344           0
+     387 MTET 194  BTW  U1   U1    0               15.0344           0
+     388 MTET 194  BTW  U2   U2    0               15.0344           0
+     389 MTET 195  BTW  U1   U1    0               15.0344           0
+     390 MTET 195  BTW  U2   U2    0               15.0344           0
+     391 MTET 196  BTW  U1   U1    0               15.0344           0
+     392 MTET 196  BTW  U2   U2    0               15.0344           0
+     393 MTET 197  BTW  U1   U1    0               15.0344           0
+     394 MTET 197  BTW  U2   U2    0               15.0344           0
+     395 MTET 198  BTW  U1   U1    0               15.0344           0
+     396 MTET 198  BTW  U2   U2    0               15.0344           0
+     397 MTET 199  BTW  U1   U1    0               15.0344           0
+     398 MTET 199  BTW  U2   U2    0               15.0344           0
+     399 MTET 200  BTW  U1   U1    0               15.0344           0
+     400 MTET 200  BTW  U2   U2    0               15.0344           0
+     401 MTET 201  BTW  U1   U1    0               15.0344           0
+     402 MTET 201  BTW  U2   U2    0               15.0344           0
+     403 MTET 202  BTW  U1   U1    0               15.0344           0
+     404 MTET 202  BTW  U2   U2    0               15.0344           0
+     405 MTET 203  BTW  U1   U1    0               15.0344           0
+     406 MTET 203  BTW  U2   U2    0               15.0344           0
+     407 MTET 204  BTW  U1   U1    0               15.0344           0
+     408 MTET 204  BTW  U2   U2    0               15.0344           0
+     409 MTET 205  BTW  U1   U1    0               15.0344           0
+     410 MTET 205  BTW  U2   U2    0               15.0344           0
+     411 MTET 206  BTW  U1   U1    0               15.0344           0
+     412 MTET 206  BTW  U2   U2    0               15.0344           0
+     413 MTET 207  BTW  U1   U1    0               15.0344           0
+     414 MTET 207  BTW  U2   U2    0               15.0344           0
+     415 MTET 208  BTW  U1   U1    0               15.0344           0
+     416 MTET 208  BTW  U2   U2    0               15.0344           0
+     417 MTET 209  BTW  U1   U1    0               15.0344           0
+     418 MTET 209  BTW  U2   U2    0               15.0344           0
+     419 MTET 210  BTW  U1   U1    0               15.0344           0
+     420 MTET 210  BTW  U2   U2    0               15.0344           0
+     421 MTET 211  BTW  U1   U1    0               15.0344           0
+     422 MTET 211  BTW  U2   U2    0               15.0344           0
+     423 MTET 212  BTW  U1   U1    0               15.0344           0
+     424 MTET 212  BTW  U2   U2    0               15.0344           0
+     425 MTET 213  BTW  U1   U1    0               15.0344           0
+     426 MTET 213  BTW  U2   U2    0               15.0344           0
+     427 MTET 214  BTW  U1   U1    0               15.0344           0
+     428 MTET 214  BTW  U2   U2    0               15.0344           0
+     429 MTET 215  BTW  U1   U1    0               15.0344           0
+     430 MTET 215  BTW  U2   U2    0               15.0344           0
+     431 MTET 216  BTW  U1   U1    0               15.0344           0
+     432 MTET 216  BTW  U2   U2    0               15.0344           0
+     433 MTET 217  BTW  U1   U1    0               15.0344           0
+     434 MTET 217  BTW  U2   U2    0               15.0344           0
+     435 MTET 218  BTW  U1   U1    0               15.0344           0
+     436 MTET 218  BTW  U2   U2    0               15.0344           0
+     437 MTET 219  BTW  U1   U1    0               15.0344           0
+     438 MTET 219  BTW  U2   U2    0               15.0344           0
+     439 MTET 220  BTW  U1   U1    0               15.0344           0
+     440 MTET 220  BTW  U2   U2    0               15.0344           0
+     441 MTET 221  BTW  U1   U1    0               15.0344           0
+     442 MTET 221  BTW  U2   U2    0               15.0344           0
+     443 MTET 222  BTW  U1   U1    0               15.0344           0
+     444 MTET 222  BTW  U2   U2    0               15.0344           0
+     445 MTET 223  BTW  U1   U1    0               15.0344           0
+     446 MTET 223  BTW  U2   U2    0               15.0344           0
+     447 MTET 224  BTW  U1   U1    0               15.0344           0
+     448 MTET 224  BTW  U2   U2    0               15.0344           0
+     449 MTET 225  BTW  U1   U1    0               15.0344           0
+     450 MTET 225  BTW  U2   U2    0               15.0344           0
+     451 MTET 226  BTW  U1   U1    0               15.0344           0
+     452 MTET 226  BTW  U2   U2    0               15.0344           0
+     453 MTET 227  BTW  U1   U1    0               15.0344           0
+     454 MTET 227  BTW  U2   U2    0               15.0344           0
+     455 MTET 228  BTW  U1   U1    0               15.0344           0
+     456 MTET 228  BTW  U2   U2    0               15.0344           0
+     457 MTET 229  BTW  U1   U1    0               15.0344           0
+     458 MTET 229  BTW  U2   U2    0               15.0344           0
+     459 MTET 230  BTW  U1   U1    0               15.0344           0
+     460 MTET 230  BTW  U2   U2    0               15.0344           0
+     461 MTET 231  BTW  U1   U1    0               15.0344           0
+     462 MTET 231  BTW  U2   U2    0               15.0344           0
+     463 MTET 232  BTW  U1   U1    0               15.0344           0
+     464 MTET 232  BTW  U2   U2    0               15.0344           0
+     465 MTET 233  BTW  U1   U1    0               15.0344           0
+     466 MTET 233  BTW  U2   U2    0               15.0344           0
+     467 MTET 234  BTW  U1   U1    0               15.0344           0
+     468 MTET 234  BTW  U2   U2    0               15.0344           0
+     469 MTET 235  BTW  U1   U1    0               15.0344           0
+     470 MTET 235  BTW  U2   U2    0               15.0344           0
+     471 MTET 236  BTW  U1   U1    0               15.0344           0
+     472 MTET 236  BTW  U2   U2    0               15.0344           0
+     473 MTET 237  BTW  U1   U1    0               15.0344           0
+     474 MTET 237  BTW  U2   U2    0               15.0344           0
+     475 MTET 238  BTW  U1   U1    0               15.0344           0
+     476 MTET 238  BTW  U2   U2    0               15.0344           0
+     477 MTET 239  BTW  U1   U1    0               15.0344           0
+     478 MTET 239  BTW  U2   U2    0               15.0344           0
+     479 MTET 240  BTW  U1   U1    0               15.0344           0
+     480 MTET 240  BTW  U2   U2    0               15.0344           0
+     481 MTET 241  BTW  U1   U1    0               15.0344           0
+     482 MTET 241  BTW  U2   U2    0               15.0344           0
+     483 MTET 242  BTW  U1   U1    0               15.0344           0
+     484 MTET 242  BTW  U2   U2    0               15.0344           0
+     485 MTET 243  BTW  U1   U1    0               15.0344           0
+     486 MTET 243  BTW  U2   U2    0               15.0344           0
+     487 MTET 244  BTW  U1   U1    0               15.0344           0
+     488 MTET 244  BTW  U2   U2    0               15.0344           0
+     489 MTET 245  BTW  U1   U1    0               15.0344           0
+     490 MTET 245  BTW  U2   U2    0               15.0344           0
+     491 MTET 246  BTW  U1   U1    0               15.0394           0
+     492 MTET 246  BTW  U2   U2    0               15.0344           0
+     493 MTET 247  BTW  U1   U1    0               15.0344           0
+     494 MTET 247  BTW  U2   U2    0               15.0344           0
+     495 MTET 248  BTW  U1   U1    0               15.0344           0
+     496 MTET 248  BTW  U2   U2    0               15.0344           0
+     497 MTET 249  BTW  U1   U1    0               15.0344           0
+     498 MTET 249  BTW  U2   U2    0               15.0344           0
+     499 MTET 250  BTW  U1   U1    0               15.0344           0
+     500 MTET 250  BTW  U2   U2    0               15.0344           0
+     501 MTET 251  BTW  U1   U1    0               15.0344           0
+     502 MTET 251  BTW  U2   U2    0               15.0344           0
+     503 MTET 252  BTW  U1   U1    0               15.0344           0
+     504 MTET 252  BTW  U2   U2    0               15.0344           0
+     505 MTET 253  BTW  U1   U1    0               15.0344           0
+     506 MTET 253  BTW  U2   U2    0               15.0344           0
+     507 MTET 254  BTW  U1   U1    0               15.0344           0
+     508 MTET 254  BTW  U2   U2    0               15.0344           0
+     509 MTET 255  BTW  U1   U1    0               15.0344           0
+     510 MTET 255  BTW  U2   U2    0               15.0344           0
+     511 MTET 256  BTW  U1   U1    0               15.0344           0
+     512 MTET 256  BTW  U2   U2    0               15.0344           0
+     513 MTET 257  BTW  U1   U1    0               15.0344           0
+     514 MTET 257  BTW  U2   U2    0               15.0344           0
+     515 MTET 258  BTW  U1   U1    0               15.0344           0
+     516 MTET 258  BTW  U2   U2    0               15.0344           0
+     517 MTET 259  BTW  U1   U1    0               15.0344           0
+     518 MTET 259  BTW  U2   U2    0               15.0344           0
+     519 MTET 260  BTW  U1   U1    0               15.0344           0
+     520 MTET 260  BTW  U2   U2    0               15.0344           0
+     521 MTET 261  BTW  U1   U1    0               15.0344           0
+     522 MTET 261  BTW  U2   U2    0               15.0344           0
+     523 MTET 262  BTW  U1   U1    0               15.0344           0
+     524 MTET 262  BTW  U2   U2    0               15.0344           0
+     525 MTET 263  BTW  U1   U1    0               15.0344           0
+     526 MTET 263  BTW  U2   U2    0               15.0344           0
+     527 MTET 264  BTW  U1   U1    0               15.0344           0
+     528 MTET 264  BTW  U2   U2    0               15.0344           0
+     529 MTET 265  BTW  U1   U1    0               15.0344           0
+     530 MTET 265  BTW  U2   U2    0               15.0344           0
+     531 MTET 266  BTW  U1   U1    0               15.0344           0
+     532 MTET 266  BTW  U2   U2    0               15.0344           0
+     533 MTET 267  BTW  U1   U1    0               15.0344           0
+     534 MTET 267  BTW  U2   U2    0               15.0344           0
+     535 MTET 268  BTW  U1   U1    0               15.0344           0
+     536 MTET 268  BTW  U2   U2    0               15.0344           0
+     537 MTET 269  BTW  U1   U1    0               15.0344           0
+     538 MTET 269  BTW  U2   U2    0               15.0344           0
+     539 MTET 270  BTW  U1   U1    0               15.0344           0
+     540 MTET 270  BTW  U2   U2    0               15.0344           0
+     541 MTET 271  BTW  U1   U1    0               15.0344           0
+     542 MTET 271  BTW  U2   U2    0               15.0344           0
+     543 MTET 272  BTW  U1   U1    0               15.0344           0
+     544 MTET 272  BTW  U2   U2    0               15.0344           0
+     545 MTET 273  BTW  U1   U1    0               15.0344           0
+     546 MTET 273  BTW  U2   U2    0               15.0344           0
+     547 MTET 274  BTW  U1   U1    0               15.0344           0
+     548 MTET 274  BTW  U2   U2    0               15.0344           0
+     549 MTET 275  BTW  U1   U1    0               15.0344           0
+     550 MTET 275  BTW  U2   U2    0               15.0344           0
+     551 MTET 276  BTW  U1   U1    0               15.0344           0
+     552 MTET 276  BTW  U2   U2    0               15.0344           0
+     553 MTET 277  BTW  U1   U1    0               15.0344           0
+     554 MTET 277  BTW  U2   U2    0               15.0344           0
+     555 MTET 278  BTW  U1   U1    0               15.0344           0
+     556 MTET 278  BTW  U2   U2    0               15.0344           0
+     557 MTET 279  BTW  U1   U1    0               15.0344           0
+     558 MTET 279  BTW  U2   U2    0               15.0344           0
+     559 MTET 280  BTW  U1   U1    0               15.0344           0
+     560 MTET 280  BTW  U2   U2    0               15.0344           0
+     561 MTET 281  BTW  U1   U1    0               15.0344           0
+     562 MTET 281  BTW  U2   U2    0               15.0344           0
+     563 MTET 282  BTW  U1   U1    0               15.0344           0
+     564 MTET 282  BTW  U2   U2    0               15.0344           0
+     565 MTET 283  BTW  U1   U1    0               15.0344           0
+     566 MTET 283  BTW  U2   U2    0               15.0344           0
+     567 MTET 284  BTW  U1   U1    0               15.0344           0
+     568 MTET 284  BTW  U2   U2    0               15.0344           0
+     569 MTET 285  BTW  U1   U1    0               15.0344           0
+     570 MTET 285  BTW  U2   U2    0               15.0344           0
+     571 MTET 286  BTW  U1   U1    0               15.0344           0
+     572 MTET 286  BTW  U2   U2    0               15.0344           0
+     573 MTET 287  BTW  U1   U1    0               15.0344           0
+     574 MTET 287  BTW  U2   U2    0               15.0344           0
+     575 MTET 288  BTW  U1   U1    0               15.0344           0
+     576 MTET 288  BTW  U2   U2    0               15.0344           0
+     577 MTET 289  BTW  U1   U1    0               15.0344           0
+     578 MTET 289  BTW  U2   U2    0               15.0344           0
+     579 MTET 290  BTW  U1   U1    0               15.0344           0
+     580 MTET 290  BTW  U2   U2    0               15.0344           0
+     581 MTET 291  BTW  U1   U1    0               15.0344           0
+     582 MTET 291  BTW  U2   U2    0               15.0344           0
+     583 MTET 292  BTW  U1   U1    0               15.0344           0
+     584 MTET 292  BTW  U2   U2    0               15.0344           0
+     585 MTET 293  BTW  U1   U1    0               15.0344           0
+     586 MTET 293  BTW  U2   U2    0               15.0344           0
+     587 MTET 294  BTW  U1   U1    0               15.0344           0
+     588 MTET 294  BTW  U2   U2    0               15.0344           0
+     589 MTET 295  BTW  U1   U1    0               15.0344           0
+     590 MTET 295  BTW  U2   U2    0               15.0344           0
+     591 MTET 296  BTW  U1   U1    0               15.0344           0
+     592 MTET 296  BTW  U2   U2    0               15.0344           0
+     593 MTET 297  BTW  U1   U1    0               15.0344           0
+     594 MTET 297  BTW  U2   U2    0               15.0344           0
+     595 MTET 298  BTW  U1   U1    0               15.0344           0
+     596 MTET 298  BTW  U2   U2    0               15.0344           0
+     597 MTET 299  BTW  U1   U1    0               15.0344           0
+     598 MTET 299  BTW  U2   U2    0               15.0344           0
+     599 MTET 300  BTW  U1   U1    0               15.0344           0
+     600 MTET 300  BTW  U2   U2    0               15.0344           0
+
+     300 !NBOND: bonds
+       1       2       3       4       5       6       7       8
+       9      10      11      12      13      14      15      16
+      17      18      19      20      21      22      23      24
+      25      26      27      28      29      30      31      32
+      33      34      35      36      37      38      39      40
+      41      42      43      44      45      46      47      48
+      49      50      51      52      53      54      55      56
+      57      58      59      60      61      62      63      64
+      65      66      67      68      69      70      71      72
+      73      74      75      76      77      78      79      80
+      81      82      83      84      85      86      87      88
+      89      90      91      92      93      94      95      96
+      97      98      99     100     101     102     103     104
+     105     106     107     108     109     110     111     112
+     113     114     115     116     117     118     119     120
+     121     122     123     124     125     126     127     128
+     129     130     131     132     133     134     135     136
+     137     138     139     140     141     142     143     144
+     145     146     147     148     149     150     151     152
+     153     154     155     156     157     158     159     160
+     161     162     163     164     165     166     167     168
+     169     170     171     172     173     174     175     176
+     177     178     179     180     181     182     183     184
+     185     186     187     188     189     190     191     192
+     193     194     195     196     197     198     199     200
+     201     202     203     204     205     206     207     208
+     209     210     211     212     213     214     215     216
+     217     218     219     220     221     222     223     224
+     225     226     227     228     229     230     231     232
+     233     234     235     236     237     238     239     240
+     241     242     243     244     245     246     247     248
+     249     250     251     252     253     254     255     256
+     257     258     259     260     261     262     263     264
+     265     266     267     268     269     270     271     272
+     273     274     275     276     277     278     279     280
+     281     282     283     284     285     286     287     288
+     289     290     291     292     293     294     295     296
+     297     298     299     300     301     302     303     304
+     305     306     307     308     309     310     311     312
+     313     314     315     316     317     318     319     320
+     321     322     323     324     325     326     327     328
+     329     330     331     332     333     334     335     336
+     337     338     339     340     341     342     343     344
+     345     346     347     348     349     350     351     352
+     353     354     355     356     357     358     359     360
+     361     362     363     364     365     366     367     368
+     369     370     371     372     373     374     375     376
+     377     378     379     380     381     382     383     384
+     385     386     387     388     389     390     391     392
+     393     394     395     396     397     398     399     400
+     401     402     403     404     405     406     407     408
+     409     410     411     412     413     414     415     416
+     417     418     419     420     421     422     423     424
+     425     426     427     428     429     430     431     432
+     433     434     435     436     437     438     439     440
+     441     442     443     444     445     446     447     448
+     449     450     451     452     453     454     455     456
+     457     458     459     460     461     462     463     464
+     465     466     467     468     469     470     471     472
+     473     474     475     476     477     478     479     480
+     481     482     483     484     485     486     487     488
+     489     490     491     492     493     494     495     496
+     497     498     499     500     501     502     503     504
+     505     506     507     508     509     510     511     512
+     513     514     515     516     517     518     519     520
+     521     522     523     524     525     526     527     528
+     529     530     531     532     533     534     535     536
+     537     538     539     540     541     542     543     544
+     545     546     547     548     549     550     551     552
+     553     554     555     556     557     558     559     560
+     561     562     563     564     565     566     567     568
+     569     570     571     572     573     574     575     576
+     577     578     579     580     581     582     583     584
+     585     586     587     588     589     590     591     592
+     593     594     595     596     597     598     599     600
+
+       0 !NTHETA: angles
+
+       0 !NPHI: dihedrals
+
+       0 !NIMPHI: impropers
+
+       0 !NDON: donors
+
+       0 !NACC: acceptors
+
+       0 !NNB
+
+       0       0 !NGRP

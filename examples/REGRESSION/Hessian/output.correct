@@ -1,0 +1,212 @@
+No MPI compilation.
+
+######                                  #     #
+#     #  #####    ####   #####   ####   ##   ##   ####   #
+#     #  #    #  #    #    #    #    #  # # # #  #    #  #
+######   #    #  #    #    #    #    #  #  #  #  #    #  #
+#        #####   #    #    #    #    #  #     #  #    #  #
+#        #   #   #    #    #    #    #  #     #  #    #  #
+#        #    #   ####     #     ####   #     #   ####   ######
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Please cite T. Matthey, T. Cickovski, S. S. Hampton, A. Ko, Q. Ma, M. Nyerges, T. Raeder,
+T. Slabach, and J. A. Izaguirre. ProtoMol: An object-oriented framework for prototyping
+novel algorithms for molecular dynamics. ACM Trans. Math. Softw., 30(3):237­265, 2004.
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+ProtoMol Version 2.0.4
+
+tcickovs Feb 19 2007 21:17:27
+Linux manganese 2.6.9-42.ELsmp #1 SMP Wed Jul 12 23:27:17 EDT 2006 i686 i686 i386 GNU/Linux
+icpc -Wall -wd810,383,981,279,444,1572 -O3 -ip -DNDEBUG -pg
+32-bit
+Intel(R) C++ Compiler for 32-bit applications, Version 8.1    Build 20050823Z Package ID: l_cc_pc_8.1.034
+Copyright (C) 1985-2005 Intel Corporation.  All rights reserved.
+Version 8.1 
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Information:
+
+protomol@cse.nd.edu
+http://protomol.sourceforge.net
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+
+Undefined keyword(s):
+allEnergiesFileOutputFreq     <int,positive>
+BSDLFile                      <string,non-empty>
+BSDLFileOutputFreq            <int,positive>
+cellBasisVector1              <coordinates,non-zero>
+cellBasisVector2              <coordinates,non-zero>
+cellBasisVector3              <coordinates,non-zero>
+cellorigin                    <coordinates>
+DCDFile                       <string,non-empty>
+DCDFileMinimalImage           <boolean>
+DCDFileOutputFreq             <int,positive>
+diffusionFile                 <string,non-empty>
+diffusionFileOutputFreq       <int,positive>
+dihedralMultPSF               <boolean>
+dihedralsFile                 <string,non-empty>
+dihedralsFileMinimalImage     <boolean>
+dihedralsFileOutputFreq       <int,positive>
+dihedralsIndex                <int,non-negative>
+dihedralsSetfile              <string,non-empty>
+doallEnergiesFile             <boolean>
+doBSDLFile                    <boolean>
+doDCDFile                     <boolean>
+dodiffusionFile               <boolean>
+dodihedralsFile               <boolean>
+dofinPDBPosFile               <boolean>
+dofinXYZBinPosFile            <boolean>
+dofinXYZBinVelFile            <boolean>
+dofinXYZPosFile               <boolean>
+dofinXYZVelFile               <boolean>
+domomentumFile                <boolean>
+dopaulFile                    <boolean>
+doPaulLowFile                 <boolean>
+doPDBPosFile                  <boolean>
+doREMExchangeRatesFile        <boolean>
+doREMHistoryFile              <boolean>
+dostateFile                   <boolean>
+doTempFile                    <boolean>
+doXYZBinPosFile               <boolean>
+doXYZBinVelFile               <boolean>
+doXYZForceFile                <boolean>
+doXYZPosFile                  <boolean>
+doXYZVelFile                  <boolean>
+eigfile                       <string,non-empty>
+eigvalfile                    <string,non-empty>
+finPDBPosFile                 <string,non-empty>
+finPDBPosFileMinimalImage     <boolean>
+finXYZBinPosFile              <string,non-empty>
+finXYZBinPosFileMinimalImage  <boolean>
+finXYZBinVelFile              <string,non-empty>
+finXYZPosFile                 <string,non-empty>
+finXYZPosFileMinimalImage     <boolean>
+finXYZVelFile                 <string,non-empty>
+momentumFile                  <string,non-empty>
+momentumFileOutputFreq        <int,positive>
+paulFile                      <string,non-empty>
+paulFileOutputFreq            <int,positive>
+paulOmega                     <real,non-negative>
+paulOmegaZ                    <real,non-negative>
+PDBPosFile                    <string,non-empty>
+PDBPosFileMinimalImage        <boolean>
+REMExchangeRatesFile          <string,non-empty>
+REMExchangeRatesFileOutputFreq<int,positive>
+REMHistoryFile                <string,non-empty>
+REMHistoryFileOutputFreq      <int,positive>
+ScreenOutputFreq              <int,positive>
+ScreenPaulTrap                <boolean>
+stateFile                     <string,non-empty>
+stateFileOutputFreq           <int,positive>
+statesInputFile               <string,non-empty>
+TemperatureSeparateWater      <boolean>
+TempFile                      <string,non-empty>
+TempFileOutputFreq            <int,positive>
+velfile                       <string,non-empty>
+XYZBinPosFile                 <string,non-empty>
+XYZBinPosFileMinimalImage     <boolean>
+XYZBinPosFileOutputFreq       <int,positive>
+XYZBinVelFile                 <string,non-empty>
+XYZBinVelFileOutputFreq       <int,positive>
+XYZForceFile                  <string,non-empty>
+XYZForceFileOutputFreq        <int,positive>
+XYZPosFile                    <string,non-empty>
+XYZPosFileMinimalImage        <boolean>
+XYZPosFileOutputFreq          <int,positive>
+XYZVelFile                    <string,non-empty>
+XYZVelFileOutputFreq          <int,positive>
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Using seed 11.
+Using report level 0.
+Using PDB posfile 'wwd.min.pdb' (551).
+Using temperature 300K for the velocities  (551).
+Using PSF file 'wwd_mineq.psf' (551).
+Using PAR file 'par_all27_prot_lipid.inp', new charmm force field.
+Hint:  Reduced fast delta max of ExclusionTable from 31 to 26.
+Random temperature : 299.075K
+Removed linear momentum: (-0.0444343,-1.5375,1.01101)
+Removed angular momentum : (-2.96022,1.719,7.28607)
+Actual start temperature : 299.907K
+Using MD integrator. 
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Virial tensor : false
+Molecular virial tensor : false
+Hint:  [HessianInt::Find Hessian] sz=1653
+Hint:  [HessianInt::initialize] SimTKlapack library version: 1 , 0 , 1
+Hint:  [HessianInt::initialize] about= version1.0.1
+Hint:  [HessianInt::initialize] about= librarySimTKlapack
+Hint:  [HessianInt::initialize] about= garbage
+Hint:  [HessianInt::initialize] about= authorsJack Middleton Vaibhav Nivargi
+Hint:  [HessianInt::initialize] about= copyrightCopyright (c) 2005-6 Stanford University, Jack Middleton Vaibhav Nivargi
+Hint:  [HessianInt::initialize] about= vendorIntel
+Hint:  [HessianInt::initialize] about= familyPentium 4
+Hint:  [HessianInt::initialize] about= model
+Hint:  [HessianInt::initialize] about= type
+Hint:  [HessianInt::initialize] about= l116
+Hint:  [HessianInt::initialize] about= l20
+Hint:  [HessianInt::initialize] about= ptr_size32
+Hint:  [HessianInt::initialize] about= ncpu1
+Hint:  [HessianInt::initialize] about= osLinux
+Hint:  [HessianInt::initialize] about= architectureLinux Intel 32bit Pentium 4  1cpu  16KB cache
+Hint:  [HessianInt::initialize] about= svn_revision171
+Hint:  [HessianInt::initialize] about= atlas_versionatlas3.6.0
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Output allEnergiesFile wwd.hess.energy 1 1 0 1 false false.
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+integrator {
+  Level 0 hessianint {
+      timestep 1
+      eigvecFile wwdaevect.bin.dat	 # Eigenvector filename
+      eigvalFile wwdeval	 # Eigenvalue filename
+      hessianFile 	 # Hessian sparse filename
+      sortByAbs true	 # Sort eigenvalues/vectors by absolute magnitude
+      fixedModes 1400	 # Number of fixed modes
+      textEigFile false	 # Output eigenvectors as text file
+    Force Improper
+    Force Dihedral
+    Force Bond
+    Force Angle
+    Force LennardJones -switchingFunction Cn -algorithm NonbondedCutoff
+      -switchon 8	 # Cn swf switch on
+      -switchoff 10	 # Cn swf switchoff
+      -cutoff 10	 # Cn swf cutoff
+      -n 4	 # Cn swf smothness
+      -cutoff 10	 # algorithm cutoff
+    Force CoulombDiElec -switchingFunction Cn -algorithm NonbondedCutoff
+      -switchon 0	 # Cn swf switch on
+      -switchoff 10	 # Cn swf switchoff
+      -cutoff 10	 # Cn swf cutoff
+      -n 4	 # Cn swf smothness
+      -cutoff 10	 # algorithm cutoff
+  }
+}
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Atoms                : 551
+AtomTypes            : 32
+Bonds                : 561
+Angles               : 1003
+Dihedrals            : 1485 (1558)
+Impropers            : 89
+Molecules            : 1
+Water                : 0
+Pairs                : 730
+Degree of freedom    : 1650
+Molecule pair dist's : true
+Exclusion pairs      : 3004
+Max exclusion dist   : 26
+Time                 : 0
+CellManager          : Cubic
+BoundaryConditions   : Vacuum orthogonal
+coulombScalingFactor : 1
+exclude              : scaled1-4
+cellSize             : 4
+Atom density         : 0.0415468636969345
+Atom/cell            : 2.65899927660381
+Real cell size       : (4,4,4)
+Cell dimension       : (5,6,8)
+Simulation box       : (-inf,-inf,-inf)-(inf,inf,inf) (inf,inf,inf)
+Particle             : (-59.812,-31.297,39.7288)-(-40.035,-7.5257,67.9386) (19.777,23.7713,28.2098)
+Particle extended    : (-59.812,-31.297,39.7288)-(-40.035,-7.5257,67.9386) (19.777,23.7713,28.2098)
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Hint:  [HessianInt::Find Hessian] Hessian found!
+Hint:  [HessianInt::run] diagonalizing Hessian.
+Hint:  [HessianInt::run] diagonalized!
+Timing : wall: 16.01386[s] real, 14.98072[s] user, 0.54292[s] sys, run: 1.07757[s], integration: 1.07491[s], forces: 0.04716[s].

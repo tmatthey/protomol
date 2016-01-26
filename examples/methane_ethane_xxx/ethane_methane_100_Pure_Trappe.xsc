@@ -1,0 +1,19 @@
+# Type of integrator used
+integrator   iSGVerlet
+# ProtoMol (built on Mar 15 2005 at 19:01:27) generated this XSC file by tmorrow. Time : 100000, step : 100000.
+# Molecule being transformed, it's old and new identities:
+molecule     2
+oldtype      0
+newtype      1
+# Final Lambda and Lambda velocity:
+Lambda       0.005
+LambdaVel    1.58193945795389e-39
+# Final atom-thermostat value and velocity:
+Eta          -34.9783141163526
+EtaVel       0.00376222571947039
+# Final volume-thermostat value and velocity:
+EtaVol       110618.188184756
+EtaVolVel    -0.00293780189857841
+# Final volume and barostat velocity:
+Volume       1603334.95333921
+EpsilonVel   0.000182020352534257

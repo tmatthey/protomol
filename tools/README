@@ -1,0 +1,19 @@
+
+ TkProtoMol.pl
+
+  A simple crossplaform GUI to run ProtoMol, edit configuration files 
+  and plotting output datas. 
+
+  Unix/Linux:
+   - download Tk from 
+     http://search.cpan.org/~ni-s/ or http://search.cpan.org/search?query=tk&mode=dist
+   - install
+   - add env variable:
+     PERL5LIB $(Home)/perl/lib/perl5:$(Home)/perl/lib/perl5/site_perl
+
+  Win32:
+   - download Tk and Perl from 
+     http://activeperl.com/Products/Download/Download.plex?id=ActivePerl
+   - install
+
+

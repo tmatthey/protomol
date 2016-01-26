@@ -1,0 +1,81 @@
+*>>>> CHARMM22 Parameter File for butanol/water mixture <<<<<<<<<<<<<<<<
+*>>>>>>>>>>>>>>>>>>>>>>> November 2004 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+*>>>>>>>>>>>>>>>>>> Prepared by T. I. Morrow <<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+! REMARKS
+! Revision 1 -- April 2005 -- Added TraPPe models (truncated interactions at 14 A)
+!
+BONDS
+!
+!V(bond) = Kb(b - b0)**2
+!
+!Kb: kcal/mole/A**2
+!b0: A
+!
+!atom type Kb          b0    identity
+!
+!-- single-topology bonds for iSGMD simulations
+!-- for the UA model
+U1   U2     500.0       1.540    0   ! UA alkane C-C bond -- ethane identity   (TraPPe model)
+U1   U2     500.0       1.540    1   ! dummy-C bond -- methane identity        (TraPPe model)
+
+ANGLES
+!
+!V(angle) = Ktheta(Theta - Theta0)**2
+!
+!V(Urey-Bradley) = Kub(S - S0)**2
+!
+!Ktheta: kcal/mole/rad**2
+!Theta0: degrees
+!Kub: kcal/mole/A**2 (Urey-Bradley)
+!S0: A
+!
+!atom types     Ktheta    Theta0   Kub     S0     identity
+!
+
+DIHEDRALS
+!
+!V(dihedral) = Kchi(1 + cos(n(chi) - delta))
+!
+!Kchi: kcal/mole
+!n: multiplicity
+!delta: degrees
+!
+!atom types             Kchi    n   delta    identity
+!
+
+IMPROPER
+!
+!V(improper) = Kpsi(psi - psi0)**2
+!
+!Kpsi: kcal/mole/rad**2
+!psi0: degrees
+!note that the second column of numbers (0) is ignored
+!
+!atom types           Kpsi                   psi0       identity
+!
+
+
+NONBONDED nbxmod  5 atom cdiel shift vatom vdistance vswitch -
+cutnb 14.0 ctofnb 12.0 ctonnb 10.0 eps 1.0 e14fac 1.0 wmin 1.5
+                !adm jr., 5/08/91, suggested cutoff scheme
+!
+!V(Lennard-Jones) = Eps,i,j[(Rmin,i,j/ri,j)**12 - 2(Rmin,i,j/ri,j)**6]
+!
+!epsilon: kcal/mole, Eps,i,j = sqrt(eps,i * eps,j)
+!Rmin/2: A, Rmin,i,j = Rmin/2,i + Rmin/2,j
+!
+!atom  ignored   epsilon      Rmin/2   ignored   eps,1-4       Rmin/2,1-4  identity
+!
+!-- single topology LJ parameters for iSGMD simulations
+!-- for the UA model
+U1     0.0       -0.19460      2.105      0.0     -0.0000        1.000      0 ! ethane methyl CH3      -- ethane identity  (TraPPe model)
+U1     0.0       -0.29390      2.093      0.0     -0.0000        1.000      1 ! methane atom           -- methane identity (TraPPe model)
+U2     0.0       -0.19460      2.105      0.0     -0.0000        1.000      0 ! ethane methyl CH3      -- ethane identity  (TraPPe model)
+U2     0.0       -0.00000      2.105      0.0     -0.0000        1.000      1 ! dummy atom             -- methane identity (TraPPe model)
+
+HBOND CUTHB 0.5  ! If you want to do hbond analysis (only), then use
+                 ! READ PARAM APPEND CARD
+                 ! to append hbond parameters from the file: par_hbond.inp
+
+END

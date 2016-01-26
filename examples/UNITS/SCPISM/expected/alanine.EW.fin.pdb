@@ -1,0 +1,27 @@
+REMARKS ProtoMol (built on Dec  6 2007 at 11:06:49) by tcickovs
+REMARKS This .pdb file was created by PDBWriter
+REMARKS It was not manually assembled
+REMARKS Time : 10, step : 10, minimal Image.
+ATOM      1 CAY  ALA P   1     10.5987 -66.927 -34.412     1     0      PEPT     
+ATOM      2 HY1  ALA P   1     10.4854 -67.545 -35.331     1     0      PEPT     
+ATOM      3 HY2  ALA P   1     11.7095 -66.962 -34.134     1     0      PEPT     
+ATOM      4 HY3  ALA P   1     10.3338 -65.845 -34.735     1     0      PEPT     
+ATOM      5 CY   ALA P   1     9.70280 -67.163 -33.307     1     0      PEPT     
+ATOM      6 OY   ALA P   1     9.92073 -66.653 -32.234     1     0      PEPT     
+ATOM      7 N    ALA P   1     8.64208 -67.968 -33.546     1     0      PEPT     
+ATOM      8 HN   ALA P   1     8.52907 -68.547 -34.367     1     0      PEPT     
+ATOM      9 CA   ALA P   1     7.62444 -68.057 -32.470     1     0      PEPT     
+ATOM     10 HA   ALA P   1     7.72834 -67.165 -31.861     1     0      PEPT     
+ATOM     11 CB   ALA P   1     6.28594 -68.460 -33.100     1     0      PEPT     
+ATOM     12 HB1  ALA P   1     5.86452 -67.629 -33.676     1     0      PEPT     
+ATOM     13 HB2  ALA P   1     6.57429 -69.283 -33.812     1     0      PEPT     
+ATOM     14 HB3  ALA P   1     5.52264 -68.749 -32.278     1     0      PEPT     
+ATOM     15 C    ALA P   1     8.08487 -69.293 -31.659     1     0      PEPT     
+ATOM     16 O    ALA P   1     8.54213 -69.195 -30.558     1     0      PEPT     
+ATOM     17 NT   ALA P   1     7.95996 -70.534 -32.218     1     0      PEPT     
+ATOM     18 HNT  ALA P   1     7.66149 -70.619 -33.146     1     0      PEPT     
+ATOM     19 CAT  ALA P   1     8.31711 -71.735 -31.505     1     0      PEPT     
+ATOM     20 HT1  ALA P   1     9.39505 -71.874 -31.684     1     0      PEPT     
+ATOM     21 HT2  ALA P   1     8.21772 -71.739 -30.420     1     0      PEPT     
+ATOM     22 HT3  ALA P   1     7.77888 -72.630 -31.956     1     0      PEPT     
+END

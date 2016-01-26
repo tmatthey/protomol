@@ -1,0 +1,58 @@
+4  unique conformation(s)
+
+The dihedral angles for which dihedral energy maxima are found
+Used to identify bounds on conformation well
+Dihedral Index: 1 angles:  0.174533  0.349066  0.523599  0.698132  0.872665  1.0472  1.22173  1.39626  1.5708  1.74533  1.91986  2.0944  2.26893  2.44346  2.61799  2.79253  2.96706  3.14159  3.31613  3.49066  3.66519  3.83972  4.01426  4.18879  4.36332  4.53786  4.71239  4.88692  5.06145  5.23599  5.41052  5.58505  5.75959  5.93412  6.10865  6.28319 
+
+The dihedral angles for which dihedral energy minima are found
+Used to identify potential rotamer values
+Dihedral Index: 1 angles:  0.174533  0.349066  0.523599  0.698132  0.872665  1.0472  1.22173  1.39626  1.5708  1.74533  1.91986  2.0944  2.26893  2.44346  2.61799  2.79253  2.96706  3.14159  3.31613  3.49066  3.66519  3.83972  4.01426  4.18879  4.36332  4.53786  4.71239  4.88692  5.06145  5.23599  5.41052  5.58505  5.75959  5.93412  6.10865  6.28319 
+
+String S occurred a total of 79 times
+String T occurred a total of 146 times
+String R occurred a total of 10 times
+String U occurred a total of 16 times
+
+The conformation strings
+R
+S
+T
+U
+
+The flip counts
+Dihedral 1 State A flipped a total of 0 times
+Dihedral 1 State B flipped a total of 0 times
+Dihedral 1 State C flipped a total of 0 times
+Dihedral 1 State D flipped a total of 0 times
+Dihedral 1 State E flipped a total of 0 times
+Dihedral 1 State F flipped a total of 0 times
+Dihedral 1 State G flipped a total of 0 times
+Dihedral 1 State H flipped a total of 0 times
+Dihedral 1 State I flipped a total of 0 times
+Dihedral 1 State J flipped a total of 0 times
+Dihedral 1 State K flipped a total of 0 times
+Dihedral 1 State L flipped a total of 0 times
+Dihedral 1 State M flipped a total of 0 times
+Dihedral 1 State N flipped a total of 0 times
+Dihedral 1 State O flipped a total of 0 times
+Dihedral 1 State P flipped a total of 0 times
+Dihedral 1 State Q flipped a total of 0 times
+Dihedral 1 State R flipped a total of 0 times
+Dihedral 1 State S flipped a total of 0 times
+Dihedral 1 State T flipped a total of 0 times
+Dihedral 1 State U flipped a total of 0 times
+Dihedral 1 State V flipped a total of 0 times
+Dihedral 1 State W flipped a total of 0 times
+Dihedral 1 State X flipped a total of 0 times
+Dihedral 1 State Y flipped a total of 0 times
+Dihedral 1 State Z flipped a total of 0 times
+Dihedral 1 State 0 flipped a total of 0 times
+Dihedral 1 State 1 flipped a total of 0 times
+Dihedral 1 State 2 flipped a total of 0 times
+Dihedral 1 State 3 flipped a total of 0 times
+Dihedral 1 State 4 flipped a total of 0 times
+Dihedral 1 State 5 flipped a total of 0 times
+Dihedral 1 State 6 flipped a total of 0 times
+Dihedral 1 State 7 flipped a total of 0 times
+Dihedral 1 State 8 flipped a total of 0 times
+Dihedral 1 State 9 flipped a total of 0 times

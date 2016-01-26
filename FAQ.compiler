@@ -1,0 +1,38 @@
+Why Does ProtoMol not Compile?
+
+1) - 'cd protomol', then type 'make clean;make depend;make'
+   For some reason, sometimes make does not see that some files
+   have changed.
+
+2) - 'cd protomol', then type 'cvs update;' and 'make clean;make depend;make'
+   You may have an inconsistent version of ProtoMol
+
+3) - 'mkdir tmp_pm;cd tmp_pm', then type 'cvs checkout biocomp/protomol'.
+   - 'cd biocomp/protomol' and type 'autoheader; aclocal; autoconf; automake -a;'
+   - Choose your configuration './configure --with-<my-config>'
+   - 'make depend;make'
+   You may did some local changes ... or you have an inconsistent version 
+   of ProtoMol
+
+Why Does my Configuration not work (no Makefiles etc.)?
+
+1) You have to choose the right configuration with the right flags.
+
+2) If you do not find an appropriate configuration, choose the closest one
+   and change the compiler flags (CFLAGS and CXXFLAGS), the compiler 
+   (CC and CXX) and the libraries (LIBS) in the file configure.in
+
+   If your not sure just compile with your flags, libraries and your 
+   compiler the following program: 
+   'int  main (int argc, char* argv[]){return 0;}'
+
+   Call it compilerTest.c for C and compilerTest.C for C++
+
+Why Does ProtoMol core dump/abort?
+
+1) Recompile the whole protomol
+
+2) Use debug flags (-g3)
+
+3) Use a debugger,(e.g., gdb) and run it, type where after the core dump.
+

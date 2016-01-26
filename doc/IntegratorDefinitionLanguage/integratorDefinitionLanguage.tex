@@ -1,0 +1,262 @@
+\documentclass{article}
+
+% IntegratorGeneration.tex
+%
+% Written by:  Branden J. Moore (bmoore@nd.edu)
+%
+% Describes the format of the Integrator section of a configuation
+% file for ProtoMol.
+%
+
+\title{Integrator and Force Declarations for ProtoMol}
+\author{Branden J. Moore\\bmoore@nd.edu}
+
+\begin{document}
+\maketitle
+
+%\tableofcontents
+
+\section{Info}
+First, a couple of notes:
+\begin{itemize}
+\item Whitespace (including newlines) is a delimiter, but it is
+grouped, so any amount of whitespace is treated as 1 delimiter.
+\item The file is not order-specific; the definition of the
+  integration scheme (\texttt{Integrator \{ ... \}}) may be at the
+  beginning, middle or at the end of the file. Force options are not
+  order-specific.
+\item The order of the integrators does not matter, neither does the options
+(cycle-length, temperature, etc).  The order of the forces does not matter,
+as long as they are after the integrator options. Forces may separated
+by comma instead of \texttt{force}.
+\item We recommend the order for the integrators such that the first listed is
+the outermost MTS, and the last one is the innermost STS integrators
+\end{itemize}
+
+\section{N-level MTS Integrator}
+Integrator $\{$\\
+\verb|   |level \textbf{N-1 integrator\_name} $\{$ \# MTS \\
+\verb|   |\verb|   |cyclelength \textbf{value}\\
+\verb|   |\verb|   |...  \# other integrator options\\
+\verb|   |\verb|   |force \textbf{forcename} \emph{forceoptions}\\
+\verb|   |\verb|   |\verb|   |$\vdots$\\
+\verb|   |\verb|   |force \textbf{forcename} \emph{forceoptions}\\
+\verb|   |$\}$   \\
+\verb|   |level \textbf{N-2} \textbf{integrator\_name} $\{$ \# MTS \\
+\verb|   |\verb|   |cyclelength \textbf{value}\\
+\verb|   |\verb|   |...  \# other integrator options\\
+\verb|   |\verb|   |\verb|   |$\vdots$\\
+\verb|   |\verb|   |force \textbf{forcename} \emph{forceoptions}\\
+\verb|   |$\}$  \\ 
+\verb|   |\verb|   |$\vdots$\\
+\verb|   |level \textbf{0} \textbf{integrator\_name} $\{$ \# STS \\
+\verb|   |\verb|   |timestep \textbf{value}\\
+\verb|   |\verb|   |...  \# other integrator options\\
+\verb|   |\verb|   |\verb|   |$\vdots$\\
+\verb|   |\verb|   |force \textbf{forcename} \emph{forceoptions}\\
+\verb|   |$\}$ \\
+$\}$
+
+\section{Integrators}
+In order to get the most recent support of integrator just type \texttt{protomol -i}:
+\begin{itemize}
+\item \textbf{BBK} -- STS Integrator\\
+Variables:
+    timestep,           
+    temperature,        
+    gamma,              
+    seed               
+\item \textbf{BSplineMOLLY} -- MTS Integrator\\
+Variables:
+    cyclelength,        
+    BSplineType,        
+    mollyStepsize      
+\item \textbf{DihedralHMC} -- MTS Integrator\\
+Variables:
+    cyclelength,        
+    temperature,        
+    randomCycLen,       
+    dihedralsSet,       
+    dhmcDiSetFile,      
+    anglesSet,          
+    dhmcAnSetFile      
+\item \textbf{DihedralLiftMC} -- MTS Integrator\\
+Variables:
+    cyclelength,        
+    randomCycLen,       
+    temperature        
+\item \textbf{DMDLeapfrog} -- STS Integrator\\
+Variables:
+    timestep,           
+    iterations,         
+    gamma,              
+    temperature,        
+    seed               
+\item \textbf{EquilibriumMOLLY} -- MTS Integrator\\
+Variables:
+    cyclelength        
+\item \textbf{HybridMC} -- MTS Integrator\\
+Variables:
+    cyclelength,        
+    randomCycLen,       
+    temperature        
+\item \textbf{Impulse} -- MTS Integrator\\
+Variables:
+    cyclelength        
+\item \textbf{LangevinImpulse} -- STS Integrator\\
+Variables:
+    timestep,           
+    temperature,        
+    gamma,              
+    seed               
+\item \textbf{Leapfrog} -- STS Integrator\\
+Variables:
+    timestep           
+\item \textbf{NoseNVTLeapfrog} -- STS Integrator\\
+Variables:
+    timestep,           
+    temperature,        
+    thermal,            
+    bathPos            
+\item \textbf{NPTVerlet} -- STS Integrator\\
+Variables:
+    timestep,           
+    temperature,        
+    pressure,           
+    omegaTo,            
+    omegaTv,            
+    tauP               
+\item \textbf{PaulTrap} -- STS Integrator\\
+Variables:
+    timestep,           
+    temperature,        
+    thermal,            
+    bathPos,            
+    bathVel,            
+    scheme,             
+    part,               
+    time,               
+    t                  
+\item \textbf{PLeapfrog} -- STS Integrator\\
+Variables:
+    timestep           
+\item \textbf{ShadowHMC} -- MTS Integrator\\
+Variables:
+    cyclelength,        
+    randomCycLen,       
+    temperature,        
+    order,             
+    c                  
+\item \textbf{Umbrella} -- MTS Integrator\\
+Variables:
+    cyclelength        
+\item \textbf{Alias}
+HBondMOLLY : BSplineMOLLY 
+\end{itemize}
+
+\section{Forces}
+In order to get the most recent support of force just type
+\texttt{protomol -f}. The force definitions are shown in the exact and
+complete form. Thus, some parameters (keywords) may appear multiple times, but
+they are assigned to different properties (,e.g., C1 switching function
+and cutoff algorithm). For most cases one uses the same value for the
+same parameters (keywords), thus one need only to define the value once. 
+\begin{itemize}
+\item \textbf{Angle}
+\item \textbf{Bond}
+\item \textbf{Dihedral}
+\item \textbf{HarmDihedral}
+\item \textbf{Imporper}
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{Coulomb}
+\item \textbf{LennardJones}
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{CoulombEwaldRealTable}
+\item \textbf{CoulombEwaldReal}
+\item \textbf{CoulombMultiGridDirectTable}
+\item \textbf{CoulombMultiGridDirect}
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{ElectricField}
+\item \textbf{ExternalGravitation}
+\item \textbf{ExternalMagneticField}
+\item \textbf{Friction}
+\item \textbf{GBSolventFreeNotSameMol}
+\item \textbf{Gravitation}
+\item \textbf{Haptic}
+\item \textbf{MagneticDipole}
+\item \textbf{PaulTrap}
+\item \textbf{Spherical}
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{MollyAngle}
+\item \textbf{MollyBond}
+\item \textbf{MollyCoulomb}
+\item \textbf{MollyLennardJonesCoulomb}
+\item \textbf{MollyLennardJones}
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{Alias}\\
+\textbf{CoulombEwald} : Coulomb -algorithm FullEwald -real -reciprocal -correction\\
+\textbf{CoulombPME} : Coulomb -algorithm PMEwald -real -reciprocal -correction -interpolation BSpline
+\end{itemize}
+
+\subsection{Most Important Force Options and Parameters}
+The 
+
+\label{forceopts}
+
+\begin{itemize}
+\item -algorithm ( FullEwald $\|$  MultiGrid $\|$  NonbondedSimpleFull $\|$  NonbondedFull $\|$ 
+  NonbondedCutoff  $\|$ PMEwald )
+\item -SwitchingFunction ( [Complement]C1 $\|$  [Complement]C2 $\|$  [Complement]Cutoff $\|$  [Complement]Range $\|$
+  [Complement]Shift $\|$  Universal )
+\item -cutoff ( \emph{Real} )
+\item -blocksize ( \emph{Integer} )
+\end{itemize}
+
+\subsubsection*{Notes}
+\begin{enumerate}
+\item \emph{-algorithm} defines how the force and energy contributions are computed.
+\item \emph{-switchingFunction} defines how the potential is modified
+  for pair-wise interactions, typically non-bonded forces.
+\item \emph{-blocksize} optional, defines the block size of the sub matrices
+  for direct methods, i.e., NonbondedSimpleFull, NonbondedFull.
+\item \emph{-cutoff} defines the truncation radius of the force
+  algorithm and also the cutoff radius of the applied switching
+  function. For some cases one may have different cutoff's, which means one
+  have to give a complete and exact force parameter definition like is
+  shown by \texttt{protomol -f}.  
+\end{enumerate}
+
+\newpage
+\appendix
+\section{Examples}
+\subsection{2 level MTS}
+\begin{verbatim}
+Integrator {
+    level 1 HybridMC {
+        temperature 500
+        cyclelength 630
+    }
+    level 0 Leapfrog {
+        timestep 1.0
+        force Improper
+        force Dihedral
+        force Bond
+        force Angle
+        force LennardJones
+            -algorithm NonbondedSimpleFull
+    }
+}
+\end{verbatim}
+
+
+\end{document}

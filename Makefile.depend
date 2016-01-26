@@ -1,0 +1,18 @@
+
+depend: $(SOURCEFILES) $(WRAP)
+	@ if test "$(SOURCEFILES)" != ""; then \
+	  echo "$(MAKEDEPEND) $(DEPFLAGS) $(INCLUDES) $(INILIB_CXX_DEPDIRS) -- --" $(SOURCEFILES); \
+	  $(MAKEDEPEND) $(DEPFLAGS) $(INCLUDES) $(INILIB_CXX_DEPDIRS) -- -- $(SOURCEFILES); \
+	fi
+	@set fnord $(MAKEFLAGS); amf=$$2; \
+	if test "$(DEPDIRS)" = ""; then \
+	  foo_dirs="$(SUBDIRS)"; \
+	else \
+	  foo_dirs="$(DEPDIRS)"; \
+	fi; \
+	target=`echo $@ | sed s/-recursive//`; \
+	list="$$foo_dirs"; for subdir in $$list; do \
+	  echo "Making $$target in $$subdir"; \
+	  (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$target) \
+	   || case "$$amf" in *=*) exit 1;; *k*) fail=yes;; *) exit 1;; esac; \
+	done; 

@@ -1,0 +1,71 @@
+\begin{thebibliography}{10}
+
+\bibitem{BHAN01}
+M.~Bhandarkar, R.~Brunner, A.~Dalke, J.~Gullingsrud, A.~Gursoy, W.~Humphrey,
+  D.~Hurwitz, N.~Krawetz, M.~Nelson, J.~Phillips, A.~Shinozaki, G.~Zheng, and
+  F.~Zhu.
+\newblock Namd user's guide: Version 2.3b2.
+\newblock page~11, 405 N. Mathews, Urbana, IL 61801, 2001. Theoretical
+  Biophysics Group at the University of Illinos and Beckman Institute.
+
+\bibitem{dePS80a}
+S.~W. de~Leeuw, J.~W. Perram, and E.~R. Smith.
+\newblock Simulation of electrostatic systems in periodic boundary conditions.
+  {I}. {L}attice sums and dielectric constants.
+\newblock {\em Proc.\ R. Soc.\ Lond. A}, 373:27--56, 1980.
+
+\bibitem{Ewal21}
+P.~Ewald.
+\newblock Die {B}erechnung optischer und elektrostatischer {G}itterpotentiale.
+\newblock {\em Ann. Phys.}, 64:253--287, 1921.
+
+\bibitem{Hamp0x}
+S.~Hampton, P.~Brenner, A.~Wenger, S.~Chatterjee, and J.~A. Izaguirre.
+\newblock Biomolecular sampling: Algorithms, test molecules, and metrics.
+\newblock To appear in \emph{{P}roc. of {A}lgorithms for {M}acromolecular
+  {M}odeling IV}. Lecture Notes in Computational Science and Engineering
+  (LNCSE). Springer Verlag. New York and Berlin. Manuscript available at
+  \url{http://www.nd.edu/~izaguirr/papers/samp-am3.pdf}, 2005.
+
+\bibitem{Izag99}
+J.~A. Izaguirre.
+\newblock {\em Longer Time Steps for Molecular Dynamics}.
+\newblock PhD thesis, University of Illinois at Urbana-Champaign, Urbana,
+  Illinois, USA, 1999.
+
+\bibitem{IzHM05}
+J.~A. Izaguirre, S.~Hampton, and T.~Matthey.
+\newblock Parallel multigrid summation for the {N}-body problem.
+\newblock {\em J.\ Paral.\ Distrib.\ Comp.}, 2005.
+\newblock In press. Manuscript available at
+  \url{http://www.nd.edu/~izaguirr/papers/MaIz0x_JPDC.pdf}.
+
+\bibitem{IzHa04}
+J.~A. Izaguirre and S.~S. Hampton.
+\newblock Shadow hybrid {M}onte {C}arlo: An efficient propagator in phase space
+  of macromolecules.
+\newblock {\em J.\ Comput.\ Phys.}, 200(2):581--604, 2004.
+
+\bibitem{IzRS99}
+J.~A. Izaguirre, S.~Reich, and R.~D. Skeel.
+\newblock Longer time steps for molecular dynamics.
+\newblock {\em J.\ Chem.\ Phys.}, 110(19):9853--9864, 1999.
+
+\bibitem{MaIS03}
+Q.~Ma, J.~A. Izaguirre, and R.~D. Skeel.
+\newblock {V}erlet-{I}/r-{RESPA}/{I}mpulse is limited by nonlinear instability.
+\newblock {\em SIAM J.\ Sci.\ Comput.}, 24(6):1951--1973, 2003.
+
+\bibitem{Matt04}
+T.~Matthey, T.~Cickovski, S.~S. Hampton, A.~Ko, Q.~Ma, M.~Nyerges, T.~Raeder,
+  T.~Slabach, and J.~A. Izaguirre.
+\newblock \textsc{{P}roto{M}ol}: {A}n object-oriented framework for prototyping
+  novel algorithms for molecular dynamics.
+\newblock {\em ACM Trans.\ Math.\ Softw.}, 30(3):237--265, 2004.
+
+\bibitem{SkIz02}
+R.~D. Skeel and J.~A. Izaguirre.
+\newblock An impulse integrator for {L}angevin dynamics.
+\newblock {\em Mol.\ Phys.}, 100(24):3885--3891, 2002.
+
+\end{thebibliography}

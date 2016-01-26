@@ -1,0 +1,108 @@
+\begin{thebibliography}{10}
+
+\bibitem{ChCG97}
+Z.~M. Chen, T.~Cagin, and W.~A. Goddard.
+\newblock Fast {E}wald sums for general van der {W}aals potentials.
+\newblock {\em J. Comp. Chem.}, 18:1365--1370, 1997.
+
+\bibitem{DaYP93}
+T.~Darden, D.~York, and L.~Pedersen.
+\newblock Particle mesh {E}wald: An {N} log({N}) method for {E}wald sums in
+  large systems.
+\newblock {\em J.\ Chem.\ Phys.}, 98(12):10089--10092, 1993.
+
+\bibitem{LPSm80}
+S.~W. de~Leeuw, J.~W. Perram, and E.~R. Smith.
+\newblock Simulation of electrostatic systems in periodic boundary conditions.
+\newblock {\em Proceedings of the Royal Society of London. Series A,
+  Mathematical and Physical Sciences}, 373(1752):27--56, 1980.
+
+\bibitem{DeHo98}
+M.~Deserno and C.~Holm.
+\newblock How to mesh up {E}wald sums. {I}. {A} theoretical and numerical
+  comparison of various particle mesh routines.
+\newblock {\em J.\ Chem.\ Phys.}, 109(18):7678--7693, 1998.
+
+\bibitem{EsPB95}
+U.~Essmann, L.~Perera, and M.~L. Berkowitz.
+\newblock A smooth particle mesh {E}wald method.
+\newblock {\em J.\ Chem.\ Phys.}, 103(19):8577--8593, 1995.
+
+\bibitem{Ewal21}
+P.~Ewald.
+\newblock Die {B}erechnung optischer und elektrostatischer {G}itterpotentiale.
+\newblock {\em Ann. Phys.}, 64:253--287, 1921.
+
+\bibitem{Finc94}
+D.~Fincham.
+\newblock Optimisation of the {E}wald sum for large systems.
+\newblock {\em Mol. Sim.}, 13:1--9, 1994.
+
+\bibitem{Gao98}
+G.~Gao.
+\newblock {\em Large Scale Molecular Simulations with Application to Polymers
+  and Nano-scale Materials}.
+\newblock PhD thesis, Caltech, 1998.
+
+\bibitem{HoEa81}
+R.~W. Hockney and J.~W. Eastwood.
+\newblock {\em Computer Simulation Using Particles}.
+\newblock McGraw-Hill, New York, 1981.
+
+\bibitem{Kale99}
+L.~Kal{\'e}, R.~Skeel, M.~Bhandarkar, R.~Brunner, A.~Gursoy, N.~Krawetz,
+  J.~Phillips, A.~Shinozaki, K.~Varadarajan, and K.~Schulten.
+\newblock {NAMD2: G}reater scalability for parallel molecular dynamics.
+\newblock {\em J.\ Comput.\ Phys.}, 151:283--312, 1999.
+
+\bibitem{KaGo89}
+N.~Karawasa and W.~A. Goddard.
+\newblock Acceleration of convergence for lattice sums.
+\newblock {\em J.\ Phys.\ Chem.}, 93:7320, 1989.
+
+\bibitem{KaMi01}
+M.~Kawata and M.~Mikami.
+\newblock Rapid calculation of two-dimensional {E}wald summation.
+\newblock {\em Chemical Physics Letters}, 340(1-2):157--164, 2001.
+
+\bibitem{KaNa01}
+M.~Kawata and U.~Nagashima.
+\newblock Particle mesh {E}wald method for three-dimensional systems with
+  two-dimensional periodicity.
+\newblock {\em Chemical Physics Letters}, 340(1-2):165--172, 2001.
+
+\bibitem{KoPe92}
+J.~Kolafa and J.~W. Perram.
+\newblock Cutoff errors in the {E}wald summation formulae for point charge
+  systems.
+\newblock {\em Molecular Simulation}, 9:351--368, 1992.
+
+\bibitem{LaHC01}
+D.~J. Langridge, J.~F. Hart, and S.~Crampin.
+\newblock Ewald summation technique for one-dimensional charge distributions.
+\newblock {\em Comput.\ Phys.\ Commun.}, 134(1):78--85, 2001.
+
+\bibitem{PePL88}
+J.~W. Perram, H.~G. Petersen, and S.~W. de~Leeuw.
+\newblock An algorithm for the simulation of condensed matter which grows as
+  the $\frac{3}{2}$ power of the number of particles.
+\newblock {\em Mol. Phys.}, 65:875--893, 1988.
+
+\bibitem{Pete95}
+H.~G. Petersen.
+\newblock Accuracy and efficiency of the particle mesh {E}wald method.
+\newblock {\em J.\ Chem.\ Phys.}, 103(3668--3679), 1995.
+
+\bibitem{Refs00}
+K.~Refson.
+\newblock Moldy: {A} portable molecular dynamics simulation program for serial
+  and parallel computers.
+\newblock {\em Comput.\ Phys.\ Commun.}, 126(3):309--328, 2000.
+
+\bibitem{WaHo01}
+Z.~Wang and C.~Holm.
+\newblock Estimate of the cutoff errors in the {E}wald summation for dipolar
+  systems.
+\newblock {\em J.\ Chem.\ Phys.}, 115(14):6351--6359, 2001.
+
+\end{thebibliography}

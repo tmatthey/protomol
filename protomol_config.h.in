@@ -1,0 +1,191 @@
+/* protomol_config.h.in.  Generated from configure.in by autoheader.  */
+
+/* Define to 1 if you have the `clock_gettime' function. */
+#undef HAVE_CLOCK_GETTIME
+
+/* Define to 1 if you have the <c_asm.h> header file. */
+#undef HAVE_C_ASM_H
+
+/* Define to 1 if you have the `gethrtime' function. */
+#undef HAVE_GETHRTIME
+
+/* Define to 1 if hrtime_t is defined in <sys/time.h> */
+#undef HAVE_HRTIME_T
+
+/* Define to 1 if you have the <intrinsics.h> header file. */
+#undef HAVE_INTRINSICS_H
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `complib.sgimath' library (-lcomplib.sgimath).
+   */
+#undef HAVE_LIBCOMPLIB_SGIMATH
+
+/* Define to 1 if you have the `essl' library (-lessl). */
+#undef HAVE_LIBESSL
+
+/* Define to 1 if you have the `fftw' library (-lfftw). */
+#undef HAVE_LIBFFTW
+
+/* Define to 1 if you have the `fftw3' library (-lfftw3). */
+#undef HAVE_LIBFFTW3
+
+/* Define to 1 if you have the `fftw_mpi' library (-lfftw_mpi). */
+#undef HAVE_LIBFFTW_MPI
+
+/* Define to 1 if you have the `GL' library (-lGL). */
+#undef HAVE_LIBGL
+
+/* Define to 1 if you have the `GLU' library (-lGLU). */
+#undef HAVE_LIBGLU
+
+/* Define to 1 if you have the `glut' library (-lglut). */
+#undef HAVE_LIBGLUT
+
+/* Define to 1 if you have the `ICE' library (-lICE). */
+#undef HAVE_LIBICE
+
+/* Define to 1 if you have the `lapack' library (-llapack). */
+#undef HAVE_LIBLAPACK
+
+/* Define to 1 if you have the `png' library (-lpng). */
+#undef HAVE_LIBPNG
+
+/* Define to 1 if you have the `SimTKlapack' library (-lSimTKlapack). */
+#undef HAVE_LIBSIMTKLAPACK
+
+/* Define to 1 if you have the `SM' library (-lSM). */
+#undef HAVE_LIBSM
+
+/* Define to 1 if you have the `socket' library (-lsocket). */
+#undef HAVE_LIBSOCKET
+
+/* Define to 1 if you have the `X11' library (-lX11). */
+#undef HAVE_LIBX11
+
+/* Define to 1 if you have the `Xext' library (-lXext). */
+#undef HAVE_LIBXEXT
+
+/* Define to 1 if you have the `Xi' library (-lXi). */
+#undef HAVE_LIBXI
+
+/* Define to 1 if you have the `Xmu' library (-lXmu). */
+#undef HAVE_LIBXMU
+
+/* Define to 1 if you have the `Xt' library (-lXt). */
+#undef HAVE_LIBXT
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define if you have the read_real_time(). */
+#undef HAVE_READ_REAL_TIME
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define if you have the time_base_to_time(). */
+#undef HAVE_TIME_BASE_TO_TIME
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define if you have the UNICOS _rtc() intrinsic. */
+#undef HAVE__RTC
+
+/* Define for int 32-bit. */
+#undef INT32_TYPE
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* ProtoMol cite */
+#undef PACKAGE_CITE
+
+/* Compiler */
+#undef PACKAGE_COMPILER
+
+/* Compiler version */
+#undef PACKAGE_COMPILER_VERSION
+
+/* ProtoMol URL */
+#undef PACKAGE_HOMEPAGE
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* System, platform */
+#undef PACKAGE_UNAME
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* User */
+#undef PACKAGE_WHOAMI
+
+/* The size of a `char', as computed by sizeof. */
+#undef SIZEOF_CHAR
+
+/* The size of a `int', as computed by sizeof. */
+#undef SIZEOF_INT
+
+/* The size of a `long', as computed by sizeof. */
+#undef SIZEOF_LONG
+
+/* The size of a `short', as computed by sizeof. */
+#undef SIZEOF_SHORT
+
+/* The size of a `size_t', as computed by sizeof. */
+#undef SIZEOF_SIZE_T
+
+/* The size of a `void*', as computed by sizeof. */
+#undef SIZEOF_VOIDP
+
+/* Socket lenght. */
+#undef SOCKLEN_TYPE
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
+#undef TIME_WITH_SYS_TIME
+
+/* Version number of package */
+#undef VERSION
+
+/* Define to 1 if the X Window System is missing or not being used. */
+#undef X_DISPLAY_MISSING
+
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
+#undef inline
+#endif

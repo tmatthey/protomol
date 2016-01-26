@@ -1,0 +1,60 @@
+#include "registerOutputExemplars.h"
+#include "OutputBSDL.h"
+#include "OutputDCDTrajectory.h"
+#include "OutputDCDTrajectoryNoWater.h"
+#include "OutputDCDTrajectoryVel.h"
+#include "OutputDiffusion.h"
+#include "OutputDihedrals.h"
+#include "OutputEnergies.h"
+#include "OutputFactory.h"
+#include "OutputFinalPDBPos.h"
+#include "OutputFinalXYZBinPos.h"
+#include "OutputFinalXYZBinVel.h"
+#include "OutputFinalXYZBinVelRev.h"
+#include "OutputFinalXYZPos.h"
+#include "OutputFinalXYZVel.h"
+#include "OutputMomentum.h"
+#include "OutputPDBFramePos.h"
+#include "OutputPaulTrap.h"
+#include "OutputREMExchangeRate.h"
+#include "OutputREMHistory.h"
+#include "OutputScreen.h"
+#include "OutputState.h"
+#include "OutputTemperatures.h"
+#include "OutputXYZTrajectoryForce.h"
+#include "OutputXYZTrajectoryPos.h"
+#include "OutputXYZTrajectoryVel.h"
+#include "OutputXYZBinTrajectoryPos.h"
+#include "OutputXYZBinTrajectoryVel.h"
+
+namespace ProtoMol {
+
+  void registerOutputExemplars(){
+    OutputFactory::registerExemplar(new OutputBSDL());
+    OutputFactory::registerExemplar(new OutputDCDTrajectory());
+    OutputFactory::registerExemplar(new OutputDCDTrajectoryNoWater());
+    OutputFactory::registerExemplar(new OutputDCDTrajectoryVel());
+    OutputFactory::registerExemplar(new OutputDiffusion());
+    OutputFactory::registerExemplar(new OutputDihedrals());
+    OutputFactory::registerExemplar(new OutputEnergies());
+    OutputFactory::registerExemplar(new OutputFinalPDBPos());
+    OutputFactory::registerExemplar(new OutputFinalXYZBinPos());
+    OutputFactory::registerExemplar(new OutputFinalXYZBinVel());
+    OutputFactory::registerExemplar(new OutputFinalXYZBinVelRev());
+    OutputFactory::registerExemplar(new OutputFinalXYZPos());
+    OutputFactory::registerExemplar(new OutputFinalXYZVel());
+    OutputFactory::registerExemplar(new OutputMomentum());
+    OutputFactory::registerExemplar(new OutputPDBFramePos());
+    OutputFactory::registerExemplar(new OutputPaulTrap());
+    OutputFactory::registerExemplar(new OutputREMExchangeRate());
+    OutputFactory::registerExemplar(new OutputREMHistoryFile());
+    OutputFactory::registerExemplar(new OutputScreen());
+    OutputFactory::registerExemplar(new OutputState());
+    OutputFactory::registerExemplar(new OutputTemperatures());
+    OutputFactory::registerExemplar(new OutputXYZTrajectoryForce());
+    OutputFactory::registerExemplar(new OutputXYZTrajectoryPos());
+    OutputFactory::registerExemplar(new OutputXYZTrajectoryVel());
+    OutputFactory::registerExemplar(new OutputXYZBinTrajectoryPos());    
+    OutputFactory::registerExemplar(new OutputXYZBinTrajectoryVel());    
+  }
+}

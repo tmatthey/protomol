@@ -1,0 +1,82 @@
+*>>>> Transformation path File for ethane/methane mixture <<<<<<<<<<<<<<<
+*>>>>>>>>>>>>>>>>>> October 2004 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+*>>>>>>>>>>>>>> Prepared by T. I. Morrow <<<<<<<<<<<<<<<<<<<<<<<<
+
+! REMARKS
+! Revision 1 -- September 2004 -- Includes TraPPe United-Atom forcefield for ethane
+!                                 and methane
+!
+! The IDENTITIES number is the number of different identities that each atom type
+! can adopt (it will be equal to the number of mixture components).  Thus, each 
+! atom type will have (IDENTITIES) sets of mass and charge parameters. 
+! 
+! The STAGES number is the number of stages that the molecular transformation is to 
+! be broken into. Each atom type must have a stage number for each of its identities.
+! This stage number for each atom type identity indicates at what stage the atom is
+! to be transformed if the molecule is currently in that identity.  For example,
+! for an N-stage transformation, if an atom type with identity A has a stage number
+! of 1, that means that if the molecule has identity A and is being transformed to
+! any other identity, that atom will be transformed in the very first stage.  If the
+! atom type with identity A had a stage number of N, then that atom would be transformed
+! in the very last stage. For a mixture of N components, there should be N*(N-1)/2
+! ideal gas state chemical potential differences listed per stage. Each transformation
+! stage must have an ideal gas chemical potential difference listed, even if it is zero. -- TIM
+!
+IDENTITIES
+2
+!  identity 1 = ethane
+!  identity 2 = methane
+!
+STAGES
+1
+!
+!
+IDEAL_GAS_DELTAMU
+!
+! If any intramolecular interactions are mutated (bonds, angles, dihedrals, impropers or 1-4+ LJ and coulomb interactions)
+! then the free energy of mutation (i.e. chemical potential difference) of the intramolecular interactions in the ideal gas
+! state must be listed here.  If no intramolecular interactions are to be mutated, then the ideal gas state chemical potential
+! difference is zero. -- TIM
+!
+! stage    old identity    new identity    DeltaMu --> (Mu[new] - Mu[old]) in ideal gas state in kcal/mol
+!
+1               1                2           0.0                
+1               2                1           0.0     
+!
+!
+TYPES
+!
+! Here we list the permanent mass and charge each atom has for each of its identities.
+! You must also give a stage number for each identity of each atom type as mentioned above.
+!
+! atom   mass      charge     identity   stage  
+!
+!-- single topology LJ parameters for iSGMD simulations
+!-- for the UA model
+U1    15.0344    0.000000        1        1    ! methyl CH3 atom        -- ethane identity
+U1    16.0423    0.000000        2        1    ! methane atom           -- methane identity    
+U2    15.0344    0.000000        1        1    ! methyl CH3 atom        -- ethane identity 
+U2    15.0344    0.000000        2        1    ! dummy atom             -- methane identity 
+!
+CHARGES
+!
+! Since it is often difficult to complete a single-stage transformation in which relatively strong atomic
+! charges must be drastically changed or even reduced to zero, it is convenient to define a set of intermediate
+! states so that the atomic charges can be changed more gradually. This can be done by specifying intermediate
+! atomic charges for each stage of a particular transformation,  In this section we list the charge on each atom
+! for each stage of a particular transformation.  You can also specify a value for the soft-core Lennard-Jones
+! alpha parameter for a particular atomic transformation.  If you do not provide any numbers at all in the 
+! alpha LJ column, a default value of 0.5 will be used for the alphaLJ of each atom type. (Note: the way the
+! code is currently set up, LJ interactions are completely transformed in one and only particular stage, so you
+! need only to list an atomtype's alphaLJ parameter for one stage) 
+!
+! stage  atom     old identity   new identity   old charge   new charge   alphaLJ
+!
+!-- single topology LJ parameters for iSGMD simulations
+!-- for the UA model
+! initial stage
+1        U1           1              2          0.000000     0.000000      0.0 
+1        U1           2              1          0.000000     0.000000      0.0
+1  	 U2    	      1		     2	        0.000000     0.000000      0.5
+1	 U2           2              1          0.000000     0.000000      0.5
+END

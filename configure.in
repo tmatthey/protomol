@@ -1,0 +1,1435 @@
+# -*- shell-script -*-
+#
+#
+
+
+#
+# Init autoconf
+#
+
+# 2.53
+AC_PREREQ(2.52)
+AC_INIT(protomol,2.1,protomol@cse.nd.edu)
+
+# 2.13  cp configure.ac configure.in
+#AC_INIT(README)
+#AC_DEFINE_UNQUOTED(PACKAGE_BUGREPORT,"protomol@cse.nd.edu",[Define to the address where bug reports for this package should be sent.])
+#AC_DEFINE_UNQUOTED(PACKAGE_NAME,"protomol",[Define to the full name of this package.])
+#AC_DEFINE_UNQUOTED(PACKAGE_STRING,"protomol 2.1",[Define to the full name and version of this package.])
+#AC_DEFINE_UNQUOTED(PACKAGE_TARNAME,"protomol",[Define to the one symbol short name of this package.])
+#AC_DEFINE_UNQUOTED(PACKAGE_VERSION,"2.1",[Define to the version of this package.])
+
+AC_CONFIG_AUX_DIR(./config)
+#AC_CANONICAL_TARGET
+
+# Avoid generating makefile rules to rebuild maintainer-only files by
+# default.  Maintainers may override this default and generate these
+# makefile rules using the `--enable-maintainer-mode' configure option.
+#AM_MAINTAINER_MODE
+
+#  Major Framework release number
+PROTOMOL_MAJOR_VERSION=2
+#  Minor Framework release number
+PROTOMOL_MINOR_VERSION=0
+#  Increment after every source code change
+PROTOMOL_PATCH_LEVEL=4
+#  Combined version number
+VERSION=$PROTOMOL_MAJOR_VERSION.$PROTOMOL_MINOR_VERSION.$PROTOMOL_PATCH_LEVEL
+
+AM_INIT_AUTOMAKE(protomol,$VERSION)
+AM_CONFIG_HEADER(protomol_config.h)
+
+#  Report what was found
+AC_MSG_CHECKING(major version)
+AC_MSG_RESULT($PROTOMOL_MAJOR_VERSION)
+AC_MSG_CHECKING(minor version)
+AC_MSG_RESULT($PROTOMOL_MINOR_VERSION)
+AC_MSG_CHECKING(patchlevel)
+AC_MSG_RESULT($PROTOMOL_PATCH_LEVEL)
+
+AC_SUBST(PROTOMOL_MAJOR_VERSION)
+AC_SUBST(PROTOMOL_MINOR_VERSION)
+AC_SUBST(PROTOMOL_PATCH_LEVEL)
+
+# Calculate libtool versioning information
+LT_RELEASE=$PROTOMOL_MAJOR_VERSION.$PROTOMOL_MINOR_VERSION
+LT_CURRENT=$PROTOMOL_INTERFACE_VERSION
+LT_REVISION=0 #`expr $PROTOMOL_PATCH_LEVEL - $PROTOMOL_INTERFACE_VERSION`
+LT_AGE=0 #`expr $PROTOMOL_INTERFACE_VERSION - $PROTOMOL_BINARY_VERSION`
+
+AC_SUBST(LT_RELEASE)
+AC_SUBST(LT_CURRENT)
+AC_SUBST(LT_REVISION)
+AC_SUBST(LT_AGE)
+
+# 
+# Defines
+#
+
+AC_DEFINE_UNQUOTED(PACKAGE_HOMEPAGE,"http://protomol.sourceforge.net",[ProtoMol URL])
+AC_DEFINE_UNQUOTED(PACKAGE_CITE,["Please cite T. Matthey, T. Cickovski, S. S. Hampton, A. Ko, Q. Ma, M. Nyerges, T. Raeder,\nT. Slabach, and J. A. Izaguirre. ProtoMol: An object-oriented framework for prototyping\nnovel algorithms for molecular dynamics. ACM Trans. Math. Softw., 30(3):237­265, 2004."],[ProtoMol cite])
+AC_DEFINE_UNQUOTED(PACKAGE_UNAME,"`uname -a`",[System, platform])
+AC_DEFINE_UNQUOTED(PACKAGE_WHOAMI,"`whoami`",[User])
+AC_DEFINE_UNQUOTED(PACKAGE_BUGREPORT,"protomol@cse.nd.edu",[Define to the address where bug reports for this package should be sent.])
+
+
+#
+# Compiler
+#
+use_preset=0
+AC_ARG_WITH(fft,                    [  --with-fft=sgi|essl|fftw3|fftw2|fft2mpi|zfft Specify the FFT                                            ])
+AC_ARG_WITH(fftw3,                  [  --with-fftw3=DIR                             Specify the FFTW3 install path and enable FFTW3            ])
+AC_ARG_WITH(fftw2,                  [  --with-fftw2=DIR                             Specify the FFTW2 install path and enable FFTW2            ])
+AC_ARG_WITH(fftw2mpi,               [  --with-fftw2mpi=DIR                          Specify the FFTW2 MPI install path and enable FFTW2 MPI    ])
+AC_ARG_WITH(glut,                   [  --with-glut=DIR|no|yes                       Specify the GLUT install path and enable GLUT              ])
+AC_ARG_WITH(lapack,                 [  --with-lapack(=simtk)                        Enable/Disable Lapack or SimTKlapack                       ])
+AC_ARG_WITH(lapack_dir,             [  --with-lapack-dir=DIR                        Specify alternate directory for Lapack libs/includes       ])
+AC_ARG_WITH(boost,                  [  --with-boost=DIR                             Specify directory for boost installation                   ])
+AC_ARG_WITH(aix_xlc,                [  --with-aix-xlc                               Use xlC   for AIX with optimization flags                  ],use_preset=1)
+AC_ARG_WITH(aix_xlc_debug,          [  --with-aix-xlc-debug                         Use xlC   for AIX with debugging flags                     ],use_preset=1)
+AC_ARG_WITH(aix_xlc_mpi,            [  --with-aix-xlc-mpi                           Use xlC   for AIX with MPI and optimization flags          ],use_preset=1)
+AC_ARG_WITH(aix_xlc_mpi_debug,      [  --with-aix-xlc-mpi-debug                     Use xlC   for AIX with MPI and debugging flags             ],use_preset=1)
+AC_ARG_WITH(gcc,                    [  --with-gcc                                   Use g++   for generic with optimization flags              ],use_preset=1)
+AC_ARG_WITH(gcc_debug,              [  --with-gcc-debug                             Use g++   for generic with debugging flags                 ],use_preset=1)
+AC_ARG_WITH(gcc_debug_gdb,          [  --with-gcc-debug-gdb                         Use g++   for generic with debugging and gdb flags         ],use_preset=1) 
+AC_ARG_WITH(gcc_mpich,              [  --with-gcc-mpich                             Use g++   for generic with MPICH flags                     ],use_preset=1)
+AC_ARG_WITH(gcc_mpich_debug,        [  --with-gcc-mpich-debug                       Use g++   for generic with MPICH debug flags               ],use_preset=1)
+AC_ARG_WITH(gcc_opteron,            [  --with-gcc-opteron                           Use g++   for Opteron 64 with optimization flags           ],use_preset=1)
+AC_ARG_WITH(gcc_opteron_debug,      [  --with-gcc-opteron-debug                     Use g++   for Opteron 64 with debug flags                  ],use_preset=1)
+AC_ARG_WITH(gcc_xeon,               [  --with-gcc-xeon                              Use g++   for Xeon with optimization flags                 ],use_preset=1)
+AC_ARG_WITH(gcc_xeon_debug,         [  --with-gcc-xeon-debug                        Use g++   for Xeon with debug flags                        ],use_preset=1)
+AC_ARG_WITH(hpux_cc,                [  --with-hpux-cc                               Use aCC   for HPUX optimization flags                      ],use_preset=1)
+AC_ARG_WITH(hpux_cc_debug,          [  --with-hpux-cc-debug                         Use aCC   for HPUX with debugging flags                    ],use_preset=1)
+AC_ARG_WITH(hpux_cc_mpi,            [  --with-hpux-cc-mpi                           Use aCC   for HPUX with MPI and optimization flags         ],use_preset=1)
+AC_ARG_WITH(hpux_cc_mpi_debug,      [  --with-hpux-cc-mpi-debug                     Use aCC   for HPUX with MPI and debugging flags            ],use_preset=1)
+AC_ARG_WITH(icc,                    [  --with-icc                                   Use icc   for generic with optimization flags              ],use_preset=1)
+AC_ARG_WITH(icc_debug,              [  --with-icc-debug                             Use icc   for generic with debugging flags                 ],use_preset=1)
+AC_ARG_WITH(icc_mpich,              [  --with-icc-mpich                             Use icc   for generic with MPICH and optimization flags    ],use_preset=1)
+AC_ARG_WITH(icc_mpich_debug,        [  --with-icc-mpich-debug                       Use icc   for generic with MPICH and debugging flags       ],use_preset=1)
+AC_ARG_WITH(irix_mipspro,           [  --with-irix-mipspro                          Use CC    for IRIX with optimization flags                 ],use_preset=1)
+AC_ARG_WITH(irix_mipspro_debug,     [  --with-irix-mipspro-debug                    Use CC    for IRIX with debugging flags                    ],use_preset=1)
+AC_ARG_WITH(irix_mipspro_mpi,       [  --with-irix-mipspro-mpi                      Use CC    for IRIX with MPI and optimization flags         ],use_preset=1)
+AC_ARG_WITH(irix_mipspro_mpi_debug, [  --with-irix-mipspro-mpi-debug                Use CC    for IRIX with MPI and debugging flags            ],use_preset=1)
+AC_ARG_WITH(ppc_xlc,                [  --with-ppc-xlc                               Use xlC   for PPC with optimization flags                  ],use_preset=1)
+AC_ARG_WITH(ppc_xlc_debug,          [  --with-pcc-xlc-debug                         Use xlC   for PPC with debugging flags                     ],use_preset=1)
+AC_ARG_WITH(sun_gcc,                [  --with-sun-gcc                               Use g++   for SUN with optimization flags                  ],use_preset=1)
+AC_ARG_ENABLE(framework_mpi,        [  --disable-framework-mpi                      Disable MPI flags for the framework                        ], enable_framework_mpi=$enableval, enable_framework_mpi=yes)
+if test "$enable_framework_mpi" = "yes"; then
+  mpi_flags="-DHAVE_APP_MPI -DHAVE_MPI"  
+else
+  mpi_flags="-DHAVE_APP_MPI"  
+fi
+
+
+# 2.53
+AC_LANG(C++)
+AC_PROG_CXX([aCC mpCC_r xlC_r xlC xlc++ CC icpc icc g++ cxx  mpic++ mpicxx mpiCC])
+
+have_lapack=false
+have_simtklapack=false
+#  --------------------------------------------------------------------------  #
+#  Lapack
+#  --------------------------------------------------------------------------  #
+
+LAPACK_LIBS=""
+LAPACK_CFLAGS=""
+
+if( test "$with_lapack" = yes || test "$with_lapack" = true ||
+    test "$with_lapack" = simtk ) then
+
+    LIBS=$save_libs
+    CFLAGS=$save_cflags
+    CPPFLAGS=$save_cppflags
+
+
+    if( test x"$with_lapack_dir" != x ) then
+
+        if( test x"$with_lapack_dir/include" != x &&
+            test x"$with_lapack_dir/lib" != x ) then
+
+            LAPACK_INCLUDE_DIR="-I$with_lapack_dir/include"
+            LAPACK_LIB_DIR="-L$with_lapack_dir/lib"
+
+        else
+
+            LAPACK_INCLUDE_DIR="-I$with_lapack_dir"
+            LAPACK_LIB_DIR="-L$with_lapack_dir"
+
+        fi
+
+        #LIBS="$LAPACK_LIB_DIR"
+        CFLAGS="$CFLAGS $LAPACK_INCLUDE_DIR"
+        CPPFLAGS="$CPPFLAGS $LAPACK_INCLUDE_DIR"
+
+        LAPACK_LIBS="$LAPACK_LIB_DIR"
+        LAPACK_CFLAGS="$LAPACK_INCLUDE_DIR"
+
+    fi
+
+
+    if( test "$with_lapack" = simtk ) then
+        have_simtklapack=true
+
+        #AC_CHECK_LIB( SimTKlapack, dsyevr_, , [have_simtklapack=false] )
+        AC_CHECK_HEADER( SimTKlapack.h, , [have_simtklapack=false] )
+
+        if( test $have_simtklapack = false ) then
+            echo "Warning: No SimTKlapack libraries found"
+        else
+            echo "Using SimTKlapack"
+            LAPACK_LIBS="$LAPACK_LIBS -lSimTKlapack"
+            LAPACK_CFLAGS="$LAPACK_CFLAGS -DHAVE_LAPACK -DHAVE_SIMTK_LAPACK"
+        fi
+
+    else
+
+        have_lapack=true
+
+        #AC_CHECK_LIB( lapack, dsyev_, , [have_lapack=false], [ -lg2c -lblas ] )
+
+        if( test $have_lapack = false ) then
+            echo "Warning: No lapack libraries found"
+        else
+            echo "Using lapack"
+            LAPACK_LIBS="$LAPACK_LIBS -llapack -lblas -lg2c"
+            LAPACK_CFLAGS="$LAPACK_CFLAGS -DHAVE_LAPACK"
+        fi
+
+    fi
+
+
+    if ( test "$have_lapack" = false && test "$have_simtklapack" = false ) then
+
+        LAPACK_LIBS=""
+        LAPACK_CFLAGS=""
+
+    fi
+
+fi
+
+AC_SUBST( LAPACK_CFLAGS )
+AC_SUBST( LAPACK_LIBS )
+
+#--------------------------------------------------------------------
+
+
+
+#
+if test $use_preset = 0; then
+    AC_MSG_RESULT([Auto detection of compiler: $CXX])
+fi
+unset ac_cv_prog_ac_ct_CC
+unset ac_cv_prog_ac_ct_CXX
+
+
+AC_MSG_CHECKING([preset g++     for SUN with optimization flags                  ])
+WANT_SUN_GCC_FLAGS=0
+if test "$with_sun_gcc" = "yes"; then
+    WANT_SUN_GCC_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="gcc"
+    CFLAGS="-Wall -O9 -ffast-math -finline-functions -funroll-loops -mcpu=ultrasparc -m32 -U_LP64 -U__sparc_v9__ -U__sparcv9 -DNDEBUG"
+    CXX="g++"
+    CXXFLAGS="-Wall -O9 -ffast-math -finline-functions -funroll-loops -mcpu=ultrasparc -m32 -U_LP64 -U__sparc_v9__ -U__sparcv9 -DNDEBUG"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+
+WANT_IRIX_MIPSPRO_MPI_FLAGS=0
+AC_MSG_CHECKING([preset CC      fro IRIX with MPI and optimization flags         ])
+if (test "$with_irix_mipspro_mpi" = "yes" || ((test $use_preset = 0) && test $CXX = "CC" )) then
+    WANT_IRIX_MIPSPRO_MPI_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="cc"
+    CFLAGS="-Wl,-read -fullwarn -woff 1209,1506 -mips4 -Ofast=ip35 -64 -DNDEBUG $mpi_flags -DMPI_NO_CPPBIND"
+    CXX="CC"
+    CXXFLAGS="-Wl,-read -fullwarn -woff 3649,3625,1209,3201,1424,1110,1506,1182 -mips4 -Ofast=ip35 -64 -LANG:std -LANG:restrict=ON -LANG:ansi-for-init-scope=ON -DNDEBUG $mpi_flags -DMPI_NO_CPPBIND"
+    LIBS="-lmpi -lsma -lm"
+    DEPFLAGS="-LANG:std"
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_IRIX_MIPSPRO_MPI_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset CC      for IRIX with MPI and debugging flags            ])
+if test "$with_irix_mipspro_mpi_debug" = "yes"; then
+    WANT_IRIX_MIPSPRO_MPI_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="cc"
+    CFLAGS="-Wl,-read -fullwarn -woff 1209,1506 -mips4 -O2 -64 $mpi_flags -DMPI_NO_CPPBIND"
+    CXX="CC"
+    CXXFLAGS="-Wl,-read -fullwarn -woff 3649,3625,1209,3201,1424,1110,1506,1182 -mips4 -O2 -64  -LANG:std -LANG:restrict=ON -LANG:ansi-for-init-scope=ON $mpi_flags -DMPI_NO_CPPBIND"
+    LIBS="-lmpi -lsma -lm"
+    DEPFLAGS="-LANG:std"
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_IRIX_MIPSPRO_FLAGS=0
+AC_MSG_CHECKING([preset CC      for IRIX with optimization flags                 ])
+if test "$with_irix_mipspro" = "yes"; then
+    WANT_IRIX_MIPSPRO_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="cc"
+    CFLAGS="-Wl,-read -fullwarn -woff 1209,1506 -mips4 -Ofast=ip35 -64 -DNDEBUG"
+    CXX="CC"
+    CXXFLAGS="-Wl,-read -fullwarn -woff 3649,3625,1209,3201,1424,1110,1506,1182  -mips4 -Ofast=ip35 -64 -LANG:std -LANG:restrict=ON -LANG:ansi-for-init-scope=ON -DNDEBUG"
+    LIBS="-lm"
+    DEPFLAGS="-LANG:std"
+else
+    AC_MSG_RESULT([no])
+fi
+
+
+WANT_IRIX_MIPSPRO_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset CC      for IRIX with debugging flags                    ])
+if test "$with_irix_mipspro_debug" = "yes"; then
+    WANT_IRIX_MIPSPRO_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="cc"
+    CFLAGS="-Wl,-read -fullwarn -woff 1209,1506 -mips4 -O2 -64"
+    CXX="CC"
+    CXXFLAGS="-Wl,-read -fullwarn -woff 3649,3625,1209,3201,1424,1110,1506,1182  -mips4 -O2 -64 -LANG:std -LANG:restrict=ON -LANG:ansi-for-init-scope=ON"
+    LIBS="-lm"
+    DEPFLAGS="-LANG:std"
+else
+    AC_MSG_RESULT([no])
+fi
+
+
+WANT_ICC_FLAGS=0
+AC_MSG_CHECKING([preset icc     for generic with optimization flags              ])
+if (test "$with_icc" = "yes" || ((test $use_preset = 0) && (test $CXX = "icc" || test $CXX = "icpc"))) then
+    unset CC
+    unset CXX
+    WANT_ICC_FLAGS=1
+    AC_MSG_RESULT([yes])
+    AC_LANG(C++)
+    AC_PROG_CXX([icpc icc])
+    AC_LANG(C)
+    AC_PROG_CC([icpc icc])
+    CFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -O3 -ip -DNDEBUG -Wl,-rpath,$HOME/Public/core/lib"
+    CXXFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -O3 -ip -DNDEBUG -Wl,-rpath,$HOME/Public/core/lib"
+    LIBS="-lm -lnsl"
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_ICC_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset icc     for generic with debugging flags                 ])
+if test "$with_icc_debug" = "yes"; then
+    unset CC
+    unset CXX
+    WANT_ICC_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    AC_LANG(C++)
+    AC_PROG_CXX([icpc icc])
+    AC_LANG(C)
+    AC_PROG_CC([icpc icc])
+    CFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -inline_debug_info -restrict"
+    CXXFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -inline_debug_info -restrict"
+    LIBS="-lm -lnsl"
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_ICC_MPICH_FLAGS=0
+AC_MSG_CHECKING([preset icc     for generic with MPICH and optimization flags    ])
+if (test "$with_icc_mpich" = "yes") then
+    unset CC
+    unset CXX
+    WANT_ICC_MPICH_FLAGS=1
+    AC_MSG_RESULT([yes])
+    AC_LANG(C++)
+    AC_PROG_CXX([mpicxx mpiCC mpic++])
+    AC_LANG(C)
+    AC_PROG_CC([mpicc])
+    if (test "$have_lapack" = false && test "$have_simtklapack" = false) then
+      CFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -O3 -ip  -DNDEBUG $mpi_flags"
+      CXXFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -O3 -ip  -DNDEBUG $mpi_flags"
+    else
+      CFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -O3 -ip  -DNDEBUG -Wl,-rpath,$LAPACK_LIBS $mpi_flags"
+      CXXFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -O3 -ip  -DNDEBUG -Wl,-rpath,$LAPACK_LIBS $mpi_flags"
+    fi
+    LIBS="-lm -lnsl"
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_ICC_MPICH_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset icc     for generic with MPICH and debugging flags       ])
+if test "$with_icc_mpich_debug" = "yes"; then
+    unset CC
+    unset CXX
+    WANT_ICC_MPICH_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    AC_LANG(C++)
+    AC_PROG_CXX([mpicxx mpic++ mpiCC])
+    AC_LANG(C)
+    AC_PROG_CC([mpicc])
+    if (test "$have_lapack" = false && test "$have_simtklapack" = false) then
+      CFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -inline_debug_info -restrict -DNDEBUG $mpi_flags"
+      CXXFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -inline_debug_info -restrict -DNDEBUG $mpi_flags"
+    else
+      CFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -inline_debug_info -restrict  -DNDEBUG -Wl,-rpath,$LAPACK_LIBS $mpi_flags"
+      CXXFLAGS="-Wall -wd810,383,981,279,444,1572,654,1125 -inline_debug_info -restrict -DNDEBUG -Wl,-rpath,$LAPACK_LIBS $mpi_flags"
+    fi
+    LIBS="-lm -lnsl"
+else
+    AC_MSG_RESULT([no])
+fi
+
+
+WANT_GCC_MPICH_FLAGS=0
+AC_MSG_CHECKING([preset g++     for generic with MPICH flags                     ])
+if test "$with_gcc_mpich" = "yes"; then
+    unset CC
+    unset CXX
+    WANT_GCC_MPICH_FLAGS=1
+    AC_MSG_RESULT([yes])
+    AC_LANG(C++)
+    AC_PROG_CXX([mpicxx mpiCC mpic++])
+    if (test "$have_lapack" = false && test "$have_simtklapack" = false) then
+      CFLAGS="-Wall -O9 -ffast-math -finline-functions -funroll-loops -DNDEBUG $mpi_flags"
+      CXXFLAGS="-Wall -O9 -ffast-math -finline-functions -funroll-loops -DNDEBUG $mpi_flags"
+    else
+      CFLAGS="-Wall -O9 -ffast-math -finline-functions -funroll-loops -DNDEBUG -Wl,-rpath,$LAPACK_LIBS $mpi_flags"
+      CXXFLAGS="-Wall -O9 -ffast-math -finline-functions -funroll-loops -DNDEBUG -Wl,-rpath,$LAPACK_LIBS $mpi_flags"
+    fi
+    CC="mpicc"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_GCC_MPICH_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset g++     for generic with MPICH debug flags               ])
+if test "$with_gcc_mpich_debug" = "yes"; then
+    unset CC
+    unset CXX
+    WANT_GCC_MPICH_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="mpicc"
+    if (test "$have_lapack" = false && test "$have_simtklapack" = false) then
+       CFLAGS="-Wall $mpi_flags -I${MPI_HOME}/include"
+    else
+       CFLAGS="-Wall -Wl,-rpath,$LAPACK_LIBS $mpi_flags -I${MPI_HOME}/include"
+    fi
+    AC_LANG(C++)
+    AC_PROG_CXX([mpicxx mpiCC mpic++])
+    if (test "$have_lapack" = false && test "$have_simtklapack" = false) then
+       CXXFLAGS="-Wall $mpi_flags -I${MPI_HOME}/include"
+    else
+       CXXFLAGS="-Wall -Wl,-rpath,$LAPACK_LIBS $mpi_flags -I${MPI_HOME}/include"
+    fi
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_GCC_XEON_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset g++     for Xeon with no optimization flags              ])
+if ( test "$with_gcc_xeon_debug" = "yes" ) then
+    WANT_GCC_XEON_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="gcc"
+    CFLAGS="-Wall -march=pentium4"
+    CXX="g++"
+    CXXFLAGS="-Wall -march=pentium4"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_GCC_XEON_FLAGS=0
+AC_MSG_CHECKING([preset g++     for Xeon with optimization flags                 ])
+if ( test "$with_gcc_xeon" = "yes" ) then
+    WANT_GCC_XEON_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="gcc"
+    CFLAGS="-Wall -O3 -march=pentium4 -ffast-math -finline-functions -funroll-loops -DNDEBUG"
+    CXX="g++"
+    CXXFLAGS="-Wall -O3 -march=pentium4 -ffast-math -finline-functions -funroll-loops -DNDEBUG"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_GCC_OPTERON_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset g++     for Opteron 64 with no optimization flags        ])
+if ( test "$with_gcc_opteron_debug" = "yes" ) then
+    WANT_GCC_OPTERON_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="gcc"
+    CFLAGS="-Wall -march=opteron"
+    CXX="g++"
+    CXXFLAGS="-Wall -march=opteron"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_GCC_OPTERON_FLAGS=0
+AC_MSG_CHECKING([preset g++     for Opteron 64 with optimization flags           ])
+if ( test "$with_gcc_opteron" = "yes" ) then
+    WANT_GCC_OPTERON_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="gcc"
+    CFLAGS="-Wall -O3 -march=opteron -ffast-math -finline-functions -funroll-loops -DNDEBUG"
+    CXX="g++"
+    CXXFLAGS="-Wall -O3 -march=opteron -ffast-math -finline-functions -funroll-loops -DNDEBUG"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_GCC_FLAGS=0
+AC_MSG_CHECKING([preset g++     for generic with optimization flags              ])
+if (test "$with_gcc" = "yes" || ((test $use_preset = 0) && ( test $CXX = "c++" || test $CXX = "g++"))) then
+    WANT_GCC_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="gcc"
+    CFLAGS="-Wall -O9 -ffast-math -finline-functions -funroll-loops -DNDEBUG"
+    CXX="g++"
+    CXXFLAGS="-Wall -O9 -ffast-math -finline-functions -funroll-loops -DNDEBUG"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_GCC_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset g++     for generic with debugging flags                 ])
+if test "$with_gcc_debug" = "yes"; then
+    WANT_GCC_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="gcc"
+    CFLAGS="-Wall"
+    CXX="g++"
+    CXXFLAGS="-Wall"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_GCC_DEBUG_GDB_FLAGS=0
+AC_MSG_CHECKING([preset g++     for generic with debugging and gdb flags         ])
+if test "$with_gcc_debug_gdb" = "yes"; then
+    WANT_GCC_DEBUG_GDB_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="gcc"
+    CFLAGS="-g -Wall"
+    CXX="g++"
+    CXXFLAGS="-g -Wall"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+
+WANT_PPC_XLC_FLAGS=0
+AC_MSG_CHECKING([preset xlC     for PPC with optimization flags                  ])
+if test "$with_ppc_xlc" = "yes"; then
+    WANT_PPC_XLC_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="xlc_r"
+    CFLAGS="-O4 -qinlglue -qcache=auto -qarch=auto -qtune=auto -DNDEBUG"
+    CXX="xlC_r"
+    CXXFLAGS="-O3 -qstaticinline -qfloat=rsqrt:fltint -qstrict -Q -qmaxmem=-1 -qcache=auto -qarch=auto -qtune=auto -qrtti=dyna -DNDEBUG"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_PPC_XLC_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset xlC     for PPC with debugging flags                     ])
+if test "$with_ppc_xlc_debug" = "yes"; then
+    WANT_PPC_XLC_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="xlc_r"
+    CFLAGS=""
+    CXX="xlC_r"
+    CXXFLAGS=""
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+
+WANT_AIX_XLC_FLAGS=0
+AC_MSG_CHECKING([preset xlC     for AIX with optimization flags                  ])
+if test "$with_aix_xlc" = "yes"; then
+    WANT_AIX_XLC_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="xlc_r"
+    CFLAGS="-O4 -qinlglue -qcache=auto -qarch=auto -qtune=auto -DNDEBUG"
+    CXX="xlC_r"
+    CXXFLAGS="-O3 -qstaticinline -qfloat=rsqrt:fltint -qstrict -Q -qmaxmem=-1 -qcache=auto -qarch=auto -qtune=auto -qrtti=dyna -DNDEBUG"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_AIX_XLC_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset xlC     for AIX with debugging flags                     ])
+if test "$with_aix_xlc_debug" = "yes"; then
+    WANT_AIX_XLC_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="xlc_r"
+    CFLAGS=""
+    CXX="xlC_r"
+    CXXFLAGS="-qrtti=dyna"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+
+AC_MSG_CHECKING([preset xlC     for AIX with MPI and optimization flags          ])
+WANT_AIX_XLC_MPI_FLAGS=0
+if (test "$with_aix_xlc_mpi" = "yes" || ((test $use_preset = 0) && test $CXX = "mpCC_r")) then
+    WANT_AIX_XLC_MPI_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="mpcc_r"
+    CFLAGS="-O4 -qinlglue-qcache=auto -qarch=auto -qtune=auto -DNDEBUG $mpi_flags"
+    CXX="mpCC_r"
+    CXXFLAGS="-O3 -qstaticinline -qfloat=rsqrt:fltint -qstrict -Q -qmaxmem=-1 -qcache=auto -qarch=auto -qtune=auto -qrtti=dyna -DNDEBUG $mpi_flags"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+WANT_AIX_XLC_MPI_DEBUG_FLAGS=0
+AC_MSG_CHECKING([preset xlC     for AIX with MPI and debugging flags             ])
+if test "$with_aix_xlc_mpi_debug" = "yes"; then
+    WANT_AIX_XLC_MPI_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="mpcc_r"
+    CFLAGS="-g $mpi_flags"
+    CXX="mpCC_r"
+    CXXFLAGS="-g -qrtti=dyna $mpi_flags"
+    LIBS="-lm -lnsl"
+    DEPFLAGS=""
+else
+    AC_MSG_RESULT([no])
+fi
+
+AC_MSG_CHECKING([preset aCC     for HPUX with optimization flags                 ])
+WANT_HPUX_CC_FLAGS=0
+if (test "$with_hpux_cc" = "yes" || ((test $use_preset = 0) && test $CXX = "aCC")) then
+    WANT_HPUX_CC_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="cc"
+    CFLAGS="+Z +DD64 -fast  -DNDEBUG"
+    CXX="aCC"
+    CXXFLAGS="+Z +DD64 +O2 +Oaggressive +noeh -AA +W67,829,336 -DNDEBUG"
+    LIBS="-lm -lnsl"
+else
+    AC_MSG_RESULT([no])
+fi
+
+AC_MSG_CHECKING([preset aCC     for HPUX with debugging flags                    ])
+WANT_HPUX_CC_DEBUG_FLAGS=0
+if test "$with_hpux_cc_debug" = "yes"; then
+    WANT_HPUX_CC_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="cc"
+    CFLAGS="+DD64 +Z -g1"
+    CXX="aCC"
+    CXXFLAGS="+DD64 +Z -AA -g1 +W67,829,336"
+    LIBS="-lm -lnsl"
+else
+    AC_MSG_RESULT([no])
+fi
+
+AC_MSG_CHECKING([preset aCC     for HPUX with MPI and optimization flags         ])
+WANT_HPUX_CC_MPI_FLAGS=0
+if test "$with_hpux_cc_mpi" = "yes"; then
+    unset CC
+    unset CXX
+    WANT_HPUX_CC_MPI_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="mpicc"
+    CFLAGS="+Z +DD64 -fast  -DNDEBUG $mpi_flags"
+    AC_LANG(C++)
+    AC_PROG_CXX([mpiCC mpicxx mpic++])
+    CXXFLAGS="+Z +DD64 +O2 +Oaggressive +noeh -AA +W67,829,336 -DNDEBUG $mpi_flags"
+    LIBS="-lm -lnsl"
+else
+    AC_MSG_RESULT([no])
+fi
+
+AC_MSG_CHECKING([preset aCC     for HPUX with MPI and debugging flags            ])
+WANT_HPUX_CC_MPI_DEBUG_FLAGS=0
+if test "$with_hpux_cc_mpi_debug" = "yes"; then
+    unset CC
+    unset CXX
+    WANT_HPUX_CC_MPI_DEBUG_FLAGS=1
+    AC_MSG_RESULT([yes])
+    CC="mpicc"
+    CFLAGS="+DD64 +Z -g1 $mpi_flags"
+    AC_LANG(C++)
+    AC_PROG_CXX([mpiCC mpicxx mpic++])
+    CXXFLAGS="+DD64 +Z -AA -g1 +W67,829,336 $mpi_flags"
+    LIBS="-lm -lnsl"
+else
+    AC_MSG_RESULT([no])
+fi
+
+AC_SUBST(CC)
+AC_SUBST(CFLAGS)
+AC_SUBST(CXX)
+AC_SUBST(CXXFLAGS)
+AC_SUBST(LIBS)
+AC_SUBST(DEPFLAGS)
+echo ""
+echo "CC       : $CC"
+echo "CFLAGS   : $CFLAGS"
+echo "CXXFLAGS : $CXXFLAGS"
+echo "CXX      : $CXX"
+echo "CXXCPP   : $CXXCPP"
+echo "LIBS     : $LIBS"
+echo "CPP      : $CPP"
+echo "CPPFLAGS : $CPPFLAGS"
+echo ""
+
+#
+# Tools
+#
+AC_LANG_CPLUSPLUS
+AC_PROG_CXX
+AC_PROG_CXXCPP
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_RANLIB
+
+have_mpi=false
+case $CXXFLAGS in
+  *-DHAVE_MPI*) have_mpi=true;;
+esac
+AC_MSG_CHECKING([using MPI])
+if test $have_mpi = false; then
+  AC_MSG_RESULT([no]);
+else
+  AC_MSG_RESULT([yes]);
+fi
+
+
+AC_PATH_X
+AC_PATH_XTRA
+
+
+save_libs=$LIBS
+save_cflags=$CFLAGS
+save_cppflags=$CPPFLAGS
+save_ldflags=$LDFLAGS
+save_cxxflags=$CXXFLAGS
+
+
+
+#save_cxxflags="$save_cxxflags -DTEMPLATE_IN_HEADER"
+
+#
+# limits
+#
+have_no_limits=false
+AC_MSG_CHECKING(for limits )
+AC_TRY_COMPILE(
+	[
+		#include <limits>
+	],
+	[
+        ],
+	have_no_limits=true)	
+if test $have_no_limits = false; then
+  save_cxxflags="$save_cxxflags -DHAVE_NO_LIMITS"
+  AC_MSG_RESULT([no]);
+else
+  AC_MSG_RESULT([yes]);
+fi
+
+#
+# sstream
+#
+have_no_sstream=false
+AC_MSG_CHECKING(for sstream )
+AC_TRY_COMPILE(
+	[
+		#include <sstream>
+	],
+	[
+        ],
+	have_no_sstream=true)	
+if test $have_no_sstream = false; then
+  save_cxxflags="$save_cxxflags -DHAVE_NO_SSTREAM"
+  AC_MSG_RESULT([no]);
+else
+  AC_MSG_RESULT([yes]);
+fi
+
+#
+# partial_template_specialization
+#
+partial_template_specialization=false
+AC_MSG_CHECKING(for partial template specialization)
+AC_TRY_COMPILE(
+	[
+		#include "framework/base/Array_Fastest.h"
+                using namespace ProtoMol;
+	],
+	[
+	    Array<int,3> a(ArraySizes(1)(1)(1));
+	    RefArray<int,2> rA = a[0];
+        ],
+	partial_template_specialization=true)	
+if test $partial_template_specialization = false; then
+  save_cxxflags="$save_cxxflags -DNO_PARTIAL_TEMPLATE_SPECIALIZATION"
+  AC_MSG_RESULT([no]);
+else
+  AC_MSG_RESULT([yes]);
+fi
+
+
+#
+# Socket
+#
+have_socket=true
+AC_CHECK_LIB(socket,socket,,[have_socket=false])
+if test $have_socket = true; then
+   SOCKET_LIBS="-lsocket"
+fi
+AC_SUBST(SOCKET_LIBS)
+
+have_socket=true
+AC_CHECK_HEADER(sys/socket.h,,[have_socket=false])
+
+AC_MSG_CHECKING(for socketlen type)
+AC_TRY_COMPILE(
+	[
+		#include <sys/types.h>
+		#include <sys/socket.h>	
+		#include <netinet/in.h>
+	],
+	[	sockaddr_in   addr;
+	  socklen_t     len = 0;
+	  getsockname(0, (struct sockaddr*)&addr, &len);
+	],
+	SOCKLEN_TYPE=socklen_t)	
+if test "${SOCKLEN_TYPE}" = "" ; then
+	AC_TRY_COMPILE(
+		[
+			#include <sys/types.h>	
+			#include <sys/socket.h>	
+			#include <netinet/in.h>
+		],
+		[	sockaddr_in   addr;
+		  size_t    len = 0;
+		  getsockname(0, (struct sockaddr*)&addr, &len);
+		],
+		SOCKLEN_TYPE=size_t)	
+fi
+if test "${SOCKLEN_TYPE}" = "" ; then
+	AC_TRY_COMPILE(
+		[
+			#include <sys/types.h>	
+			#include <sys/socket.h>	
+			#include <netinet/in.h>
+		],
+		[	sockaddr_in   addr;
+		  unsigned int  len = 0;
+		  getsockname(0, (struct sockaddr*)&addr, &len);
+		],
+		SOCKLEN_TYPE="unsigned int")	
+fi
+if test "${SOCKLEN_TYPE}" = "" ; then
+	AC_TRY_COMPILE(
+		[
+			#include <sys/types.h>	
+			#include <sys/socket.h>	
+			#include <netinet/in.h>
+		],
+		[	sockaddr_in   addr;
+		  int 					len = 0;
+		  getsockname(0, (struct sockaddr*)&addr, &len);
+		],
+		SOCKLEN_TYPE="int")	
+fi
+if test "${SOCKLEN_TYPE}" != "" ; then
+	AC_MSG_RESULT($SOCKLEN_TYPE)
+fi
+AC_DEFINE_UNQUOTED(SOCKLEN_TYPE, ${SOCKLEN_TYPE}, [Socket lenght.])
+
+#
+# Sizeof
+#
+AC_CHECK_SIZEOF(char)
+AC_CHECK_SIZEOF(short)
+AC_CHECK_SIZEOF(int)
+AC_CHECK_SIZEOF(long)
+AC_CHECK_SIZEOF(size_t)
+AC_CHECK_SIZEOF(void*)
+SIZEOF_INT=$ac_cv_sizeof_int
+SIZEOF_SHORT=$ac_cv_sizeof_int
+
+AC_MSG_CHECKING(for 32-bit int)
+if test "${SIZEOF_INT}" = 4; then
+    INT32_TYPE=int
+elif test "${SIZEOF_SHORT}" = 4; then
+    INT32_TYPE=short
+else
+    AC_MSG_ERROR([neither int (${SIZEOF_INT}) nor short (${SIZEOF_SHORT}) have sizeof 4!])  
+fi
+AC_DEFINE_UNQUOTED(INT32_TYPE, ${INT32_TYPE}, [Define for int 32-bit.])
+AC_MSG_RESULT($INT32_TYPE)
+
+
+#
+# cycles
+#
+# comment out if autoconf less then 2.53
+
+AC_C_INLINE
+AC_HEADER_TIME
+AC_CHECK_HEADERS([sys/time.h c_asm.h intrinsics.h])
+
+AC_CHECK_TYPE([hrtime_t],[AC_DEFINE(HAVE_HRTIME_T, 1, [Define to 1 if hrtime_t is defined in <sys/time.h>])],,[#if HAVE_SYS_TIME_H
+#include <sys/time.h>
+#endif])
+
+AC_CHECK_FUNCS([gethrtime clock_gettime])
+
+
+AC_MSG_CHECKING([for read_real_time])
+read_real_time_ok=yes
+AC_TRY_COMPILE([#if TIME_WITH_SYS_TIME
+                # include <sys/time.h>
+                # include <time.h>
+                #else
+                # if HAVE_SYS_TIME_H
+                #  include <sys/time.h>
+                # else
+                #  include <time.h>
+                # endif
+                #endif
+                ], 
+                [
+		timebasestruct_t t;
+	        read_real_time(&t, TIMEBASE_SZ);
+                ], [AC_DEFINE(HAVE_READ_REAL_TIME,1,[Define if you have the read_real_time().])], [read_real_time_ok=no])
+AC_MSG_RESULT($read_real_time_ok)
+
+AC_MSG_CHECKING([for time_base_to_time])
+time_base_to_time_ok=yes
+AC_TRY_COMPILE([#if TIME_WITH_SYS_TIME
+                # include <sys/time.h>
+                # include <time.h>
+                #else
+                # if HAVE_SYS_TIME_H
+                #  include <sys/time.h>
+                # else
+                #  include <time.h>
+                # endif
+                #endif
+                ], 
+                [
+		timebasestruct_t t;
+	        time_base_to_time(&t, TIMEBASE_SZ);
+                ], [AC_DEFINE(HAVE_TIME_BASE_TO_TIME,1,[Define if you have the time_base_to_time().])], [time_base_to_time_ok=no])
+AC_MSG_RESULT($time_base_to_time_ok)
+
+#AC_MSG_CHECKING([for rtc])
+#rtc_ok=yes
+#AC_TRY_COMPILE([], [], [AC_DEFINE(HAVE_RTC,1,[Define if you have the rtc().])], [rtc_ok=no])
+#AC_MSG_RESULT($rtc_ok)
+
+
+	
+dnl Cray UNICOS _rtc() (real-time clock) intrinsic
+AC_MSG_CHECKING([for _rtc intrinsic])
+rtc_ok=yes
+AC_TRY_LINK([#ifdef HAVE_INTRINSICS_H
+#include <intrinsics.h>
+#endif], [_rtc()], [AC_DEFINE(HAVE__RTC,1,[Define if you have the UNICOS _rtc() intrinsic.])], [rtc_ok=no])
+AC_MSG_RESULT($rtc_ok)
+
+
+#  --------------------------------------------------------------------------  #
+#  CHECKPOINTING - Boost
+#  --------------------------------------------------------------------------  #
+
+BOOST_LIBS=""
+BOOST_CFLAGS=""
+
+if( test x"$with_boost" != x ) then
+
+    LIBS=$save_libs
+    CFLAGS=$save_cflags
+    CPPFLAGS=$save_cppflags
+
+
+    if( test x"$with_boost/include" != x &&
+        test x"$with_boost/lib" != x ) then
+
+            BOOST_INCLUDE_DIR="-I$with_boost/include"
+            BOOST_LIB_DIR="-L$with_boost/lib"
+
+    else
+
+            BOOST_INCLUDE_DIR="-I$with_boost_dir"
+            BOOST_LIB_DIR="-L$with_boost_dir"
+
+    fi
+
+    LIBS="$BOOST_LIB_DIR"
+    CFLAGS="$CFLAGS $BOOST_INCLUDE_DIR"
+    CPPFLAGS="$CPPFLAGS $BOOST_INCLUDE_DIR"
+
+    BOOST_LIBS="$BOOST_LIB_DIR -lboost_serialization-gcc-1_33_1"
+    BOOST_CFLAGS="$BOOST_INCLUDE_DIR -DHAVE_BOOST"
+
+fi
+
+AC_SUBST( BOOST_CFLAGS )
+AC_SUBST( BOOST_LIBS )
+
+
+
+#  --------------------------------------------------------------------------  #
+#  FFT
+#  --------------------------------------------------------------------------  #
+
+#
+# FFT ZFFT
+#
+have_fft_zfft=true
+FFT_ZFFT_LIBS=""
+FFT_ZFFT_CFLAGS=""
+
+#
+# FFT SGI
+#
+LIBS=$save_libs
+CFLAGS=$save_cflags
+CPPFLAGS=$save_cppflags
+have_fft_sgi=true
+FFT_SGI_LIBS="-lcomplib.sgimath"
+FFT_SGI_CFLAGS="-DHAVE_FFT_SGI -DHAVE_FFT"
+AC_CHECK_LIB(complib.sgimath,zfftm1di,,[have_fft_sgi=false])
+AC_CHECK_LIB(complib.sgimath,zfftm1d,,[have_fft_sgi=false])
+AC_CHECK_LIB(complib.sgimath,zfft2di,,[have_fft_sgi=false])
+AC_CHECK_LIB(complib.sgimath,zfft2d,,[have_fft_sgi=false])
+AC_CHECK_LIB(complib.sgimath,zfft3di,,[have_fft_sgi=false])
+AC_CHECK_LIB(complib.sgimath,zfft3d,,[have_fft_sgi=false])
+AC_CHECK_HEADER(fft.h,,[have_fft_sgi=false])
+
+#
+# FFT AIX/IBM
+#
+LIBS=$save_libs
+CFLAGS=$save_cflags
+CPPFLAGS=$save_cppflags
+have_fft_essl=true
+FFT_ESSL_LIBS="-lessl"
+FFT_ESSL_CFLAGS="-DHAVE_FFT_ESSL -DHAVE_FFT"
+AC_CHECK_LIB(essl,dcft,,[have_fft_essl=false])
+AC_CHECK_HEADER(essl.h,,[have_fft_essl=false])
+
+#
+# FFTW2 MPI
+#
+LIBS=$save_libs
+CFLAGS=$save_cflags
+CPPFLAGS=$save_cppflags
+require_fftw2mpi=false
+if test x"$with_fftw2mpi" != x; then
+	FFTW2_MPI_INCLUDE="$with_fftw2mpi/include"
+	FFTW2_MPI_LIB="$with_fftw2mpi/lib"
+	FFTW2_MPI_ROOT="$with_fftw2mpi"
+	require_fftw2mpi=true
+fi
+FFT_FFTW2_MPI_LIBS="-L$FFTW2_MPI_LIB -lfftw_mpi -lfftw"
+FFT_FFTW2_MPI_CFLAGS="-DHAVE_FFT_FFTW2_MPI -DHAVE_FFT -I$FFTW2_MPI_INCLUDE"
+LIBS="$FFT_FFTW2_MPI_LIBS"
+CFLAGS="$CFLAGS $FFT_FFTW2_MPI_CFLAGS"
+CPPFLAGS="$CPPFLAGS $FFT_FFTW2_MPI_CFLAGS"
+
+have_fft_fftw2mpi=true
+unset ac_cv_lib_fftw_mpi_fftw3d_mpi_create_plan
+unset ac_cv_lib_fftw_fftw3d_create_plan
+unset ac_cv_header_fftw_mpi_h
+unset ac_cv_header_fftw_h
+AC_CHECK_LIB(fftw_mpi,fftw3d_mpi_create_plan,,[have_fft_fftw2mpi=false])
+AC_CHECK_LIB(fftw,fftw3d_create_plan,,[have_fft_fftw2mpi=false])
+AC_CHECK_HEADER(fftw_mpi.h,,[have_fft_fftw2mpi=false])
+AC_CHECK_HEADER(fftw.h,,[have_fft_fftw2mpi=false])
+
+
+#
+# FFTW3
+#
+LIBS=$save_libs
+CFLAGS=$save_cflags
+CPPFLAGS=$save_cppflags
+require_fftw3=false
+if test x"$with_fftw3" != x; then
+	FFTW3_INCLUDE="$with_fftw3/include"
+	FFTW3_LIB="$with_fftw3/lib"
+	FFTW3_ROOT="$with_fftw3"
+	require_fftw3=true
+fi
+FFT_FFTW3_LIBS="-L$FFTW3_LIB -lfftw3"
+FFT_FFTW3_CFLAGS="-DHAVE_FFT_FFTW3 -DHAVE_FFT -I$FFTW3_INCLUDE"
+LIBS="$FFT_FFTW3_LIBS"
+CFLAGS="$CFLAGS $FFT_FFTW3_CFLAGS"
+CPPFLAGS="$CPPFLAGS $FFT_FFTW3_CFLAGS"
+
+have_fft_fftw3=true
+unset ac_cv_lib_fftw3_fftw_plan_dft_3d
+unset ac_cv_header_fftw3_h
+AC_CHECK_LIB(fftw3,fftw_plan_dft_3d,,[have_fft_fftw3=false])
+AC_CHECK_HEADER(fftw3.h,,[have_fft_fftw3=false])
+
+#
+# FFTW2
+#
+LIBS=$save_libs
+CFLAGS=$save_cflags
+CPPFLAGS=$save_cppflags
+require_fftw2=false
+if test x"$with_fftw2" != x; then
+	FFTW2_INCLUDE="$with_fftw2/include"
+	FFTW2_LIB="$with_fftw2/lib"
+	FFTW2_ROOT="$with_fftw2"
+	require_fftw2=true
+fi
+FFT_FFTW2_LIBS="-L$FFTW2_LIB -lfftw"
+FFT_FFTW2_CFLAGS="-DHAVE_FFT_FFTW2 -DHAVE_FFT -I$FFTW2_INCLUDE"
+LIBS="$FFT_FFTW2_LIBS"
+CFLAGS="$CFLAGS $FFT_FFTW2_CFLAGS"
+CPPFLAGS="$CPPFLAGS $FFT_FFTW2_CFLAGS"
+
+have_fft_fftw2=true
+unset ac_cv_lib_fftw_fftw3d_create_plan
+unset ac_cv_header_fftw_h
+AC_CHECK_LIB(fftw,fftw3d_create_plan,,[have_fft_fftw2=false])
+AC_CHECK_HEADER(fftw.h,,[have_fft_fftw2=false])
+
+
+#
+AC_MSG_CHECKING([FFT SGI complib.sgimath])
+if test $have_fft_sgi = false; then
+  AC_MSG_RESULT([no]);
+else
+  AC_MSG_RESULT([yes]);
+fi
+AC_MSG_CHECKING([FFT ESSL])
+if test $have_fft_essl = false; then
+  AC_MSG_RESULT([no]);
+else
+  AC_MSG_RESULT([yes]);
+fi
+AC_MSG_CHECKING([FFT FFTW3])
+if test $have_fft_fftw3 = false; then
+  AC_MSG_RESULT([no]);
+else
+  AC_MSG_RESULT([yes]);
+fi
+AC_MSG_CHECKING([FFT FFTW2])
+if test $have_fft_fftw2 = false; then
+  AC_MSG_RESULT([no]);
+else
+  AC_MSG_RESULT([yes]);
+fi
+AC_MSG_CHECKING([FFT FFTW2 MPI])
+if test $have_fft_fftw2mpi = false; then
+  AC_MSG_RESULT([no]);
+else
+  AC_MSG_RESULT([yes]);
+fi
+
+
+# Now, pick the right one ...
+have_fft=false
+if (test x"$with_fft" = xsgi && test $have_fft_sgi = true) then
+    echo "using SGI FFT complib.sgimath"
+    FFT_LIBS=$FFT_SGI_LIBS
+    FFT_CFLAGS=$FFT_SGI_CFLAGS
+    have_fft=true
+elif (test x"$with_fft" = xessl && test $have_fft_essl = true) then
+    echo "using FFT ESSL"
+    FFT_LIBS=$FFT_ESSL_LIBS
+    FFT_CFLAGS=$FFT_ESSL_CFLAGS
+    have_fft=true
+elif (test x"$with_fft" = xfftw2mpi && test $have_fft_fftw2mpi = true && $have_mpi = true) then
+    echo "using FFTW2 MPI"
+    FFT_LIBS=$FFT_FFTW2_MPI_LIBS
+    FFT_CFLAGS=$FFT_FFTW2_MPI_CFLAGS
+    have_fft=true
+elif (test x"$with_fft" = xfftw3 && test $have_fft_fftw3 = true) then
+    echo "using FFTW3"
+    FFT_LIBS=$FFT_FFTW3_LIBS
+    FFT_CFLAGS=$FFT_FFTW3_CFLAGS
+    have_fft=true
+elif (test x"$with_fft" = xfftw2 && test $have_fft_fftw2 = true) then
+    echo "using FFTW2"
+    FFT_LIBS=$FFT_FFTW2_LIBS
+    FFT_CFLAGS=$FFT_FFTW2_CFLAGS
+    have_fft=true
+elif (test x"$with_fft" = xzfft) then
+    echo "using FFT ZFFT"
+    FFT_LIBS=$FFT_ZFFT_LIBS
+    FFT_CFLAGS=$FFT_ZFFT_CFLAGS
+    have_fft=true
+else 
+  if (test x"$with_fft" != x) then
+    echo "Oops ... $with_fft not supported!" 
+  fi
+  if (test $have_fft_fftw2mpi = true && test $require_fftw2mpi = true && $have_mpi = true) then
+         echo "using FFTW2 MPI"         
+	 FFT_LIBS=$FFT_FFTW2_MPI_LIBS
+	 FFT_CFLAGS=$FFT_FFTW2_MPI_CFLAGS
+  elif (test $have_fft_fftw3 = true && test $require_fftw3 = true) then
+         echo "using FFTW3"         
+	 FFT_LIBS=$FFT_FFTW3_LIBS
+	 FFT_CFLAGS=$FFT_FFTW3_CFLAGS
+  elif (test $have_fft_sgi = true) then
+	 echo "using SGI FFT complib.sgimath"
+	 FFT_LIBS=$FFT_SGI_LIBS
+	 FFT_CFLAGS=$FFT_SGI_CFLAGS
+  elif (test $have_fft_essl = true) then
+	 echo "using FFT ESSL"
+	 FFT_LIBS=$FFT_ESSL_LIBS
+	 FFT_CFLAGS=$FFT_ESSL_CFLAGS
+  elif (test $have_fft_fftw3 = true) then
+         echo "using FFTW3"         
+	 FFT_LIBS=$FFT_FFTW3_LIBS
+	 FFT_CFLAGS=$FFT_FFTW3_CFLAGS
+  elif (test $have_fft_fftw2 = true) then
+         echo "using FFTW2"         
+	 FFT_LIBS=$FFT_FFTW2_LIBS
+	 FFT_CFLAGS=$FFT_FFTW2_CFLAGS
+  else
+ 	 echo "using FFT ZFFT"
+	 FFT_LIBS=$FFT_ZFFT_LIBS
+	 FFT_CFLAGS=$FFT_ZFFT_CFLAGS
+  fi
+fi
+
+
+AC_SUBST(FFT_LIBS)
+AC_SUBST(FFT_CFLAGS)
+# echo "FFT_ESSL_LIBS    : $FFT_ESSL_LIBS"
+# echo "FFT_ESSL_CFLAGS  : $FFT_ESSL_CFLAGS"
+# echo "FFT_FFTW3_LIBS   : $FFT_FFTW3_LIBS"
+# echo "FFT_FFTW3_CFLAGS : $FFT_FFTW3_CFLAGS"
+# echo "FFT_FFTW2_LIBS   : $FFT_FFTW2_LIBS"
+# echo "FFT_FFTW2_CFLAGS : $FFT_FFTW2_CFLAGS"
+# echo "FFT_LIBS         : $FFT_LIBS"
+# echo "FFT_CFLAGS       : $FFT_CFLAGS"
+
+
+# PNG
+LIBS=$save_libs
+CFLAGS=$save_cflags
+CPPFLAGS=$save_cppflags
+have_png=true
+PNG_LIBS="-lpng"
+
+AC_CHECK_LIB(z,compress, [LIBS="$LIBS -lz" GLUT_LIBS="$GLUT_LIBS -lz"] , )
+AC_CHECK_HEADER(png.h, , [have_png=false PNG_LIBS=""])
+AC_CHECK_LIB(png,png_create_write_struct, , [have_png=false PNG_LIBS=""])
+if (test "$PNG_LIBS" != "") then
+   echo "using PNG... yes"
+else
+   echo "using PNG... no"
+fi
+
+
+# X11
+LIBS=$save_libs
+CFLAGS=$save_cflags
+CPPFLAGS=$save_cppflags
+have_x11=true
+#X_CFLAGS="-I/usr/X11R6/include"
+#X_LIBS="-L/usr/X11R6/lib -lXm -lXt -lXext -lX11"
+LIBS="$X_LIBS $LIBS -lGLU -lGL -lXmu -lXt -lSM -lICE -lXext -lX11 -lXi -lXext -lX11"
+CFLAGS="$CFLAGS $X_CFLAGS"
+AC_CHECK_LIB(pthread,pthread_cancel, [LIBS="$LIBS -lpthread"] , )
+AC_CHECK_LIB(dl,dlopen, [LIBS="$LIBS -ldl"] , )
+
+#echo "$X_LIBS $X_CFLAGS"
+#echo "$LIBS $CFLAGS"
+
+
+#AC_CHECK_LIB(Xm, XmStringFree, ,[have_x11=false])
+AC_CHECK_LIB(Xmu,XmuAllStandardColormaps , ,[have_x11=false])
+AC_CHECK_LIB(Xt,XtAppInitialize, ,[have_x11=false])
+AC_CHECK_LIB(SM,SmcOpenConnection, ,[have_x11=false])
+AC_CHECK_LIB(ICE,IceAcceptConnection, ,[have_x11=false])
+AC_CHECK_LIB(Xext,XextCreateExtension, ,[have_x11=false])
+AC_CHECK_LIB(X11,XOpenDisplay, , [have_x11=false])
+AC_CHECK_LIB(Xi,XOpenDevice, , [have_x11=false])
+
+
+#  --------------------------------------------------------------------------  #
+#  GLUT
+#  --------------------------------------------------------------------------  #
+
+LIBS=$save_libs
+CFLAGS=$save_cflags
+CPPFLAGS=$save_cppflags
+have_glut=true
+require_glut=false
+if test "$with_glut" != ""; then
+   if (test "$with_glut" != false && test "$with_glut" != no) then
+      require_glut=true
+   fi
+   if (test "$with_glut" != yes && test "$with_glut" != true && test "$with_glut" != false && test "$with_glut" != no) then
+	GLUT_ROOT="$with_glut"
+	GLUT_LIBS="-L$GLUT_ROOT/lib -L$GLUT_ROOT/lib/glut"
+	GLUT_CFLAGS="-I$GLUT_ROOT/include -I$GLUT_ROOT/include/GL"
+   fi 
+fi
+
+GLUT_LIBS="$GLUT_LIBS $X_LIBS -lglut -lGLU -lGL -lXmu -lXt -lSM -lICE -lXext -lX11 -lXi -lXext -lX11"
+GLUT_CFLAGS="$GLUT_CFLAGS $X_CFLAGS"
+LIBS=$GLUT_LIBS
+CPPFLAGS="$CPPFLAGS $GLUT_CFLAGS"
+AC_CHECK_LIB(pthread,pthread_cancel, [GLUT_LIBS="$GLUT_LIBS -lpthread" LIBS="$LIBS -lpthread"] , )
+AC_CHECK_LIB(dl,dlopen, [GLUT_LIBS="$GLUT_LIBS -ldl" LIBS="$LIBS -ldl"] , )
+AC_CHECK_LIB(GL,glClear, , [have_glut=false])
+AC_CHECK_LIB(GLU,gluLookAt, , [have_glut=false])
+AC_CHECK_LIB(glut,glutMainLoop, , [have_glut=false])
+AC_CHECK_HEADER(GL/glut.h, , [have_glut=false])
+AC_CHECK_LIB(jpeg,jpeg_CreateDecompress, [GLUT_LIBS="$GLUT_LIBS -ljpeg"], )
+AC_CHECK_LIB(tiff,TIFFSetErrorHandler, [GLUT_LIBS="$GLUT_LIBS -ltiff"], )
+
+AC_MSG_CHECKING([found GLUT])
+if test $have_glut = false; then
+  AC_MSG_RESULT([no]);
+else
+  AC_MSG_RESULT([yes]);
+fi
+if (test $require_glut = true) then
+  if (test $have_glut = false) then
+    AC_MSG_ERROR([Required library GLUT not found!])  
+  elif (test $have_png = false) then
+    AC_MSG_ERROR([GLUT GUI cannot be built.  Missing PNG library!!!])
+  elif (test $have_x11 = false) then
+    AC_MSG_ERROR([GLUT GUI cannot be built.  Missing X11 library!!!])
+  else
+    GLUT_CFLAGS="-DHAVE_GLUT $GLUT_CFLAGS"
+  fi
+else
+  GLUT_CFLAGS=""
+  GLUT_LIBS=""
+  X_LIBS=""
+  X_CFLAGS=""
+  #PNG_LIBS=""
+fi
+if (test "$GLUT_LIBS" != "") then
+   echo "using GLUT... yes"
+else
+   echo "using GLUT... no"
+fi
+
+AC_SUBST(X_LIBS)
+AC_SUBST(X_CFLAGS)
+AC_SUBST(PNG_LIBS)
+AC_SUBST(GLUT_LIBS)
+AC_SUBST(GLUT_CFLAGS)
+#echo "GLUT: $GLUT_CFLAGS $GLUT_LIBS"
+
+
+#
+# Check to see if the user wants our preset Sun g++ flags and the g++ compiler
+#
+
+
+LIBS=$save_libs
+CFLAGS=$save_cflags
+CPPFLAGS=$save_cppflags
+CXXFLAGS=$save_cxxflags
+AC_SUBST(CXXFLAGS)
+#AC_SUBST(CFLAGS)
+#AC_SUBST(LIBS)
+
+compiler_version=`($CXX -V;$CXX -v) 2>&1 | perl ./compilerVersion.pl`
+AC_DEFINE_UNQUOTED(PACKAGE_COMPILER,"$CXX $CXXFLAGS",[Compiler])
+AC_DEFINE_UNQUOTED(PACKAGE_COMPILER_VERSION,"$compiler_version",[Compiler version])
+
+
+
+
+#Default AR
+#Early versions of automake
+AR1="ar"
+#Late versions of automake
+AR2="ar cru"
+
+
+#
+#Change the AR flag to CC -ar -o if we are using MIPSpro
+#in debug or production mode.
+#
+
+if(test "$WANT_IRIX_MIPSPRO_MPI_FLAGS" = 1 || 
+   test "$WANT_IRIX_MIPSPRO_MPI_DEBUG_FLAGS" = 1 || 
+   test "$WANT_IRIX_MIPSPRO_FLAGS" = 1 || 
+   test "$WANT_IRIX_MIPSPRO_DEBUG_FLAGS" = 1) then
+  AR1="../mipscc_ar"
+  AR2="$(CXX) -ar -o"
+fi
+
+
+
+
+CLEANFILES="-r *~"
+AC_SUBST(CLEANFILES)
+
+#
+# Check for "makedepend".  Not everyone has this.
+#
+
+AC_CHECK_PROGS(MAKEDEPEND, makedepend, no)
+
+#
+# Fix for ar
+#
+
+AC_SUBST(AR1)
+AC_SUBST(AR2)
+
+#
+
+AC_OUTPUT(Makefile framework/Makefile framework/base/Makefile framework/io/Makefile framework/parallel/Makefile framework/topology/Makefile framework/forces/Makefile framework/imd/Makefile framework/integrators/Makefile framework/frontend/Makefile framework/factories/Makefile applications/Makefile applications/protomol-app/Makefile applications/coulomb-app/Makefile applications/dcd2dcd-app/Makefile applications/iSGProtomol-app/Makefile applications/iSGProtomol-app/base/Makefile applications/iSGProtomol-app/io/Makefile applications/iSGProtomol-app/frontend/Makefile applications/iSGProtomol-app/forces/Makefile applications/iSGProtomol-app/factories/Makefile applications/iSGProtomol-app/integrators/Makefile applications/oSGProtomol-app/Makefile applications/oSGProtomol-app/base/Makefile applications/oSGProtomol-app/io/Makefile applications/oSGProtomol-app/frontend/Makefile applications/oSGProtomol-app/factories/Makefile  applications/oSGProtomol-app/forces/Makefile applications/oSGProtomol-app/integrators/Makefile applications/coords2coords-app/Makefile applications/mdEnergy-app/Makefile applications/xyzviz-app/Makefile applications/rem-app/Makefile applications/amber2protomol-app/Makefile applications/dynamic-app/Makefile applications/liteprotomol-app/Makefile applications/guiProtomol-app/Makefile) 
+
+
+echo ""
+echo "CC       : $CC"
+echo "CFLAGS   : $CFLAGS"
+echo "CXXFLAGS : $CXXFLAGS"
+echo "CXX      : $CXX"
+echo "CXXCPP   : $CXXCPP"
+echo "LIBS     : $LIBS"
+echo "CPP      : $CPP"
+echo "CPPFLAGS : $CPPFLAGS"
+echo ""
+echo "make clean; make depend; make"
+

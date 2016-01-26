@@ -1,0 +1,26 @@
+Readme file for REM
+
+Contents:
+-Overview
+-Quirks
+-Example
+
+Overview:
+
+        REM (found in applications/rem-app, executable: rem) is a version of ProtoMol geared toward Replica Exchange.  It requires the use of a cluster, with MPI installed.  It executes one replica per processor, so the number of processors needed is given by the number of temperatures.  Extra processors will not make the program finish faster.
+        It's invoked in much the same way as ProtoMol, but there is an added argument that you must pass.  The correct onvocation is:
+        rem <config file> --remtemperaturefile <temperature file>
+        
+        There are a few new keywords that are mandatory in the REM config file.  They are:
+        numswitches: specifies the number of switches to attempt.
+        tempspace: designated the scratch space on each node
+        and numsteps: designates the number of steps for EACH switch.
+
+        The following new output files are available:
+        REMExchangeRatesFile: Outputs the exchange rates for each of the replicas.  The first number is always zero.  Whenever two replicas switch, it is tallied in the replica with the HIGHER temperature (not both).  Thus, when replicas 1 and 2 switch, replica 2 gets the credit.
+
+Quirks:
+        The REM Exchange Rate file appears in all of the output directories.  Each is blank except the one belonging to the lowest temperature replica.
+
+Example:
+        UA Butane has a sample run in it.  If you run the PBS scheduler, submit the UA_butane.rem.qsub script to the queue, changing paths as appropriate.

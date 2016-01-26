@@ -1,0 +1,104 @@
+**************************************************************************
+* Scheme: Single Timestepping BBK Integration                            *
+*         BBK force calculations involve standard dynamics, plus a term  *
+*         for friction and random white noise.                           *
+* System: 1101-atom, solvated, Bovine Pancreatic Tripsin Inhibitor       *
+* Purpose: A simple test system to test basic functionality and output   *
+**************************************************************************
+
+Parameters, descriptions, and acceptable values
+
+GENERAL:
+1. numsteps 
+	DESCRIPTION: number of simulation steps
+	VALUES: nonnegative integers
+. firststep 
+	DESCRIPTION: number of the first step
+	VALUES: nonnegative integers
+3. exclude
+	DESCRIPTION: When computing pairwise forces, atom pairs that are covalently bonded within this distance are excluded. 1-2 excludes atoms directly bonded, 1-3 excludes atoms which are bonded to a shared atom, etc.  scaled1-4 is a bit less drastic than 1-4, including 1-4 interactions but scaling them down as opposed to completely excluding them
+	VALUES: none, 1-2, 1-3, 1-4, scaled1-4
+4. posfile
+	DESCRIPTION: Protein Data Bank file for atomic positions
+	VALUES: system-specific, DO NOT VARY
+5. psffile
+	DESCRIPTION: Protein Structure File
+	VALUES: system-specific, DO NOT VARY
+6. parfile
+	DESCRIPTION: CHARMM parameter file
+	VALUES: system-specific, DO NOT VARY
+7. temperature
+	DESCRIPTION: Kelvin temperature
+	VALUES: 0-1000
+8. seed
+	DESCRIPTION: Random number seed (affects any calculations throughout the simulation which involve random numbers, i.e. velocity initialization)
+	VALUES: nonnegative integers
+9. outputfreq
+	DESCRIPTION: Frequency to perform trajectory output
+	VALUES: positive integer
+10. boundaryConditions 
+	DESCRIPTION: Spatial boundary conditions (periodic boundary conditions perform a wraparound at the edges of a 'periodic box' representing Cartesian space.  
+	VALUES: Periodic or Vacuum
+11. cellBasisVector[1,2,3] (Only for Periodic boundary conditions)
+	DESCRIPTION: Three vectors which span the periodic box in Cartesian space.  If atoms move outside this box, their positions will wraparound. Commonly basis vector 1 will have its x-coordinate set to the x-dimension of the periodic box, vector 2 will have its y-coordinate set to the y-dimension, and vector 3 will have its z-coordinate set to the z-dimension.  If omitted, these vectors will span space defined by the maximum x, y, and z initial coordinates, plus a small buffer zone
+	VALUES: Positive floating point values, but if they are very large the boundary conditions are essentially reduced to Vacuum
+12. cellManager
+	VALUES: Cubic
+	DESCRIPTION: Shape of cells for nonbonded force computation, as of now Cubic is all that's available so do not vary.
+13. cellsize
+	VALUES: Positive integer
+	DESCRIPTION: The size of these cubic cells in angstroms.  Cartesian space becomes subdivided into cubic cells of this size, and when pairwise forces are computed, all atoms within a specific cell are evaluated with all atoms within neighboring cells.  Thus, good practice is to enforce cellsize >= 0.5*cutoff.
+14. removeLinearMomentum
+	VALUES: -1, 0, or positive integer frequency
+	DESCRIPTION: Frequency at which to remove COM translational momentum from atomic velocities.  -1 is never, 0 is only at the beginning, otherwise a frequency in timesteps
+15. removeAngularMomentum
+	VALUES: -1, 0, or positive integer frequency
+	DESCRIPTION: Frequency at which to remove COM rotational momentum from atomic velocities.  -1 is never, 0 is only at the beginning, otherwise a frequency in timesteps.
+
+
+
+TRAJECTORY OUTPUT (all strings for filenames).  Many of these are readable and plottable through MATLAB.
+(Note, you can append these suffixes to the following parameters to achieve the following:
+outputfreq: Positive integer frequency for the number of steps between writes.
+cachefreq (positive integer), cachesize (nonnegative integer): For ProtoMol output, a cache is kept which holds necessary data for each type of file.  cachefreq is the frequency at which this cache should be flushed, and cachesize is the size in bytes.  These can be used to maximize performance for large scale systems with few file writes (i.e. large amounts of time between writes)
+closetime: (nonnegative integer), Temporarily closes file after this number of steps following a write.
+
+1. allenergiesfile: Writes a file containing step number and values for all types of energy
+2. bsdlfile: Writes a BSDL file of atomic positions, visualizable through BOOGA
+3. diffusionfile: Writes a file containing time in femtoseconds, the average rate of diffusion in cm^2/s, volume, temperature, and atomic density in kgm^-3*1e3
+4. dihedralsfile: Writes a file containing dihedral angle values for the dihedral number passed in 'dihedralindex'.
+5. momentumfile: Writes a file containing linear and angular momentum for the atoms
+6. tempfile: Writes a file containing Kelvin temperature
+7. xyzbinposfile: Writes a binary XYZ trajectory file of atomic positions 
+8. xyzbinvelfile: Writes a binary XYZ trajectory file of atomic velocities
+9. xyzforcefile: Writes an XYZ trajectory file of atomic forces
+10. xyzposfile: Writes an XYZ trajectory file of atomic positions
+11. xyzvelfile: Writes an XYZ trajectory file of atomic velocities
+
+12. screen: A unique trajectory output, set to true or false if output should be displayed to the screen
+
+
+INSTANTANEOUS OUTPUT (all strings for filenames).  
+
+1. finPDBPosFile: PDB file of final atomic positions
+2. finXYZBinPosFile: Binary XYZ file of final atomic positions
+3. finXYZBinVelFile: Binary XYZ file of final atomic velocities
+4. finXYZBinVelRevFile: Binary XYZ file of final atomic velocities, negated
+5. finXYZPosFile: XYZ file of final atomic positions
+6. finXYZVelFile: XYZ file of final atomic velocities
+
+
+
+INTEGRATOR PARAMETERS:
+1. timestep
+	VALUES: (0, ~2.8]
+	DESCRIPTION: Timestep for propagation in femtoseconds
+2. temperature
+	VALUES: positive integer
+	DESCRIPTION: Used as a scaling factor when adding white noise forces.  Higher values just mean higher magnitudes for these forces, yielding more rapid energy changes
+3. gamma
+	VALUES: nonnegative floating point
+	DESCRIPTION: Frictional coefficient
+4. seed
+	VALUES: nonnegative integer
+	DESCRIPTION: Random number seed for calculating random white noise force.

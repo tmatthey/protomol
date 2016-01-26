@@ -1,0 +1,200 @@
+No MPI compilation.
+
+######                                  #     #
+#     #  #####    ####   #####   ####   ##   ##   ####   #
+#     #  #    #  #    #    #    #    #  # # # #  #    #  #
+######   #    #  #    #    #    #    #  #  #  #  #    #  #
+#        #####   #    #    #    #    #  #     #  #    #  #
+#        #   #   #    #    #    #    #  #     #  #    #  #
+#        #    #   ####     #     ####   #     #   ####   ######
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Please cite T. Matthey, T. Cickovski, S. S. Hampton, A. Ko, Q. Ma, M. Nyerges, T. Raeder,
+T. Slabach, and J. A. Izaguirre. ProtoMol: An object-oriented framework for prototyping
+novel algorithms for molecular dynamics. ACM Trans. Math. Softw., 30(3):237­265, 2004.
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+ProtoMol Version 2.0.4
+
+tcickovs Feb 14 2007 16:38:35
+Linux manganese 2.6.9-42.ELsmp #1 SMP Wed Jul 12 23:27:17 EDT 2006 i686 i686 i386 GNU/Linux
+icpc -Wall -wd810,383,981,279,444,1572 -O3 -ip -DNDEBUG -pg
+32-bit
+Intel(R) C++ Compiler for 32-bit applications, Version 8.1    Build 20050823Z Package ID: l_cc_pc_8.1.034
+Copyright (C) 1985-2005 Intel Corporation.  All rights reserved.
+Version 8.1 
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Information:
+
+protomol@cse.nd.edu
+http://protomol.sourceforge.net
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+
+Undefined keyword(s):
+allEnergiesFileOutputFreq     <int,positive>
+BSDLFile                      <string,non-empty>
+BSDLFileOutputFreq            <int,positive>
+cellBasisVector1              <coordinates,non-zero>
+cellBasisVector2              <coordinates,non-zero>
+cellBasisVector3              <coordinates,non-zero>
+cellorigin                    <coordinates>
+DCDFile                       <string,non-empty>
+DCDFileMinimalImage           <boolean>
+DCDFileOutputFreq             <int,positive>
+diffusionFile                 <string,non-empty>
+diffusionFileOutputFreq       <int,positive>
+dihedralMultPSF               <boolean>
+dihedralsFile                 <string,non-empty>
+dihedralsFileMinimalImage     <boolean>
+dihedralsFileOutputFreq       <int,positive>
+dihedralsIndex                <int,non-negative>
+dihedralsSetfile              <string,non-empty>
+doallEnergiesFile             <boolean>
+doBSDLFile                    <boolean>
+doDCDFile                     <boolean>
+dodiffusionFile               <boolean>
+dodihedralsFile               <boolean>
+dofinPDBPosFile               <boolean>
+dofinXYZBinPosFile            <boolean>
+dofinXYZBinVelFile            <boolean>
+dofinXYZPosFile               <boolean>
+dofinXYZVelFile               <boolean>
+domomentumFile                <boolean>
+dopaulFile                    <boolean>
+doPaulLowFile                 <boolean>
+doPDBPosFile                  <boolean>
+doREMExchangeRatesFile        <boolean>
+doREMHistoryFile              <boolean>
+dostateFile                   <boolean>
+doTempFile                    <boolean>
+doXYZBinPosFile               <boolean>
+doXYZBinVelFile               <boolean>
+doXYZForceFile                <boolean>
+doXYZPosFile                  <boolean>
+doXYZVelFile                  <boolean>
+eigfile                       <string,non-empty>
+eigvalfile                    <string,non-empty>
+finPDBPosFileMinimalImage     <boolean>
+finXYZBinPosFile              <string,non-empty>
+finXYZBinPosFileMinimalImage  <boolean>
+finXYZBinVelFile              <string,non-empty>
+finXYZPosFile                 <string,non-empty>
+finXYZPosFileMinimalImage     <boolean>
+finXYZVelFile                 <string,non-empty>
+momentumFile                  <string,non-empty>
+momentumFileOutputFreq        <int,positive>
+paulFile                      <string,non-empty>
+paulFileOutputFreq            <int,positive>
+paulOmega                     <real,non-negative>
+paulOmegaZ                    <real,non-negative>
+PDBPosFile                    <string,non-empty>
+PDBPosFileMinimalImage        <boolean>
+REMExchangeRatesFile          <string,non-empty>
+REMExchangeRatesFileOutputFreq<int,positive>
+REMHistoryFile                <string,non-empty>
+REMHistoryFileOutputFreq      <int,positive>
+ScreenOutputFreq              <int,positive>
+ScreenPaulTrap                <boolean>
+stateFile                     <string,non-empty>
+stateFileOutputFreq           <int,positive>
+statesInputFile               <string,non-empty>
+TemperatureSeparateWater      <boolean>
+TempFile                      <string,non-empty>
+TempFileOutputFreq            <int,positive>
+velfile                       <string,non-empty>
+XYZBinPosFile                 <string,non-empty>
+XYZBinPosFileMinimalImage     <boolean>
+XYZBinPosFileOutputFreq       <int,positive>
+XYZBinVelFile                 <string,non-empty>
+XYZBinVelFileOutputFreq       <int,positive>
+XYZForceFile                  <string,non-empty>
+XYZForceFileOutputFreq        <int,positive>
+XYZPosFile                    <string,non-empty>
+XYZPosFileMinimalImage        <boolean>
+XYZPosFileOutputFreq          <int,positive>
+XYZVelFile                    <string,non-empty>
+XYZVelFileOutputFreq          <int,positive>
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Using seed 11.
+Using report level 0.
+Recoverable Error:  [PDB::read] Record unknow:'CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1           1'.
+Using PDB posfile 'wwd_mineq.pdb' (551).
+Using temperature 310K for the velocities  (551).
+Using PSF file 'wwd_mineq.psf' (551).
+Using PAR file 'par_all27_prot_lipid.inp', new charmm force field.
+Hint:  Reduced fast delta max of ExclusionTable from 31 to 26.
+Random temperature : 309.044K
+Removed linear momentum: (-0.0451688,-1.56291,1.02772)
+Removed angular momentum : (-4.16096,0.257581,6.41546)
+Actual start temperature : 309.982K
+Using MD integrator. 
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Virial tensor : false
+Molecular virial tensor : false
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Output allEnergiesFile wwd.min.energy 1 1 0 1 false false.
+Output finPDBPosFile wwd.min.pdb true.
+Output Screen true 1.
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+integrator {
+  Level 0 CGMinimizer {
+      timestep 0.5
+      alpha 0.001	 # steplength 'sufficient decrease' parameter
+      beta 0.05	 # steplength 'sufficient directional derivative reduction' parameter
+      restart 0.05	 # steplength 'restart interval
+    Force Improper
+    Force Dihedral
+    Force Bond
+    Force Angle
+    Force LennardJones -switchingFunction Cn -algorithm NonbondedCutoff
+      -switchon 8	 # Cn swf switch on
+      -switchoff 10	 # Cn swf switchoff
+      -cutoff 10	 # Cn swf cutoff
+      -n 4	 # Cn swf smothness
+      -cutoff 10	 # algorithm cutoff
+    Force CoulombDiElec -switchingFunction Cn -algorithm NonbondedCutoff
+      -switchon 0	 # Cn swf switch on
+      -switchoff 10	 # Cn swf switchoff
+      -cutoff 10	 # Cn swf cutoff
+      -n 4	 # Cn swf smothness
+      -cutoff 10	 # algorithm cutoff
+  }
+}
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Atoms                : 551
+AtomTypes            : 32
+Bonds                : 561
+Angles               : 1003
+Dihedrals            : 1485 (1558)
+Impropers            : 89
+Molecules            : 1
+Water                : 0
+Pairs                : 730
+Degree of freedom    : 1650
+Molecule pair dist's : true
+Exclusion pairs      : 3004
+Max exclusion dist   : 26
+Time                 : 0.5
+CellManager          : Cubic
+BoundaryConditions   : Vacuum orthogonal
+coulombScalingFactor : 1
+exclude              : scaled1-4
+cellSize             : 4
+Atom density         : 0.0316745647385255
+Atom/cell            : 2.02717214326563
+Real cell size       : (4,4,4)
+Cell dimension       : (6,7,9)
+Simulation box       : (-inf,-inf,-inf)-(inf,inf,inf) (inf,inf,inf)
+Particle             : (-60.008,-34.478,37.371)-(-39.237,-8.497,69.606) (20.771,25.981,32.235)
+Particle extended    : (-60.008,-34.478,37.371)-(-39.237,-8.497,69.606) (20.771,25.981,32.235)
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+Step :          0, Time :              0.500 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Step :          1, Time :              5.000 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Step :          2, Time :              9.500 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Step :          3, Time :             14.000 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Step :          4, Time :             18.500 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Step :          5, Time :             23.000 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Step :          6, Time :             27.500 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Step :          7, Time :             32.000 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Step :          8, Time :             36.500 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Step :          9, Time :             41.000 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Step :         10, Time :             45.500 [fs], TE :        1534.3685 [kcal/mol], T :   309.9818 [K], V :         17395.66 [AA^3]
+Timing : wall: 26.82892[s] real, 21.91167[s] user, 4.39733[s] sys, run: 26.43356[s], integration: 25.89885[s], forces: 25.89534[s].

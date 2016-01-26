@@ -1,0 +1,15 @@
+#!/bin/sh
+find . -name "*.o" -exec rm {} \;
+find framework applications -name "lib*.a" -exec rm {} \;
+find . -name "*~" -exec rm {} \;
+find . -name core -exec rm {} \;
+find . -name ii_files -exec rm -rf {} \;
+find . -name *.il -exec rm -rf {} \;
+find framework applications -name Makefile -exec rm {} \;
+find framework applications -name Makefile.bak -exec rm {} \;
+find framework applications -name Makefile.in -exec rm {} \;
+rm -f Makefile Makefile.bak Makefile.in aclocal.m4 confdefs.h config.cache config.h.in config.log config.status config/[a-z]* configure install-sh missing mkinstalldirs protomol_config.h.in stamp-h stamp-h.in stamp-h1
+rm -f examples/*/*.out.*
+rm -rf autom4te*
+
+# make clean

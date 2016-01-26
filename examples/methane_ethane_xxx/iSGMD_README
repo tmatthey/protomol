@@ -1,0 +1,135 @@
+README file for running isomolar semigrand ensemble molecular dynamics simulations (iSGMD) in ProtoMol2 **************
+
+For an indepth description of the iSG ensemble and the equations of motion used by ProtoMol2, please see
+T.I. Morrow and E.J. Maginn, "Isomolar semigrand ensemble molecular dynamics: Development and application to
+liquid-liquid equilibria", Journal of Chemical Physics, 122, 054504 (2005). 
+
+The iSG ensemble is a constant pressure, constant temperature, constant total # of molecules, and constant chemical potential
+difference ensemble.  This ensemble is only valid for mixtures.  One mixture component must be chosen to be the reference component.
+The chemical potential difference between component i and the reference component, Mu[i] - Mu[1], is commonly expressed using a quantity called
+the fugacity fraction.  The chemical potential difference is related to the fugacity fraction by:
+
+Mu[i] - Mu[1] = k * T * ln (X[i] / X[1]) + ideal gas terms,
+
+where k is Boltzmann's constant, T is the temperature, X[i] is the fugacity fraction of component i, and the ideal gas terms are temperature-dependent
+constants.  For an n-component system you must specify n fugacity fractions.  The fugacity fractions can vary only between 0 and 1 and must sum to one.
+So for a 3 component system, for example, if X[1] = 0.3 and X[2] = 0.5, then X[3] must be equal to 0.2.
+
+In order to maintain the mixture at the specified fugacity fractions, the simulation will attempt to transform molecules between different identities using
+a dynamical transformation scheme.  As the iSGMD simulation progresses you will see the mixture composition change with time in order to reach a
+chemical equilibrium with the specified fugacity fractions.  The mixture's composition, volume, and energy are written to disk in the iSGProperties file
+as the simulation progresses.  This information can be used in conjuction with Gibbs-Duhem integration or histogram reweighiting to determine
+phase coexistence.
+
+To run an iSGMD simulation in Protomol2, you will need to supply the following input files:
+
+1) an xyz coordinate file for all the atoms in the system.  This can be in either XYZ format or PDB format
+2) either an initial temperature or an xyz velocity file for all the atoms in the system.  The velocity file can be in either XYZ format or PDB format
+3) a structure file in the Protein Structure Format (PSF).  Please see the file ethane_methane_300_Pure_Trappe.psf for an example.  VERY 
+   IMPORTANT!  You must specify the identity of each molecule/atom with an integer number in the far right column of the !NATOM section.  Number your
+   molecule identities starting from zero (i.e. component 1 is 0, component 2 is 1, component 3 is 2, etc.).  Below is an example of this:
+*******************
+PSF
+
+       5 !NTITLE
+ REMARKS FILENAME=ethane_methane_300.psf by tmorrow
+ REMARKS ProtoMol (built on Mar 14 2005 at 12:49:33)
+ REMARKS This .psf file was created by PSFWriter
+ REMARKS It was not manually assembled
+ REMARKS Time : 150000, step : 150000.
+
+     600 !NATOM
+       1 MTET 1    BTW  U1   U1    0               15.0344           0
+       2 MTET 1    BTW  U2   U2    0               15.0344           0
+       3 MTET 2    BTW  U1   U1    0               15.0344           0
+       4 MTET 2    BTW  U2   U2    0               15.0344           0
+       5 MTET 3    BTW  U1   U1    0               16.0423           1
+       6 MTET 3    BTW  U2   U2    0               15.0344           1
+       7 MTET 4    BTW  U1   U1    0               15.0344           0
+       8 MTET 4    BTW  U2   U2    0               15.0344           0
+       9 MTET 5    BTW  U1   U1    0               15.0344           0
+      10 MTET 5    BTW  U2   U2    0               15.0344           0
+      11 MTET 6    BTW  U1   U1    0               16.0423           1
+      12 MTET 6    BTW  U2   U2    0               15.0344           1
+      13 MTET 7    BTW  U1   U1    0               15.0344           0
+      14 MTET 7    BTW  U2   U2    0               15.0344           0
+      15 MTET 8    BTW  U1   U1    0               16.0423           1
+      16 MTET 8    BTW  U2   U2    0               15.0344           1
+      17 MTET 9    BTW  U1   U1    0               15.0344           0
+      18 MTET 9    BTW  U2   U2    0               15.0344           0
+      19 MTET 10   BTW  U1   U1    0               15.0344           0
+      20 MTET 10   BTW  U2   U2    0               15.0344           0
+      .
+      .
+      .
+
+      ^   ^   ^     ^   ^     ^    ^                 ^               ^
+      a   b   c     d   e     f    g                 h               i
+  a) Atom ID#
+  b) molecule name (not very important)
+  c) Molecule ID#
+  d) residue name
+  e) atom name
+  f) atom force field type
+  g) atomic charge (in this methane/ethane example none of the atoms are charged)
+  h) atomic mass
+  i) atom's identity, in this example ethane = 0 and methane = 1, so molecules 3, 6, and 8 are methane molecules and the rest are ethane molecules.
+********************
+
+4) If you desire to start a new simulation using the output of an old simulation as the starting point, you can specify an XSC file.  The XSC file
+   contains the exact values of the simulation volume, volume velocity, thermostats and their velocities, chemostat and its velocity, and the ID# of the
+   last molecule that was being transformed at the end of the simulation.  The XSC file will be created for you by ProtoMol2 when an iSGMD simulation is 
+   finished, so you would normally not need to edit it yourself.
+5) A ProtoMol2 configuration (.conf) file.  Please see ethane_methane_300.conf for the details.
+6) A forcefield file (PAR file).  For each atom type in the PAR file you must specify one force parameter for each identity.  This means that for
+   a 3-component system, for example, you must supply 3 Lennard-Jones parameters for each atom type, 3 force constants for every bond type, etc.  You must
+   also specify the particular molecule identity to which each force parameter applies in the far right column of each section.  Please see
+   the example file ethane_methane.par, a section of which is shown below:
+
+****************
+BONDS
+!
+!V(bond) = Kb(b - b0)**2
+!
+!Kb: kcal/mole/A**2
+!b0: A
+!
+!atom type Kb          b0    identity
+!
+!-- single-topology bonds for iSGMD simulations
+!-- for the UA model
+U1   U2     500.0       1.540    0   ! UA alkane C-C bond -- ethane identity   (TraPPe model)
+U1   U2     500.0       1.540    1   ! dummy-C bond -- methane identity        (TraPPe model)
+.
+.
+.
+NONBONDED nbxmod  5 atom cdiel shift vatom vdistance vswitch -
+cutnb 14.0 ctofnb 12.0 ctonnb 10.0 eps 1.0 e14fac 1.0 wmin 1.5
+                !adm jr., 5/08/91, suggested cutoff scheme
+!
+!V(Lennard-Jones) = Eps,i,j[(Rmin,i,j/ri,j)**12 - 2(Rmin,i,j/ri,j)**6]
+!
+!epsilon: kcal/mole, Eps,i,j = sqrt(eps,i * eps,j)
+!Rmin/2: A, Rmin,i,j = Rmin/2,i + Rmin/2,j
+!
+!atom  ignored   epsilon      Rmin/2   ignored   eps,1-4       Rmin/2,1-4  identity
+!
+!-- single topology LJ parameters for iSGMD simulations
+!-- for the UA model
+U1     0.0       -0.19460      2.105      0.0     -0.0000        1.000      0 ! ethane methyl CH3      -- ethane identity  (TraPPe model)
+U1     0.0       -0.29390      2.093      0.0     -0.0000        1.000      1 ! methane atom           -- methane identity (TraPPe model)
+U2     0.0       -0.19460      2.105      0.0     -0.0000        1.000      0 ! ethane methyl CH3      -- ethane identity  (TraPPe model)
+U2     0.0       -0.00000      2.105      0.0     -0.0000        1.000      1 ! dummy atom             -- methane identity (TraPPe model)
+.
+.
+.
+
+  In this example the bond is exactly the same in both the methane and ethane identities.  Even though it doesn't change you still have to list
+  the force constant twice, once for methane and a second time for ethane.  In the Lennard-Jones section you can see that atom type U1 has ethane
+  parameters for identity 0 and methane parameters for identity 1, while atom type U2 has ethane parameters for identity 0 and is a dummy atom (epsilon
+  = 0) in identity 1.
+********************
+
+7) A transformation pathway file (TRANS file).  This file will define for the computer the exact pathway you want to use to accomplish the molecular
+   transformation, including any intermediate states if necessary.  A detailed description of how to fill out each section of the TRANS file is given in
+   the file ethane_methane.trans, and will not be repeated here.

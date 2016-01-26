@@ -1,0 +1,34 @@
+# xxx
+
+AUTOMAKE_OPTIONS	= foreign dist-tarZ no-dependencies
+
+#Change AR Flag
+AR = $(AR1)
+libxxx_a_AR = $(AR2) 
+
+P_BASE        = $(top_srcdir)/framework/base
+P_IO          = $(top_srcdir)/framework/io
+P_PARALLEL    = $(top_srcdir)/framework/parallel
+P_IMD         = $(top_srcdir)/framework/imd
+P_TOPOLOGY    = $(top_srcdir)/framework/topology
+P_FORCES      = $(top_srcdir)/framework/forces
+P_INTEGRATORS = $(top_srcdir)/framework/integrators
+P_FRONTEND    = $(top_srcdir)/framework/frontend
+P_FACTORIES   = $(top_srcdir)/framework/factories
+
+# xxx Sources
+P_XXX_SRC =\
+
+# xxx Includes
+P_XXX_H =\
+
+# Temporary library to get subdirectory source files, blech!
+noinst_LIBRARIES = libxxx.a
+
+libxxx_a_SOURCES = $(P_XXX_SRC) $(P_XXX_H)
+
+INCLUDES =-I$(P_BASE) -I$(P_IO) -I$(P_PARALLEL) -I$(P_IMD) -I$(P_TOPOLOGY) -I$(P_FORCES) -I$(P_INTEGRATORS) -I$(P_FRONTEND) -I$(P_FACTORIES)
+
+SOURCEFILES = $(P_XXX_SRC)
+
+include $(top_srcdir)/Makefile.depend

@@ -1,0 +1,18 @@
+HOW TO DO
+
+
+How do I change the parameters of a force?
+
+   vector<Force*> forces = integrator->getForeGroup()->getForces();
+	
+   // or 
+
+   Force* hf = new HarmDihedralSystemForce<PeriodicBoundaryConditions>(2,0.3,true);
+ 
+   report << hf->getId() <<":"<<hf->getParameters()[1].value << endr;
+   string err;
+   hf->setParameter(err,"-angle",0.5);
+   report << hf->getId() <<":"<<hf->getParameters()[1].value << endr;
+   hf->setParameter(err,1,0.7);
+   report << hf->getId() <<":"<<hf->getParameters()[1].value << endr;
+   delete hf;

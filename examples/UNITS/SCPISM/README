@@ -1,0 +1,46 @@
+**************************************************************************
+* Scheme: Langevin Dynamics with SCPISM Forces                           *
+* System: 22-atom, unsolvated, Alanine Dipeptide                         *
+* Purpose: Tests Langevin integrator and SCPISM algorithms               *
+*          On this one a lot of the integrator and force information     *
+*          is the same as the other tests, but the point is to test the  *
+*          calculation of SCPISM forces                                  *
+**************************************************************************
+
+Parameters, descriptions, and acceptable values
+
+GENERAL:
+1. doscpism
+	VALUES: true or false
+	DESCRIPTION: True if SCPISM calculations are being used.  The program should crash elegantly with a message if this is false but SCPISM forces are computed.
+
+
+INTEGRATOR PARAMETERS:
+1. timestep
+	VALUES: (0, ~3.2]
+	DESCRIPTION: Timestep for propagation in femtoseconds
+
+2. temperature
+	VALUES: positive integer
+	DESCRIPTION: Used as a scaling factor when adding white noise forces.  Higher values just mean higher magnitudes for these forces, yielding more rapid energy changes
+3. gamma
+	VALUES: nonnegative floating point
+	DESCRIPTION: Frictional coefficient
+4. seed
+	VALUES: nonnegative integer
+	DESCRIPTION: Random number seed for calculating random white noise force.
+
+
+1. switchingFunction
+	VALUES: Universal, C1, C2, Cn, CmpCnCn, Shift
+	DESCRIPTION: Since a cutoff is being used, apply a function to smooth its value to zero at the cutoff distance.  Universal is no smoothing, C1 is a continuous first derivative and C2 continuous second, Cn is flexible continuity, CmpCnCn is its complement, Shift is a PE shift.  These in turn accept different parameters
+2. switchon
+	VALUES: floating point, < cutoff
+	DESCRIPTION: Angstrom distance at which switching turns on
+3. switchoff
+	VALUES: floating point, > 0
+	DESCRIPTION: Angstrom distance at which switching turns off
+4. cutoff
+	VALUES: floating point, > 0
+	DESCRIPTION: Angstrom distance to cutoff forces and assume zero
+

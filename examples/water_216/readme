@@ -1,0 +1,152 @@
+The files:
+
+water.216.equil.pdb
+water.216.equil.vel.xyz
+
+were equilibrated first with LangevinImpulse (NVT) for 50ps at a timestep of
+0.1fs and a temperature of 300K.  Following this, Leapfrog (NVE) was run for
+50ps at a timestep of 0.1fs and a temperature of 300k.  The configuration files
+used for these tests follow:
+
+#  -------------------------------------------------------------------------  #
+#  NVE simulation
+#  -------------------------------------------------------------------------  #
+
+numSteps               500000
+outputfreq             250
+
+allEnergiesFile        water.216.energies.lf
+# dcdFile                water.216.dcd
+# dcdFileMinimalImage    true
+# dcdFileOutputFreq      500
+finPDBPosFile          water.216.fin.lf.pdb
+finXYZVelFile          water.216.fin.vel.lf.xyz
+
+psfFile                water.216.psf
+parFile                water.216.par
+posFile                water.216.fin.li.pdb
+velFile                water.216.fin.li.vel.xyz
+#  temperature            300
+
+boundaryConditions     Periodic
+cellBasisVector1       30.8927   0         0
+cellBasisVector2       0         27.8485   0
+cellBasisVector3       0         0         30.7217
+cellorigin             0.98035  -0.08475   0.19285
+
+cellManager            Cubic
+cellsize               7
+exclude                scaled1-4
+firststep              0
+# molVirialCalc          yes
+removeAngularMomentum  0
+removeLinearMomentum   0
+# seed                   364187
+# shadowEnergy           true
+# virialCalc             yes
+
+
+Integrator {
+
+    level 0 Leapfrog {
+
+        timestep       0.1
+
+        force Angle,
+              Bond
+        # force  Dihedral,
+              # Improper
+
+        force LennardJones
+            # -algorithm           NonbondedSimpleFull
+            -algorithm           NonbondedCutoff
+            -switchingFunction   C2
+            -switchon            11
+            -cutoff              13
+
+        force Coulomb
+            -algorithm           NonbondedCutoff
+            -switchingFunction   C1
+            -cutoff              13
+            # -algorithm           NonbondedSimpleFull
+            # -switchingFunction   C1
+            # -cutoff              12
+
+    }
+
+}
+
+# vim: set ft=sh :
+
+#  -------------------------------------------------------------------------  #
+#  NVT simulation
+#  -------------------------------------------------------------------------  #
+
+numSteps               500000
+outputfreq             250
+
+allEnergiesFile        water.216.energies.li
+# dcdFile                water.216.dcd
+# dcdFileMinimalImage    true
+# dcdFileOutputFreq      500
+finPDBPosFile          water.216.fin.li.pdb
+finXYZVelFile          water.216.fin.li.vel.xyz
+
+parFile                water.216.par
+posFile                water.216.pdb
+psfFile                water.216.psf
+temperature            300
+
+boundaryConditions     Periodic
+# cellBasisVector1       65.672   0        0
+# cellBasisVector2       0        73.484   0
+# cellBasisVector3       0        0        73.484
+# cellOrigin             31.24    35.144   35.142
+
+cellManager            Cubic
+cellsize               15
+exclude                scaled1-4
+firststep              0
+# molVirialCalc          yes
+removeAngularMomentum  0
+removeLinearMomentum   0
+# seed                   364187
+# shadowEnergy           true
+# virialCalc             yes
+
+
+Integrator {
+
+    level 0 LangevinImpulse {
+
+        timestep       0.1
+
+        temperature    300
+        gamma          100
+
+        force Angle,
+              Bond
+        # force  Dihedral,
+              # Improper
+
+        force LennardJones
+            # -algorithm           NonbondedSimpleFull
+            -algorithm           NonbondedCutoff
+            -switchingFunction   C2
+            -switchon            11
+            -cutoff              13
+
+        force Coulomb
+            -algorithm           NonbondedCutoff
+            -switchingFunction   C1
+            -cutoff              13
+            # -algorithm           NonbondedSimpleFull
+            # -switchingFunction   C1
+            # -cutoff              12
+
+    }
+
+}
+
+# vim: set ft=sh :
+

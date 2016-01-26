@@ -1,0 +1,19 @@
+Last Updated Apr 2005 - Author 2005
+
+Information about the files for UA_butane
+
+Equillibration -
+ 
+The initial pdb is at (or near) the known global minima. No equilibration performed
+
+Config Files -
+
+For UA_butane the values in the par files are documented with respect to their source
+
+For UA_butane Electrostatics (Coulomb) are NOT used
+
+Additional Scripts -
+
+runButaneTests.sh allows a user to run multiple config files with varied parameters
+
+runButaneResults.sh calculates the average dihedral energy from the outputs

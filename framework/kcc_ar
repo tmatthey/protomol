@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#Shift our AR -cru tag and replace with below statement.
+shift
+KCC -o $*
