@@ -24,13 +24,6 @@ typedef struct {
   double im;
 } zomplex;
 
-#ifndef min
-#define min(a,b)               ( ((a) < (b)) ? (a) : (b) )
-#endif
-#ifndef max
-#define max(a,b)               ( ((a) > (b)) ? (a) : (b) )
-#endif
-
 /* Table of constant values */
 static  int const1 = 1;
 static  int const16384 = 16384;

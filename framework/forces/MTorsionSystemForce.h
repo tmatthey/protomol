@@ -105,10 +105,10 @@ namespace ProtoMol {
 
 	Real diff = phi - currTorsion.phaseShift[i];
 
-	if( diff < -M_PI )
-	  diff += 2 * M_PI;
-	else if( diff > M_PI )
-	  diff -= 2 * M_PI;
+	if( diff < -Constant::M_PI )
+	  diff += 2 * Constant::M_PI;
+	else if( diff > Constant::M_PI )
+	  diff -= 2 * Constant::M_PI;
 
 	dpotdphi += 2.0 * currTorsion.forceConstant[i] * diff;
 
@@ -240,10 +240,10 @@ namespace ProtoMol {
 
 	Real diff = phi - currTorsion.phaseShift[i];
 
-	if( diff < -M_PI )
-	  diff += 2 * M_PI;
-	else if( diff > M_PI )
-	  diff -= 2 * M_PI;
+	if( diff < -Constant::M_PI )
+	  diff += 2 * Constant::M_PI;
+	else if( diff > Constant::M_PI )
+	  diff -= 2 * Constant::M_PI;
 
 	// Add energy
 	energy += currTorsion.forceConstant[i] * diff * diff;

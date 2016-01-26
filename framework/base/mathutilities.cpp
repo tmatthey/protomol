@@ -250,8 +250,8 @@ namespace ProtoMol {
       sqg2 = randomNumber(iseed);
       
       // generate random variables
-      zeta1 = sqrt(-2.0 * log(sqg1)) * cos(2 * M_PI * sqg2);
-      zeta2 = sqrt(-2.0 * log(sqg1)) * sin(2 * M_PI * sqg2);
+      zeta1 = sqrt(-2.0 * log(sqg1)) * cos(2 * Constant::M_PI * sqg2);
+      zeta2 = sqrt(-2.0 * log(sqg1)) * sin(2 * Constant::M_PI * sqg2);
       
       // calculate gaussian
       gaussian = mean + stdev * zeta1;

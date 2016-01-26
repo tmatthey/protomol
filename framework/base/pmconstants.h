@@ -37,6 +37,9 @@ namespace ProtoMol {
 
     extern const Real EPS_GOURAUD_THRESHOLD;
     extern const Real EPS_SMOOTH_LINE_FACTOR;
+    extern const Real M_PI;
+    extern const Real M_2_SQRTPI;
+    extern const Real M_SQRT2;
 
 
     namespace ParseCommandLine {

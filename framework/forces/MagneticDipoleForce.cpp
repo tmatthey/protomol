@@ -12,7 +12,7 @@ namespace ProtoMol {
   MagneticDipoleForce::MagneticDipoleForce(Real chi, Real radius, Real omega, Real phi, Real Hx,Real Hy, Real Hz, Real D):
     myChi(chi),myR(radius),myOmega(omega),myPhi(phi),myHx(Hx),myHy(Hy),myHz(Hz),myD(D){
     // Shortcuts
-    volum     = 4.0/3.0*M_PI*power<3>(myR);
+    volum     = 4.0/3.0*Constant::M_PI*power<3>(myR);
     expfactor = -1000.0*myChi*myChi*myR*myHx*myHx;
     realChi   = myChi/(1-2.0/3.0*myChi);
     kappa     = realChi/(realChi+2.0);

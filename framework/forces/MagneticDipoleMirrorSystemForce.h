@@ -21,7 +21,7 @@ namespace ProtoMol {
       myChi(chi), myR(r), myD(d), myHx(Hx), myHy(Hy), myHz(Hz){
       //Short cuts
       Real realChi = myChi/(1.0-2.0/3.0*myChi);
-      Real volume = 4.0/3.0*M_PI*power<3>(myR);
+      Real volume = 4.0/3.0*Constant::M_PI*power<3>(myR);
       Real kappa = realChi/(realChi+2.0);
       Vector3D H(myHx, myHy, myHz/(1+realChi));
       Vector3D sigma = -H*volume*myChi;

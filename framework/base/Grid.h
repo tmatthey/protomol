@@ -244,7 +244,7 @@ namespace ProtoMol {
     Real virialzz = 0.0;
     bool doVirial = energies->virial();
     bool doMolVirial = energies->molecularVirial();
-    Real piVr = 1.0/(M_PI*myV);
+    Real piVr = 1.0/(Constant::M_PI*myV);
     int count = 0;
     for (unsigned int i = 0; i < myNX; i++){
       int i0 = i <= myNX/2 ? i : i-myNX;
@@ -271,7 +271,7 @@ namespace ProtoMol {
 	  int k0 = k <= myNZ/2 ? k : k-myNZ;
 	  //Vector3D mHat(i0*myWidthr,j0*myLengthr,k0*myHeightr);
 	  //Real mHatSquared = mHat.normSquared();
-	  //Real theta = myInerpolationModX[i]*myInerpolationModY[j]*myInerpolationModZ[k]*exp(-fac*mHatSquared)/(mHatSquared*M_PI*myV);
+	  //Real theta = myInerpolationModX[i]*myInerpolationModY[j]*myInerpolationModZ[k]*exp(-fac*mHatSquared)/(mHatSquared*Constant::M_PI*myV);
 	  Real mk = k0*myHeightr;
 	  Real mHatSquared = mij+mk*mk;
 	  Real theta = interpolationModXY*myInerpolationModZ[k]*exy*myExpZ[k]/mHatSquared;
@@ -351,7 +351,7 @@ namespace ProtoMol {
     Real virialzz = 0.0;
     bool doVirial = energies->virial();
     bool doMolVirial = energies->molecularVirial();
-    Real piVr = 1.0/(M_PI*myV);
+    Real piVr = 1.0/(Constant::M_PI*myV);
 
     myQTmp.resize(ArraySizes(myNX)(myNY)(myNZ));
     int m = myQ.size();
@@ -420,7 +420,7 @@ namespace ProtoMol {
 	  int k0 = k <= static_cast<int>(myNZ/2) ? k : k-myNZ;
 	  //Vector3D mHat(i0*myWidthr,j0*myLengthr,k0*myHeightr);
 	  //Real mHatSquared = mHat.normSquared();
-	  //Real theta = myInerpolationModX[i]*myInerpolationModY[j]*myInerpolationModZ[k]*exp(-fac*mHatSquared)/(mHatSquared*M_PI*myV);
+	  //Real theta = myInerpolationModX[i]*myInerpolationModY[j]*myInerpolationModZ[k]*exp(-fac*mHatSquared)/(mHatSquared*Constant::M_PI*myV);
 	  Real mk = k0*myHeightr;
 	  Real mHatSquared = mij+mk*mk;
 	  Real theta = interpolationModXY*myInerpolationModZ[k]*exy*myExpZ[k]/mHatSquared;
@@ -525,7 +525,7 @@ namespace ProtoMol {
     myAlpha = alpha;
     myInterOrder = interOrder;
     myAtomCount = atomCount;
-    myFac =  M_PI*M_PI/(myAlpha*myAlpha);
+    myFac =  Constant::M_PI*Constant::M_PI/(myAlpha*myAlpha);
 
     // Precompute exp(-pi^2m^2/alpha^2)
     if(myExpX != NULL) 
@@ -591,7 +591,7 @@ namespace ProtoMol {
       Real sumCos = 0.0;
       Real sumSin = 0.0;
       for(unsigned int j=0;j<order;j++){
-	Real x = M_PI*2.0*i*j/(Real)n;
+	Real x = Constant::M_PI*2.0*i*j/(Real)n;
 	sumCos += interpolation[j]*cos(x);
 	sumSin += interpolation[j]*sin(x);
       }

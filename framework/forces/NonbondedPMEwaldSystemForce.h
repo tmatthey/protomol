@@ -542,7 +542,7 @@ namespace ProtoMol {
 	  high = myAlpha;
 	}
       }
-      //myAlpha         = sqrt(M_PI)*pow(myTRate*atomCount/(power<2>(myV)),1.0/6.0);
+      //myAlpha         = sqrt(Constant::M_PI)*pow(myTRate*atomCount/(power<2>(myV)),1.0/6.0);
     }
     Real p          = -log(myAccuracy);
     myKc            = 2.0*myAlpha*sqrt(p);
@@ -552,7 +552,7 @@ namespace ProtoMol {
 
     myAlphaSquared  = myAlpha*myAlpha;
     myAlphaSquaredr = 1.0/myAlphaSquared;
-    my2AlphaPI      = 2.0*myAlpha/sqrt(M_PI);
+    my2AlphaPI      = 2.0*myAlpha/sqrt(Constant::M_PI);
   
     // The grid
     if(reciprocal)
@@ -567,7 +567,7 @@ namespace ProtoMol {
       for(unsigned int i=0;i<atomCount;i++){
 	q += realTopo->atoms[i].scaledCharge*realTopo->atoms[i].scaledCharge;
       }
-      myPointSelfEnergy = -q*myAlpha/sqrt(M_PI);
+      myPointSelfEnergy = -q*myAlpha/sqrt(Constant::M_PI);
     }
   
     //
@@ -580,7 +580,7 @@ namespace ProtoMol {
 	q += realTopo->atoms[i].scaledCharge;
       }
       if(fabs(q * 0.00268283) > 1.0e-5)
-	myChargedSystemEnergy = -M_PI/(2.0*myV*myAlphaSquared)*q*q;
+	myChargedSystemEnergy = -Constant::M_PI/(2.0*myV*myAlphaSquared)*q*q;
     }
   
     myLattice = boundaryConditions.buildLatticeVectors(myRc);
@@ -942,7 +942,7 @@ namespace ProtoMol {
     for(unsigned int i=0;i<atomCount;i++)
       sum += boundaryConditions.minimalPosition((*positions)[i])*realTopo->atoms[i].scaledCharge;
     // Energy
-    surfaceDipoleEnergy = 2.0/3.0*M_PI*myVr*sum.normSquared();
+    surfaceDipoleEnergy = 2.0/3.0*Constant::M_PI*myVr*sum.normSquared();
   
     Real virialxx = 0.0;
     Real virialxy = 0.0;
@@ -953,7 +953,7 @@ namespace ProtoMol {
     bool doVirial = energies->virial();
 
     // Force, F_i and virial_i (not confirmed)
-    sum *= 2.0/3.0*M_PI*myVr;
+    sum *= 2.0/3.0*Constant::M_PI*myVr;
     for(unsigned int i=0;i<atomCount;i++){
       Vector3D force(sum*realTopo->atoms[i].scaledCharge);
       Vector3D ri(boundaryConditions.minimalPosition((*positions)[i]));

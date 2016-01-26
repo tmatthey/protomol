@@ -670,10 +670,10 @@ namespace ProtoMol {
 						currTorsion.periodicity[dm] * currTorsion.periodicity[dm];
 		}else{	//Impropers
 			Real diff = g - currTorsion.phaseShift[dm];
-			if( diff < -M_PI )
-				diff += 2 * M_PI;
-			else if( diff > M_PI )
-				diff -= 2 * M_PI;
+			if( diff < -Constant::M_PI )
+				diff += 2 * Constant::M_PI;
+			else if( diff > Constant::M_PI )
+				diff -= 2 * Constant::M_PI;
 			fact1 += 2.0 * currTorsion.forceConstant[dm] * diff;
 			fact2 += 2.0 * currTorsion.forceConstant[dm];
 		}

@@ -160,7 +160,7 @@ namespace ProtoMol {
         tempdihedral = *dihedral_itr;
         if(tempdihedral < 0.0)
         {
-          tempdihedral = 2.0*M_PI + tempdihedral;
+          tempdihedral = 2.0*Constant::M_PI + tempdihedral;
         }
         if ((tempdihedral <= stateA[i].lowBound) || (tempdihedral >= stateA[i].highBound))
         {
@@ -181,7 +181,7 @@ namespace ProtoMol {
           tempdihedral = *dihedral_itr;
           if(tempdihedral < 0.0)
           {
-            tempdihedral = 2.0*M_PI + tempdihedral;
+            tempdihedral = 2.0*Constant::M_PI + tempdihedral;
           }
           myBuffer << " " << stateA[i].dihID << "  low bound:" << stateA[i].lowBound << " val:" << tempdihedral
                    << " high bound:" << stateA[i].highBound << endl;
@@ -206,7 +206,7 @@ namespace ProtoMol {
         tempdihedral = *dihedral_itr;
         if(tempdihedral < 0.0)
         {
-          tempdihedral = 2.0*M_PI + tempdihedral;
+          tempdihedral = 2.0*Constant::M_PI + tempdihedral;
         }
 
         if ((tempdihedral <= stateB[i].lowBound) || (tempdihedral >= stateB[i].highBound))
@@ -227,7 +227,7 @@ namespace ProtoMol {
           tempdihedral = *dihedral_itr;
           if(tempdihedral < 0.0)
           {
-            tempdihedral = 2.0*M_PI + tempdihedral;
+            tempdihedral = 2.0*Constant::M_PI + tempdihedral;
           }
           myBuffer << " " << stateB[i].dihID << " low bound:" << stateB[i].lowBound << " val:" << tempdihedral
                    << " high bound:" << stateB[i].highBound << endl;

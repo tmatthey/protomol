@@ -29,7 +29,7 @@ namespace ProtoMol {
       void assign(Real r, Real r1, int ex, Real v, Real d, TReal* val) const{
 	Real r2 = (ex == 2 ? r : power<2>(r1));
 	Real e = erfc(myAlpha*r1)/r1;
-	Real f = (e+2.0*myAlpha/sqrt(M_PI)*exp(-myAlpha*myAlpha*r2))/r2;
+	Real f = (e+2.0*myAlpha/sqrt(Constant::M_PI)*exp(-myAlpha*myAlpha*r2))/r2;
 	val[0] =        e*v;
 	val[1] = -0.5 * (f*v-e*d);
       }

@@ -2,6 +2,7 @@
 #ifndef SIMPLETYPES_H
 #define SIMPLETYPES_H
 
+#include <algorithm>
 #include <map>
 #include <string>
 

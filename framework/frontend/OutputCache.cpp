@@ -281,9 +281,9 @@ namespace ProtoMol {
         //((*myBrentMaxima)[i]).resize(1);
         
         for(unsigned int j=0;j<=99;j++){ //note the function evaluates one step past 2 pi
-          Real lradangle = (M_PI * 2 / 100 * j);
-          Real radangle = (M_PI * 2 / 100 * (j+1));
-          Real rradangle  = (M_PI * 2 / 100 * (j+2));
+          Real lradangle = (Constant::M_PI * 2 / 100 * j);
+          Real radangle = (Constant::M_PI * 2 / 100 * (j+1));
+          Real rradangle  = (Constant::M_PI * 2 / 100 * (j+2));
           
           Real valLangle = maxmin * computePhiDihedralEnergy(myTopology, dihedralset[i], lradangle);
           //report << hint << "Val left angle = " << valLangle << endr;

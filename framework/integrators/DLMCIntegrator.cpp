@@ -87,7 +87,7 @@ namespace ProtoMol {
   
   void DLMCIntegrator::perturbSystem() {
 
-    Real angle = randomNumber()*M_PI;
+    Real angle = randomNumber()*Constant::M_PI;
     if (randomNumber() < 0.50)
       angle = angle * -1;
     

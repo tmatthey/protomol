@@ -53,6 +53,10 @@ namespace ProtoMol {
     const Real EPS_GOURAUD_THRESHOLD = 0.1;
     const Real EPS_SMOOTH_LINE_FACTOR = 0.06;
 
+    const Real M_PI = 3.14159265358979323846;
+    const Real M_2_SQRTPI = 1.12837916709551257390;
+    const Real M_SQRT2 = 1.41421356237309504880;
+
 
 
     const string PROTOMOL_HR ("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");

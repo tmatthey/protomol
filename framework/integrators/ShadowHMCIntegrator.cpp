@@ -1,4 +1,4 @@
-#include "cmath"
+#include <math.h>
 #include "ScalarStructure.h"
 #include "ShadowHMCIntegrator.h"
 #include "STSIntegrator.h"
@@ -376,12 +376,12 @@ namespace ProtoMol {
         Real f2 = erfc( ( myC + beta_kb * varH - muH ) ) *
                   exp( beta_kb * ( myC + 0.5 * beta_kb * varH - muH ) );
 
-        Real f1 = erfc( ( muH - myC ) / ( M_SQRT2 * sigmaH ) ) / f2;
+        Real f1 = erfc((muH - myC) / (Constant::M_SQRT2 * sigmaH)) / f2;
 
-        Real f3 = M_SQRT2 * beta_kb * varH * sigmaH *
+        Real f3 = Constant::M_SQRT2 * beta_kb * varH * sigmaH *
                   exp( -( muH - myC) * ( muH - myC ) / ( 2 * varH ) ) /
-                  ( 0.5 * M_2_SQRTPI *
-                    erf( ( muH - myC ) / ( M_SQRT2 * sigmaH ) ) - 1 - f2 );
+                  (0.5 * Constant::M_2_SQRTPI *
+                  erf((muH - myC) / (Constant::M_SQRT2 * sigmaH)) - 1 - f2);
 
 
         muG =  muH  - ( beta_kb * varH ) / ( 1 + f1 );
@@ -512,7 +512,7 @@ namespace ProtoMol {
                            ( myC + 0.5 * beta_kb * varDelH - muDelH ) );
 
             hPointRatio = 0.5 * erfc( ( muDelG - myC ) /
-                                      ( M_SQRT2 * sqrt( varDelG) ) );
+                (Constant::M_SQRT2 * sqrt(varDelG)));
 
             mdRatio = ( 1 - hPointRatio ) + 0.5 * hPointRatio * hPointRatio;
 

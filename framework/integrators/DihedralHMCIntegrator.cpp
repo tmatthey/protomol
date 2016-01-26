@@ -148,11 +148,11 @@ namespace ProtoMol {
           if ( (angle - myOldPhi) >= 0 )
             angle = angle - myOldPhi;
           else
-            angle = 2*M_PI + (angle - myOldPhi);
+            angle = 2*Constant::M_PI + (angle - myOldPhi);
         }
         else // no angle set given... pick an arbitrary angle value
         {
-          angle = randomNumber()*2*M_PI;
+          angle = randomNumber()*2*Constant::M_PI;
         }
         rotateDihedral(myTopo, myPositions, myVelocities, myDihedralIndex, angle);
         buildMolecularMomentum(myVelocities,myTopo);

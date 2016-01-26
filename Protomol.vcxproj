@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>protomol</ProjectName>
+    <ProjectGuid>{5EE4048D-4403-40F1-AB5E-3F3C7D260892}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>Debug\</OutDir>
+    <IntDir>Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>Release\</OutDir>
+    <IntDir>Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>-DNO_PARTIAL_TEMPLATE_SPECIALIZATION -DUSE_REAL_IS_DOUBLE %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.\;.\applications\protomol-app;.\framework\io;.\framework\factories;.\framework\base;.\framework\forces;.\framework\frontend;.\framework\imd;.\framework\integrators;.\framework\parallel;.\framework\topology;.\win32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4390;4056;4756;4267;4288;4018;4244;4101;4541;4005;4250;4800;4297;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>wsock32.lib;mpr.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)protomol.exe</OutputFile>
+      <AdditionalLibraryDirectories>./win32/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)protomol.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences />
+      <EnableCOMDATFolding />
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>-DNO_PARTIAL_TEMPLATE_SPECIALIZATION -DUSE_REAL_IS_DOUBLE %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..\core\include;.\;.\applications\protomol-app;.\framework\io;.\framework\factories;.\framework\base;.\framework\forces;.\framework\frontend;.\framework\imd;.\framework\integrators;.\framework\parallel;.\framework\topology;.\win32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DisableSpecificWarnings>4311;4390;4056;4756;4267;4288;4018;4244;4101;4541;4005;4250;4800;4297;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>wsock32.lib;mpr.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)protomol.exe</OutputFile>
+      <AdditionalLibraryDirectories>..\core\lib;./win32/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="framework\base\AbstractEnumType.h" />
+    <ClInclude Include="framework\base\Array.h" />
+    <ClInclude Include="framework\base\Array_Fastest.h" />
+    <ClInclude Include="framework\base\Array_NoPartialSpecialization.h" />
+    <ClInclude Include="framework\base\Atom.h" />
+    <ClInclude Include="framework\base\AtomType.h" />
+    <ClInclude Include="framework\base\BSpline.h" />
+    <ClInclude Include="framework\base\BSplineType.h" />
+    <ClInclude Include="framework\base\Configuration.h" />
+    <ClInclude Include="framework\base\ConstraintValueType.h" />
+    <ClInclude Include="framework\base\Cycles.h" />
+    <ClInclude Include="framework\base\FFTComplex.h" />
+    <ClInclude Include="framework\base\Grid.h" />
+    <ClInclude Include="framework\base\Hermite.h" />
+    <ClInclude Include="framework\base\iSGPAR.h" />
+    <ClInclude Include="framework\base\Lagrange.h" />
+    <ClInclude Include="framework\base\LookUpTableBase.h" />
+    <ClInclude Include="framework\base\Makeable.h" />
+    <ClInclude Include="framework\base\MakeableDefinition.h" />
+    <ClInclude Include="framework\base\mathutilities.h" />
+    <ClInclude Include="framework\base\Matrix3by3.h" />
+    <ClInclude Include="framework\base\Molecule.h" />
+    <ClInclude Include="framework\base\MultiGrid.h" />
+    <ClInclude Include="framework\base\ObjectDefinition.h" />
+    <ClInclude Include="framework\base\PAR.h" />
+    <ClInclude Include="framework\base\Parameter.h" />
+    <ClInclude Include="framework\base\PDB.h" />
+    <ClInclude Include="framework\base\PGM.h" />
+    <ClInclude Include="framework\base\pmconstants.h" />
+    <ClInclude Include="framework\base\PPM.h" />
+    <ClInclude Include="framework\base\protomol.h" />
+    <ClInclude Include="framework\base\Proxy.h" />
+    <ClInclude Include="framework\base\PSF.h" />
+    <ClInclude Include="framework\base\Real.h" />
+    <ClInclude Include="framework\base\ReducedHessAngle.h" />
+    <ClInclude Include="framework\base\reducedHessBond.h" />
+    <ClInclude Include="framework\base\Report.h" />
+    <ClInclude Include="framework\base\ScalarStructure.h" />
+    <ClInclude Include="framework\base\simpleTypes.h" />
+    <ClInclude Include="framework\base\sstream_local.h" />
+    <ClInclude Include="framework\base\Stack.h" />
+    <ClInclude Include="framework\base\stringutilities.h" />
+    <ClInclude Include="framework\base\systemutilities.h" />
+    <ClInclude Include="framework\base\Timer.h" />
+    <ClInclude Include="framework\base\TimerStatistic.h" />
+    <ClInclude Include="framework\base\typeSelection.h" />
+    <ClInclude Include="framework\base\Value.h" />
+    <ClInclude Include="framework\base\ValueType.h" />
+    <ClInclude Include="framework\base\Vector.h" />
+    <ClInclude Include="framework\base\Vector3D.h" />
+    <ClInclude Include="framework\base\Vector3DBlock.h" />
+    <ClInclude Include="framework\base\XYZ.h" />
+    <ClInclude Include="framework\factories\registerForceExemplars.h" />
+    <ClInclude Include="framework\factories\registerForceExemplarsBonded.h" />
+    <ClInclude Include="framework\factories\registerForceExemplarsCutoff.h" />
+    <ClInclude Include="framework\factories\registerForceExemplarsFastElectrostatic.h" />
+    <ClInclude Include="framework\factories\registerForceExemplarsFull.h" />
+    <ClInclude Include="framework\factories\registerForceExemplarsOther.h" />
+    <ClInclude Include="framework\factories\registerForceExemplarsSimpleFull.h" />
+    <ClInclude Include="framework\factories\registerIntegratorExemplars.h" />
+    <ClInclude Include="framework\factories\registerOutputExemplars.h" />
+    <ClInclude Include="framework\factories\registerTopologyExemplars.h" />
+    <ClInclude Include="framework\forces\AngleSystemForce.h" />
+    <ClInclude Include="framework\forces\AngleSystemForceBase.h" />
+    <ClInclude Include="framework\forces\BondSystemForce.h" />
+    <ClInclude Include="framework\forces\BondSystemForceBase.h" />
+    <ClInclude Include="framework\forces\CompareForce.h" />
+    <ClInclude Include="framework\forces\CoulombBornRadiiForce.h" />
+    <ClInclude Include="framework\forces\CoulombEwaldRealForce.h" />
+    <ClInclude Include="framework\forces\CoulombEwaldRealTableForce.h" />
+    <ClInclude Include="framework\forces\CoulombEwaldRealTableForceBase.h" />
+    <ClInclude Include="framework\forces\CoulombForce.h" />
+    <ClInclude Include="framework\forces\CoulombForceDiElec.h" />
+    <ClInclude Include="framework\forces\CoulombMultiGridDirectForce.h" />
+    <ClInclude Include="framework\forces\CoulombMultiGridDirectForceBase.h" />
+    <ClInclude Include="framework\forces\CoulombMultiGridDirectTableForce.h" />
+    <ClInclude Include="framework\forces\CoulombMultiGridDirectTableForceBase.h" />
+    <ClInclude Include="framework\forces\CoulombSCPISMForce.h" />
+    <ClInclude Include="framework\forces\CoulombTableForce.h" />
+    <ClInclude Include="framework\forces\CoulombTableForceBase.h" />
+    <ClInclude Include="framework\forces\DihedralSystemForce.h" />
+    <ClInclude Include="framework\forces\DihedralSystemForceBase.h" />
+    <ClInclude Include="framework\forces\ElectricFieldSystemForce.h" />
+    <ClInclude Include="framework\forces\ElectricFieldSystemForceBase.h" />
+    <ClInclude Include="framework\forces\ExtendedCompareForce.h" />
+    <ClInclude Include="framework\forces\ExtendedForce.h" />
+    <ClInclude Include="framework\forces\ExtendedTimeForce.h" />
+    <ClInclude Include="framework\forces\ExternalGravitationSystemForce.h" />
+    <ClInclude Include="framework\forces\ExternalMagneticFieldExtendedForce.h" />
+    <ClInclude Include="framework\forces\Force.h" />
+    <ClInclude Include="framework\forces\ForceGroup.h" />
+    <ClInclude Include="framework\forces\FrictionExtendedForce.h" />
+    <ClInclude Include="framework\forces\GravitationForce.h" />
+    <ClInclude Include="framework\forces\HarmDihedralSystemForce.h" />
+    <ClInclude Include="framework\forces\HarmDihedralSystemForceBase.h" />
+    <ClInclude Include="framework\forces\HessDihedral.h" />
+    <ClInclude Include="framework\forces\ImproperSystemForce.h" />
+    <ClInclude Include="framework\forces\ImproperSystemForceBase.h" />
+    <ClInclude Include="framework\forces\LennardJonesForce.h" />
+    <ClInclude Include="framework\forces\LennardJonesTableForce.h" />
+    <ClInclude Include="framework\forces\LennardJonesTableForceBase.h" />
+    <ClInclude Include="framework\forces\MagneticDipoleForce.h" />
+    <ClInclude Include="framework\forces\MagneticDipoleMirrorSystemForce.h" />
+    <ClInclude Include="framework\forces\MagneticDipoleMirrorSystemForceBase.h" />
+    <ClInclude Include="framework\forces\MetaForce.h" />
+    <ClInclude Include="framework\forces\MollyForce.h" />
+    <ClInclude Include="framework\forces\MTorsionSystemForce.h" />
+    <ClInclude Include="framework\forces\NonbondedCutoffForce.h" />
+    <ClInclude Include="framework\forces\NonbondedCutoffForceBase.h" />
+    <ClInclude Include="framework\forces\NonbondedCutoffMollyForce.h" />
+    <ClInclude Include="framework\forces\NonbondedCutoffSystemForce.h" />
+    <ClInclude Include="framework\forces\NonbondedFullEwaldSystemForce.h" />
+    <ClInclude Include="framework\forces\NonbondedFullEwaldSystemForceBase.h" />
+    <ClInclude Include="framework\forces\NonbondedFullSystemForce.h" />
+    <ClInclude Include="framework\forces\NonbondedFullSystemForceBase.h" />
+    <ClInclude Include="framework\forces\NonbondedMultiGridSystemForce.h" />
+    <ClInclude Include="framework\forces\NonbondedMultiGridSystemForceBase.h" />
+    <ClInclude Include="framework\forces\NonbondedPMEwaldSystemForce.h" />
+    <ClInclude Include="framework\forces\NonbondedPMEwaldSystemForceBase.h" />
+    <ClInclude Include="framework\forces\NonbondedSimpleFullSystemForce.h" />
+    <ClInclude Include="framework\forces\NonbondedSimpleFullSystemForceBase.h" />
+    <ClInclude Include="framework\forces\oneAtomContraints.h" />
+    <ClInclude Include="framework\forces\OneAtomPair.h" />
+    <ClInclude Include="framework\forces\OneAtomPairFull.h" />
+    <ClInclude Include="framework\forces\OneAtomPairTwo.h" />
+    <ClInclude Include="framework\forces\OneAtomPairTwoFull.h" />
+    <ClInclude Include="framework\forces\OneMollyPair.h" />
+    <ClInclude Include="framework\forces\OneMollyPairTwo.h" />
+    <ClInclude Include="framework\forces\PaulTrapExtendedForce.h" />
+    <ClInclude Include="framework\forces\PaulTrapExtendedForceBase.h" />
+    <ClInclude Include="framework\forces\ReducedHessCoulomb.h" />
+    <ClInclude Include="framework\forces\ReducedHessCoulombBornRadii.h" />
+    <ClInclude Include="framework\forces\ReducedHessCoulombDiElec.h" />
+    <ClInclude Include="framework\forces\ReducedHessCoulombSCPISM.h" />
+    <ClInclude Include="framework\forces\ReducedHessLennardJones.h" />
+    <ClInclude Include="framework\forces\ReducedHessTraits.h" />
+    <ClInclude Include="framework\forces\SphericalRestraintSystemForce.h" />
+    <ClInclude Include="framework\forces\SphericalSystemForce.h" />
+    <ClInclude Include="framework\forces\SystemCompareForce.h" />
+    <ClInclude Include="framework\forces\SystemForce.h" />
+    <ClInclude Include="framework\forces\SystemTimeForce.h" />
+    <ClInclude Include="framework\forces\TimeForce.h" />
+    <ClInclude Include="framework\forces\WrapperMetaForce.h" />
+    <ClInclude Include="framework\frontend\buildTopology.h" />
+    <ClInclude Include="framework\frontend\Factory.h" />
+    <ClInclude Include="framework\frontend\ForceFactory.h" />
+    <ClInclude Include="framework\frontend\ForceFactoryDetails.h" />
+    <ClInclude Include="framework\frontend\HelpTextFactory.h" />
+    <ClInclude Include="framework\frontend\InputPosVel.h" />
+    <ClInclude Include="framework\frontend\InputPosVelType.h" />
+    <ClInclude Include="framework\frontend\InputValue.h" />
+    <ClInclude Include="framework\frontend\inputValueDefinitions.h" />
+    <ClInclude Include="framework\frontend\IntegratorFactory.h" />
+    <ClInclude Include="framework\frontend\IntegratorFactoryDetails.h" />
+    <ClInclude Include="framework\frontend\Output.h" />
+    <ClInclude Include="framework\frontend\OutputBSDL.h" />
+    <ClInclude Include="framework\frontend\OutputCache.h" />
+    <ClInclude Include="framework\frontend\OutputCollection.h" />
+    <ClInclude Include="framework\frontend\OutputDCDTrajectory.h" />
+    <ClInclude Include="framework\frontend\OutputDCDTrajectoryNoWater.h" />
+    <ClInclude Include="framework\frontend\OutputDCDTrajectoryVel.h" />
+    <ClInclude Include="framework\frontend\OutputDiffusion.h" />
+    <ClInclude Include="framework\frontend\OutputDihedrals.h" />
+    <ClInclude Include="framework\frontend\OutputEnergies.h" />
+    <ClInclude Include="framework\frontend\OutputFactory.h" />
+    <ClInclude Include="framework\frontend\OutputFactoryDetails.h" />
+    <ClInclude Include="framework\frontend\OutputFile.h" />
+    <ClInclude Include="framework\frontend\OutputFinalPDBPos.h" />
+    <ClInclude Include="framework\frontend\OutputFinalXYZBinPos.h" />
+    <ClInclude Include="framework\frontend\OutputFinalXYZBinVel.h" />
+    <ClInclude Include="framework\frontend\OutputFinalXYZBinVelRev.h" />
+    <ClInclude Include="framework\frontend\OutputFinalXYZPos.h" />
+    <ClInclude Include="framework\frontend\OutputFinalXYZVel.h" />
+    <ClInclude Include="framework\frontend\OutputMomentum.h" />
+    <ClInclude Include="framework\frontend\OutputPaulTrap.h" />
+    <ClInclude Include="framework\frontend\OutputPDBFramePos.h" />
+    <ClInclude Include="framework\frontend\OutputREMExchangeRate.h" />
+    <ClInclude Include="framework\frontend\OutputREMHistory.h" />
+    <ClInclude Include="framework\frontend\OutputScreen.h" />
+    <ClInclude Include="framework\frontend\OutputState.h" />
+    <ClInclude Include="framework\frontend\OutputTemperatures.h" />
+    <ClInclude Include="framework\frontend\OutputXYZBinTrajectoryPos.h" />
+    <ClInclude Include="framework\frontend\OutputXYZBinTrajectoryVel.h" />
+    <ClInclude Include="framework\frontend\OutputXYZTrajectoryForce.h" />
+    <ClInclude Include="framework\frontend\OutputXYZTrajectoryPos.h" />
+    <ClInclude Include="framework\frontend\OutputXYZTrajectoryVel.h" />
+    <ClInclude Include="framework\frontend\parseCommandLine.h" />
+    <ClInclude Include="framework\frontend\TopologyFactory.h" />
+    <ClInclude Include="framework\frontend\TopologyFactoryDetails.h" />
+    <ClInclude Include="framework\imd\HapticSystemForce.h" />
+    <ClInclude Include="framework\imd\HapticSystemForceBase.h" />
+    <ClInclude Include="framework\imd\imd.h" />
+    <ClInclude Include="framework\imd\IMDElf.h" />
+    <ClInclude Include="framework\imd\vmdsock.h" />
+    <ClInclude Include="framework\integrators\BBKIntegrator.h" />
+    <ClInclude Include="framework\integrators\BerendsenIntegrator.h" />
+    <ClInclude Include="framework\integrators\BSplineMOLLYIntegrator.h" />
+    <ClInclude Include="framework\integrators\CGMinimizerIntegrator.h" />
+    <ClInclude Include="framework\integrators\DihedralHMCIntegrator.h" />
+    <ClInclude Include="framework\integrators\DLMCIntegrator.h" />
+    <ClInclude Include="framework\integrators\DMDLeapfrogIntegrator.h" />
+    <ClInclude Include="framework\integrators\EquilibriumMOLLYIntegrator.h" />
+    <ClInclude Include="framework\integrators\Hessian.h" />
+    <ClInclude Include="framework\integrators\HessianInt.h" />
+    <ClInclude Include="framework\integrators\HMCIntegrator.h" />
+    <ClInclude Include="framework\integrators\ImpulseIntegrator.h" />
+    <ClInclude Include="framework\integrators\Integrator.h" />
+    <ClInclude Include="framework\integrators\IntegratorDefinition.h" />
+    <ClInclude Include="framework\integrators\LangevinImpulseIntegrator.h" />
+    <ClInclude Include="framework\integrators\LangevinLeapfrogIntegrator.h" />
+    <ClInclude Include="framework\integrators\LapackProtomol.h" />
+    <ClInclude Include="framework\integrators\LeapfrogIntegrator.h" />
+    <ClInclude Include="framework\integrators\LeapfrogTruncatedShadow.h" />
+    <ClInclude Include="framework\integrators\MCIntegrator.h" />
+    <ClInclude Include="framework\integrators\Modifier.h" />
+    <ClInclude Include="framework\integrators\ModifierAveraging.h" />
+    <ClInclude Include="framework\integrators\ModifierFriction.h" />
+    <ClInclude Include="framework\integrators\ModifierIncrementTimestep.h" />
+    <ClInclude Include="framework\integrators\ModifierMetaRattle.h" />
+    <ClInclude Include="framework\integrators\ModifierMetaRattleShake.h" />
+    <ClInclude Include="framework\integrators\ModifierMetaShake.h" />
+    <ClInclude Include="framework\integrators\ModifierMollification.h" />
+    <ClInclude Include="framework\integrators\ModifierNPTRattle.h" />
+    <ClInclude Include="framework\integrators\ModifierNPTShake.h" />
+    <ClInclude Include="framework\integrators\ModifierNVTRattle.h" />
+    <ClInclude Include="framework\integrators\ModifierNVTShake.h" />
+    <ClInclude Include="framework\integrators\ModifierPostForceBarostat.h" />
+    <ClInclude Include="framework\integrators\ModifierPostForceThermostat.h" />
+    <ClInclude Include="framework\integrators\ModifierPreForceBarostat.h" />
+    <ClInclude Include="framework\integrators\ModifierPreForceThermostat.h" />
+    <ClInclude Include="framework\integrators\ModifierRattle.h" />
+    <ClInclude Include="framework\integrators\ModifierRemoveAngularMomentum.h" />
+    <ClInclude Include="framework\integrators\ModifierRemoveLinearMomentum.h" />
+    <ClInclude Include="framework\integrators\ModifierShadow.h" />
+    <ClInclude Include="framework\integrators\ModifierShake.h" />
+    <ClInclude Include="framework\integrators\ModifierUpdateBeta.h" />
+    <ClInclude Include="framework\integrators\ModifierUpdateBetaAndPush.h" />
+    <ClInclude Include="framework\integrators\MOLLYIntegrator.h" />
+    <ClInclude Include="framework\integrators\MTSIntegrator.h" />
+    <ClInclude Include="framework\integrators\NonStandardIntegrator.h" />
+    <ClInclude Include="framework\integrators\NormalModeBrownian.h" />
+    <ClInclude Include="framework\integrators\NormalModeDiagonalize.h" />
+    <ClInclude Include="framework\integrators\NormalModeLangevin.h" />
+    <ClInclude Include="framework\integrators\NormalModeMinimizer.h" />
+    <ClInclude Include="framework\integrators\NormalModeMori.h" />
+    <ClInclude Include="framework\integrators\NormalModeRelax.h" />
+    <ClInclude Include="framework\integrators\NormalModeUtilities.h" />
+    <ClInclude Include="framework\integrators\NormModeDiag.h" />
+    <ClInclude Include="framework\integrators\NormModeInt.h" />
+    <ClInclude Include="framework\integrators\NormModeMin.h" />
+    <ClInclude Include="framework\integrators\NormModeSmplMin.h" />
+    <ClInclude Include="framework\integrators\NormModeVisual.h" />
+    <ClInclude Include="framework\integrators\NoseNVTLeapfrogIntegrator.h" />
+    <ClInclude Include="framework\integrators\NPTVerletIntegrator.h" />
+    <ClInclude Include="framework\integrators\NumericalDifferentiation.h" />
+    <ClInclude Include="framework\integrators\NVTVerletIntegrator.h" />
+    <ClInclude Include="framework\integrators\PaulTrapIntegrator.h" />
+    <ClInclude Include="framework\integrators\PLeapfrogIntegrator.h" />
+    <ClInclude Include="framework\integrators\RMTIntegrator.h" />
+    <ClInclude Include="framework\integrators\S2HMCIntegrator.h" />
+    <ClInclude Include="framework\integrators\ShadowHMCIntegrator.h" />
+    <ClInclude Include="framework\integrators\StandardIntegrator.h" />
+    <ClInclude Include="framework\integrators\STSIntegrator.h" />
+    <ClInclude Include="framework\io\AMBERReader.h" />
+    <ClInclude Include="framework\io\ConfigurationReader.h" />
+    <ClInclude Include="framework\io\CRDReader.h" />
+    <ClInclude Include="framework\io\DCDTrajectoryReader.h" />
+    <ClInclude Include="framework\io\DCDTrajectoryWriter.h" />
+    <ClInclude Include="framework\io\EigenvectorReader.h" />
+    <ClInclude Include="framework\io\EigenvectorTextReader.h" />
+    <ClInclude Include="framework\io\File.h" />
+    <ClInclude Include="framework\io\PARReader.h" />
+    <ClInclude Include="framework\io\PARWriter.h" />
+    <ClInclude Include="framework\io\PDBReader.h" />
+    <ClInclude Include="framework\io\PDBWriter.h" />
+    <ClInclude Include="framework\io\PGMReader.h" />
+    <ClInclude Include="framework\io\PGMWriter.h" />
+    <ClInclude Include="framework\io\PNGWriter.h" />
+    <ClInclude Include="framework\io\PPMReader.h" />
+    <ClInclude Include="framework\io\PPMWriter.h" />
+    <ClInclude Include="framework\io\PSFReader.h" />
+    <ClInclude Include="framework\io\PSFWriter.h" />
+    <ClInclude Include="framework\io\Reader.h" />
+    <ClInclude Include="framework\io\REMConfigurationReader.h" />
+    <ClInclude Include="framework\io\TempFileReader.h" />
+    <ClInclude Include="framework\io\Writer.h" />
+    <ClInclude Include="framework\io\XFigWriter.h" />
+    <ClInclude Include="framework\io\XYZBinReader.h" />
+    <ClInclude Include="framework\io\XYZBinRevWriter.h" />
+    <ClInclude Include="framework\io\XYZBinWriter.h" />
+    <ClInclude Include="framework\io\XYZReader.h" />
+    <ClInclude Include="framework\io\XYZTrajectoryReader.h" />
+    <ClInclude Include="framework\io\XYZTrajectoryWriter.h" />
+    <ClInclude Include="framework\io\XYZWriter.h" />
+    <ClInclude Include="framework\parallel\Parallel.h" />
+    <ClInclude Include="framework\parallel\ParallelType.h" />
+    <ClInclude Include="framework\topology\Angle.h" />
+    <ClInclude Include="framework\topology\AngleInfo.h" />
+    <ClInclude Include="framework\topology\ArrayCellListStructure.h" />
+    <ClInclude Include="framework\topology\BankLennardJonesParameterTable.h" />
+    <ClInclude Include="framework\topology\Bond.h" />
+    <ClInclude Include="framework\topology\buildCellLists.h" />
+    <ClInclude Include="framework\topology\C1SwitchingFunction.h" />
+    <ClInclude Include="framework\topology\C1SwitchingFunctionBase.h" />
+    <ClInclude Include="framework\topology\C2SwitchingFunction.h" />
+    <ClInclude Include="framework\topology\C2SwitchingFunctionBase.h" />
+    <ClInclude Include="framework\topology\CellListEnumerator.h" />
+    <ClInclude Include="framework\topology\CellListEnumerator_periodicBoundaries.h" />
+    <ClInclude Include="framework\topology\CellListEnumerator_standard.h" />
+    <ClInclude Include="framework\topology\CmpCnCnSwitchingFunction.h" />
+    <ClInclude Include="framework\topology\CmpCnCnSwitchingFunctionBase.h" />
+    <ClInclude Include="framework\topology\CnSwitchingFunction.h" />
+    <ClInclude Include="framework\topology\CnSwitchingFunctionBase.h" />
+    <ClInclude Include="framework\topology\ComplementSwitchingFunction.h" />
+    <ClInclude Include="framework\topology\ComplementSwitchingFunctionBase.h" />
+    <ClInclude Include="framework\topology\CoulombSCPISMParameters.h" />
+    <ClInclude Include="framework\topology\CoulombSCPISMParameterTable.h" />
+    <ClInclude Include="framework\topology\CubicCellLocation.h" />
+    <ClInclude Include="framework\topology\CubicCellManager.h" />
+    <ClInclude Include="framework\topology\CutoffSwitchingFunction.h" />
+    <ClInclude Include="framework\topology\CutoffSwitchingFunctionBase.h" />
+    <ClInclude Include="framework\topology\ExclusionTable.h" />
+    <ClInclude Include="framework\topology\ExclusionType.h" />
+    <ClInclude Include="framework\topology\GenericTopology.h" />
+    <ClInclude Include="framework\topology\LennardJonesParameters.h" />
+    <ClInclude Include="framework\topology\LennardJonesParameterTable.h" />
+    <ClInclude Include="framework\topology\PeriodicBoundaryConditions.h" />
+    <ClInclude Include="framework\topology\RangeSwitchingFunction.h" />
+    <ClInclude Include="framework\topology\RangeSwitchingFunctionBase.h" />
+    <ClInclude Include="framework\topology\SemiGenericTopology.h" />
+    <ClInclude Include="framework\topology\ShiftSwitchingFunction.h" />
+    <ClInclude Include="framework\topology\ShiftSwitchingFunctionBase.h" />
+    <ClInclude Include="framework\topology\Topology.h" />
+    <ClInclude Include="framework\topology\topologyutilities.h" />
+    <ClInclude Include="framework\topology\Torsion.h" />
+    <ClInclude Include="framework\topology\UniversalSwitchingFunction.h" />
+    <ClInclude Include="framework\topology\UniversalSwitchingFunctionBase.h" />
+    <ClInclude Include="framework\topology\VacuumBoundaryConditions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="applications\protomol-app\protomol.cpp" />
+    <ClCompile Include="framework\base\BSpline.cpp" />
+    <ClCompile Include="framework\base\BSplineType.cpp" />
+    <ClCompile Include="framework\base\Configuration.cpp" />
+    <ClCompile Include="framework\base\ConstraintValueType.cpp" />
+    <ClCompile Include="framework\base\fft.c" />
+    <ClCompile Include="framework\base\FFTComplex.cpp" />
+    <ClCompile Include="framework\base\Hermite.cpp" />
+    <ClCompile Include="framework\base\iSGPAR.cpp" />
+    <ClCompile Include="framework\base\Lagrange.cpp" />
+    <ClCompile Include="framework\base\Makeable.cpp" />
+    <ClCompile Include="framework\base\mathutilities.cpp" />
+    <ClCompile Include="framework\base\Matrix3by3.cpp" />
+    <ClCompile Include="framework\base\PAR.cpp" />
+    <ClCompile Include="framework\base\Parameter.cpp" />
+    <ClCompile Include="framework\base\PDB.cpp" />
+    <ClCompile Include="framework\base\PGM.cpp" />
+    <ClCompile Include="framework\base\pmconstants.cpp" />
+    <ClCompile Include="framework\base\PPM.cpp" />
+    <ClCompile Include="framework\base\PSF.cpp" />
+    <ClCompile Include="framework\base\ReducedHessAngle.cpp" />
+    <ClCompile Include="framework\base\reducedHessBond.cpp" />
+    <ClCompile Include="framework\base\Report.cpp" />
+    <ClCompile Include="framework\base\ScalarStructure.cpp" />
+    <ClCompile Include="framework\base\stringutilities.cpp" />
+    <ClCompile Include="framework\base\systemutilities.cpp" />
+    <ClCompile Include="framework\base\Timer.cpp" />
+    <ClCompile Include="framework\base\TimerStatistic.cpp" />
+    <ClCompile Include="framework\base\Value.cpp" />
+    <ClCompile Include="framework\base\ValueType.cpp" />
+    <ClCompile Include="framework\base\Vector3DBlock.cpp" />
+    <ClCompile Include="framework\base\XYZ.cpp" />
+    <ClCompile Include="framework\factories\registerForceExemplars.cpp" />
+    <ClCompile Include="framework\factories\registerForceExemplarsBonded.cpp" />
+    <ClCompile Include="framework\factories\registerForceExemplarsCutoff.cpp" />
+    <ClCompile Include="framework\factories\registerForceExemplarsFastElectrostatic.cpp" />
+    <ClCompile Include="framework\factories\registerForceExemplarsFull.cpp" />
+    <ClCompile Include="framework\factories\registerForceExemplarsOther.cpp" />
+    <ClCompile Include="framework\factories\registerForceExemplarsSimpleFull.cpp" />
+    <ClCompile Include="framework\factories\registerIntegratorExemplars.cpp" />
+    <ClCompile Include="framework\factories\registerOutputExemplars.cpp" />
+    <ClCompile Include="framework\factories\registerTopologyExemplars.cpp" />
+    <ClCompile Include="framework\forces\AngleSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\BondSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\CompareForce.cpp" />
+    <ClCompile Include="framework\forces\CoulombBornRadiiForce.cpp" />
+    <ClCompile Include="framework\forces\CoulombEwaldRealForce.cpp" />
+    <ClCompile Include="framework\forces\CoulombEwaldRealTableForceBase.cpp" />
+    <ClCompile Include="framework\forces\CoulombForce.cpp" />
+    <ClCompile Include="framework\forces\CoulombForceDiElec.cpp" />
+    <ClCompile Include="framework\forces\CoulombMultiGridDirectForceBase.cpp" />
+    <ClCompile Include="framework\forces\CoulombMultiGridDirectTableForceBase.cpp" />
+    <ClCompile Include="framework\forces\CoulombSCPISMForce.cpp" />
+    <ClCompile Include="framework\forces\CoulombTableForceBase.cpp" />
+    <ClCompile Include="framework\forces\DihedralSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\ElectricFieldSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\ExtendedCompareForce.cpp" />
+    <ClCompile Include="framework\forces\ExtendedForce.cpp" />
+    <ClCompile Include="framework\forces\ExtendedTimeForce.cpp" />
+    <ClCompile Include="framework\forces\ExternalGravitationSystemForce.cpp" />
+    <ClCompile Include="framework\forces\ExternalMagneticFieldExtendedForce.cpp" />
+    <ClCompile Include="framework\forces\Force.cpp" />
+    <ClCompile Include="framework\forces\ForceGroup.cpp" />
+    <ClCompile Include="framework\forces\FrictionExtendedForce.cpp" />
+    <ClCompile Include="framework\forces\GravitationForce.cpp" />
+    <ClCompile Include="framework\forces\HarmDihedralSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\HessDihedral.cpp" />
+    <ClCompile Include="framework\forces\ImproperSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\LennardJonesForce.cpp" />
+    <ClCompile Include="framework\forces\LennardJonesTableForceBase.cpp" />
+    <ClCompile Include="framework\forces\MagneticDipoleForce.cpp" />
+    <ClCompile Include="framework\forces\MagneticDipoleMirrorSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\MetaForce.cpp" />
+    <ClCompile Include="framework\forces\MollyForce.cpp" />
+    <ClCompile Include="framework\forces\NonbondedCutoffForceBase.cpp" />
+    <ClCompile Include="framework\forces\NonbondedFullEwaldSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\NonbondedFullSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\NonbondedMultiGridSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\NonbondedPMEwaldSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\NonbondedSimpleFullSystemForceBase.cpp" />
+    <ClCompile Include="framework\forces\PaulTrapExtendedForceBase.cpp" />
+    <ClCompile Include="framework\forces\ReducedHessCoulomb.cpp" />
+    <ClCompile Include="framework\forces\ReducedHessCoulombBornRadii.cpp" />
+    <ClCompile Include="framework\forces\ReducedHessCoulombDiElec.cpp" />
+    <ClCompile Include="framework\forces\ReducedHessCoulombSCPISM.cpp" />
+    <ClCompile Include="framework\forces\ReducedHessLennardJones.cpp" />
+    <ClCompile Include="framework\forces\SphericalRestraintSystemForce.cpp" />
+    <ClCompile Include="framework\forces\SphericalSystemForce.cpp" />
+    <ClCompile Include="framework\forces\SystemCompareForce.cpp" />
+    <ClCompile Include="framework\forces\SystemForce.cpp" />
+    <ClCompile Include="framework\forces\SystemTimeForce.cpp" />
+    <ClCompile Include="framework\forces\TimeForce.cpp" />
+    <ClCompile Include="framework\forces\WrapperMetaForce.cpp" />
+    <ClCompile Include="framework\frontend\buildTopology.cpp" />
+    <ClCompile Include="framework\frontend\ForceFactoryDetails.cpp" />
+    <ClCompile Include="framework\frontend\HelpTextFactory.cpp" />
+    <ClCompile Include="framework\frontend\InputPosVel.cpp" />
+    <ClCompile Include="framework\frontend\InputPosVelType.cpp" />
+    <ClCompile Include="framework\frontend\inputValueDefinitions.cpp" />
+    <ClCompile Include="framework\frontend\IntegratorFactoryDetails.cpp" />
+    <ClCompile Include="framework\frontend\Output.cpp" />
+    <ClCompile Include="framework\frontend\OutputBSDL.cpp" />
+    <ClCompile Include="framework\frontend\OutputCache.cpp" />
+    <ClCompile Include="framework\frontend\OutputCollection.cpp" />
+    <ClCompile Include="framework\frontend\OutputDCDTrajectory.cpp" />
+    <ClCompile Include="framework\frontend\OutputDCDTrajectoryNoWater.cpp" />
+    <ClCompile Include="framework\frontend\OutputDCDTrajectoryVel.cpp" />
+    <ClCompile Include="framework\frontend\OutputDiffusion.cpp" />
+    <ClCompile Include="framework\frontend\OutputDihedrals.cpp" />
+    <ClCompile Include="framework\frontend\OutputEnergies.cpp" />
+    <ClCompile Include="framework\frontend\OutputFactoryDetails.cpp" />
+    <ClCompile Include="framework\frontend\OutputFile.cpp" />
+    <ClCompile Include="framework\frontend\OutputFinalPDBPos.cpp" />
+    <ClCompile Include="framework\frontend\OutputFinalXYZBinPos.cpp" />
+    <ClCompile Include="framework\frontend\OutputFinalXYZBinVel.cpp" />
+    <ClCompile Include="framework\frontend\OutputFinalXYZBinVelRev.cpp" />
+    <ClCompile Include="framework\frontend\OutputFinalXYZPos.cpp" />
+    <ClCompile Include="framework\frontend\OutputFinalXYZVel.cpp" />
+    <ClCompile Include="framework\frontend\OutputMomentum.cpp" />
+    <ClCompile Include="framework\frontend\OutputPaulTrap.cpp" />
+    <ClCompile Include="framework\frontend\OutputPDBFramePos.cpp" />
+    <ClCompile Include="framework\frontend\OutputREMExchangeRate.cpp" />
+    <ClCompile Include="framework\frontend\OutputREMHistory.cpp" />
+    <ClCompile Include="framework\frontend\OutputScreen.cpp" />
+    <ClCompile Include="framework\frontend\OutputState.cpp" />
+    <ClCompile Include="framework\frontend\OutputTemperatures.cpp" />
+    <ClCompile Include="framework\frontend\OutputXYZBinTrajectoryPos.cpp" />
+    <ClCompile Include="framework\frontend\OutputXYZBinTrajectoryVel.cpp" />
+    <ClCompile Include="framework\frontend\OutputXYZTrajectoryForce.cpp" />
+    <ClCompile Include="framework\frontend\OutputXYZTrajectoryPos.cpp" />
+    <ClCompile Include="framework\frontend\OutputXYZTrajectoryVel.cpp" />
+    <ClCompile Include="framework\frontend\parseCommandLine.cpp" />
+    <ClCompile Include="framework\frontend\TopologyFactoryDetails.cpp" />
+    <ClCompile Include="framework\imd\HapticSystemForce.cpp" />
+    <ClCompile Include="framework\imd\HapticSystemForceBase.cpp" />
+    <ClCompile Include="framework\imd\imd.cpp" />
+    <ClCompile Include="framework\imd\IMDElf.cpp" />
+    <ClCompile Include="framework\imd\vmdsock.cpp" />
+    <ClCompile Include="framework\integrators\BBKIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\BerendsenIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\BSplineMOLLYIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\CGMinimizerIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\DihedralHMCIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\DLMCIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\DMDLeapfrogIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\EquilibriumMOLLYIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\Hessian.cpp" />
+    <ClCompile Include="framework\integrators\HessianInt.cpp" />
+    <ClCompile Include="framework\integrators\HMCIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\ImpulseIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\Integrator.cpp" />
+    <ClCompile Include="framework\integrators\IntegratorDefinition.cpp" />
+    <ClCompile Include="framework\integrators\LangevinImpulseIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\LangevinLeapfrogIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\LeapfrogIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\LeapfrogTruncatedShadow.cpp" />
+    <ClCompile Include="framework\integrators\MCIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\ModifierMetaRattle.cpp" />
+    <ClCompile Include="framework\integrators\ModifierMetaRattleShake.cpp" />
+    <ClCompile Include="framework\integrators\ModifierMetaShake.cpp" />
+    <ClCompile Include="framework\integrators\ModifierNPTRattle.cpp" />
+    <ClCompile Include="framework\integrators\ModifierNPTShake.cpp" />
+    <ClCompile Include="framework\integrators\ModifierNVTRattle.cpp" />
+    <ClCompile Include="framework\integrators\ModifierNVTShake.cpp" />
+    <ClCompile Include="framework\integrators\ModifierRattle.cpp" />
+    <ClCompile Include="framework\integrators\ModifierShadow.cpp" />
+    <ClCompile Include="framework\integrators\ModifierShake.cpp" />
+    <ClCompile Include="framework\integrators\MOLLYIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\MTSIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\NormalModeBrownian.cpp" />
+    <ClCompile Include="framework\integrators\NormalModeDiagonalize.cpp" />
+    <ClCompile Include="framework\integrators\NormalModeLangevin.cpp" />
+    <ClCompile Include="framework\integrators\NormalModeMinimizer.cpp" />
+    <ClCompile Include="framework\integrators\NormalModeMori.cpp" />
+    <ClCompile Include="framework\integrators\NormalModeRelax.cpp" />
+    <ClCompile Include="framework\integrators\NormalModeUtilities.cpp" />
+    <ClCompile Include="framework\integrators\NormModeDiag.cpp" />
+    <ClCompile Include="framework\integrators\NormModeInt.cpp" />
+    <ClCompile Include="framework\integrators\NormModeMin.cpp" />
+    <ClCompile Include="framework\integrators\NormModeSmplMin.cpp" />
+    <ClCompile Include="framework\integrators\NormModeVisual.cpp" />
+    <ClCompile Include="framework\integrators\NoseNVTLeapfrogIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\NPTVerletIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\NumericalDifferentiation.cpp" />
+    <ClCompile Include="framework\integrators\NVTVerletIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\PaulTrapIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\PLeapfrogIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\RMTIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\S2HMCIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\ShadowHMCIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\StandardIntegrator.cpp" />
+    <ClCompile Include="framework\integrators\STSIntegrator.cpp" />
+    <ClCompile Include="framework\io\AMBERReader.cpp" />
+    <ClCompile Include="framework\io\ConfigurationReader.cpp" />
+    <ClCompile Include="framework\io\CRDReader.cpp" />
+    <ClCompile Include="framework\io\DCDTrajectoryReader.cpp" />
+    <ClCompile Include="framework\io\DCDTrajectoryWriter.cpp" />
+    <ClCompile Include="framework\io\EigenvectorReader.cpp" />
+    <ClCompile Include="framework\io\EigenvectorTextReader.cpp" />
+    <ClCompile Include="framework\io\File.cpp" />
+    <ClCompile Include="framework\io\PARReader.cpp" />
+    <ClCompile Include="framework\io\PARWriter.cpp" />
+    <ClCompile Include="framework\io\PDBReader.cpp" />
+    <ClCompile Include="framework\io\PDBWriter.cpp" />
+    <ClCompile Include="framework\io\PGMReader.cpp" />
+    <ClCompile Include="framework\io\PGMWriter.cpp" />
+    <ClCompile Include="framework\io\PNGWriter.cpp" />
+    <ClCompile Include="framework\io\PPMReader.cpp" />
+    <ClCompile Include="framework\io\PPMWriter.cpp" />
+    <ClCompile Include="framework\io\PSFReader.cpp" />
+    <ClCompile Include="framework\io\PSFWriter.cpp" />
+    <ClCompile Include="framework\io\Reader.cpp" />
+    <ClCompile Include="framework\io\REMConfigurationReader.cpp" />
+    <ClCompile Include="framework\io\TempFileReader.cpp" />
+    <ClCompile Include="framework\io\Writer.cpp" />
+    <ClCompile Include="framework\io\XFigWriter.cpp" />
+    <ClCompile Include="framework\io\XYZBinReader.cpp" />
+    <ClCompile Include="framework\io\XYZBinRevWriter.cpp" />
+    <ClCompile Include="framework\io\XYZBinWriter.cpp" />
+    <ClCompile Include="framework\io\XYZReader.cpp" />
+    <ClCompile Include="framework\io\XYZTrajectoryReader.cpp" />
+    <ClCompile Include="framework\io\XYZTrajectoryWriter.cpp" />
+    <ClCompile Include="framework\io\XYZWriter.cpp" />
+    <ClCompile Include="framework\parallel\Parallel.cpp" />
+    <ClCompile Include="framework\parallel\ParallelType.cpp" />
+    <ClCompile Include="framework\topology\AngleInfo.cpp" />
+    <ClCompile Include="framework\topology\ArrayCellListStructure.cpp" />
+    <ClCompile Include="framework\topology\buildCellLists.cpp" />
+    <ClCompile Include="framework\topology\C1SwitchingFunction.cpp" />
+    <ClCompile Include="framework\topology\C1SwitchingFunctionBase.cpp" />
+    <ClCompile Include="framework\topology\C2SwitchingFunction.cpp" />
+    <ClCompile Include="framework\topology\C2SwitchingFunctionBase.cpp" />
+    <ClCompile Include="framework\topology\CmpCnCnSwitchingFunction.cpp" />
+    <ClCompile Include="framework\topology\CmpCnCnSwitchingFunctionBase.cpp" />
+    <ClCompile Include="framework\topology\CnSwitchingFunction.cpp" />
+    <ClCompile Include="framework\topology\CnSwitchingFunctionBase.cpp" />
+    <ClCompile Include="framework\topology\ComplementSwitchingFunctionBase.cpp" />
+    <ClCompile Include="framework\topology\CoulombSCPISMParameterTable.cpp" />
+    <ClCompile Include="framework\topology\CubicCellManager.cpp" />
+    <ClCompile Include="framework\topology\CutoffSwitchingFunction.cpp" />
+    <ClCompile Include="framework\topology\CutoffSwitchingFunctionBase.cpp" />
+    <ClCompile Include="framework\topology\ExclusionTable.cpp" />
+    <ClCompile Include="framework\topology\ExclusionType.cpp" />
+    <ClCompile Include="framework\topology\GenericTopology.cpp" />
+    <ClCompile Include="framework\topology\LennardJonesParameterTable.cpp" />
+    <ClCompile Include="framework\topology\PeriodicBoundaryConditions.cpp" />
+    <ClCompile Include="framework\topology\RangeSwitchingFunctionBase.cpp" />
+    <ClCompile Include="framework\topology\ShiftSwitchingFunction.cpp" />
+    <ClCompile Include="framework\topology\ShiftSwitchingFunctionBase.cpp" />
+    <ClCompile Include="framework\topology\topologyutilities.cpp" />
+    <ClCompile Include="framework\topology\UniversalSwitchingFunctionBase.cpp" />
+    <ClCompile Include="framework\topology\VacuumBoundaryConditions.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

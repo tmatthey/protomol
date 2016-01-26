@@ -205,7 +205,7 @@ namespace ProtoMol {
     
     MyStreamer& MyStreamer::operator<< (const ostream& a) {
       if(print())
-	*myStream << a;
+	*myStream << &a;
       return (*this);
     }
     

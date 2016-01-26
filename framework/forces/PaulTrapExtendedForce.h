@@ -192,7 +192,7 @@ namespace ProtoMol {
 
     const TBoundaryConditions &boundary = 
       (dynamic_cast<const SemiGenericTopology<TBoundaryConditions>& >(*topo)).boundaryConditions;
-    const Real f1 =  myU0*Constant::BOLTZMANN*2.0*M_PI;
+    const Real f1 =  myU0*Constant::BOLTZMANN*2.0*Constant::M_PI;
     const Real u1 = -myU0*Constant::BOLTZMANN;
 
     Real e = 0.0;
@@ -203,7 +203,7 @@ namespace ProtoMol {
       Real x2 = pos.x*pos.x;
       Real y2 = pos.y*pos.y;
       Real z2 = pos.z*pos.z;
-      Real x  = myK.dot(pos)*2.0*M_PI;
+      Real x  = myK.dot(pos)*2.0*Constant::M_PI;
       Real f2 = f1*sin(x);
       Real omegaR2 = myOmegaR[type]*power<2>(1+myAlphaR04*x2*y2);
       Real omegaZ2 = myOmegaZ[type];
@@ -222,7 +222,7 @@ namespace ProtoMol {
 
       //    Report::report << Report::plain
       //           << (0.5*(omegaR2*(x2+y2)+omegaZ2*z2)+b)*ENERGY_TO_SI<<","
-      //           <<b*ENERGY_TO_SI<<","<<x*180.0/M_PI<<Report::endr;
+      //           <<b*ENERGY_TO_SI<<","<<x*180.0/Constant::M_PI<<Report::endr;
       //
       //    Report::report << Report::plain
       //           << f*FORCE_TO_SI<<","

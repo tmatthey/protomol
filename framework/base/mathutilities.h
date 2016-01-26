@@ -11,10 +11,6 @@
 #include <vector>
 
 
-#ifdef WIN32
-#include <float.h>
-#endif
-
 #ifdef HAVE_NO_LIMITS
 #ifndef WIN32
 #include <values.h> 
@@ -111,12 +107,12 @@ namespace ProtoMol {
   Real lowerboundExp2(Real r);
   //__________________________________________________________ Radians <-> Degrees
   inline Real dtor(Real degree) { 
-    return degree*M_PI/180.0; 
+    return degree*Constant::M_PI/180.0; 
   }
 
   //__________________________________________________________ Radians <-> Degrees
   inline Real rtod(Real rad){ 
-    return rad*180.0/M_PI; 
+    return rad*180.0/Constant::M_PI; 
   }
   //__________________________________________________________ Radians <-> Degrees
   std::vector<Real> rtod(const std::vector<Real>& rad);

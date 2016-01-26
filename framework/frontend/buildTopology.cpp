@@ -111,7 +111,7 @@ namespace ProtoMol {
 	      tempatomtype.mySCPISM->B_i = mySCPISM->myData[tempatomtype.name].B_i;
 	      tempatomtype.mySCPISM->C_i = mySCPISM->myData[tempatomtype.name].C_i;
 	      Real R_vdw = mySCPISM->myData[tempatomtype.name].R_vdw + 1.40;
-	      tempatom.mySCPISM->dR_vdw2 = 1.0 / (4.0*M_PI*R_vdw*R_vdw);
+	      tempatom.mySCPISM->dR_vdw2 = 1.0 / (4.0*Constant::M_PI*R_vdw*R_vdw);
 	      tempatom.mySCPISM->r_cov = mySCPISM->myData[tempatomtype.name].r_cov;
 	      // R_i,w is r_cov + 0.35 if charge negative, 0.85 for positive charge
 	      // tempatomtype.R_w = mySCPISM.myData[tempatomtype.name].r_cov + (tempatomtype.charge > 0 ? 0.85 : 0.35);

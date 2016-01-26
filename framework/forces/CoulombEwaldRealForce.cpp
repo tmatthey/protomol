@@ -10,7 +10,7 @@ namespace ProtoMol {
 
   CoulombEwaldRealForce::CoulombEwaldRealForce(Real a):myAlpha(a),
 								 myAlphaSquared(a*a),
-								 my2AlphaPI(2.0*a/sqrt(M_PI)){}
+								 my2AlphaPI(2.0*a/sqrt(Constant::M_PI)){}
 
   void CoulombEwaldRealForce::getParameters(std::vector<Parameter>& parameters) const{
     parameters.push_back(Parameter("-alpha",Value(myAlpha,ConstraintValueType::Positive()),Text("Ewald splitting")));

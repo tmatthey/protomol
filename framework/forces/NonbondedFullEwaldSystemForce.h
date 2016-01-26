@@ -574,10 +574,10 @@ namespace ProtoMol {
 
     // Short cuts
     if(myAlphaDefault)
-      myAlpha         = sqrt(M_PI)*pow(myTRate*atomCount/(power<2>(myV)),1.0/6.0);
+      myAlpha         = sqrt(Constant::M_PI)*pow(myTRate*atomCount/(power<2>(myV)),1.0/6.0);
     myAlphaSquared  = myAlpha*myAlpha;
     myAlphaSquaredr = 1.0/myAlphaSquared;
-    my2AlphaPI      = 2.0*myAlpha/sqrt(M_PI);
+    my2AlphaPI      = 2.0*myAlpha/sqrt(Constant::M_PI);
     Real p          = -log(myAccuracy);
     myRc            = sqrt(p)/myAlpha;
     myRcSquared     = myRc*myRc;
@@ -589,9 +589,9 @@ namespace ProtoMol {
     // Reciprocal part
     // Build the lattice k-vectors 2*PI(n0/Lx,n1/Ly,n2/Lz)
     // Maximum values of h, k, l  s.t. |k| < myKc
-    myHmax = (int)floor(myKc/(2.0*M_PI)*myLX);
-    myKmax = (int)floor(myKc/(2.0*M_PI)*myLY);
-    myLmax = (int)floor(myKc/(2.0*M_PI)*myLZ);
+    myHmax = (int)floor(myKc/(2.0*Constant::M_PI)*myLX);
+    myKmax = (int)floor(myKc/(2.0*Constant::M_PI)*myLY);
+    myLmax = (int)floor(myKc/(2.0*Constant::M_PI)*myLZ);
     myHKLmax = std::max(2,std::max(myHmax,std::max(myKmax,myLmax))+1);
     myK.clear();
     myKSquared.clear();
@@ -604,11 +604,11 @@ namespace ProtoMol {
     Real kcSquared = myKc*myKc;
     if(reciprocal){
       for(int h = 0; h <= myHmax; h++){
-	Real kx = 2.0*M_PI*h*myLXr;
+	Real kx = 2.0*Constant::M_PI*h*myLXr;
 	for(int k = (h==0 ? 0 : -myKmax); k <= myKmax; k++){
-	  Real ky = 2.0*M_PI*k*myLYr;
+	  Real ky = 2.0*Constant::M_PI*k*myLYr;
 	  for(int l = (h==0 && k==0 ? 1 : -myLmax); l <= myLmax; l++){
-	    Real kz = 2.0*M_PI*l*myLZr;
+	    Real kz = 2.0*Constant::M_PI*l*myLZr;
 	    if(kx*kx + ky*ky + kz*kz < kcSquared){
 	      myK.push_back(Vector3D(kx,ky,kz));
 	      myKSquared.push_back(kx*kx + ky*ky + kz*kz);
@@ -663,7 +663,7 @@ namespace ProtoMol {
       for(unsigned int i=0;i<atomCount;i++){
 	q += realTopo->atoms[i].scaledCharge*realTopo->atoms[i].scaledCharge;
       }
-      myPointSelfEnergy = -q*myAlpha/sqrt(M_PI);
+      myPointSelfEnergy = -q*myAlpha/sqrt(Constant::M_PI);
     }
   
     //
@@ -676,7 +676,7 @@ namespace ProtoMol {
 	q += realTopo->atoms[i].scaledCharge;
       }
       if(fabs(q * 0.00268283) > 1.0e-5)
-	myChargedSystemEnergy = -M_PI/(2.0*myV*myAlphaSquared)*q*q;
+	myChargedSystemEnergy = -Constant::M_PI/(2.0*myV*myAlphaSquared)*q*q;
     }
   
     myLattice = boundaryConditions.buildLatticeVectors(myRc);
@@ -858,9 +858,9 @@ namespace ProtoMol {
       // Multiply charge only with x-coord of each particle
       // since we use the add theorem 
       Real qi = realTopo->atoms[j].scaledCharge;
-      Real x = r.x*2.0*M_PI*myLXr;
-      Real y = r.y*2.0*M_PI*myLYr;
-      Real z = r.z*2.0*M_PI*myLZr;
+      Real x = r.x*2.0*Constant::M_PI*myLXr;
+      Real y = r.y*2.0*Constant::M_PI*myLYr;
+      Real z = r.z*2.0*Constant::M_PI*myLZr;
       Real xsin = sin(x);
       Real ysin = sin(y);
       Real zsin = sin(z);
@@ -992,7 +992,7 @@ namespace ProtoMol {
 	virialzz += e * (1.0-c*k.z * k.z);
       }
       // Force, F_i 
-      Real a = 8.0*M_PI*myVr*b;
+      Real a = 8.0*Constant::M_PI*myVr*b;
       for(unsigned int i=0;i<atomCount;i++){
 
 	// compute the force on atom i from the reciprocal space part
@@ -1016,7 +1016,7 @@ namespace ProtoMol {
       }
     }
 
-    Real c = 4.0*M_PI*myVr;
+    Real c = 4.0*Constant::M_PI*myVr;
     reciprocalEnergy += c*energy;
 
     // atomic virial
@@ -1121,7 +1121,7 @@ namespace ProtoMol {
     for(unsigned int i=0;i<atomCount;i++)
       sum += boundaryConditions.minimalPosition((*positions)[i])*realTopo->atoms[i].scaledCharge;
     // Energy
-    surfaceDipoleEnergy = 2.0/3.0*M_PI*myVr*sum.normSquared();
+    surfaceDipoleEnergy = 2.0/3.0*Constant::M_PI*myVr*sum.normSquared();
   
     Real virialxx = 0.0;
     Real virialxy = 0.0;
@@ -1132,7 +1132,7 @@ namespace ProtoMol {
     bool doVirial = energies->virial();
 
     // Force, F_i and virial_i (not confirmed)
-    sum *= 2.0/3.0*M_PI*myVr;
+    sum *= 2.0/3.0*Constant::M_PI*myVr;
     for(unsigned int i=0;i<atomCount;i++){
       Vector3D force(sum*realTopo->atoms[i].scaledCharge);
       Vector3D ri(boundaryConditions.minimalPosition((*positions)[i]));

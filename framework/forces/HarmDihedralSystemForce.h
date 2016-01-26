@@ -182,10 +182,10 @@ namespace ProtoMol {
     //Real k = 3.0; // kcal / (mol*K)
 
     Real diff =  (dihedralAngle - myDihedralReference);
-    if( diff < -M_PI )
-      diff += 2 * M_PI;
-    else if( diff > M_PI )
-      diff -= 2 * M_PI;
+    if( diff < -Constant::M_PI )
+      diff += 2 * Constant::M_PI;
+    else if( diff > Constant::M_PI )
+      diff -= 2 * Constant::M_PI;
     Real V = k * diff * diff;
     
     /* Replaced by PRB 5/24/05

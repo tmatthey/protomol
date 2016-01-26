@@ -163,7 +163,7 @@ namespace ProtoMol {
       tempdihedral = *dihedral_itr;
       if(tempdihedral < 0.0)
       {
-        tempdihedral = 2.0*M_PI + tempdihedral;
+        tempdihedral = 2.0*Constant::M_PI + tempdihedral;
       }
       
       std::vector<Real>::iterator maxima_itr = maximaset_itr->begin();
@@ -408,7 +408,7 @@ namespace ProtoMol {
 
     for(unsigned int i=0;i<dihedralset.size();++i){
       for(unsigned int j=1;j<=36;j++){
-        increment = 2 * M_PI * j / 36;
+        increment = 2 * Constant::M_PI * j / 36;
         // std::cout << "increment: " << increment << endl; 
         (dihIncs[i]).push_back(increment);
       }
