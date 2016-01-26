@@ -1,9 +1,35 @@
- HOWTO install ProtoMol
-------------------------
+ProtoMol is an object-oriented, component based, framework for molecular dynamics (MD) simulations. The framework supports the CHARMM 19 and 28a2 force fields and is able to process PDB, PSF, XYZ and DCD trajectory files. It is designed for high flexibility, easy extendibility and maintenance, and high performance demands, including parallelization. The technique of multiple time-stepping is used to improve long-term efficiency. The use of fast electrostatic force evaluation algorithms like Ewald, particle Mesh Ewald (PME), and Multigrid (MG) summation further enhances performance. Longer time steps are possible using MOLLY, Langevin Molly and Hybrid Monte Carlo, Nose-Hoover, and Langevin integrators.
+
+ProtoMol v2.0 has been designed to interact with VMD, a visualization engine developed by the University of Illinois that is used for displaying large biomolecular systems in three dimensions. Protomol v3.0 simulations can be visualized using the Open Source Jave Molecular Viewer, included in the download package.
+
+ProtoMol is freely distributed software, and the source code is available.
+
+## Key Features of ProtoMol ##
+
+*    An object-oriented component based framework for molecular dynamics simulations
+*    Designed for high flexibility, easy extendibility and maintenance, and high performance demands
+*    Incremental parallelization combining sequential and parallel environment
+*    Support of generic multiple time-stepping integration schemes
+*    Generic forces and potentials
+*    Fast electrostatic force evaluation algorithms:
+* *         Ewald summation, O(N3/2)
+* *        Particle-Mesh-Ewald, O(N log N)
+* *       Multi-grid method, O(N) 
+*    Support of common I/O formats (pre- & post-processing)
+*    106 particle systems
+
+*    Supported platforms:
+**        Sun/Solaris
+**        AIX (optional with MPI)
+**        HP-UX (optional with MPI)
+**        IRIX (optional with MPI)
+**        Linux (optional with MPIch or LAMMPI)
+**        Windows 
+
+# HOWTO install ProtoMol - Linux #
 
 
- USER INSTRUCTIONS
--------------------
+## USER INSTRUCTIONS ##
 
 1) Run one configure script for your platform:
 
@@ -29,8 +55,7 @@
 
 
 
- DEVELOPER INSTRUCTIONS
-------------------------
+## DEVELOPER INSTRUCTIONS ##
 
 1) Run one configure script for your platform:
 
@@ -70,8 +95,8 @@
    correctly encountered.
 
 
- Adding new files to the framework or the applications
-------------------------------------------------------- 
+## Adding new files to the framework or the applications ##
+
 
 1) Add your new files to the Makefile.am in the same directory
 
@@ -88,8 +113,8 @@ autoreconf -f -i  --verbose
 aclocal; autoheader; autoconf; automake -a      
 
 
- Adding new Makefile directories
-------------------------
+## Adding new Makefile directories ##
+
 1) You have to add your new Makefile filename relative to
    the root of protomol into configure.ac  (at the end of the file),
    and the directory name parent to it.
@@ -97,8 +122,8 @@ aclocal; autoheader; autoconf; automake -a
 2) Generate the new configure file as under addinf files.
 
 
- HOWTO set compiler flags
---------------------------
+## HOWTO set compiler flags ##
+
    This can be done if you don't want to use the --with-platform-cxx configure
    options
  
@@ -116,8 +141,8 @@ aclocal; autoheader; autoconf; automake -a
 ./configure --help
 
 
- Compiler troubles
--------------------
+## Compiler troubles ##
+
    If the check of your compiler(s) fails try another configurations or you may 
    change/remove some compiler flags or libraries in ./configure.ac. If you have 
    still have troubles to compile or run automake/autoconf take look at FAQ.compiler.
@@ -126,32 +151,32 @@ aclocal; autoheader; autoconf; automake -a
    test programs in compilerTests to figure out the compiler/library flags.
  
  
- Autoconf troubles / older versions
-------------------------------------
+##  Autoconf troubles / older versions ##
+
    configure.ac expects autoconf version 2.53 or higher, in order generate makefiles 
    with older autoconf versions edit configure.ac and comment out what is below 
    Autoconf 2.53 and uncomment below Autoconf 2.13 and copy configure.ac to configure.in
    You may also use a symbolic link to configure.in and use:
    aclocal; autoheader; autoconf; automake -a
 
- 64-bit
---------
+### 64-bit ###
+
    ProtoMol supports compilation of 32-bit and 64-bit. On AIX you change to 64 with:
    setenv OBJECT_MODE 64 
 
 
- PNG
------
+### PNG ###
+
    The io library supports a PNG writer, but also PPM.
 
 
- GLUT
-------
+### GLUT ###
+
    GLUT is a tool library to simplify OpenGL usage.
 
 
- FFT
------
+### FFT ###
+
    ProtoMol supports different FFT interfaces: FFTW (version 3 and 2), ESSL (AIX), complib.sgimath (IRIX).
    You can specify your FFT of choice by --with-fft=[sgi|essl|fftw2|fftw3|zfft].
    Use '--with-fftw3=<path>' to specify install path of FFTW, ESSL and complib.sgimath are assumed to
@@ -163,8 +188,8 @@ aclocal; autoheader; autoconf; automake -a
    http:://www.fftw.org
 
 
- Timing
---------
+## Timing ##
+
    wall        : totale time, incl. initialization & IO
    run         : running the simulation for n steps, incl. output
    integration : running the simulation for n steps, excl. output
@@ -173,8 +198,8 @@ aclocal; autoheader; autoconf; automake -a
    idle        : waiting for the master to send next work package and waiting for barrieres 
 
 
- Parallel
-----------
+## Parallel ##
+
    useBarrier   : boolean =false  : if MPI_Barrier should be called before global communication
    parallelMode : string          : static, dynamic or masterSlave
                   =static     : static load balancing, no com. between master and slaves, only slaves
@@ -188,16 +213,11 @@ aclocal; autoheader; autoconf; automake -a
 
 
 
- NOTES
--------
+## NOTES ##
+
    Don't worry if it's taking a long time to compile ... 
 
    To clean the whole package:
 
    ./realclean
 
-
-
- Contact Information 
----------------------
-   protomol@cse.nd.edu.
