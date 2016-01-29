@@ -140,8 +140,8 @@ namespace ProtoMol {
     if(!(myNames != NULL || (myAtoms != NULL && myAtomTypes != NULL)))
       report << error << "[XYZTrajectoryWriter::write]"
 	     << " No atom names specified."<< endr;
-    const unsigned int count = myCoords->size();
-    if((myNames != NULL && myNames->size() != count) ||
+    const unsigned int count = (myCoords != NULL ? myCoords->size() : 0);
+    if ((myNames != NULL && myNames->size() != count) ||
        (myAtoms != NULL && myAtomTypes != NULL && myAtoms->size() != count))
       report << error << "[XYZTrajectoryWriter::write]"
 	     << " Coorindate and atom name size are not equal."<< endr;

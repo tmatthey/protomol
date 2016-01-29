@@ -79,10 +79,11 @@ namespace ProtoMol {
       if (s != NULL)
 	memset(s, 0, sizeof(vmdsocket)); 
 
-      if ((s->sd = socket(PF_INET, SOCK_STREAM, 0)) == -1) {
-	printf("Failed to open socket.");
-	free(s);
-	return NULL;
+      if (s == NULL || (s->sd = socket(PF_INET, SOCK_STREAM, 0)) == -1) {
+        printf("Failed to open socket.");
+        if (s != NULL)
+          free(s);
+        return NULL;
       }
 
       return (void *) s;
@@ -96,7 +97,7 @@ namespace ProtoMol {
       h=gethostbyname(host);
       if (h == NULL) 
 	return -1;
-      sprintf(address, "%d.%d.%d.%d",
+      sprintf_s(address, "%d.%d.%d.%d",
 	      (unsigned char) h->h_addr_list[0][0],
 	      (unsigned char) h->h_addr_list[0][1],
 	      (unsigned char) h->h_addr_list[0][2],

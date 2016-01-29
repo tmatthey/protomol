@@ -31,7 +31,7 @@ namespace ProtoMol {
 
   OutputDihedrals::OutputDihedrals(): OutputFile(),
 				      myDihedralIndex(-1),
-				      myDihedralsSet(-1),
+                      myDihedralsSet(false),
 				      myDCD(NULL),
 				      myMinimalImage(false){}
   

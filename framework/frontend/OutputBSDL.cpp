@@ -122,7 +122,7 @@ namespace ProtoMol {
 
 
     char tmp[16];
-    sprintf(tmp,"%06d",myCounter);
+    sprintf_s(tmp, "%06d", myCounter);
     ofstream out(string( myFilename +"."+tmp+".bsdl3").c_str());
     if(!out)
       report << error << "Can't write BSDL file \'"+myFilename +"."+tmp+".bsdl3\'"<<endr;

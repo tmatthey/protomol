@@ -20,7 +20,8 @@ namespace ProtoMol {
     if(actualForce == NULL)
       report << error << "Actual force is a zero pointer."<<endr;
     myActualForce = actualForce;
-    myForcename = actualForce->getKeyword()+"."+toString(myCounter);
+    if (actualForce != NULL)
+      myForcename = actualForce->getKeyword() + "." + toString(myCounter);
     myIdNumber = myCounter;
     myCounter++;
     myTimer.reset();

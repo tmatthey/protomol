@@ -22,7 +22,7 @@ namespace ProtoMol {
       report << error << "Actual force is a zero pointer."<<endr;
     myActualForce  = actualForce;
     myCompareForce = compareForce;
-    if(compareForce != NULL){
+    if (compareForce != NULL && actualForce != NULL){
       myCompareForcename = compareForce->getId()+"."+toString(myCompareForce->getIdNumber());
       myForcename        = actualForce->getId()+"."+toString(myCounter);
     }
