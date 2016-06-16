@@ -4,13 +4,14 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ NonbondedMultiGridSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ NonbondedMultiGridSystemForceBase
 
-  class NonbondedMultiGridSystemForceBase {
-  public:
-    static const std::string keyword;
-  };
+	class NonbondedMultiGridSystemForceBase
+	{
+	public:
+		static const std::string keyword;
+	};
 }
 #endif /* NONBONDEDMULTIGRIDSYSTEMFORCEBASE_H */
-

@@ -6,91 +6,94 @@
 
 using namespace ProtoMol::Report;
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	//__________________________________________________ ModifierShake
+	ModifierShake::ModifierShake(Real eps, int maxIter, const Integrator* i, int order): ModifierMetaShake(eps, maxIter, order), myTheIntegrator(i)
+	{
+	}
 
+	Real ModifierShake::getTimestep() const
+	{
+		return myTheIntegrator->getTimestep();
+	}
 
-  //__________________________________________________ ModifierShake
-  ModifierShake::ModifierShake(Real eps, int maxIter,const Integrator* i, int order):ModifierMetaShake(eps,maxIter,order),myTheIntegrator(i){}
+	void ModifierShake::doExecute()
+	{
+		// estimate the current error in all bond constraints
+		Real error = calcError();
 
-  Real ModifierShake::getTimestep()const {
-    return myTheIntegrator->getTimestep();
-  }
+		// delta_t
+		Real dt = getTimestep() / Constant::TIMEFACTOR;
 
-  void ModifierShake::doExecute(){
+		int iter = 0;
+		while (error > myEpsilon)
+		{
+			for (unsigned int i = 0; i < myListOfConstraints->size(); i++)
+			{
+				// find the ID#s of the two atoms in the current constraint
+				int a1 = (*myListOfConstraints)[i].atom1;
+				int a2 = (*myListOfConstraints)[i].atom2;
 
-    // estimate the current error in all bond constraints
-    Real error = calcError();
+				// get the target bond distance for this constraint
+				Real restLength = (*myListOfConstraints)[i].restLength;
 
-    // delta_t
-    Real dt = getTimestep() / Constant::TIMEFACTOR;
+				// now lets compute the lambdas.
+				Vector3D pab = (*myPositions)[a1] - (*myPositions)[a2];
 
-    int iter = 0;
-    while(error > myEpsilon) {
-      
-      for(unsigned int i=0;i<myListOfConstraints->size();i++) {
+				// compute the current bond vector   
+				Real pabsq = pab.normSquared();
+				Real rabsq = restLength * restLength;
 
-        // find the ID#s of the two atoms in the current constraint
-	int a1 = (*myListOfConstraints)[i].atom1;
-	int a2 = (*myListOfConstraints)[i].atom2;
+				// compute the difference between the target bond length and
+				// the actual bond length        
+				Real diffsq = rabsq - pabsq; //-g^k()
 
-        // get the target bond distance for this constraint
-	Real restLength = (*myListOfConstraints)[i].restLength;
+				// compute the bond vector from the previous timestep
+				Vector3D rab = myLastPositions[a1] - myLastPositions[a2];
+				Real rpab = rab * pab;
 
-	// now lets compute the lambdas.
-	Vector3D pab = (*myPositions)[a1] - (*myPositions)[a2];
+				// reciprocal atomic masses
+				Real rM1 = 1 / myTopology->atoms[a1].scaledMass;
+				Real rM2 = 1 / myTopology->atoms[a2].scaledMass;
 
-        // compute the current bond vector   
-	Real pabsq = pab.normSquared();
-	Real rabsq = restLength*restLength;
+				// calculate the constraint force, or multiplier
+				Real gab = diffsq / (2 * (rM1 + rM2) * rpab);
+				Vector3D dp = rab * gab;
 
-        // compute the difference between the target bond length and
-        // the actual bond length        
-	Real diffsq = rabsq - pabsq; //-g^k()
+				// move the positions based upon the multiplier
+				(*myPositions)[a1] += dp * rM1;
+				(*myPositions)[a2] -= dp * rM2;
 
-        // compute the bond vector from the previous timestep
-	Vector3D rab = myLastPositions[a1] - myLastPositions[a2];
-	Real rpab = rab * pab;
+				dp /= dt;
 
-        // reciprocal atomic masses
-	Real rM1 = 1/myTopology->atoms[a1].scaledMass;
-	Real rM2 = 1/myTopology->atoms[a2].scaledMass;
+				// move the velocities based upon the multiplier 
+				(*myVelocities)[a1] += dp * rM1;
+				(*myVelocities)[a2] -= dp * rM2;
 
-        // calculate the constraint force, or multiplier
-	Real gab = diffsq / (2 * (rM1 + rM2) * rpab);
-	Vector3D dp = rab * gab;
+				// the constraint adds a force to each atom since their positions
+				// had to be changed.  This constraint force therefore contributes
+				// to the atomic virial.  Note that the molecular virial is independent of
+				// any intramolecular constraint forces.
+				if (myEnergies->virial())
+				{
+					dp /= dt;
+					myEnergies->addVirial(dp * 2, rab);
+				}
+			}
 
-        // move the positions based upon the multiplier
-	(*myPositions)[a1] += dp * rM1;
-	(*myPositions)[a2] -= dp * rM2;
-	
-	dp /= dt;
+			// compute the error in all the bond constraints after this SHAKE iteration
+			error = calcError();
+			iter ++;
+			if (iter > myMaxIter)
+			{
+				report << warning << "maxIter = " << myMaxIter
+					<< " reached, but still not converged ... error is " << error << endr;
+				break;
+			}
+		}
 
-        // move the velocities based upon the multiplier 
-	(*myVelocities)[a1] += dp * rM1;
-	(*myVelocities)[a2] -= dp * rM2;
-
-        // the constraint adds a force to each atom since their positions
-        // had to be changed.  This constraint force therefore contributes
-        // to the atomic virial.  Note that the molecular virial is independent of
-        // any intramolecular constraint forces.
-        if (myEnergies->virial()) {
-          dp /= dt;
-          myEnergies->addVirial(dp*2,rab);
-        }
-      }
-
-      // compute the error in all the bond constraints after this SHAKE iteration
-      error = calcError(); 
-      iter ++;
-      if(iter > myMaxIter) {
-	report << warning << "maxIter = " << myMaxIter 
-	       << " reached, but still not converged ... error is "<<error<<endr;
-	break;
-      }      
-    }
-
-    // store the old positions
-    myLastPositions = (*myPositions);
-  }
-
+		// store the old positions
+		myLastPositions = (*myPositions);
+	}
 }

@@ -2,37 +2,44 @@
 #include "Report.h"
 using namespace ProtoMol::Report;
 
-namespace ProtoMol {
-  //________________________________________________________________ LennardJonesParameterTable
-  LennardJonesParameterTable::LennardJonesParameterTable():myCurrentSize(0),myData(NULL){}
+namespace ProtoMol
+{
+	//________________________________________________________________ LennardJonesParameterTable
+	LennardJonesParameterTable::LennardJonesParameterTable(): myCurrentSize(0), myData(NULL)
+	{
+	}
 
-  LennardJonesParameterTable::~LennardJonesParameterTable(){
-    if(myData != NULL)
-      delete [] myData;
-  }
+	LennardJonesParameterTable::~LennardJonesParameterTable()
+	{
+		if (myData != NULL)
+			delete [] myData;
+	}
 
-  void LennardJonesParameterTable::resize(int count) {
-    if(count < 0)
-      count = 0;
-    if(count == myCurrentSize)
-      return;
+	void LennardJonesParameterTable::resize(int count)
+	{
+		if (count < 0)
+			count = 0;
+		if (count == myCurrentSize)
+			return;
 
-    if(myData != NULL)
-      delete [] myData;
-    myData = NULL;
+		if (myData != NULL)
+			delete [] myData;
+		myData = NULL;
 
-    if(count > 0)
-      myData = new LennardJonesParameters[count*count];  
-  
-    myCurrentSize=count;
-  }
+		if (count > 0)
+			myData = new LennardJonesParameters[count * count];
 
-  void LennardJonesParameterTable::set(int type1, int type2, const LennardJonesParameters &params) {
-    if(type1<0||type2<0||type1>=myCurrentSize||type2>=myCurrentSize){
-      report << recoverable <<"[LennardJonesParameters::set] index of out range!"<<endr;
-      return;
-    }
-    myData[type1*myCurrentSize+type2]=params;
-    myData[type2*myCurrentSize+type1]=params;
-  }
+		myCurrentSize = count;
+	}
+
+	void LennardJonesParameterTable::set(int type1, int type2, const LennardJonesParameters& params)
+	{
+		if (type1 < 0 || type2 < 0 || type1 >= myCurrentSize || type2 >= myCurrentSize)
+		{
+			report << recoverable << "[LennardJonesParameters::set] index of out range!" << endr;
+			return;
+		}
+		myData[type1 * myCurrentSize + type2] = params;
+		myData[type2 * myCurrentSize + type1] = params;
+	}
 }

@@ -5,53 +5,62 @@
 #include "Output.h"
 
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	class XYZTrajectoryWriter;
 
-  class XYZTrajectoryWriter;
+	//________________________________________________________ OutputXYZTrajectoryPos
+	class OutputXYZTrajectoryPos : public Output
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		OutputXYZTrajectoryPos();
+		OutputXYZTrajectoryPos(const std::string& filename, int freq, bool minimal);
+		virtual ~OutputXYZTrajectoryPos();
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class Output
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
 
-  //________________________________________________________ OutputXYZTrajectoryPos
-  class OutputXYZTrajectoryPos : public Output {
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    OutputXYZTrajectoryPos();
-    OutputXYZTrajectoryPos(const std::string& filename, int freq, bool minimal);
-    virtual ~OutputXYZTrajectoryPos();
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class Output
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //  From class Output
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    virtual Output* doMake(std::string& errMsg, const std::vector<Value>& values) const;
-    virtual void doInitialize();
-    virtual void doRun(int step);
-    virtual void doFinalize(int step);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		//  From class Output
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		virtual Output* doMake(std::string& errMsg, const std::vector<Value>& values) const;
+		virtual void doInitialize();
+		virtual void doRun(int step);
+		virtual void doFinalize(int step);
 
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Makeable
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual std::string getIdNoAlias() const{ return keyword;}
-    // Returns the identification string
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Makeable
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual std::string getIdNoAlias() const
+		{
+			return keyword;
+		}
 
-    virtual unsigned int getParameterSize() const {return 3;}
-    virtual void getParameters(std::vector<Parameter> &parameter) const;
-    virtual bool adjustWithDefaultParameters(std::vector<Value>& values, const Configuration* config) const;
+		// Returns the identification string
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    static const std::string keyword;
-  private:
-    XYZTrajectoryWriter* myXYZ;
-    bool myMinimalImage;
-  };
+		virtual unsigned int getParameterSize() const
+		{
+			return 3;
+		}
+
+		virtual void getParameters(std::vector<Parameter>& parameter) const;
+		virtual bool adjustWithDefaultParameters(std::vector<Value>& values, const Configuration* config) const;
+
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		static const std::string keyword;
+	private:
+		XYZTrajectoryWriter* myXYZ;
+		bool myMinimalImage;
+	};
 }
 #endif

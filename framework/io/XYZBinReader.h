@@ -5,60 +5,71 @@
 #include "Reader.h"
 #include "XYZ.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	//_________________________________________________________________XYZBinReader
+	/** 
+	 * Reads a XYZ binary file.
+	 */
+	class XYZBinReader : public Reader
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors (both default here), assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		XYZBinReader();
+		explicit XYZBinReader(const std::string& filename);
+		virtual ~XYZBinReader();
 
-  //_________________________________________________________________XYZBinReader
-  /** 
-   * Reads a XYZ binary file.
-   */
-  class XYZBinReader : public Reader {
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors (both default here), assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    XYZBinReader();
-    explicit XYZBinReader(const std::string& filename);
-    virtual ~XYZBinReader();
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class File
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual bool open()
+		{
+			return File::open();
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class File
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual bool open(){return File::open();}
-    virtual bool open(const std::string& filename){return File::open(filename);}
-    virtual bool open(const char* filename){return File::open(filename);}
-    
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Reader
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual bool tryFormat();
-    virtual bool read();
+		virtual bool open(const std::string& filename)
+		{
+			return File::open(filename);
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class XYZBin
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    bool read(Vector3DBlock& coords);
+		virtual bool open(const char* filename)
+		{
+			return File::open(filename);
+		}
 
-    XYZ getXYZ() const;
-    Vector3DBlock* orphanCoords();
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Reader
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual bool tryFormat();
+		virtual bool read();
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Friends
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    friend XYZBinReader& operator>>(XYZBinReader& XYZBinReader, XYZ& xyz);
-    friend XYZBinReader& operator>>(XYZBinReader& xyzbinReader, Vector3DBlock& coords);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class XYZBin
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		bool read(Vector3DBlock& coords);
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    Vector3DBlock* myCoords;
-  };
+		XYZ getXYZ() const;
+		Vector3DBlock* orphanCoords();
 
-  //____________________________________________________________________________INLINES
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Friends
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		friend XYZBinReader& operator>>(XYZBinReader& XYZBinReader, XYZ& xyz);
+		friend XYZBinReader& operator>>(XYZBinReader& xyzbinReader, Vector3DBlock& coords);
 
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		Vector3DBlock* myCoords;
+	};
+
+	//____________________________________________________________________________INLINES
 }
 #endif /* XYZBINREADER_H */

@@ -5,51 +5,61 @@
 #include "Writer.h"
 #include "PDB.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	//_________________________________________________________________PDBWriter
+	/**
+	 * Writes a PDB (ASCII) file, ATOM record only.
+	 */
+	class PDBWriter : public Writer
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors (both default here), assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		PDBWriter();
+		explicit PDBWriter(const std::string& filename);
 
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class File
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual bool open()
+		{
+			return File::open();
+		}
 
-  //_________________________________________________________________PDBWriter
-  /**
-   * Writes a PDB (ASCII) file, ATOM record only.
-   */
-  class PDBWriter : public Writer {
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors (both default here), assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    PDBWriter();
-    explicit PDBWriter(const std::string& filename);
+		virtual bool open(const std::string& filename)
+		{
+			return File::open(filename);
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class File
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual bool open(){return File::open();}
-    virtual bool open(const std::string& filename){return File::open(filename);}
-    virtual bool open(const char* filename){return File::open(filename);}
-    
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class PDB
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    bool write(const PDB& pdb);
-    bool write(const Vector3DBlock& coords, const PDB& pdb);
-    bool write(const Vector3DBlock& coords, const std::vector<PDB::Atom>& atoms);
-    bool write(const Vector3DBlock& coords, const std::vector<PDB::Atom>& atoms, const std::vector<PDB::Ter>& ters);
+		virtual bool open(const char* filename)
+		{
+			return File::open(filename);
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Friends
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    friend PDBWriter& operator<<(PDBWriter& pdbWriter, const PDB& pdb);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class PDB
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		bool write(const PDB& pdb);
+		bool write(const Vector3DBlock& coords, const PDB& pdb);
+		bool write(const Vector3DBlock& coords, const std::vector<PDB::Atom>& atoms);
+		bool write(const Vector3DBlock& coords, const std::vector<PDB::Atom>& atoms, const std::vector<PDB::Ter>& ters);
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-  };
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Friends
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		friend PDBWriter& operator<<(PDBWriter& pdbWriter, const PDB& pdb);
 
-  //____________________________________________________________________________INLINES
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+	};
 
+	//____________________________________________________________________________INLINES
 }
 #endif /* PDBWRITER_H */

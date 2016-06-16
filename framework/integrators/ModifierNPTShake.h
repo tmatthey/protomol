@@ -5,67 +5,86 @@
 #include "ModifierMetaShake.h"
 #include "Vector3DBlock.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	//_________________________________________________________________ModifierNPTShakeDetails
+	class ModifierNPTShakeDetails : public ModifierMetaShake
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		ModifierNPTShakeDetails(Real eps, int maxIter, int order);
 
-  //_________________________________________________________________ModifierNPTShakeDetails
-  class ModifierNPTShakeDetails : public ModifierMetaShake {
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class ModifierNPTShakeDetails
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		virtual Real getEpsilonVel() const =0;
+		virtual Real getEtaVel() const =0;
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    ModifierNPTShakeDetails(Real eps, int maxIter, int order);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Modifier
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		virtual void doExecute();
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class ModifierNPTShakeDetails
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    virtual Real getEpsilonVel() const=0;
-    virtual Real getEtaVel() const=0;
+		virtual std::string doPrint() const
+		{
+			return std::string("NPTShake");
+		};
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Modifier
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    virtual void doExecute();
-    virtual std::string doPrint()const{return std::string("NPTShake");};
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-  };
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+	};
 
 
-  //_________________________________________________________________ModifierNPTShake
-  template<class TIntegrator>
-  class ModifierNPTShake : public ModifierNPTShakeDetails {
+	//_________________________________________________________________ModifierNPTShake
+	template <class TIntegrator>
+	class ModifierNPTShake : public ModifierNPTShakeDetails
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		ModifierNPTShake(Real eps,
+		                 int maxIter,
+		                 const TIntegrator* i,
+		                 int order = Constant::MAX_INT - 400): ModifierNPTShakeDetails(eps, maxIter, order),
+		                                                       myTheIntegrator(i)
+		{
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    ModifierNPTShake(Real eps, 
-		      int maxIter,
-		      const TIntegrator* i, 
-		      int order=Constant::MAX_INT-400):ModifierNPTShakeDetails(eps,maxIter,order),
-						       myTheIntegrator(i){}
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class ModifierMetaShakeShake
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  protected:
-    virtual Real getTimestep()const{return myTheIntegrator->getTimestep();}
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class ModifierNPTShakeDetails
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    virtual Real getEpsilonVel() const{return myTheIntegrator->getEpsilonVel();}
-    virtual Real getEtaVel() const{return myTheIntegrator->getEtaVel();}
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    const TIntegrator* myTheIntegrator;
-  };
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class ModifierMetaShakeShake
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	protected:
+		virtual Real getTimestep() const
+		{
+			return myTheIntegrator->getTimestep();
+		}
 
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class ModifierNPTShakeDetails
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		virtual Real getEpsilonVel() const
+		{
+			return myTheIntegrator->getEpsilonVel();
+		}
+
+		virtual Real getEtaVel() const
+		{
+			return myTheIntegrator->getEtaVel();
+		}
+
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		const TIntegrator* myTheIntegrator;
+	};
 }
 #endif /* MODIFIERNPTSHAKE_H */

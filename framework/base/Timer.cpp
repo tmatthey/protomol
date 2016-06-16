@@ -17,7 +17,7 @@
  * for any purpose.  It is provided solely "as is".
  *
  */
- 
+
 #ifdef SVR4
 #include <unistd.h>
 #include <sys/time.h>
@@ -38,183 +38,195 @@
 
 using namespace ProtoMol::Report;
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	//_________________________________________________________________ TimeRep
 
-  //_________________________________________________________________ TimeRep
+	TimeRep::TimeRep()
+		: myRealTime(0.0), myUserTime(0.0), mySystemTime(0.0)
+	{
+	}
 
-  TimeRep::TimeRep()
-    : myRealTime(0.0), myUserTime(0.0), mySystemTime(0.0)
-  {}
+	TimeRep::TimeRep(double realTime, double userTime, double sysTime)
+		: myRealTime(realTime), myUserTime(userTime), mySystemTime(sysTime)
+	{
+	}
 
-  TimeRep::TimeRep(double realTime, double userTime, double sysTime)
-    : myRealTime(realTime), myUserTime(userTime), mySystemTime(sysTime)
-  {}
+	TimeRep TimeRep::operator+(const TimeRep& time) const
+	{
+		return TimeRep(myRealTime + time.myRealTime,
+		               myUserTime + time.myUserTime,
+		               mySystemTime + time.mySystemTime);
+	}
 
-  TimeRep TimeRep::operator+(const TimeRep& time) const
-  {
-    return TimeRep(myRealTime + time.myRealTime,
-		   myUserTime + time.myUserTime,
-		   mySystemTime  + time.mySystemTime);
-  }
+	TimeRep TimeRep::operator-(const TimeRep& time) const
+	{
+		return TimeRep(myRealTime - time.myRealTime,
+		               myUserTime - time.myUserTime,
+		               mySystemTime - time.mySystemTime);
+	}
 
-  TimeRep TimeRep::operator-(const TimeRep& time) const
-  {
-    return TimeRep(myRealTime - time.myRealTime,
-		   myUserTime - time.myUserTime,
-		   mySystemTime  - time.mySystemTime);
-  }
+	TimeRep& TimeRep::operator+=(const TimeRep& time)
+	{
+		*this = *this + time;
+		return *this;
+	}
 
-  TimeRep& TimeRep::operator+=(const TimeRep& time)
-  {
-    *this = *this + time;
-    return *this;
-  }
+	TimeRep& TimeRep::operator-=(const TimeRep& time)
+	{
+		*this = *this - time;
+		return *this;
+	}
 
-  TimeRep& TimeRep::operator-=(const TimeRep& time)
-  {    
-    *this = *this - time;
-    return *this;
-  }
+	Report::MyStreamer& operator<<(Report::MyStreamer& os, const TimeRep& time)
+	{
+		os.setf(std::ios::showpoint | std::ios::fixed);
+		os.precision(5);
+		os << time.myRealTime << "[s] real, ";
+		os.precision(5);
+		os << time.myUserTime << "[s] user, ";
+		os.precision(5);
+		os << time.mySystemTime << "[s] sys";
+		//os.reset();
+		return os;
+	}
 
-  Report::MyStreamer& operator<<(Report::MyStreamer& os, const TimeRep& time)
-  {
-    os.setf(std::ios::showpoint|std::ios::fixed);
-    os.precision(5);
-    os << time.myRealTime << "[s] real, ";
-    os.precision(5);
-    os << time.myUserTime << "[s] user, ";
-    os.precision(5);
-    os << time.mySystemTime  << "[s] sys"; 
-    //os.reset();
-    return os;
-  }
+	void TimeRep::set(double realTime, double userTime, double sysTime)
+	{
+		myRealTime = realTime;
+		myUserTime = userTime;
+		mySystemTime = sysTime;
+	}
 
-  void TimeRep::set(double realTime, double userTime, double sysTime)
-  {
-    myRealTime   = realTime;
-    myUserTime   = userTime;
-    mySystemTime = sysTime;
-  }
-
-  void TimeRep::reset()
-  {
-    myRealTime   = 0.0;
-    myUserTime   = 0.0;
-    mySystemTime = 0.0;
-  }
+	void TimeRep::reset()
+	{
+		myRealTime = 0.0;
+		myUserTime = 0.0;
+		mySystemTime = 0.0;
+	}
 
 
-  //_________________________________________________________________ Timer
+	//_________________________________________________________________ Timer
 
-  Timer::Timer()
-    : myRunningFlag(false)
-  {
-    reset();
-  }
+	Timer::Timer()
+		: myRunningFlag(false)
+	{
+		reset();
+	}
 
-  void Timer::start()
-  {
-    if (myRunningFlag) {
-      return;
-    }
+	void Timer::start()
+	{
+		if (myRunningFlag)
+		{
+			return;
+		}
 
-    myRunningFlag = true;
-    myStartTime   = getCurrentTime();
-    myLastLapTime = myStartTime;
-    myLapTime.reset();
-  }
+		myRunningFlag = true;
+		myStartTime = getCurrentTime();
+		myLastLapTime = myStartTime;
+		myLapTime.reset();
+	}
 
-  void Timer::stop()
-  {
-    if (!myRunningFlag) {
-      return;
-    }
+	void Timer::stop()
+	{
+		if (!myRunningFlag)
+		{
+			return;
+		}
 
-    myTotalTime = myTotalTime + (getCurrentTime() - myStartTime);
-    myRunningFlag = false;
-  }
+		myTotalTime = myTotalTime + (getCurrentTime() - myStartTime);
+		myRunningFlag = false;
+	}
 
-  TimeRep Timer::getActualTime() const
-  {
-    if (!myRunningFlag) {
-      return myTotalTime;
-    }
-    return (myTotalTime + (getCurrentTime() - myStartTime));
-  }
+	TimeRep Timer::getActualTime() const
+	{
+		if (!myRunningFlag)
+		{
+			return myTotalTime;
+		}
+		return (myTotalTime + (getCurrentTime() - myStartTime));
+	}
 
-  TimeRep Timer::lap()
-  {
-    if (!myRunningFlag) {
-      return TimeRep();
-    }
+	TimeRep Timer::lap()
+	{
+		if (!myRunningFlag)
+		{
+			return TimeRep();
+		}
 
-    TimeRep t = getCurrentTime();
-    myLapTime = t - myLastLapTime;
-    myLastLapTime = t;
-    return myLapTime;
-  }
- 
-  void Timer::reset()
-  {
-    myRunningFlag = false;
+		TimeRep t = getCurrentTime();
+		myLapTime = t - myLastLapTime;
+		myLastLapTime = t;
+		return myLapTime;
+	}
 
-    myStartTime.reset();
-    myTotalTime.reset(); 
-    myLastLapTime.reset();
-    myLapTime.reset();   
-  }
+	void Timer::reset()
+	{
+		myRunningFlag = false;
 
-  TimeRep Timer::getTime() const
-  {
-    if (myRunningFlag) {
-      return myTotalTime + (getCurrentTime() - myStartTime);
-    }
-    else
-      return myTotalTime;
-  }
+		myStartTime.reset();
+		myTotalTime.reset();
+		myLastLapTime.reset();
+		myLapTime.reset();
+	}
 
-  TimeRep Timer::getLapTime() const
-  {
-    if (!myRunningFlag) {
-      return TimeRep();
-    }
+	TimeRep Timer::getTime() const
+	{
+		if (myRunningFlag)
+		{
+			return myTotalTime + (getCurrentTime() - myStartTime);
+		}
+		else
+			return myTotalTime;
+	}
 
-    return myLapTime;
-  }
+	TimeRep Timer::getLapTime() const
+	{
+		if (!myRunningFlag)
+		{
+			return TimeRep();
+		}
 
-  Timer& Timer::operator+=(const TimeRep& time)
-  {
-    if (!myRunningFlag) {
-      myTotalTime += time;
-    }
-    else {
-      myStartTime -= time;
-    }
+		return myLapTime;
+	}
 
-    return *this;
-  }
+	Timer& Timer::operator+=(const TimeRep& time)
+	{
+		if (!myRunningFlag)
+		{
+			myTotalTime += time;
+		}
+		else
+		{
+			myStartTime -= time;
+		}
 
-  Timer& Timer::operator-=(const TimeRep& time)
-  {
-    if (!myRunningFlag) {
-      myTotalTime -= time;
-    }
-    else {
-      myStartTime += time;
-    }
-    
-    return *this;
-  }
+		return *this;
+	}
 
-  Report::MyStreamer& operator<<(Report::MyStreamer& os, const Timer& timer)
-  {
-    os << timer.getTime();
-    return os;
-  }
-  
-  TimeRep Timer::getCurrentTime()
-  {
-    double realTime, userTime, sysTime;
+	Timer& Timer::operator-=(const TimeRep& time)
+	{
+		if (!myRunningFlag)
+		{
+			myTotalTime -= time;
+		}
+		else
+		{
+			myStartTime += time;
+		}
+
+		return *this;
+	}
+
+	Report::MyStreamer& operator<<(Report::MyStreamer& os, const Timer& timer)
+	{
+		os << timer.getTime();
+		return os;
+	}
+
+	TimeRep Timer::getCurrentTime()
+	{
+		double realTime, userTime, sysTime;
 
 #ifdef SVR4
     struct timeval tv;
@@ -234,19 +246,19 @@ namespace ProtoMol {
 #else
 #define EPOCHFILETIME (116444736000000000LL)
 #endif
-    FILETIME        ft;
-    LARGE_INTEGER   li;
-    __int64         t;
-        GetSystemTimeAsFileTime(&ft);
-        li.LowPart  = ft.dwLowDateTime;
-        li.HighPart = ft.dwHighDateTime;
-        t  = li.QuadPart;      
-        t -= EPOCHFILETIME;    
-        t /= 10;               
-        realTime = (double)((long)(t / 1000000))+(double)((long)(t % 1000000))*.000001;
-    //realTime = (double)timeGetTime() / 1000.0;
+		FILETIME ft;
+		LARGE_INTEGER li;
+		__int64 t;
+		GetSystemTimeAsFileTime(&ft);
+		li.LowPart = ft.dwLowDateTime;
+		li.HighPart = ft.dwHighDateTime;
+		t = li.QuadPart;
+		t -= EPOCHFILETIME;
+		t /= 10;
+		realTime = (double)((long)(t / 1000000)) + (double)((long)(t % 1000000)) * .000001;
+		//realTime = (double)timeGetTime() / 1000.0;
 		userTime = clock() / 1000.0; // don't know how to measure user sys time
-    sysTime  = 0;                // this is not a unix system. 
+		sysTime = 0; // this is not a unix system. 
 #else
     struct timeval tv;
 
@@ -262,7 +274,7 @@ namespace ProtoMol {
       (double) usage.ru_stime.tv_usec *.000001;
 
 #endif
- 
-    return TimeRep(realTime, userTime, sysTime);
-  }
+
+		return TimeRep(realTime, userTime, sysTime);
+	}
 }

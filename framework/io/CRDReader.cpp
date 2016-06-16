@@ -13,95 +13,107 @@ using namespace ProtoMol::Report;
 
 //#define DEBUG_CRD
 
-namespace ProtoMol {
-  //_________________________________________________________________CRDReader
+namespace ProtoMol
+{
+	//_________________________________________________________________CRDReader
 
-  CRDReader::CRDReader():
-    Reader(),
-    myCoords(NULL){}
+	CRDReader::CRDReader():
+		Reader(),
+		myCoords(NULL)
+	{
+	}
 
-  CRDReader::CRDReader(const std::string& filename):
-    Reader(filename),
-    myCoords(NULL){}
-			//,myAtoms(NULL){}
+	CRDReader::CRDReader(const std::string& filename):
+		Reader(filename),
+		myCoords(NULL)
+	{
+	}
+
+	//,myAtoms(NULL){}
 
 
-  CRDReader::~CRDReader(){
-    if(myCoords != NULL)
-      delete myCoords;
-    /*if(myAtoms != NULL)
-      delete myAtoms;*/
-  }
+	CRDReader::~CRDReader()
+	{
+		if (myCoords != NULL)
+			delete myCoords;
+		/*if(myAtoms != NULL)
+		  delete myAtoms;*/
+	}
 
-  bool CRDReader::tryFormat(){
-    if(!open())
-      return false;
-	else return true;	
-	/*
-    do {
-      string record,str;
-      record = getline();
-      stringstream ss(record);
-      ss >> str;
-      if("ATOM" == str){
-	close();
-	return true;
-      }
-    } while (!myFile.eof());
-    myFile.setstate(std::ios::failbit);
-    close();        
-    return false;*/
-  }
+	bool CRDReader::tryFormat()
+	{
+		if (!open())
+			return false;
+		else return true;
+		/*
+	    do {
+	      string record,str;
+	      record = getline();
+	      stringstream ss(record);
+	      ss >> str;
+	      if("ATOM" == str){
+		close();
+		return true;
+	      }
+	    } while (!myFile.eof());
+	    myFile.setstate(std::ios::failbit);
+	    close();        
+	    return false;*/
+	}
 
-  bool CRDReader::read() {
-    if(myCoords == NULL)
-      myCoords = new Vector3DBlock();
-    return read(*myCoords);
-  }
+	bool CRDReader::read()
+	{
+		if (myCoords == NULL)
+			myCoords = new Vector3DBlock();
+		return read(*myCoords);
+	}
 
-  /*bool CRDReader::read(CRD& pdb){
-    return read(pdb.coords,pdb.atoms);
-  }*/
-  
-  bool CRDReader::read(Vector3DBlock& coords) {
-    if(!tryFormat())
-      return false;
-    if(!open())
-      return false;
-    coords.clear();
-    //atoms.clear();
-	//
-	
-	//read the coord file.
-	string line, str;
-	int numRecords;
-	stringstream ss;
-	string xcoord, ycoord, zcoord;
+	/*bool CRDReader::read(CRD& pdb){
+	  return read(pdb.coords,pdb.atoms);
+	}*/
 
-	line = getline();//read the header
-	while(line.empty()) line = getline(); //ignore blank lines
-	
-	//Ignore the lines in the header...then the first line of data should
-	//have the total number of atoms.
-	std::cout<<"LINE = "<<line<<endl;	
-	ss << line;
-	ss >> str;
-	while(!isInt(str)) {
+	bool CRDReader::read(Vector3DBlock& coords)
+	{
+		if (!tryFormat())
+			return false;
+		if (!open())
+			return false;
+		coords.clear();
+		//atoms.clear();
+		//
+
+		//read the coord file.
+		string line, str;
+		int numRecords;
+		stringstream ss;
+		string xcoord, ycoord, zcoord;
+
+		line = getline();//read the header
+		while (line.empty()) line = getline(); //ignore blank lines
+
+		//Ignore the lines in the header...then the first line of data should
+		//have the total number of atoms.
+		std::cout << "LINE = " << line << endl;
+		ss << line;
+		ss >> str;
+		while (!isInt(str))
+		{
 			line = getline();
-		ss.clear();		
-	std::cout<<"LINE = "<<line<<endl;	
+			ss.clear();
+			std::cout << "LINE = " << line << endl;
 			ss << line;
 			ss >> str;
-	}	
-	numRecords = toInt(str); //total number of atoms
-		for(int i=0;i<numRecords;i++) {
+		}
+		numRecords = toInt(str); //total number of atoms
+		for (int i = 0; i < numRecords; i++)
+		{
 			myFile >> xcoord;
 			myFile >> ycoord;
 			myFile >> zcoord;
 			coords.push_back(Vector3D(toReal(xcoord), toReal(ycoord), toReal(zcoord)));
-		}	
+		}
 
-    // Now we want to read data in until the record name is "END", then stop.
+		// Now we want to read data in until the record name is "END", then stop.
 #if 0
     int big = 0;
     int toBig = 0;
@@ -165,62 +177,66 @@ namespace ProtoMol {
     close();      
     return !myFile.fail();
 #endif
-	return true;
-  }
-
-  /*Vector3DBlock* CRDReader::orphanCoords(){
-    Vector3DBlock* tmp = myCoords;
-    myCoords = NULL;
-    return tmp;
-  }*/
-
-  /*std::vector<CRD::CRDAtom>* CRDReader::orphanAtoms(){
-    std::vector<CRD::CRDAtom>* tmp = myAtoms;
-    myAtoms = NULL;
-    return tmp;
-  }*/
-
-  Vector3DBlock CRDReader::getCRD() const{
-    Vector3DBlock res;
-    if(myCoords != NULL)
-      res = (*myCoords);
-    /*if(myAtoms != NULL)
-      res.atoms = (*myAtoms);*/
-    return res;
-  }
-/*
-  CRDReader& operator>>(CRDReader& pdbReader, CRD& pdb){
-    pdbReader.read(pdb.coords,pdb.atoms);
-    return pdbReader;
-  }
-  */
-
-  CRDReader& operator>>(CRDReader& crdReader, Vector3DBlock& coords){
-    /*if(pdbReader.myAtoms == NULL)
-      pdbReader.myAtoms = new std::vector<CRD::CRDAtom>();*/
-    crdReader.read(coords);
-    return crdReader;
-  }
-/*
-  CRDReader& operator>>(CRDReader& pdbReader, XYZ& xyz){
-    if(pdbReader.myAtoms == NULL)
-      pdbReader.myAtoms = new std::vector<CRD::CRDAtom>();
-    if(pdbReader.read(xyz.coords,*pdbReader.myAtoms)){
-      xyz.names.resize(xyz.coords.size());
-      for(unsigned int i=0;i<xyz.coords.size();++i)
-	xyz.names[i] = (*pdbReader.myAtoms)[i].elementName;
-    }
-    return pdbReader;
-  }
-*/
- void CRDReader::writeData()
- {
-	Vector3DBlock v = *myCoords;
-	for(unsigned int i=0;i<myCoords->size();i++) {
-		const Vector3D& c(v[i]);
-		std::cout<<c.x<<"\t"<<c.y<<"\t"<<c.z<<std::endl;
+		return true;
 	}
-	std::cout<<myCoords->size()<<std::endl;
- }
-}
 
+	/*Vector3DBlock* CRDReader::orphanCoords(){
+	  Vector3DBlock* tmp = myCoords;
+	  myCoords = NULL;
+	  return tmp;
+	}*/
+
+	/*std::vector<CRD::CRDAtom>* CRDReader::orphanAtoms(){
+	  std::vector<CRD::CRDAtom>* tmp = myAtoms;
+	  myAtoms = NULL;
+	  return tmp;
+	}*/
+
+	Vector3DBlock CRDReader::getCRD() const
+	{
+		Vector3DBlock res;
+		if (myCoords != NULL)
+			res = (*myCoords);
+		/*if(myAtoms != NULL)
+		  res.atoms = (*myAtoms);*/
+		return res;
+	}
+
+	/*
+	  CRDReader& operator>>(CRDReader& pdbReader, CRD& pdb){
+	    pdbReader.read(pdb.coords,pdb.atoms);
+	    return pdbReader;
+	  }
+	  */
+
+	CRDReader& operator>>(CRDReader& crdReader, Vector3DBlock& coords)
+	{
+		/*if(pdbReader.myAtoms == NULL)
+		  pdbReader.myAtoms = new std::vector<CRD::CRDAtom>();*/
+		crdReader.read(coords);
+		return crdReader;
+	}
+
+	/*
+	  CRDReader& operator>>(CRDReader& pdbReader, XYZ& xyz){
+	    if(pdbReader.myAtoms == NULL)
+	      pdbReader.myAtoms = new std::vector<CRD::CRDAtom>();
+	    if(pdbReader.read(xyz.coords,*pdbReader.myAtoms)){
+	      xyz.names.resize(xyz.coords.size());
+	      for(unsigned int i=0;i<xyz.coords.size();++i)
+		xyz.names[i] = (*pdbReader.myAtoms)[i].elementName;
+	    }
+	    return pdbReader;
+	  }
+	*/
+	void CRDReader::writeData()
+	{
+		Vector3DBlock v = *myCoords;
+		for (unsigned int i = 0; i < myCoords->size(); i++)
+		{
+			const Vector3D& c(v[i]);
+			std::cout << c.x << "\t" << c.y << "\t" << c.z << std::endl;
+		}
+		std::cout << myCoords->size() << std::endl;
+	}
+}

@@ -22,15 +22,17 @@
 
 #include "Vector.h"
 
-namespace ProtoMol {
-  void registerForceExemplarsFastElectrostatic(const PeriodicBoundaryConditions*, const CubicCellManager*){
-    // Full Ewald
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,true,true,true,CutoffSwitchingFunction>(),Vector<std::string>("CoulombEwald"));
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,true,false,false,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,true,false,true,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,false,true,false,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,false,true,true,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,false,false,true,CutoffSwitchingFunction>());
+namespace ProtoMol
+{
+	void registerForceExemplarsFastElectrostatic(const PeriodicBoundaryConditions*, const CubicCellManager*)
+	{
+		// Full Ewald
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, true, true, true, CutoffSwitchingFunction>(), Vector<std::string>("CoulombEwald"));
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, true, false, false, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, true, false, true, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, false, true, false, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, false, true, true, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, false, false, true, CutoffSwitchingFunction>());
 #ifdef USE_FULL_FORCE_SET
     ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,true,true,true,ShiftSwitchingFunction>());
     ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,true,true,true,C1SwitchingFunction>());
@@ -44,13 +46,13 @@ namespace ProtoMol {
     ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,false,false,true,CutoffSwitchingFunction>());
 #endif
 
-    // PME
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,true,true,true,BSpline,CutoffSwitchingFunction>(),Vector<std::string>("CoulombPME"));
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,true,false,false,BSpline,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,true,false,true,BSpline,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,false,true,false,BSpline,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,false,true,true,BSpline,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,false,false,true,BSpline,CutoffSwitchingFunction>());
+		// PME
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, true, true, true, BSpline, CutoffSwitchingFunction>(), Vector<std::string>("CoulombPME"));
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, true, false, false, BSpline, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, true, false, true, BSpline, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, false, true, false, BSpline, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, false, true, true, BSpline, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions, CubicCellManager, false, false, true, BSpline, CutoffSwitchingFunction>());
 #ifdef USE_FULL_FORCE_SET
     ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,true,true,true,BSpline,ShiftSwitchingFunction>());
     ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,true,true,true,BSpline,C1SwitchingFunction>());
@@ -68,22 +70,22 @@ namespace ProtoMol {
     ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<PeriodicBoundaryConditions,CubicCellManager,false,false,true,Hermite,CutoffSwitchingFunction>());
 #endif
 
-    // MultiGrid
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C1,false,false,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C1,false,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C1,true,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C2,false,false,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C2,false,true,false>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C2,false,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C2,true,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C3,false,false,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C3,false,true,false>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C3,false,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C3,true,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C4,false,false,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C4,false,true,false>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C4,false,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C4,true,true,true>());
+		// MultiGrid
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C1, false, false, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C1, false, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C1, true, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C2, false, false, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C2, false, true, false>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C2, false, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C2, true, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C3, false, false, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C3, false, true, false>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C3, false, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C3, true, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C4, false, false, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C4, false, true, false>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C4, false, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C4, true, true, true>());
 #ifdef USE_FULL_FORCE_SET
     ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,BSpline,CoulombForce::C1,true,true,true>());
     ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,BSpline,CoulombForce::C1,false,true,true>());
@@ -94,15 +96,16 @@ namespace ProtoMol {
     ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,BSpline,CoulombForce::C4,true,true,true>());
     ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<PeriodicBoundaryConditions,CubicCellManager,BSpline,CoulombForce::C4,false,true,true>());
 #endif
-  }
+	}
 
-  void registerForceExemplarsFastElectrostatic(const VacuumBoundaryConditions*, const CubicCellManager*){ 
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,true,true,true,CutoffSwitchingFunction>(),Vector<std::string>("CoulombEwald"));
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,true,false,false,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,true,false,true,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,false,true,false,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,false,true,true,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,false,false,true,CutoffSwitchingFunction>());
+	void registerForceExemplarsFastElectrostatic(const VacuumBoundaryConditions*, const CubicCellManager*)
+	{
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, true, true, true, CutoffSwitchingFunction>(), Vector<std::string>("CoulombEwald"));
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, true, false, false, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, true, false, true, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, false, true, false, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, false, true, true, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, false, false, true, CutoffSwitchingFunction>());
 #ifdef USE_FULL_FORCE_SET
     ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,true,true,true,ShiftSwitchingFunction>());
     ForceFactory::registerExemplar(new NonbondedFullEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,true,true,true,C1SwitchingFunction>());
@@ -113,13 +116,13 @@ namespace ProtoMol {
 #endif
 
 
-    // PME
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,true,true,true,BSpline,CutoffSwitchingFunction>(),Vector<std::string>("CoulombPME"));
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,true,false,false,BSpline,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,true,false,true,BSpline,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,false,true,false,BSpline,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,false,true,true,BSpline,CutoffSwitchingFunction>());
-    ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,false,false,true,BSpline,CutoffSwitchingFunction>());
+		// PME
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, true, true, true, BSpline, CutoffSwitchingFunction>(), Vector<std::string>("CoulombPME"));
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, true, false, false, BSpline, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, true, false, true, BSpline, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, false, true, false, BSpline, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, false, true, true, BSpline, CutoffSwitchingFunction>());
+		ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions, CubicCellManager, false, false, true, BSpline, CutoffSwitchingFunction>());
 #ifdef USE_FULL_FORCE_SET
     ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,true,true,true,BSpline,ShiftSwitchingFunction>());
     ForceFactory::registerExemplar(new NonbondedPMEwaldSystemForce<VacuumBoundaryConditions,CubicCellManager,true,true,true,BSpline,C1SwitchingFunction>());
@@ -138,23 +141,23 @@ namespace ProtoMol {
 #endif
 
 
-    // MultiGrid
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C1,false,false,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C1,false,true,false>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C1,false,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C1,true,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C2,false,false,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C2,false,true,false>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C2,false,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C2,true,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C3,false,false,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C3,false,true,false>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C3,false,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C3,true,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C4,false,false,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C4,false,true,false>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C4,false,true,true>());
-    ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,Hermite,CoulombForce::C4,true,true,true>());
+		// MultiGrid
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C1, false, false, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C1, false, true, false>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C1, false, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C1, true, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C2, false, false, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C2, false, true, false>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C2, false, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C2, true, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C3, false, false, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C3, false, true, false>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C3, false, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C3, true, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C4, false, false, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C4, false, true, false>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C4, false, true, true>());
+		ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions, CubicCellManager, Hermite, CoulombForce::C4, true, true, true>());
 #ifdef USE_FULL_FORCE_SET
     ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,BSpline,CoulombForce::C1,true,true,true>());
     ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,BSpline,CoulombForce::C1,false,true,true>());
@@ -165,6 +168,5 @@ namespace ProtoMol {
     ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,BSpline,CoulombForce::C4,true,true,true>());
     ForceFactory::registerExemplar(new NonbondedMultiGridSystemForce<VacuumBoundaryConditions,CubicCellManager,BSpline,CoulombForce::C4,false,true,true>());
 #endif
-  }
-
+	}
 }

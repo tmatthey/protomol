@@ -12,492 +12,480 @@ using namespace ProtoMol::Report;
 using std::vector;
 using std::string;
 
-namespace ProtoMol {
-    //____________________________________________________________ S2HMCIntegrator
+namespace ProtoMol
+{
+	//____________________________________________________________ S2HMCIntegrator
 
-    const string S2HMCIntegrator::keyword( "S2HMCIntegrator" );
+	const string S2HMCIntegrator::keyword("S2HMCIntegrator");
 
-    const int S2HMCIntegrator::myNumParameters(2);
+	const int S2HMCIntegrator::myNumParameters(2);
 
-    //  --------------------------------------------------------------------  //
+	//  --------------------------------------------------------------------  //
 
-    S2HMCIntegrator::S2HMCIntegrator()    
-            : MCIntegrator() {}
+	S2HMCIntegrator::S2HMCIntegrator()
+		: MCIntegrator()
+	{
+	}
 
-    //  --------------------------------------------------------------------  //
+	//  --------------------------------------------------------------------  //
 
-    S2HMCIntegrator::S2HMCIntegrator(int cycles,
-            Real initialTemperature,
-            ForceGroup *overloadedForces,
-            StandardIntegrator *nextIntegrator)
+	S2HMCIntegrator::S2HMCIntegrator(int cycles,
+	                                 Real initialTemperature,
+	                                 ForceGroup* overloadedForces,
+	                                 StandardIntegrator* nextIntegrator)
 
-            : MCIntegrator( cycles, initialTemperature, overloadedForces,
-                    nextIntegrator) {
-            }
+		: MCIntegrator(cycles, initialTemperature, overloadedForces,
+		               nextIntegrator)
+	{
+	}
 
-    //  --------------------------------------------------------------------  //
+	//  --------------------------------------------------------------------  //
 
-    void S2HMCIntegrator::initialize(GenericTopology *topo,
-            Vector3DBlock *positions,
-            Vector3DBlock *velocities,
-            ScalarStructure *energies){
+	void S2HMCIntegrator::initialize(GenericTopology* topo,
+	                                 Vector3DBlock* positions,
+	                                 Vector3DBlock* velocities,
+	                                 ScalarStructure* energies)
+	{
+		MCIntegrator::initialize(topo, positions, velocities, energies);
 
-        MCIntegrator::initialize(topo,positions,velocities,energies);
+		//  ----------------------------------------------------------------  //
+		//  Remove the shadow modifier created if the keyword "shadowEnergy"  //
+		//  was given in the config file.  We use the 4th order 'seperable    //
+		//  approximation, then the reported shadow can be used for re-       //
+		//  weighting.                                                        //
+		//  ----------------------------------------------------------------  //
 
-        //  ----------------------------------------------------------------  //
-        //  Remove the shadow modifier created if the keyword "shadowEnergy"  //
-        //  was given in the config file.  We use the 4th order 'seperable    //
-        //  approximation, then the reported shadow can be used for re-       //
-        //  weighting.                                                        //
-        //  ----------------------------------------------------------------  //
+		while (removeModifier(std::string("Modifier Shadow")))
 
-        while( removeModifier( std::string( "Modifier Shadow" ) ) )
+		//  ----------------------------------------------------------------  //
+		//  Invert the masses to avoid multiple divisions.
+		//  ----------------------------------------------------------------  //
 
-        //  ----------------------------------------------------------------  //
-        //  Invert the masses to avoid multiple divisions.
-        //  ----------------------------------------------------------------  //
+			inverseMass.resize(myPositions->size());
 
-        inverseMass.resize( myPositions->size() );
+		for (unsigned int i = 0; i < inverseMass.size(); i++)
+			inverseMass[i] = 1. / myTopo->atoms[i].scaledMass;
+	}
 
-        for( unsigned int i = 0; i < inverseMass.size(); i++ )
-            inverseMass[i] = 1. / myTopo->atoms[i].scaledMass;
+	//  --------------------------------------------------------------------  //
 
+	MTSIntegrator* S2HMCIntegrator::doMake(string&, const vector<Value>&
+	                                       values, ForceGroup* fg, StandardIntegrator* nextIntegrator) const
+	{
+		return new S2HMCIntegrator(values[0], values[1], fg, nextIntegrator);
+	}
 
-    }
+	//  --------------------------------------------------------------------  //
 
-    //  --------------------------------------------------------------------  //
+	void S2HMCIntegrator::perturbSystem()
+	{
+		randomVelocity(getInitialTemperature(), myTopo, myVelocities);
+		buildMolecularMomentum(myVelocities, myTopo);
+	}
 
-    MTSIntegrator*  S2HMCIntegrator::doMake(string& , const vector<Value>&
-            values, ForceGroup* fg, StandardIntegrator *nextIntegrator)const{
+	//  --------------------------------------------------------------------  //
 
-        return new S2HMCIntegrator(values[0],values[1],fg,nextIntegrator);
+	void S2HMCIntegrator::run(int numTimesteps)
+	{
+		//  ----------------------------------------------------------------  //
+		//  Useful constants.                                                 //
+		//  ----------------------------------------------------------------  //
 
-    }
+		Real dt = next()->getTimestep() * Constant::INV_TIMEFACTOR;
 
-    //  --------------------------------------------------------------------  //
+		const Real dt_24 = dt / 24.,
+			dt2_24 = dt * dt_24;
 
-    void S2HMCIntegrator::perturbSystem() {
-        randomVelocity( getInitialTemperature(), myTopo, myVelocities );
-        buildMolecularMomentum(myVelocities,myTopo);
-    }
+		//  Fix time -------------------------------------------------------  //
+		Real actTime;
+		actTime = myTopo->time + myCycleLength * numTimesteps * next()->getTimestep();
 
-    //  --------------------------------------------------------------------  //
 
-    void S2HMCIntegrator::run( int numTimesteps ) {
+		//  ----------------------------------------------------------------  //
 
+		for (int i = 0; i < numTimesteps; i++)
+		{
+			saveValues();
 
-        //  ----------------------------------------------------------------  //
-        //  Useful constants.                                                 //
-        //  ----------------------------------------------------------------  //
+			preStepModify();
 
-        Real dt = next()->getTimestep() * Constant::INV_TIMEFACTOR;
 
-        const Real dt_24  = dt / 24.,
-                   dt2_24 = dt * dt_24;
+			//  ------------------------------------------------------------  //
+			//  Generate new set of random momenta, P:
+			//  ------------------------------------------------------------  //
 
-        //  Fix time -------------------------------------------------------  //
-        Real actTime;
-        actTime = myTopo->time + myCycleLength * numTimesteps * next()->getTimestep();
+			perturbSystem(); //  TODO: Do I need to save these?
 
 
-        //  ----------------------------------------------------------------  //
+			//  ------------------------------------------------------------  //
+			//  Compute shadow: S(q,p) = H(q,p) + dt^2/24 Uq M^-1 Uq 
+			//  ------------------------------------------------------------  //
 
-        for( int i = 0; i < numTimesteps; i++ ) {
+			Real initKE = kineticEnergy(myTopo, myVelocities);
 
-            saveValues();
+			Real initShadow = myEnergies->potentialEnergy() + initKE;
 
-            preStepModify();
+			Vector3DBlock Uq(*(next()->getForces()));
 
+			Real Uq_M_Uq = 0.;
 
-            //  ------------------------------------------------------------  //
-            //  Generate new set of random momenta, P:
-            //  ------------------------------------------------------------  //
+			for (unsigned int i = 0; i < myPositions->size(); i++)
+				Uq_M_Uq += Uq[i].normSquared() * inverseMass[i];
 
-            perturbSystem();  //  TODO: Do I need to save these?
+			initShadow += dt2_24 * Uq_M_Uq;
 
 
-            //  ------------------------------------------------------------  //
-            //  Compute shadow: S(q,p) = H(q,p) + dt^2/24 Uq M^-1 Uq 
-            //  ------------------------------------------------------------  //
+			//  ------------------------------------------------------------  //
+			//  Iteratively solve for \hat p, then compute \hat q.            //
+			//  ------------------------------------------------------------  //
 
-            Real initKE = kineticEnergy( myTopo, myVelocities );
+			solveForP();
 
-            Real initShadow = myEnergies->potentialEnergy() + initKE;
+			((StandardIntegrator*)next())->calculateForces();
 
-            Vector3DBlock Uq( *( next()->getForces() ) );
+			//  ------------------------------------------------------------  //
+			//  Run MD
+			//  ------------------------------------------------------------  //
 
-            Real Uq_M_Uq = 0.;
+			walk(myCycleLength);
 
-            for( unsigned int i = 0; i < myPositions->size(); i++ )
-                Uq_M_Uq += Uq[i].normSquared() * inverseMass[i];
 
-            initShadow += dt2_24 * Uq_M_Uq;
+			//  ------------------------------------------------------------  //
+			//  Iteratively solve for q, then compute p.                      //
+			//  ------------------------------------------------------------  //
 
+			solveForQ();
 
-            //  ------------------------------------------------------------  //
-            //  Iteratively solve for \hat p, then compute \hat q.            //
-            //  ------------------------------------------------------------  //
+			((StandardIntegrator*)next())->calculateForces();
 
-            solveForP();
 
-            ((StandardIntegrator*)next())->calculateForces();
+			//  ------------------------------------------------------------  //
+			//  Compute final shadow.
+			//  ------------------------------------------------------------  //
 
-            //  ------------------------------------------------------------  //
-            //  Run MD
-            //  ------------------------------------------------------------  //
+			Real finShadow = myEnergies->potentialEnergy() +
+				kineticEnergy(myTopo, myVelocities);
 
-            walk( myCycleLength ); 
+			Uq.intoAssign(*(next()->getForces()));
 
+			Uq_M_Uq = 0.;
 
-            //  ------------------------------------------------------------  //
-            //  Iteratively solve for q, then compute p.                      //
-            //  ------------------------------------------------------------  //
+			for (unsigned int i = 0; i < myPositions->size(); i++)
+				Uq_M_Uq += Uq[i].normSquared() * inverseMass[i];
 
-            solveForQ();
+			finShadow += dt2_24 * Uq_M_Uq;
 
-            ((StandardIntegrator*)next())->calculateForces();
 
+			//  ------------------------------------------------------------  //
+			//  Metropolis test.                                              //
+			//  ------------------------------------------------------------  //
 
-            //  ------------------------------------------------------------  //
-            //  Compute final shadow.
-            //  ------------------------------------------------------------  //
+			report.precision(18);
+			report.setf(std::ios::fixed);
 
-            Real finShadow = myEnergies->potentialEnergy() +
-                             kineticEnergy( myTopo, myVelocities );
+			Real probability = 0.;
 
-            Uq.intoAssign( *( next()->getForces() ) );
+			if (metropolisTest(finShadow, initShadow, probability))
+			{
+				(*myEnergies)[ScalarStructure::SHADOW] = finShadow;
+				report << debug(1) << "Positions accepted. Difference: ";
+				report.width(11);
+				report << finShadow - initShadow << " Probability: ";
+				report.width(11);
+				report << probability << endr;
+			}
+			else
+			{
+				initShadow -= initKE;
 
-            Uq_M_Uq = 0.;
+				restoreValues();
 
-            for( unsigned int i = 0; i < myPositions->size(); i++ )
-                Uq_M_Uq += Uq[i].normSquared() * inverseMass[i];
+				initShadow += kineticEnergy(myTopo, myVelocities);
+				(*myEnergies)[ScalarStructure::SHADOW] = initShadow;
 
-            finShadow += dt2_24 * Uq_M_Uq;
+				report << debug(1) << "Positions rejected. Difference: ";
+				report.width(11);
+				report << finShadow - initShadow << " Probability: ";
+				report.width(11);
+				report << probability << endr;
+			}
 
+			postStepModify();
+		}
+		//  Fix time -------------------------------------------------------  //
+		myTopo->time = actTime;
+		//
+	}
 
-            //  ------------------------------------------------------------  //
-            //  Metropolis test.                                              //
-            //  ------------------------------------------------------------  //
 
-            report.precision(18);
-            report.setf( std::ios::fixed );
+	//  --------------------------------------------------------------------  //
 
-            Real probability = 0.;
+	void S2HMCIntegrator::solveForP()
+	{
+		//  ----------------------------------------------------------------  //
+		//  Useful constants.                                                 //
+		//  ----------------------------------------------------------------  //
 
-            if( metropolisTest( finShadow, initShadow, probability ) ) {
+		const Real dt = next()->getTimestep() * Constant::INV_TIMEFACTOR,
+			dt_24 = dt / 24.,
+			dt2_24 = dt * dt_24;
 
-                (*myEnergies)[ScalarStructure::SHADOW] = finShadow;
-                report << debug(1) << "Positions accepted. Difference: ";
-                report.width(11);
-                report << finShadow - initShadow << " Probability: ";
-                report.width(11);
-                report << probability << endr;
 
-            }
-            else {
-                initShadow -= initKE;
+		//  ----------------------------------------------------------------  //
+		//  Compute Uq( q - dt V )                                            //
+		//  ----------------------------------------------------------------  //
 
-                restoreValues();
+		Vector3DBlock origPos(*myPositions);
 
-                initShadow += kineticEnergy( myTopo, myVelocities );
-                (*myEnergies)[ScalarStructure::SHADOW] = initShadow;
+		myPositions->intoWeightedAdd(-dt, *myVelocities);
 
-                report << debug(1) << "Positions rejected. Difference: ";
-                report.width(11);
-                report << finShadow - initShadow << " Probability: ";
-                report.width(11);
-                report << probability << endr;
-            }
-            
-            postStepModify();
+		((StandardIntegrator*)next())->calculateForces();
 
-        }  
-        //  Fix time -------------------------------------------------------  //
-        myTopo->time = actTime;
-        //
+		Vector3DBlock newVel(*(next()->getForces()));
 
-    }
 
+		//  ----------------------------------------------------------------  //
+		//  Compute Uq( q + dt V )                                            //
+		//  ----------------------------------------------------------------  //
 
-    //  --------------------------------------------------------------------  //
+		myPositions->intoAssign(origPos);
 
-    void S2HMCIntegrator::solveForP() {
+		myPositions->intoWeightedAdd(dt, *myVelocities);
 
+		((StandardIntegrator*)next())->calculateForces();
 
-        //  ----------------------------------------------------------------  //
-        //  Useful constants.                                                 //
-        //  ----------------------------------------------------------------  //
 
-        const Real dt     = next()->getTimestep() * Constant::INV_TIMEFACTOR,
-                   dt_24  = dt / 24.,
-                   dt2_24 = dt * dt_24;
+		//  ----------------------------------------------------------------  //
+		//  V = v - dt / ( 24 M ) * ( Uq( q + dt V ) - Uq( q - dt V ) )       //
+		//  ----------------------------------------------------------------  //
 
+		newVel.intoSubtract(*(next()->getForces()));
 
-        //  ----------------------------------------------------------------  //
-        //  Compute Uq( q - dt V )                                            //
-        //  ----------------------------------------------------------------  //
+		for (unsigned int i = 0; i < newVel.size(); i++)
+			newVel[i] = (*myVelocities)[i] - newVel[i] * dt_24 * inverseMass[i];
 
-        Vector3DBlock origPos( *myPositions );
 
-        myPositions->intoWeightedAdd( -dt, *myVelocities );
+		//  ----------------------------------------------------------------  //
+		//  Iteratively solve for V using previous approximation.             //
+		//  ----------------------------------------------------------------  //
 
-        ((StandardIntegrator*)next())->calculateForces();
+		Real norm = 1;
 
-        Vector3DBlock newVel( *( next()->getForces() ) );
+		while (norm > 10e-8)
+		{
+			Vector3DBlock prevNewVel(newVel);
 
 
-        //  ----------------------------------------------------------------  //
-        //  Compute Uq( q + dt V )                                            //
-        //  ----------------------------------------------------------------  //
+			//  ------------------------------------------------------------  //
+			//  Compute U_q( q - dt V )                                       //
+			//  ------------------------------------------------------------  //
 
-        myPositions->intoAssign( origPos );
+			myPositions->intoAssign(origPos);
 
-        myPositions->intoWeightedAdd( dt, *myVelocities );
+			myPositions->intoWeightedAdd(-dt, prevNewVel);
 
-        ((StandardIntegrator*)next())->calculateForces();
+			((StandardIntegrator*)next())->calculateForces();
 
+			newVel.intoAssign(*(next()->getForces()));
 
-        //  ----------------------------------------------------------------  //
-        //  V = v - dt / ( 24 M ) * ( Uq( q + dt V ) - Uq( q - dt V ) )       //
-        //  ----------------------------------------------------------------  //
 
-        newVel.intoSubtract( *( next()->getForces() ) );
+			//  ------------------------------------------------------------  //
+			//  Compute U_q( q + dt V )                                       //
+			//  ------------------------------------------------------------  //
 
-        for( unsigned int i = 0; i < newVel.size(); i++ )
-            newVel[i] = (*myVelocities)[i] - newVel[i] * dt_24 * inverseMass[i];
+			myPositions->intoAssign(origPos);
 
+			myPositions->intoWeightedAdd(dt, prevNewVel);
 
-        //  ----------------------------------------------------------------  //
-        //  Iteratively solve for V using previous approximation.             //
-        //  ----------------------------------------------------------------  //
+			((StandardIntegrator*)next())->calculateForces();
 
-        Real norm = 1;
 
-        while ( norm > 10e-8 ) {
+			//  ------------------------------------------------------------  //
+			//  V = v - dt / ( 24 M ) * ( Uq( q + dt V ) - Uq( q - dt V ) )   //
+			//  ------------------------------------------------------------  //
 
-            Vector3DBlock prevNewVel( newVel );
+			newVel.intoSubtract(*(next()->getForces()));
 
+			for (unsigned int i = 0; i < newVel.size(); i++)
+				newVel[i] = (*myVelocities)[i] - newVel[i] * dt_24 * inverseMass[i];
 
-            //  ------------------------------------------------------------  //
-            //  Compute U_q( q - dt V )                                       //
-            //  ------------------------------------------------------------  //
 
-            myPositions->intoAssign( origPos );
+			//  ------------------------------------------------------------  //
+			//  Compute norm.                                                 //
+			//  ------------------------------------------------------------  //
 
-            myPositions->intoWeightedAdd( -dt, prevNewVel );
+			norm = 0.;
 
-            ((StandardIntegrator*)next())->calculateForces();
+			for (unsigned int i = 0; i < prevNewVel.size(); i++)
+				norm += Vector3D(newVel[i] - prevNewVel[i]).normSquared();
+		}
 
-            newVel.intoAssign( *( next()->getForces() ) );
 
+		//  ----------------------------------------------------------------  //
+		//  Now, solve for Q.                                                 // 
+		//  ----------------------------------------------------------------  //
 
-            //  ------------------------------------------------------------  //
-            //  Compute U_q( q + dt V )                                       //
-            //  ------------------------------------------------------------  //
+		myPositions->intoAssign(origPos);
 
-            myPositions->intoAssign( origPos );
+		myPositions->intoWeightedAdd(dt, newVel);
 
-            myPositions->intoWeightedAdd( dt, prevNewVel );
+		((StandardIntegrator*)next())->calculateForces();
 
-            ((StandardIntegrator*)next())->calculateForces();
+		Vector3DBlock newPos(*(next()->getForces()));
 
 
-            //  ------------------------------------------------------------  //
-            //  V = v - dt / ( 24 M ) * ( Uq( q + dt V ) - Uq( q - dt V ) )   //
-            //  ------------------------------------------------------------  //
+		//  ----------------------------------------------------------------  //
+		//  ----------------------------------------------------------------  //
 
-            newVel.intoSubtract( *( next()->getForces() ) );
+		myPositions->intoAssign(origPos);
 
-            for( unsigned int i = 0; i < newVel.size(); i++ )
-                newVel[i] = (*myVelocities)[i] - newVel[i] * dt_24 * inverseMass[i];
+		myPositions->intoWeightedAdd(-dt, newVel);
 
+		((StandardIntegrator*)next())->calculateForces();
 
-            //  ------------------------------------------------------------  //
-            //  Compute norm.                                                 //
-            //  ------------------------------------------------------------  //
+		newPos.intoAdd(*(next()->getForces()));
 
-            norm = 0.;
+		for (unsigned int i = 0; i < newPos.size(); i++)
+			newPos[i] = origPos[i] - newPos[i] * dt2_24 * inverseMass[i];
 
-            for( unsigned int i = 0; i < prevNewVel.size(); i++ )
-                norm += Vector3D( newVel[i] - prevNewVel[i] ).normSquared();
 
-        }
+		//  ----------------------------------------------------------------  //
+		//  Save new (q,p).                                                   //
+		//  ----------------------------------------------------------------  //
 
+		myPositions->intoAssign(newPos);
 
-        //  ----------------------------------------------------------------  //
-        //  Now, solve for Q.                                                 // 
-        //  ----------------------------------------------------------------  //
+		myVelocities->intoAssign(newVel);
+	}
 
-        myPositions->intoAssign( origPos );
 
-        myPositions->intoWeightedAdd( dt, newVel );
+	//  --------------------------------------------------------------------  //
 
-        ((StandardIntegrator*)next())->calculateForces();
+	void S2HMCIntegrator::solveForQ()
+	{
+		//  ----------------------------------------------------------------  //
+		//  Useful constants.                                                 //
+		//  ----------------------------------------------------------------  //
 
-        Vector3DBlock newPos( *( next()->getForces() ) );
+		const Real dt = next()->getTimestep() * Constant::INV_TIMEFACTOR,
+			dt_24 = dt / 24.,
+			dt2_24 = dt_24 * dt;
 
 
-        //  ----------------------------------------------------------------  //
-        //  ----------------------------------------------------------------  //
+		//  ----------------------------------------------------------------  //
+		//  ----------------------------------------------------------------  //
 
-        myPositions->intoAssign( origPos );
+		Vector3DBlock origPos(*myPositions);
 
-        myPositions->intoWeightedAdd( -dt, newVel );
+		myPositions->intoWeightedAdd(dt, *myVelocities);
 
-        ((StandardIntegrator*)next())->calculateForces();
+		((StandardIntegrator*)next())->calculateForces();
 
-        newPos.intoAdd( *( next()->getForces() ) );
+		Vector3DBlock newPos(*(next()->getForces()));
 
-        for( unsigned int i = 0; i < newPos.size(); i++ )
-            newPos[i] = origPos[i] - newPos[i] * dt2_24 * inverseMass[i];
 
+		//  ----------------------------------------------------------------  //
+		//  ----------------------------------------------------------------  //
 
-        //  ----------------------------------------------------------------  //
-        //  Save new (q,p).                                                   //
-        //  ----------------------------------------------------------------  //
+		myPositions->intoAssign(origPos);
 
-        myPositions->intoAssign( newPos );
+		myPositions->intoWeightedAdd(-dt, *myVelocities);
 
-        myVelocities->intoAssign( newVel );
+		((StandardIntegrator*)next())->calculateForces();
 
+		newPos.intoAdd(*(next()->getForces()));
 
-    }
+		for (unsigned int i = 0; i < newPos.size(); i++)
+			newPos[i] = origPos[i] + newPos[i] * dt2_24 * inverseMass[i];
 
 
-    //  --------------------------------------------------------------------  //
+		//  ----------------------------------------------------------------  //
+		//  ----------------------------------------------------------------  //
 
-    void S2HMCIntegrator::solveForQ() {
+		Real norm = 1;
 
+		while (norm > 10e-8)
+		{
+			//  ------------------------------------------------------------  //
+			//                                                                //
+			//  ------------------------------------------------------------  //
 
-        //  ----------------------------------------------------------------  //
-        //  Useful constants.                                                 //
-        //  ----------------------------------------------------------------  //
+			Vector3DBlock prevNewPos(newPos);
 
-        const Real dt     = next()->getTimestep() * Constant::INV_TIMEFACTOR,
-                   dt_24  = dt / 24.,
-                   dt2_24 = dt_24 * dt;
 
+			//  ------------------------------------------------------------  //
+			//  Compute U_q( q - dt V )                                       //
+			//  ------------------------------------------------------------  //
 
-        //  ----------------------------------------------------------------  //
-        //  ----------------------------------------------------------------  //
+			myPositions->intoAssign(prevNewPos);
 
-        Vector3DBlock origPos( *myPositions );
+			myPositions->intoWeightedAdd(dt, *myVelocities);
 
-        myPositions->intoWeightedAdd( dt, *myVelocities );
+			((StandardIntegrator*)next())->calculateForces();
 
-        ((StandardIntegrator*)next())->calculateForces();
+			newPos.intoAssign(*(next()->getForces()));
 
-        Vector3DBlock newPos( *( next()->getForces() ) );
 
+			//  ------------------------------------------------------------  //
+			//  Compute U_q( q + dt V )                                       //
+			//  ------------------------------------------------------------  //
 
-        //  ----------------------------------------------------------------  //
-        //  ----------------------------------------------------------------  //
+			myPositions->intoAssign(prevNewPos);
 
-        myPositions->intoAssign( origPos );
+			myPositions->intoWeightedAdd(-dt, *myVelocities);
 
-        myPositions->intoWeightedAdd( -dt, *myVelocities );
+			((StandardIntegrator*)next())->calculateForces();
 
-        ((StandardIntegrator*)next())->calculateForces();
+			newPos.intoAdd(*(next()->getForces()));
 
-        newPos.intoAdd( *( next()->getForces() ) );
+			for (unsigned int i = 0; i < newPos.size(); i++)
+				newPos[i] = origPos[i] + newPos[i] * dt2_24 * inverseMass[i];
 
-        for( unsigned int i = 0; i < newPos.size(); i++ )
-            newPos[i] = origPos[i] + newPos[i] * dt2_24 * inverseMass[i];
 
+			//  ------------------------------------------------------------  //
+			//  Compute new norm.                                             //
+			//  ------------------------------------------------------------  //
 
-        //  ----------------------------------------------------------------  //
-        //  ----------------------------------------------------------------  //
+			norm = 0.;
 
-        Real norm = 1;
+			for (unsigned int i = 0; i < newPos.size(); i++)
+				norm += Vector3D(newPos[i] - prevNewPos[i]).normSquared();
+		}
 
-        while ( norm > 10e-8 ) {
 
-            //  ------------------------------------------------------------  //
-            //                                                                //
-            //  ------------------------------------------------------------  //
+		//  ----------------------------------------------------------------  //
+		//  ----------------------------------------------------------------  //
 
-            Vector3DBlock prevNewPos( newPos );
+		myPositions->intoAssign(newPos);
 
+		myPositions->intoWeightedAdd(-dt, *myVelocities);
 
-            //  ------------------------------------------------------------  //
-            //  Compute U_q( q - dt V )                                       //
-            //  ------------------------------------------------------------  //
+		((StandardIntegrator*)next())->calculateForces();
 
-            myPositions->intoAssign( prevNewPos );
+		Vector3DBlock newVel(*(next()->getForces()));
 
-            myPositions->intoWeightedAdd( dt, *myVelocities );
 
-            ((StandardIntegrator*)next())->calculateForces();
+		//  ----------------------------------------------------------------  //
+		//  ----------------------------------------------------------------  //
 
-            newPos.intoAssign( *( next()->getForces() ) );
+		myPositions->intoAssign(newPos);
 
+		myPositions->intoWeightedAdd(dt, *myVelocities);
 
-            //  ------------------------------------------------------------  //
-            //  Compute U_q( q + dt V )                                       //
-            //  ------------------------------------------------------------  //
+		((StandardIntegrator*)next())->calculateForces();
 
-            myPositions->intoAssign( prevNewPos );
+		newVel.intoSubtract(*(next()->getForces()));
 
-            myPositions->intoWeightedAdd( -dt, *myVelocities );
+		for (unsigned int i = 0; i < newVel.size(); i++)
+			newVel[i] = (*myVelocities)[i] + newVel[i] * dt_24 * inverseMass[i];
 
-            ((StandardIntegrator*)next())->calculateForces();
 
-            newPos.intoAdd( *( next()->getForces() ) );
+		//  ----------------------------------------------------------------  //
+		//  Save new (q,p).                                                   //
+		//  ----------------------------------------------------------------  //
 
-            for( unsigned int i = 0; i < newPos.size(); i++ )
-                newPos[i] = origPos[i] + newPos[i] * dt2_24 * inverseMass[i];
+		myPositions->intoAssign(newPos);
 
-
-            //  ------------------------------------------------------------  //
-            //  Compute new norm.                                             //
-            //  ------------------------------------------------------------  //
-
-            norm = 0.;
-
-            for( unsigned int i = 0; i < newPos.size(); i++ )
-                norm += Vector3D( newPos[i] - prevNewPos[i] ).normSquared();
-
-        }
-
-
-        //  ----------------------------------------------------------------  //
-        //  ----------------------------------------------------------------  //
-
-        myPositions->intoAssign( newPos );
-
-        myPositions->intoWeightedAdd( -dt, *myVelocities );
-
-        ((StandardIntegrator*)next())->calculateForces();
-
-        Vector3DBlock newVel( *( next()->getForces() ) );
-
-
-        //  ----------------------------------------------------------------  //
-        //  ----------------------------------------------------------------  //
-
-        myPositions->intoAssign( newPos );
-
-        myPositions->intoWeightedAdd( dt, *myVelocities );
-
-        ((StandardIntegrator*)next())->calculateForces();
-
-        newVel.intoSubtract( *( next()->getForces() ) );
-
-        for( unsigned int i = 0; i < newVel.size(); i++ )
-            newVel[i] = (*myVelocities)[i] + newVel[i] * dt_24 * inverseMass[i];
-
-
-        //  ----------------------------------------------------------------  //
-        //  Save new (q,p).                                                   //
-        //  ----------------------------------------------------------------  //
-
-        myPositions->intoAssign( newPos );
-
-        myVelocities->intoAssign( newVel );
-
-
-    }
-
-    
+		myVelocities->intoAssign(newVel);
+	}
 }
-

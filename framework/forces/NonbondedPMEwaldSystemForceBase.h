@@ -4,14 +4,15 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ NonbondedPMEwaldSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ NonbondedPMEwaldSystemForceBase
 
-  class NonbondedPMEwaldSystemForceBase {
-  public:
-    static const std::string keyword;
-  };
+	class NonbondedPMEwaldSystemForceBase
+	{
+	public:
+		static const std::string keyword;
+	};
 }
 
 #endif /* NONBONDEDPMEWALDSYSTEMFORCEBASE_H */
-

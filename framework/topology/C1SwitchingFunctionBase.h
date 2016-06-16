@@ -4,14 +4,14 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ C1SwitchingFunctionBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ C1SwitchingFunctionBase
 
-  class C1SwitchingFunctionBase {
-  public:
-    static const std::string keyword;
-  };
-
+	class C1SwitchingFunctionBase
+	{
+	public:
+		static const std::string keyword;
+	};
 }
 #endif /* C1SWITCHINGFUNCTIONBASE_H */
-

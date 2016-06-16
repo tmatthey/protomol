@@ -33,37 +33,46 @@ using std::endl;
 #define MY_MPI_REAL MPI_DOUBLE
 #endif
 
-namespace ProtoMol {
-  //_________________________________________________________________ static
+namespace ProtoMol
+{
+	//_________________________________________________________________ static
 #ifdef HAVE_MPI
   static MPI_Comm  slaveComm  = MPI_COMM_NULL; // Not data member to avoid dependcies
   const int NEED_RANGE = 1;
   const int SEND_RANGE = 2;
 #endif 
-  static const int master = 0;
-  //_________________________________________________________________ mpiAbort
-  static void mpiAbort();
-  void mpiAbort(){
-    if(Parallel::ok()){
+	static const int master = 0;
+	//_________________________________________________________________ mpiAbort
+	static void mpiAbort();
+
+	void mpiAbort()
+	{
+		if (Parallel::ok())
+		{
 #ifdef HAVE_MPI
       MPI_Abort(MPI_COMM_WORLD,1);
 #endif
-    }
-    exit(EXIT_FAILURE);
-  }
+		}
+		exit(EXIT_FAILURE);
+	}
 
-  //_________________________________________________________________ mpiExit
-  static void mpiExit();
-  void mpiExit(){
-    if(Parallel::ok()){
-      Parallel::finalize();    
-    }
-    exit(EXIT_SUCCESS);
-  }
+	//_________________________________________________________________ mpiExit
+	static void mpiExit();
 
-  //_________________________________________________________________ mpiStartSerial
-  static void mpiStartSerial(bool exludeMaster);
-  void mpiStartSerial(bool exludeMaster){
+	void mpiExit()
+	{
+		if (Parallel::ok())
+		{
+			Parallel::finalize();
+		}
+		exit(EXIT_SUCCESS);
+	}
+
+	//_________________________________________________________________ mpiStartSerial
+	static void mpiStartSerial(bool exludeMaster);
+
+	void mpiStartSerial(bool exludeMaster)
+	{
 #ifdef HAVE_MPI
     if(Parallel::ok()){
       MPI_Barrier((exludeMaster ? slaveComm:MPI_COMM_WORLD));
@@ -71,10 +80,13 @@ namespace ProtoMol {
 	MPI_Barrier((exludeMaster ? slaveComm:MPI_COMM_WORLD)); 
     }
 #endif
-  }
-  //_________________________________________________________________ mpiEndSerial
-  static void mpiEndSerial(bool exludeMaster);
-  void mpiEndSerial(bool exludeMaster){
+	}
+
+	//_________________________________________________________________ mpiEndSerial
+	static void mpiEndSerial(bool exludeMaster);
+
+	void mpiEndSerial(bool exludeMaster)
+	{
 #ifdef HAVE_MPI
     if(Parallel::ok()){
       for(int p=Parallel::getId()+1;p<Parallel::getNum();p++)
@@ -82,12 +94,12 @@ namespace ProtoMol {
       MPI_Barrier((exludeMaster ? slaveComm:MPI_COMM_WORLD));
     }
 #endif
-  }
+	}
 
 
-  //_________________________________________________________________ MPITypeTraits
-  template<typename T>
-  struct MPITypeTraits;
+	//_________________________________________________________________ MPITypeTraits
+	template <typename T>
+	struct MPITypeTraits;
 
 #ifdef HAVE_MPI
   template<>
@@ -105,8 +117,8 @@ namespace ProtoMol {
   const MPI_Datatype MPITypeTraits<int>::datatype = MPI_INT;  
 
 
-  //_________________________________________________________________ doBarrier
-  // Helper function to perform a MPI_Barrier and messure the idle time
+	//_________________________________________________________________ doBarrier
+	// Helper function to perform a MPI_Barrier and messure the idle time
 
   template<bool exludeMaster>
   void doBarrier(){
@@ -118,7 +130,7 @@ namespace ProtoMol {
   }
 
 
-  //_________________________________________________________________ allReduceScalar
+	//_________________________________________________________________ allReduceScalar
   template<bool exludeMaster, bool dobarrier, typename T>
   void allReduceScalar(T& begin){
     T tmp = begin;
@@ -127,7 +139,7 @@ namespace ProtoMol {
     MPI_Allreduce(&tmp, &begin, 1, MPITypeTraits<T>::datatype, MPI_SUM, (exludeMaster ? slaveComm:MPI_COMM_WORLD));  
   }
 
-  //_________________________________________________________________ allReduce
+	//_________________________________________________________________ allReduce
   template<bool exludeMaster, bool dobarrier, typename T>
   void allReduce(T* begin, T* end){
     vector<T> tmp(end-begin);
@@ -147,7 +159,7 @@ namespace ProtoMol {
     allReduce<exludeMaster,dobarrier>(&((*energies)[ScalarStructure::FIRST]),&((*energies)[ScalarStructure::LASTREDUCE]));
   }
 
-  //_________________________________________________________________ broadcastScalar
+	//_________________________________________________________________ broadcastScalar
   template<bool exludeMaster, bool dobarrier, typename T>
   void broadcastScalar(T& begin){
     if(dobarrier)
@@ -155,7 +167,7 @@ namespace ProtoMol {
     MPI_Bcast(&begin, 1, MPITypeTraits<T>::datatype, master, (exludeMaster ? slaveComm:MPI_COMM_WORLD));  
   }
 
-  //_________________________________________________________________ broadcast
+	//_________________________________________________________________ broadcast
 
   template<bool exludeMaster, bool dobarrier, typename T>
   void broadcast(T* begin, T* end){
@@ -176,112 +188,120 @@ namespace ProtoMol {
 #endif 
 
 
-  //_________________________________________________________________ Parallel
+	//_________________________________________________________________ Parallel
 
 #ifdef HAVE_MPI
   const bool   Parallel::isMPI = true;
 #else 
-  const bool   Parallel::isMPI = false;
+	const bool Parallel::isMPI = false;
 #endif
 
-  bool         Parallel::myInitialized    = false;
-  bool         Parallel::myFinalized      = false;
-  int          Parallel::myId             = 0;
-  int          Parallel::myMasterId       = master;
-  int          Parallel::myNum            = 1;
-  int          Parallel::myAvailableId    = 0;
-  int          Parallel::myAvailableNum   = 1;
-  bool         Parallel::myIsParallel     = Parallel::isMPI;
-  bool         Parallel::myIAmMaster      = true;
-  bool         Parallel::myIAmSlave       = true;
-  ParallelType Parallel::myMode           = ParallelType::STATIC;
-  Parallel::WorkState Parallel::myWorkState = Parallel::SEQUENTIAL;
+	bool Parallel::myInitialized = false;
+	bool Parallel::myFinalized = false;
+	int Parallel::myId = 0;
+	int Parallel::myMasterId = master;
+	int Parallel::myNum = 1;
+	int Parallel::myAvailableId = 0;
+	int Parallel::myAvailableNum = 1;
+	bool Parallel::myIsParallel = Parallel::isMPI;
+	bool Parallel::myIAmMaster = true;
+	bool Parallel::myIAmSlave = true;
+	ParallelType Parallel::myMode = ParallelType::STATIC;
+	Parallel::WorkState Parallel::myWorkState = Parallel::SEQUENTIAL;
 
-  int          Parallel::myPipeSize       = 1;
-  bool         Parallel::myUseBarrier     = false;
-  int          Parallel::myMaxPackages    = -1;
+	int Parallel::myPipeSize = 1;
+	bool Parallel::myUseBarrier = false;
+	int Parallel::myMaxPackages = -1;
 
-  int*         Parallel::myBuffer         = NULL;
-  int          Parallel::myNext           = 0;
-  int          Parallel::myNextRange[2]   = {0,0};
-  vector<int>  Parallel::myDone;
-  vector<int>  Parallel::myBlockList;
+	int* Parallel::myBuffer = NULL;
+	int Parallel::myNext = 0;
+	int Parallel::myNextRange[2] = {0,0};
+	vector<int> Parallel::myDone;
+	vector<int> Parallel::myBlockList;
 
-  int          Parallel::myRecv;
-  int          Parallel::myI;
-  int          Parallel::myP;
+	int Parallel::myRecv;
+	int Parallel::myI;
+	int Parallel::myP;
 
-  Parallel*    Parallel::obj     = NULL;
+	Parallel* Parallel::obj = NULL;
 
-  int          Parallel::myOldId          = 0;
-  int          Parallel::myOldNum         = 1;
-  ParallelType Parallel::myOldMode        = ParallelType::STATIC;
-  bool         Parallel::myIsolated       = false;
+	int Parallel::myOldId = 0;
+	int Parallel::myOldNum = 1;
+	ParallelType Parallel::myOldMode = ParallelType::STATIC;
+	bool Parallel::myIsolated = false;
 
 
-  //_________________________________________________________________ Parallel
+	//_________________________________________________________________ Parallel
 
-  Parallel::~Parallel(){
-    if(!myFinalized){
+	Parallel::~Parallel()
+	{
+		if (!myFinalized)
+		{
 #ifdef HAVE_MPI
-//        if(myId == 0)
-//          std::cerr <<"Either you forgotten to call Parallel::finalize() or I got killed. Can't call it for you ... I'm already dead!"<<std::endl;
+			//        if(myId == 0)
+			//          std::cerr <<"Either you forgotten to call Parallel::finalize() or I got killed. Can't call it for you ... I'm already dead!"<<std::endl;
 #endif
-    }
-  }
+		}
+	}
 
-  Parallel::Parallel(){
-    myInitialized    = false;
-    myFinalized      = false;
-    myId             = 0;
-    myMasterId       = master;
-    myNum            = 1;
-    myAvailableId    = 0;
-    myAvailableNum   = 1;
-    myIsParallel     = Parallel::isMPI;
-    myIAmMaster      = true;
-    myIAmSlave       = true;
-    myMode           = ParallelType::DYNAMIC;
+	Parallel::Parallel()
+	{
+		myInitialized = false;
+		myFinalized = false;
+		myId = 0;
+		myMasterId = master;
+		myNum = 1;
+		myAvailableId = 0;
+		myAvailableNum = 1;
+		myIsParallel = Parallel::isMPI;
+		myIAmMaster = true;
+		myIAmSlave = true;
+		myMode = ParallelType::DYNAMIC;
 
-    myPipeSize       = 1;
-    myUseBarrier     = false;
-    myMaxPackages    = -1;
-    
-    myBuffer         = NULL;
-    myNext           = 0;
-    myNextRange[0]   = 0;
-    myNextRange[1]   = 0;
-    myDone.clear();
-    myBlockList.clear();
+		myPipeSize = 1;
+		myUseBarrier = false;
+		myMaxPackages = -1;
 
-    myOldId = 0;
-    myOldNum = 1;
-    myOldMode = ParallelType::STATIC;
-    myIsolated = false;
-  }
+		myBuffer = NULL;
+		myNext = 0;
+		myNextRange[0] = 0;
+		myNextRange[1] = 0;
+		myDone.clear();
+		myBlockList.clear();
 
-  Parallel& Parallel::instance(){
-    //static Parallel obj;
-    //return obj;
-    // We have to do it ourself ... M$ problem ...
-    if(obj == NULL){
-      obj = new Parallel();
-      std::atexit(kill);
-    }
-    return *obj;
-  }
+		myOldId = 0;
+		myOldNum = 1;
+		myOldMode = ParallelType::STATIC;
+		myIsolated = false;
+	}
 
-
-  void Parallel::kill(){
-    Parallel* p = obj;
-    obj = NULL;
-    p->~Parallel();
-  }
+	Parallel& Parallel::instance()
+	{
+		//static Parallel obj;
+		//return obj;
+		// We have to do it ourself ... M$ problem ...
+		if (obj == NULL)
+		{
+			obj = new Parallel();
+			std::atexit(kill);
+		}
+		return *obj;
+	}
 
 
-  void Parallel::init(int &argc, char **&argv){
-    instance();
-    if(!myInitialized && !myFinalized){
+	void Parallel::kill()
+	{
+		Parallel* p = obj;
+		obj = NULL;
+		p->~Parallel();
+	}
+
+
+	void Parallel::init(int& argc, char**& argv)
+	{
+		instance();
+		if (!myInitialized && !myFinalized)
+		{
 #ifdef HAVE_MPI
       MPI_Init(&argc,&argv);
       MPI_Comm_size(MPI_COMM_WORLD,&myNum);
@@ -290,36 +310,39 @@ namespace ProtoMol {
       setProtomolStartSerial(mpiStartSerial);
       setProtomolEndSerial(mpiEndSerial);
 #endif
-      setProtomolAbort(mpiAbort);
-      setProtomolExit(mpiExit);
-      myInitialized  = true;
-      myIsParallel   = (myNum > 1);
-      myIAmMaster    = (myId == myMasterId);
-      report.setIAmMaster(iAmMaster());
-      setMode(isParallel()?ParallelType::DYNAMIC:ParallelType::STATIC);
-      setPipeSize(myPipeSize);
-      TimerStatistic::setParallel(myIsParallel);
-      if(iAmMaster() && isParallel())
-	myDone.resize(myNum);      
+			setProtomolAbort(mpiAbort);
+			setProtomolExit(mpiExit);
+			myInitialized = true;
+			myIsParallel = (myNum > 1);
+			myIAmMaster = (myId == myMasterId);
+			report.setIAmMaster(iAmMaster());
+			setMode(isParallel() ? ParallelType::DYNAMIC : ParallelType::STATIC);
+			setPipeSize(myPipeSize);
+			TimerStatistic::setParallel(myIsParallel);
+			if (iAmMaster() && isParallel())
+				myDone.resize(myNum);
 
-      report << plain << (isMPI?"Using MPI.":"No MPI compilation.")<<endr;
-    }
-    else {
-      if(iAmMaster())
-	report << recoverable << "MPI is"<<((myInitialized) ? " " : " not ")<<"initialized and is"<<((myFinalized) ? " " : " not ")<<"finalized. Called [Parallel::init].\n" <<endr;
-    }
-  }
-  
-  void Parallel::finalize(){
-    if(ok("Called [Parallel::finalize].")){
-      setProtomolAbort(NULL);
-      setProtomolExit(NULL);
-      setProtomolStartSerial(NULL);
-      setProtomolEndSerial(NULL);
+			report << plain << (isMPI ? "Using MPI." : "No MPI compilation.") << endr;
+		}
+		else
+		{
+			if (iAmMaster())
+				report << recoverable << "MPI is" << ((myInitialized) ? " " : " not ") << "initialized and is" << ((myFinalized) ? " " : " not ") << "finalized. Called [Parallel::init].\n" << endr;
+		}
+	}
+
+	void Parallel::finalize()
+	{
+		if (ok("Called [Parallel::finalize]."))
+		{
+			setProtomolAbort(NULL);
+			setProtomolExit(NULL);
+			setProtomolStartSerial(NULL);
+			setProtomolEndSerial(NULL);
 #ifdef HAVE_MPI
       if(iAmSlave())
 	MPI_Comm_free(&slaveComm);
-      //MPI_Barrier(MPI_COMM_WORLD);
+			//MPI_Barrier(MPI_COMM_WORLD);
     
       if(myBuffer != NULL){
 	int size;
@@ -330,38 +353,40 @@ namespace ProtoMol {
       FFTComplex::FFTComplexMPIFinalize();    
       MPI_Finalize();    
 #endif
-      myFinalized = true;
-    }
-  }
+			myFinalized = true;
+		}
+	}
 
-  bool Parallel::ok(const string& err){
-    if(ok())
-      return true;
+	bool Parallel::ok(const string& err)
+	{
+		if (ok())
+			return true;
 
-    if(iAmMaster())
-      report << recoverable << "MPI is"<<((myInitialized) ? " " : " not ")<<"initialized and is"<<((myFinalized) ? " " : " not ")<<"finalized. "<<err<<"\n" <<endr;
-    return false;
-  }
+		if (iAmMaster())
+			report << recoverable << "MPI is" << ((myInitialized) ? " " : " not ") << "initialized and is" << ((myFinalized) ? " " : " not ") << "finalized. " << err << "\n" << endr;
+		return false;
+	}
 
 
-  void Parallel::setMode(ParallelType mode){
-    if(!ok("Called [Parallel::setMasterSlave]"))
-      return;
+	void Parallel::setMode(ParallelType mode)
+	{
+		if (!ok("Called [Parallel::setMasterSlave]"))
+			return;
 #ifndef HAVE_MPI
-    mode = ParallelType::STATIC;
+		mode = ParallelType::STATIC;
 #endif
-    if(!isParallel() || mode == ParallelType::UNDEFINED)
-      mode = ParallelType::STATIC;
-      
-    myMode         = mode;
-    myAvailableNum = (mode == ParallelType::MASTERSLAVE ? myNum -1  : myNum);
-    myIAmSlave     = (mode == ParallelType::MASTERSLAVE ? (!myIAmMaster) : true);
-    myAvailableId  = (myNum ==  myAvailableNum ? myId : (myId == myMasterId ? -1 : (myId < myMasterId ? myId : myId -1)));
+		if (!isParallel() || mode == ParallelType::UNDEFINED)
+			mode = ParallelType::STATIC;
+
+		myMode = mode;
+		myAvailableNum = (mode == ParallelType::MASTERSLAVE ? myNum - 1 : myNum);
+		myIAmSlave = (mode == ParallelType::MASTERSLAVE ? (!myIAmMaster) : true);
+		myAvailableId = (myNum == myAvailableNum ? myId : (myId == myMasterId ? -1 : (myId < myMasterId ? myId : myId - 1)));
 #ifdef HAVE_MPI
     if(slaveComm != MPI_COMM_NULL)
       MPI_Comm_free(&slaveComm);
 
-    // Create intracommunicator only with slaves
+		// Create intracommunicator only with slaves
     MPI_Group worldGroup = MPI_GROUP_NULL;
     MPI_Group slaveGroup = MPI_GROUP_NULL;
     int excl[] = {myMasterId};
@@ -378,12 +403,13 @@ namespace ProtoMol {
 #ifdef DEBUG_PARALLEL
     report << allnodesserial << "ParallelMode ("<<getId << ") : "<< getMode().getString()<<endr;
 #endif
-  }
+	}
 
-  void Parallel::setPipeSize(int n){
-    if(!ok("Called [Parallel::setPipeSize]"))
-      return;
-    myPipeSize = std::max(n,0);
+	void Parallel::setPipeSize(int n)
+	{
+		if (!ok("Called [Parallel::setPipeSize]"))
+			return;
+		myPipeSize = std::max(n, 0);
 
 #ifdef HAVE_MPI
     if(myBuffer != NULL){
@@ -393,91 +419,100 @@ namespace ProtoMol {
       myBuffer = NULL;
     }
 
-    // Allocate buffer for Bsend()
+		// Allocate buffer for Bsend()
     const int size = 3*2*myNum*(myPipeSize+1) + MPI_BSEND_OVERHEAD+10 ;
     myBuffer = new int[size];
     for(int i=0;i<size;i++)
       myBuffer[i] = 0;
     MPI_Buffer_attach(myBuffer,static_cast<int>(size*sizeof(int)));
 #endif
-  }
+	}
 
-  void Parallel::setMaxPackages(int n)  {
-    if(!ok("Called [Parallel::setMaxPackages]"))
-      return;
-    myMaxPackages = n<0?(isDynamic()?3:0):n;
-  }
+	void Parallel::setMaxPackages(int n)
+	{
+		if (!ok("Called [Parallel::setMaxPackages]"))
+			return;
+		myMaxPackages = n < 0 ? (isDynamic() ? 3 : 0) : n;
+	}
 
-  Parallel::WorkState Parallel::getWorkState(){
-    if(!isParallel()){
-      return SEQUENTIAL;
-    }
-    else if(myMode == ParallelType::STATIC){
-      return STATIC;
-    }
-    else if(iAmMaster() && myMode == ParallelType::DYNAMIC){
-      return MASTER;
-    }
-    else {
-      return SLAVE;
-    }
+	Parallel::WorkState Parallel::getWorkState()
+	{
+		if (!isParallel())
+		{
+			return SEQUENTIAL;
+		}
+		else if (myMode == ParallelType::STATIC)
+		{
+			return STATIC;
+		}
+		else if (iAmMaster() && myMode == ParallelType::DYNAMIC)
+		{
+			return MASTER;
+		}
+		else
+		{
+			return SLAVE;
+		}
+	}
 
-  }
-
-  void Parallel::sync(){
+	void Parallel::sync()
+	{
 #ifdef HAVE_MPI
     MPI_Barrier(MPI_COMM_WORLD);
 #endif
-  }
+	}
 
-  void Parallel::syncSlave(){
+	void Parallel::syncSlave()
+	{
 #ifdef HAVE_MPI
     if(!iAmSlave() || !isParallel())
       return;
     MPI_Barrier(slaveComm);
 #endif
-  }
+	}
 
-// Senda a vector 3DBlock over MPI as an array.
+	// Senda a vector 3DBlock over MPI as an array.
 #ifdef HAVE_MPI
   void Parallel::send(Vector3DBlock *vect, int address) {
-    /* Create a C-style array large enough to hold all the real values (3 / Vector3D) */
+	/* Create a C-style array large enough to hold all the real values (3 / Vector3D) */
     int size = vect->size();
     Real *vectArray = new Real[3 * size];
     if (vectArray == 0) {
       cout << "Can't create Parallel::send() array! Quitting!" << endl;
       MPI_Abort(MPI_COMM_WORLD, 1);
     }
-    /* Start dumping the Vector3D into the array.  This keeps us from having to create an MPI struct, pack it,
-     * and in general, mess with all that.  It's inefficient, but it's at least a start. It's designed such that
-     * the array looks like {x1 y1 z1 x2 y2 z2 ... xN yN zN} for N Vector3D's */
+	/* Start dumping the Vector3D into the array.  This keeps us from having to create an MPI struct, pack it,
+	 * and in general, mess with all that.  It's inefficient, but it's at least a start. It's designed such that
+	 * the array looks like {x1 y1 z1 x2 y2 z2 ... xN yN zN} for N Vector3D's */
     for (int i = 0; i < size; i++) {
       vectArray[3 * i] = (*vect)[i][0];
       vectArray[3 * i + 1] = (*vect)[i][1];
       vectArray[3 * i + 2] = (*vect)[i][2];
     }
-    /* Since it's an array of Reals, we can use the plain old Parallel::send routine since MPI can handle
-     * both single values and arrays with the same function call */
+	/* Since it's an array of Reals, we can use the plain old Parallel::send routine since MPI can handle
+	 * both single values and arrays with the same function call */
     send(vectArray, 3 * size, address);
     delete[] vectArray;
   }
 #else
-  void Parallel::send(Vector3DBlock *, int) {}
+	void Parallel::send(Vector3DBlock*, int)
+	{
+	}
 #endif
 
-// Same philosophy as Parallel::send, except we're receiving an array
+	// Same philosophy as Parallel::send, except we're receiving an array
 #ifdef HAVE_MPI
   void Parallel::recv(Vector3DBlock *vect, int address) {
-    /* Create an array of proper size. */
+	/* Create an array of proper size. */
     int size = vect->size();
     Real *vectArray = new Real[3 * size];
     if (vectArray == 0) {
       cout << "Can't create Parallel::recv() array!  Quitting!" << endl;
       MPI_Abort(MPI_COMM_WORLD, 1);
     }
-    /* Since it's an array, the Parallel::recv() call is sufficient (don't you just love function overloading?) */
+	/* Since it's an array, the Parallel::recv() call is sufficient (don't you just love function overloading?) */
     recv(vectArray, 3 * size, address);
-    /* Map the vector back onto an actual Vector3DBlock.  The array looks like this: {x1 y1 z1 x2 y2 z2 ... xN yN zN} */
+	/* Map the vector back onto an actual Vector3DBlock.  The array looks like this: {x1 y1 z1 x2 y2 z2 ... xN yN zN} */
     for (int i = 0; i < size; i++) {
       (*vect)[i][0] = vectArray[3 * i];
       (*vect)[i][1] = vectArray[3 * i + 1];
@@ -486,10 +521,12 @@ namespace ProtoMol {
     delete[] vectArray;
   }
 #else
-  void Parallel::recv(Vector3DBlock *, int) {}
+	void Parallel::recv(Vector3DBlock*, int)
+	{
+	}
 #endif
 
-// Overwrites the Vector3D with a new one after sending it to another node
+	// Overwrites the Vector3D with a new one after sending it to another node
 #ifdef HAVE_MPI
   void Parallel::sendrecv_replace(Vector3DBlock *vect, int sendaddr, int recvaddr) {
     int size = vect->size();
@@ -498,15 +535,15 @@ namespace ProtoMol {
       cout << "Can't create Parallel::send() array! Quitting!" << endl;
       MPI_Abort(MPI_COMM_WORLD, 1);
     }
-    // Familiar mapping strategy...
+	// Familiar mapping strategy...
     for (int i = 0; i < size; i++) {
       vectArray[3 * i] = (*vect)[i][0];
       vectArray[3 * i + 1] = (*vect)[i][1];
       vectArray[3 * i + 2] = (*vect)[i][2];
     }
-    // Reuse of function calls to actually handle the MPI calls
+	// Reuse of function calls to actually handle the MPI calls
     sendrecv_replace(vectArray, 3 * size, sendaddr, recvaddr);
-    // Map it back in to the Vector3D and nobody will ever know we mucked with it... 8-)
+	// Map it back in to the Vector3D and nobody will ever know we mucked with it... 8-)
     for (int i = 0; i < size; i++) {
       (*vect)[i][0] = vectArray[3 * i];
       (*vect)[i][1] = vectArray[3 * i + 1];
@@ -515,26 +552,32 @@ namespace ProtoMol {
     delete[] vectArray;
   }
 #else
-  void Parallel::sendrecv_replace(Vector3DBlock *, int, int) {}
+	void Parallel::sendrecv_replace(Vector3DBlock*, int, int)
+	{
+	}
 #endif
 
 #ifdef HAVE_MPI
   void Parallel::send(Real *data, int num, int address) {
-    // Just a nice wrapper that automatically selects the MPI datatype for you and handles all the annoying things
+	// Just a nice wrapper that automatically selects the MPI datatype for you and handles all the annoying things
     MPI_Send(data, num, MPITypeTraits<Real>::datatype, address, 0, MPI_COMM_WORLD);
   }
 #else
-  void Parallel::send(Real *, int, int) {}
+	void Parallel::send(Real*, int, int)
+	{
+	}
 #endif
 
 #ifdef HAVE_MPI
   void Parallel::recv(Real *data, int num, int address) {
-    // Another MPI wrapper function....
+	// Another MPI wrapper function....
     MPI_Status status;
     MPI_Recv(data, num, MPITypeTraits<Real>::datatype, address, 0, MPI_COMM_WORLD, &status);
   }
 #else
-  void Parallel::recv(Real *, int, int) {}
+	void Parallel::recv(Real*, int, int)
+	{
+	}
 #endif
 
 #ifdef HAVE_MPI
@@ -543,7 +586,9 @@ namespace ProtoMol {
     MPI_Sendrecv(senddata, sendnum, MPITypeTraits<Real>::datatype, sendaddr, 0, recvdata, recvnum, MPITypeTraits<Real>::datatype, recvaddr, 0, MPI_COMM_WORLD, &status);
   }
 #else
-  void Parallel::sendrecv(Real *, int, int, Real *, int, int) {}
+	void Parallel::sendrecv(Real*, int, int, Real*, int, int)
+	{
+	}
 #endif
 
 #ifdef HAVE_MPI
@@ -552,7 +597,9 @@ namespace ProtoMol {
     MPI_Sendrecv_replace(data, num, MPITypeTraits<Real>::datatype, sendaddr, 0, recvaddr, 0, MPI_COMM_WORLD, &status);
   }
 #else
-  void Parallel::sendrecv_replace(Real *, int, int, int) {}
+	void Parallel::sendrecv_replace(Real*, int, int, int)
+	{
+	}
 #endif
 
 #ifdef HAVE_MPI
@@ -560,7 +607,9 @@ namespace ProtoMol {
     MPI_Gather(data, num, MPITypeTraits<Real>::datatype, data_array, num, MPITypeTraits<Real>::datatype, address, MPI_COMM_WORLD);
   }
 #else
-  void Parallel::gather(Real*, int, Real*, int ) {}
+	void Parallel::gather(Real*, int, Real*, int)
+	{
+	}
 #endif
 
 #ifdef HAVE_MPI
@@ -568,7 +617,9 @@ namespace ProtoMol {
     MPI_Allgather(data, num, MPITypeTraits<Real>::datatype, data_array, num, MPITypeTraits<Real>::datatype, MPI_COMM_WORLD);
   }
 #else
-  void Parallel::allgather(Real *, int, Real *) {}
+	void Parallel::allgather(Real*, int, Real*)
+	{
+	}
 #endif
 
 #ifdef HAVE_MPI
@@ -583,7 +634,9 @@ namespace ProtoMol {
 
   }
 #else
-  void Parallel::reduceSlaves(Real*, Real*) {}
+	void Parallel::reduceSlaves(Real*, Real*)
+	{
+	}
 #endif
 
 
@@ -597,7 +650,9 @@ namespace ProtoMol {
     coords->distribute();
   }
 #else
-  void Parallel::distribute(ScalarStructure*, Vector3DBlock*){}
+	void Parallel::distribute(ScalarStructure*, Vector3DBlock*)
+	{
+	}
 #endif
 
 #ifdef HAVE_MPI
@@ -611,15 +666,17 @@ namespace ProtoMol {
     allReduce<false,true>(coords);
     allReduce<false,false>(energies);
 
-    //report << debug << static_cast<int>(ScalarStructure::LASTREDUCE)-static_cast<int>(ScalarStructure::FIRST) << endr;
+	//report << debug << static_cast<int>(ScalarStructure::LASTREDUCE)-static_cast<int>(ScalarStructure::FIRST) << endr;
 
     TimerStatistic::timer[TimerStatistic::COMMUNICATION].stop();
   }
 #else
-  void Parallel::reduce(ScalarStructure*, Vector3DBlock*){}
+	void Parallel::reduce(ScalarStructure*, Vector3DBlock*)
+	{
+	}
 #endif
 
-  //
+	//
 
 #ifdef HAVE_MPI
   void Parallel::bcast(Vector3DBlock* coords) {
@@ -628,7 +685,9 @@ namespace ProtoMol {
     broadcast<false,true>(coords);
   }
 #else
-  void Parallel::bcast(Vector3DBlock*) {}
+	void Parallel::bcast(Vector3DBlock*)
+	{
+	}
 #endif
 
 #ifdef HAVE_MPI
@@ -638,7 +697,9 @@ namespace ProtoMol {
     broadcastScalar<false,true>(n);
   }
 #else
-  void Parallel::bcast(int&) {}
+	void Parallel::bcast(int&)
+	{
+	}
 #endif
 
 #ifdef HAVE_MPI
@@ -653,37 +714,40 @@ namespace ProtoMol {
 
   }
 #else
-  void Parallel::bcastSlaves(Real*, Real*){}
+	void Parallel::bcastSlaves(Real*, Real*)
+	{
+	}
 #endif
 
 
+	unsigned int Parallel::getNumberOfPackages(unsigned int n)
+	{
+		if (getMaxPackages() < 1 || static_cast<unsigned int>(getAvailableNum()) >= n)
+			return n;
+		return (std::min(n / getAvailableNum(), static_cast<unsigned int>(getMaxPackages()))
+			* static_cast<unsigned int>(getAvailableNum()));
+		//     for(unsigned int i=static_cast<unsigned int>(getMaxPackages());i>1;i--){
+		//       if(i* static_cast<unsigned int>(getAvailableNum()) <= n)
+		// 	return (i* static_cast<unsigned int>(getAvailableNum()));
+		//     }
+		//     return  static_cast<unsigned int>(getAvailableNum());
+	}
 
-  unsigned int Parallel::getNumberOfPackages(unsigned int n) {
-    if(getMaxPackages() < 1 || static_cast<unsigned int>(getAvailableNum()) >= n)
-      return n;
-    return (std::min(n/getAvailableNum(),static_cast<unsigned int>(getMaxPackages()))
-	    *static_cast<unsigned int>(getAvailableNum()));
-//     for(unsigned int i=static_cast<unsigned int>(getMaxPackages());i>1;i--){
-//       if(i* static_cast<unsigned int>(getAvailableNum()) <= n)
-// 	return (i* static_cast<unsigned int>(getAvailableNum()));
-//     }
-//     return  static_cast<unsigned int>(getAvailableNum());
-  }
-
-  void Parallel::resetNext(const vector<int>& blocks){
-    resetNext();
-    if(!iAmMaster())
-      return;
+	void Parallel::resetNext(const vector<int>& blocks)
+	{
+		resetNext();
+		if (!iAmMaster())
+			return;
 #ifdef HAVE_MPI
     if(blocks.empty())
       return;
 
-    // Vector of ranges (n0,n1,n3, ... ,nM, -1, -1, ..., -1)
-    // n0,n1,n3, ... ,nM are the numbers a slave will call next() 
-    // for one given force
-    // A slave will call next() and check if the 
-    // actual number of next()-calls is inside the
-    // range received by the master and compute if true.
+		// Vector of ranges (n0,n1,n3, ... ,nM, -1, -1, ..., -1)
+		// n0,n1,n3, ... ,nM are the numbers a slave will call next() 
+		// for one given force
+		// A slave will call next() and check if the 
+		// actual number of next()-calls is inside the
+		// range received by the master and compute if true.
     int n = 0;
     for(unsigned int i=0;i<blocks.size();i++)
       n += blocks[i];
@@ -693,8 +757,8 @@ namespace ProtoMol {
     myBlockList.resize(n+1+myAvailableNum+1);
     for(unsigned int i=0;static_cast<int>(i)<=n;i++)
       myBlockList[i]=i;
-    // Adding ranges (-1,-1) to indicate that there is no more
-    // to compute.
+		// Adding ranges (-1,-1) to indicate that there is no more
+		// to compute.
     for(unsigned int i=n+1;i<myBlockList.size();i++)
       myBlockList[i]=-1;
   
@@ -704,11 +768,11 @@ namespace ProtoMol {
      report <<myBlockList[i]<< " ";
     report <<endr;
 #endif
-    // Fill up the pipe ...
+		// Fill up the pipe ...
     myI=0;        // Actual range index
     myRecv = 1;   // Number of pending recieves
-    // One more since one slave will send a request but not call 
-    // recv for the last range
+		// One more since one slave will send a request but not call 
+		// recv for the last range
     int stop = 0;   //
     myP=0;
     myDone[myId] = 0;
@@ -736,10 +800,10 @@ namespace ProtoMol {
       nextMaster();
 
 #endif
+	}
 
-  }
-
-  void Parallel::nextMaster(){
+	void Parallel::nextMaster()
+	{
 #ifdef HAVE_MPI
 #ifdef DEBUG_PARALLEL
     report << allnodes << plain << "Parallel::nextMaster Recv "<<myRecv<<"."<<endr;
@@ -749,9 +813,9 @@ namespace ProtoMol {
       MPI_Status status;
       char tmp[1];
       
-      // Receiving the request for a new range from a slave.
-      // We wait until we got a msg. Note that waiting for ANY_SOURCE
-      // could lead to a starving of some nodes. 
+		// Receiving the request for a new range from a slave.
+		// We wait until we got a msg. Note that waiting for ANY_SOURCE
+		// could lead to a starving of some nodes. 
       while(!test){
         myP = (1 + myP) % myNum;
         if(myP != myMasterId)
@@ -763,10 +827,10 @@ namespace ProtoMol {
       report << allnodes << plain << "Recieve from "<<myP<<"."<<endr;      
       report << allnodes << plain << "Recv "<<myRecv<<"."<<endr;
 #endif
-      
-      // We skip to send a further range if the node got the last 
-      // range since the that node will terminate without
-      // receiving any messages.
+
+		// We skip to send a further range if the node got the last 
+		// range since the that node will terminate without
+		// receiving any messages.
       if(myDone[myP]==0){
         MPI_Bsend(&(myBlockList[myI]),2,MPI_INT,myP,SEND_RANGE,MPI_COMM_WORLD);
 #ifdef DEBUG_PARALLEL
@@ -779,16 +843,17 @@ namespace ProtoMol {
       }
     }      
 #endif
-  }
+	}
 
-  bool Parallel::next(){
-    bool doNext = true;
+	bool Parallel::next()
+	{
+		bool doNext = true;
 
 #ifdef DEBUG_PARALLEL
     int oldNext = myNext;
 #endif
-    switch(myWorkState){
-
+		switch (myWorkState)
+		{
 #ifdef HAVE_MPI
     case MASTER:
 
@@ -811,10 +876,10 @@ namespace ProtoMol {
 #ifdef DEBUG_PARALLEL
 	    report << allnodes << plain << "Recieve from "<<myP<<"."<<endr;      
 #endif
-	    
-	    // We skip to send a further range if the node got the last 
-	    // range since the that node will terminate without
-	    // receiving any messages.
+
+			// We skip to send a further range if the node got the last 
+			// range since the that node will terminate without
+			// receiving any messages.
 	    if(myDone[myP]==0){
 	      MPI_Bsend(&(myBlockList[myI]),2,MPI_INT,myP,SEND_RANGE,MPI_COMM_WORLD);
 #if defined(DEBUG_PARALLEL)
@@ -852,7 +917,7 @@ namespace ProtoMol {
 
     case Parallel::SLAVE:
       if(myNextRange[1] == myNext){
-	// We need a new range from the master
+			// We need a new range from the master
 	char tmp[1];
 	MPI_Status status;      
 	TimerStatistic::timer[TimerStatistic::IDLE].start();
@@ -863,7 +928,7 @@ namespace ProtoMol {
 #ifdef DEBUG_PARALLEL
         report << allnodes << plain << "Recv new block "<<getId()<<" ["<<myNextRange[0] <<","<< myNextRange[1]<<"]."<<endr;
 #endif
-	// Asking for the next range such we have it when we need it next time.
+			// Asking for the next range such we have it when we need it next time.
 	TimerStatistic::timer[TimerStatistic::IDLE].stop();
 	if(myNextRange[1] >= 0){
 	  MPI_Bsend(tmp,0,MPI_CHAR,myMasterId,NEED_RANGE,MPI_COMM_WORLD); 
@@ -881,55 +946,58 @@ namespace ProtoMol {
       break;
 
 #endif
-    case DONE:
-      doNext = false;
-      break;
+		case DONE:
+			doNext = false;
+			break;
 
-    case STATIC:
-      doNext =  (myNext == myId);
-      myNext = (myNext+1) % myNum;
-      break;
-      
+		case STATIC:
+			doNext = (myNext == myId);
+			myNext = (myNext + 1) % myNum;
+			break;
 
-    case SEQUENTIAL:
-    default:      
-      break;
 
-    }
+		case SEQUENTIAL:
+		default:
+			break;
+		}
 #ifdef DEBUG_PARALLEL
     report << allnodes << plain << "Next ("<<getId()<<") : "<<(bool)doNext<<", "<<myWorkState<<", "<<oldNext<<", ["<<myNextRange[0]<<","<<myNextRange[1]<<"]"<<endr;      
 #endif
-    return doNext;
-  }
+		return doNext;
+	}
 
-  void Parallel::isolateNode() {
-    if (myIsolated == false) {
-      myOldId = myId;
-      myOldNum = myNum;
-      myOldMode = myMode;
-      myIsolated = true;
+	void Parallel::isolateNode()
+	{
+		if (myIsolated == false)
+		{
+			myOldId = myId;
+			myOldNum = myNum;
+			myOldMode = myMode;
+			myIsolated = true;
 
-      myId = 0;
-      myNum = 1;
-      myIsParallel = false;
-      myIAmMaster = (myId == myMasterId);
-      //report.setIAmMaster(iAmMaster());
-      //setMode(ParallelType::STATIC);
-      //myWorkState = getWorkState();
-    }
-  }
+			myId = 0;
+			myNum = 1;
+			myIsParallel = false;
+			myIAmMaster = (myId == myMasterId);
+			//report.setIAmMaster(iAmMaster());
+			//setMode(ParallelType::STATIC);
+			//myWorkState = getWorkState();
+		}
+	}
 
-  void Parallel::integrateNode() {
-    if (myIsolated == true) {
-      myId = myOldId;
-      myNum = myOldNum;
-      myIsolated = false;
+	void Parallel::integrateNode()
+	{
+		if (myIsolated == true)
+		{
+			myId = myOldId;
+			myNum = myOldNum;
+			myIsolated = false;
 
-      myIsParallel = (myNum > 1);
-      myIAmMaster = (myId == myMasterId);
-      //report.setIAmMaster(iAmMaster());
-      //setMode(myOldMode);
-      //myWorkState = getWorkState();
-    }
-  }
+			myIsParallel = (myNum > 1);
+			myIAmMaster = (myId == myMasterId);
+			//report.setIAmMaster(iAmMaster());
+			//setMode(myOldMode);
+			//myWorkState = getWorkState();
+		}
+	}
 }

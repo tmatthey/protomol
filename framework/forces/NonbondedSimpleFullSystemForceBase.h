@@ -4,15 +4,19 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ NonbondedSimpleFullSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ NonbondedSimpleFullSystemForceBase
 
-  class NonbondedSimpleFullSystemForceBase {
-  public:
-    virtual ~NonbondedSimpleFullSystemForceBase(){}
-    static const unsigned int defaultBlockSize;
-    static const std::string keyword;
-  };
+	class NonbondedSimpleFullSystemForceBase
+	{
+	public:
+		virtual ~NonbondedSimpleFullSystemForceBase()
+		{
+		}
+
+		static const unsigned int defaultBlockSize;
+		static const std::string keyword;
+	};
 }
 #endif /* NONBONDEDSIMPLEFULLSYSTEMFORCEBASE_H */
-

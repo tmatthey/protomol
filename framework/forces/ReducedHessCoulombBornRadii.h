@@ -6,40 +6,35 @@
 #include "ExclusionTable.h"
 #include "Vector3DBlock.h"
 
-namespace ProtoMol {
-  class GenericTopology;
-  class CoulombBornRadiiForce;
+namespace ProtoMol
+{
+	class GenericTopology;
+	class CoulombBornRadiiForce;
 
-  class ReducedHessCoulombBornRadii {
+	class ReducedHessCoulombBornRadii
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		//  Constructor,destructor
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-  public:
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //  Constructor,destructor
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class ReducedHessCoulombBornRadii
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    Matrix3by3 operator()(const Real rawEnergy,
-			  const Real rawForce,
-			  Real distSquared,
-			  Real rDistSquared,
-			  const Vector3D & diff, 
-			  const GenericTopology* topo, 
-			  int atom1, int atom2,
-			  const Real switchingValue,
-			  const Real switchingDeriv,
-			  const Matrix3by3& switchingHess,
-			  ExclusionClass excl,
-			  const Vector3DBlock *positions,
-			  CoulombBornRadiiForce& hForce
-	       ) const;
-
-
-
-  };
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class ReducedHessCoulombBornRadii
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		Matrix3by3 operator()(const Real rawEnergy,
+		                      const Real rawForce,
+		                      Real distSquared,
+		                      Real rDistSquared,
+		                      const Vector3D& diff,
+		                      const GenericTopology* topo,
+		                      int atom1, int atom2,
+		                      const Real switchingValue,
+		                      const Real switchingDeriv,
+		                      const Matrix3by3& switchingHess,
+		                      ExclusionClass excl,
+		                      const Vector3DBlock* positions,
+		                      CoulombBornRadiiForce& hForce
+		) const;
+	};
 }
 #endif

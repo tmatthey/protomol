@@ -13,26 +13,27 @@
  *  heavy-atom-fixed approximation in H-bond MOLLY integrator.
  *_____________________________________________________________________*/
 
-namespace ProtoMol {
-  class GenericTopology;
+namespace ProtoMol
+{
+	class GenericTopology;
 
-  class ReducedHessLennardJones {
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class ReducedHessLennardJones
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    Matrix3by3 operator()(const Real rawEnergy,
-			  const Real rawForce,
-			  Real distSquared,
-			  Real rDistSquared,
-			  const Vector3D & diff, 
-			  const GenericTopology* topo, 
-			  int atom1, int atom2,
-			  const Real switchingValue,
-			  const Real switchingDeriv,
-			  const Matrix3by3& switchingHess,
-			  ExclusionClass excl) const;
-  };
+	class ReducedHessLennardJones
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class ReducedHessLennardJones
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		Matrix3by3 operator()(const Real rawEnergy,
+		                      const Real rawForce,
+		                      Real distSquared,
+		                      Real rDistSquared,
+		                      const Vector3D& diff,
+		                      const GenericTopology* topo,
+		                      int atom1, int atom2,
+		                      const Real switchingValue,
+		                      const Real switchingDeriv,
+		                      const Matrix3by3& switchingHess,
+		                      ExclusionClass excl) const;
+	};
 }
 #endif

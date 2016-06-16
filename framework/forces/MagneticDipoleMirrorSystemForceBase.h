@@ -4,13 +4,14 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ MagneticDipoleMirrorSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ MagneticDipoleMirrorSystemForceBase
 
-  class MagneticDipoleMirrorSystemForceBase {
-  public:
-    static const std::string keyword;
-  };
+	class MagneticDipoleMirrorSystemForceBase
+	{
+	public:
+		static const std::string keyword;
+	};
 }
 #endif /* MagneticDipoleMirrorSystemForceBASE_H */
-

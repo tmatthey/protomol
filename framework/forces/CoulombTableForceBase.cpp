@@ -1,8 +1,9 @@
 #include "CoulombTableForceBase.h"
 using std::string;
 
-namespace ProtoMol {
-  //_________________________________________________________________ CoulombTableForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ CoulombTableForceBase
 
-  const string CoulombTableForceBase::keyword("CoulombTable");
+	const string CoulombTableForceBase::keyword("CoulombTable");
 }

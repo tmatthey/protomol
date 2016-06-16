@@ -1,8 +1,9 @@
 #include "DihedralSystemForceBase.h"
 using std::string;
 
-namespace ProtoMol {
-  //_________________________________________________________________ DihedralSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ DihedralSystemForceBase
 
-  const string DihedralSystemForceBase::keyword("Dihedral");
+	const string DihedralSystemForceBase::keyword("Dihedral");
 }

@@ -5,32 +5,43 @@
 #include "GenericTopology.h"
 #include "STSIntegrator.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	class ModifierIncrementTimestep : public Modifier
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		ModifierIncrementTimestep(STSIntegrator* i): Modifier(Constant::MAX_INT), myTheIntegrator(i)
+		{
+		}
 
-  class ModifierIncrementTimestep : public Modifier {
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    ModifierIncrementTimestep(STSIntegrator* i):Modifier(Constant::MAX_INT),myTheIntegrator(i){}
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Modifier
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual bool isInternal() const
+		{
+			return true;
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Modifier
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual bool isInternal() const {return true;}
-  private:
-    virtual void doExecute(){
-      myTopology->time += myTheIntegrator->getTimestep();
-    }
-    virtual std::string doPrint()const{return std::string("IncrementTimestep");};
+	private:
+		virtual void doExecute()
+		{
+			myTopology->time += myTheIntegrator->getTimestep();
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    STSIntegrator* myTheIntegrator;
-  };
+		virtual std::string doPrint() const
+		{
+			return std::string("IncrementTimestep");
+		};
 
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		STSIntegrator* myTheIntegrator;
+	};
 }
 #endif /* MODIFIERINCREMENTTIMESTEP_H */

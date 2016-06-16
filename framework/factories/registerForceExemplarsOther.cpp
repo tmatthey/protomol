@@ -29,138 +29,133 @@
 #include "ExternalMagneticFieldExtendedForce.h"
 #include "MagneticDipoleMirrorSystemForce.h"
 
-namespace ProtoMol {
-  void registerForceExemplarsOther(const PeriodicBoundaryConditions*, const CubicCellManager*){
+namespace ProtoMol
+{
+	void registerForceExemplarsOther(const PeriodicBoundaryConditions*, const CubicCellManager*)
+	{
+		//     ForceFactory::registerExemplar(new NonbondedCutoffSystemForce<CubicCellManager,
+		// 				   OneAtomPair<PeriodicBoundaryConditions,
+		// 				   RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce> >());
+		//
+		//     ForceFactory::registerExemplar(new NonbondedCutoffSystemForce<CubicCellManager,
+		// 				   OneAtomPair<PeriodicBoundaryConditions,
+		// 				   RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce> >());
+		//
+		//     ForceFactory::registerExemplar(new NonbondedCutoffSystemForce<CubicCellManager,
+		// 				   OneAtomPairTwo<PeriodicBoundaryConditions,
+		// 				   RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce,
+		// 				   RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce> >());
 
-//     ForceFactory::registerExemplar(new NonbondedCutoffSystemForce<CubicCellManager,
-// 				   OneAtomPair<PeriodicBoundaryConditions,
-// 				   RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce> >());
-//
-//     ForceFactory::registerExemplar(new NonbondedCutoffSystemForce<CubicCellManager,
-// 				   OneAtomPair<PeriodicBoundaryConditions,
-// 				   RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce> >());
-//
-//     ForceFactory::registerExemplar(new NonbondedCutoffSystemForce<CubicCellManager,
-// 				   OneAtomPairTwo<PeriodicBoundaryConditions,
-// 				   RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce,
-// 				   RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce> >());
-
-    ForceFactory::registerExemplar(new WrapperMetaForce("MollyLennardJones",true, 
-							new NonbondedCutoffMollyForce<CubicCellManager,
-							OneMollyPair<PeriodicBoundaryConditions,
-							RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce> >(),
-							"MollyLennardJones",							
-							new NonbondedCutoffSystemForce<CubicCellManager,
-							OneAtomPair<PeriodicBoundaryConditions,
-							RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce,
-							HBondConstraint> >(),
-							"HBondLennardJones"));
-
-
-    ForceFactory::registerExemplar(new WrapperMetaForce("MollyCoulomb",true, 
-							new NonbondedCutoffMollyForce<CubicCellManager,
-							OneMollyPair<PeriodicBoundaryConditions,
-							RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce> >(),
-							"MollyCoulomb",							
-							new NonbondedCutoffSystemForce<CubicCellManager,
-							OneAtomPair<PeriodicBoundaryConditions,
-							RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce,
-							HBondConstraint> >(),
-							"HBondCoulomb"));
+		ForceFactory::registerExemplar(new WrapperMetaForce("MollyLennardJones", true,
+		                                                    new NonbondedCutoffMollyForce<CubicCellManager,
+		                                                                                  OneMollyPair<PeriodicBoundaryConditions,
+		                                                                                               RangeSwitchingFunction<C2SwitchingFunction>, LennardJonesForce>>(),
+		                                                    "MollyLennardJones",
+		                                                    new NonbondedCutoffSystemForce<CubicCellManager,
+		                                                                                   OneAtomPair<PeriodicBoundaryConditions,
+		                                                                                               RangeSwitchingFunction<C2SwitchingFunction>, LennardJonesForce,
+		                                                                                               HBondConstraint>>(),
+		                                                    "HBondLennardJones"));
 
 
-    ForceFactory::registerExemplar(new WrapperMetaForce("MollyLennardJonesCoulomb",true, 
-							new NonbondedCutoffMollyForce<CubicCellManager,
-							OneMollyPairTwo<PeriodicBoundaryConditions,
-							RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce,
-							RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce> >(),
-							"MollyLennardJonesCoulomb",
-							new NonbondedCutoffSystemForce<CubicCellManager,
-							OneAtomPairTwo<PeriodicBoundaryConditions,
-							RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce,
-							RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce,
-							HBondConstraint> >(),
-							"HBondLennardJonesCoulomb"));
-
-  }
-
-  void registerForceExemplarsOther(const PeriodicBoundaryConditions*){
-
-    ForceFactory::registerExemplar(new WrapperMetaForce("MollyBond",true,new BondSystemForce<PeriodicBoundaryConditions>(),"MollyBond"));
-
-    ForceFactory::registerExemplar(new WrapperMetaForce("MollyAngle",true,new AngleSystemForce<PeriodicBoundaryConditions>(),"MollyAngle"));
-
-    ForceFactory::registerExemplar(new ElectricFieldSystemForce<PeriodicBoundaryConditions,C1SwitchingFunction>());
-    ForceFactory::registerExemplar(new MagneticDipoleMirrorSystemForce<PeriodicBoundaryConditions>());
-  }
-
-  void registerForceExemplarsOther(const VacuumBoundaryConditions*, const CubicCellManager*){ 
-
-    ForceFactory::registerExemplar(new WrapperMetaForce("MollyLennardJones",true, 
-							new NonbondedCutoffMollyForce<CubicCellManager,
-							OneMollyPair<VacuumBoundaryConditions,
-							RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce> >(),
-							"MollyLennardJones",							
-							new NonbondedCutoffSystemForce<CubicCellManager,
-							OneAtomPair<VacuumBoundaryConditions,
-							RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce,
-							HBondConstraint> >(),
-							"HBondLennardJones"));
+		ForceFactory::registerExemplar(new WrapperMetaForce("MollyCoulomb", true,
+		                                                    new NonbondedCutoffMollyForce<CubicCellManager,
+		                                                                                  OneMollyPair<PeriodicBoundaryConditions,
+		                                                                                               RangeSwitchingFunction<C1SwitchingFunction>, CoulombForce>>(),
+		                                                    "MollyCoulomb",
+		                                                    new NonbondedCutoffSystemForce<CubicCellManager,
+		                                                                                   OneAtomPair<PeriodicBoundaryConditions,
+		                                                                                               RangeSwitchingFunction<C1SwitchingFunction>, CoulombForce,
+		                                                                                               HBondConstraint>>(),
+		                                                    "HBondCoulomb"));
 
 
-    ForceFactory::registerExemplar(new WrapperMetaForce("MollyCoulomb",true, 
-							new NonbondedCutoffMollyForce<CubicCellManager,
-							OneMollyPair<VacuumBoundaryConditions,
-							RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce> >(),
-							"MollyCoulomb",							
-							new NonbondedCutoffSystemForce<CubicCellManager,
-							OneAtomPair<VacuumBoundaryConditions,
-							RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce,
-							HBondConstraint> >(),
-							"HBondCoulomb"));
+		ForceFactory::registerExemplar(new WrapperMetaForce("MollyLennardJonesCoulomb", true,
+		                                                    new NonbondedCutoffMollyForce<CubicCellManager,
+		                                                                                  OneMollyPairTwo<PeriodicBoundaryConditions,
+		                                                                                                  RangeSwitchingFunction<C2SwitchingFunction>, LennardJonesForce,
+		                                                                                                  RangeSwitchingFunction<C1SwitchingFunction>, CoulombForce>>(),
+		                                                    "MollyLennardJonesCoulomb",
+		                                                    new NonbondedCutoffSystemForce<CubicCellManager,
+		                                                                                   OneAtomPairTwo<PeriodicBoundaryConditions,
+		                                                                                                  RangeSwitchingFunction<C2SwitchingFunction>, LennardJonesForce,
+		                                                                                                  RangeSwitchingFunction<C1SwitchingFunction>, CoulombForce,
+		                                                                                                  HBondConstraint>>(),
+		                                                    "HBondLennardJonesCoulomb"));
+	}
+
+	void registerForceExemplarsOther(const PeriodicBoundaryConditions*)
+	{
+		ForceFactory::registerExemplar(new WrapperMetaForce("MollyBond", true, new BondSystemForce<PeriodicBoundaryConditions>(), "MollyBond"));
+
+		ForceFactory::registerExemplar(new WrapperMetaForce("MollyAngle", true, new AngleSystemForce<PeriodicBoundaryConditions>(), "MollyAngle"));
+
+		ForceFactory::registerExemplar(new ElectricFieldSystemForce<PeriodicBoundaryConditions, C1SwitchingFunction>());
+		ForceFactory::registerExemplar(new MagneticDipoleMirrorSystemForce<PeriodicBoundaryConditions>());
+	}
+
+	void registerForceExemplarsOther(const VacuumBoundaryConditions*, const CubicCellManager*)
+	{
+		ForceFactory::registerExemplar(new WrapperMetaForce("MollyLennardJones", true,
+		                                                    new NonbondedCutoffMollyForce<CubicCellManager,
+		                                                                                  OneMollyPair<VacuumBoundaryConditions,
+		                                                                                               RangeSwitchingFunction<C2SwitchingFunction>, LennardJonesForce>>(),
+		                                                    "MollyLennardJones",
+		                                                    new NonbondedCutoffSystemForce<CubicCellManager,
+		                                                                                   OneAtomPair<VacuumBoundaryConditions,
+		                                                                                               RangeSwitchingFunction<C2SwitchingFunction>, LennardJonesForce,
+		                                                                                               HBondConstraint>>(),
+		                                                    "HBondLennardJones"));
 
 
-    ForceFactory::registerExemplar(new WrapperMetaForce("MollyLennardJonesCoulomb",true, 
-							new NonbondedCutoffMollyForce<CubicCellManager,
-							OneMollyPairTwo<VacuumBoundaryConditions,
-							RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce,
-							RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce> >(),
-							"MollyLennardJonesCoulomb",
-							new NonbondedCutoffSystemForce<CubicCellManager,
-							OneAtomPairTwo<VacuumBoundaryConditions,
-							RangeSwitchingFunction<C2SwitchingFunction>,LennardJonesForce,
-							RangeSwitchingFunction<C1SwitchingFunction>,CoulombForce,
-							HBondConstraint> >(),
-							"HBondLennardJonesCoulomb"));
+		ForceFactory::registerExemplar(new WrapperMetaForce("MollyCoulomb", true,
+		                                                    new NonbondedCutoffMollyForce<CubicCellManager,
+		                                                                                  OneMollyPair<VacuumBoundaryConditions,
+		                                                                                               RangeSwitchingFunction<C1SwitchingFunction>, CoulombForce>>(),
+		                                                    "MollyCoulomb",
+		                                                    new NonbondedCutoffSystemForce<CubicCellManager,
+		                                                                                   OneAtomPair<VacuumBoundaryConditions,
+		                                                                                               RangeSwitchingFunction<C1SwitchingFunction>, CoulombForce,
+		                                                                                               HBondConstraint>>(),
+		                                                    "HBondCoulomb"));
 
 
+		ForceFactory::registerExemplar(new WrapperMetaForce("MollyLennardJonesCoulomb", true,
+		                                                    new NonbondedCutoffMollyForce<CubicCellManager,
+		                                                                                  OneMollyPairTwo<VacuumBoundaryConditions,
+		                                                                                                  RangeSwitchingFunction<C2SwitchingFunction>, LennardJonesForce,
+		                                                                                                  RangeSwitchingFunction<C1SwitchingFunction>, CoulombForce>>(),
+		                                                    "MollyLennardJonesCoulomb",
+		                                                    new NonbondedCutoffSystemForce<CubicCellManager,
+		                                                                                   OneAtomPairTwo<VacuumBoundaryConditions,
+		                                                                                                  RangeSwitchingFunction<C2SwitchingFunction>, LennardJonesForce,
+		                                                                                                  RangeSwitchingFunction<C1SwitchingFunction>, CoulombForce,
+		                                                                                                  HBondConstraint>>(),
+		                                                    "HBondLennardJonesCoulomb"));
 
 
-    ForceFactory::registerExemplar(new ElectricFieldSystemForce<VacuumBoundaryConditions,C1SwitchingFunction>());
-  }
+		ForceFactory::registerExemplar(new ElectricFieldSystemForce<VacuumBoundaryConditions, C1SwitchingFunction>());
+	}
 
-  void registerForceExemplarsOther(){ 
-    ForceFactory::registerExemplar(new ExternalMagneticFieldExtendedForce());
-    ForceFactory::registerExemplar(new ExternalGravitationSystemForce());
-    ForceFactory::registerExemplar(new HapticSystemForce());
-    ForceFactory::registerExemplar(new FrictionExtendedForce());
-  }
+	void registerForceExemplarsOther()
+	{
+		ForceFactory::registerExemplar(new ExternalMagneticFieldExtendedForce());
+		ForceFactory::registerExemplar(new ExternalGravitationSystemForce());
+		ForceFactory::registerExemplar(new HapticSystemForce());
+		ForceFactory::registerExemplar(new FrictionExtendedForce());
+	}
 
-  void registerForceExemplarsOther(const VacuumBoundaryConditions*){
-    // PaulTrap for Coulomb Crystals
-    ForceFactory::registerExemplar(new PaulTrapExtendedForce<VacuumBoundaryConditions>());
+	void registerForceExemplarsOther(const VacuumBoundaryConditions*)
+	{
+		// PaulTrap for Coulomb Crystals
+		ForceFactory::registerExemplar(new PaulTrapExtendedForce<VacuumBoundaryConditions>());
 
-    // Spherical boundary conditions
-    ForceFactory::registerExemplar(new SphericalSystemForce());
-    ForceFactory::registerExemplar(new SphericalRestraintSystemForce());
-    ForceFactory::registerExemplar(new WrapperMetaForce("MollyBond",true,new BondSystemForce<VacuumBoundaryConditions>(),"MollyBond"));
+		// Spherical boundary conditions
+		ForceFactory::registerExemplar(new SphericalSystemForce());
+		ForceFactory::registerExemplar(new SphericalRestraintSystemForce());
+		ForceFactory::registerExemplar(new WrapperMetaForce("MollyBond", true, new BondSystemForce<VacuumBoundaryConditions>(), "MollyBond"));
 
-    ForceFactory::registerExemplar(new WrapperMetaForce("MollyAngle",true,new AngleSystemForce<VacuumBoundaryConditions>(),"MollyAngle"));
-    ForceFactory::registerExemplar(new MagneticDipoleMirrorSystemForce<VacuumBoundaryConditions>());
-
-
-  }
-
-
-
+		ForceFactory::registerExemplar(new WrapperMetaForce("MollyAngle", true, new AngleSystemForce<VacuumBoundaryConditions>(), "MollyAngle"));
+		ForceFactory::registerExemplar(new MagneticDipoleMirrorSystemForce<VacuumBoundaryConditions>());
+	}
 }

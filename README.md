@@ -1,4 +1,4 @@
-![protomol.gif](https://bitbucket.org/repo/a6dBaX/images/2186237608-protomol.gif)
+![protomol.gif](./img/2186237608-protomol.gif)
 
 # ProtoMol 2.1 #
 

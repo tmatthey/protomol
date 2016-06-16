@@ -4,29 +4,32 @@
 
 #include "AbstractEnumType.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	//_____________________________________________________ InputPosVelEnum
 
+	class InputPosVelEnum
+	{
+	public:
+		virtual ~InputPosVelEnum()
+		{
+		}
 
-  //_____________________________________________________ InputPosVelEnum
+		enum Enum
+		{
+			FIRST = 0, // Used internally only
+			UNDEFINED = 0, // InputPosVel returned when no string matches
+			PDB,
+			XYZ,
+			XYZBIN,
+			LAST // Used internally only
+		};
 
-  class InputPosVelEnum {
-  public:
-    virtual ~InputPosVelEnum(){}
-    enum Enum {
-      FIRST = 0,       // Used internally only
-      UNDEFINED  = 0,  // InputPosVel returned when no string matches
-      PDB,
-      XYZ,
-      XYZBIN,
-      LAST              // Used internally only
-    };
+	protected:
+		static const std::string str[];
+	};
 
-  protected:
-    static const std::string str[];
-  };
-
-  //_____________________________________________________ InputPosVelType
-  typedef AbstractEnumType<InputPosVelEnum> InputPosVelType;
-
+	//_____________________________________________________ InputPosVelType
+	typedef AbstractEnumType<InputPosVelEnum> InputPosVelType;
 }
 #endif /* INPUTPOSVELTYPE_H */

@@ -1,8 +1,9 @@
 #include "NonbondedFullEwaldSystemForceBase.h"
 using std::string;
 
-namespace ProtoMol {
-  //_________________________________________________________________ NonbondedFullEwaldSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ NonbondedFullEwaldSystemForceBase
 
-  const string NonbondedFullEwaldSystemForceBase::keyword("FullEwald");
+	const string NonbondedFullEwaldSystemForceBase::keyword("FullEwald");
 }

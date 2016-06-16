@@ -4,14 +4,14 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ CutoffSwitchingFunctionBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ CutoffSwitchingFunctionBase
 
-  class CutoffSwitchingFunctionBase {
-  public:
-    static const std::string keyword;
-  };
-
+	class CutoffSwitchingFunctionBase
+	{
+	public:
+		static const std::string keyword;
+	};
 }
 #endif /* CUTOFFSWITCHINGFUNCTIONBASE_H */
-

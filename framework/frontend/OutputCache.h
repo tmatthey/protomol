@@ -9,169 +9,246 @@
 #include "PSF.h"
 #include "Vector3D.h"
 
-namespace ProtoMol {
-  class Output;
-  class Configuration;
-  class GenericTopology;
-  class ScalarStructure;
-  class Vector3DBlock;
-  class OutputFactoryDetails;
-  class Integrator;
-  struct PDB;
-  struct Atom;
-  /**
-     OutputCache caches all kind of values, which may be needed
-     by Output objects and simplifies the access to values of interest.
-     Add new cached values, if needed ..
-     There are some (feature) values, which will only change when the 
-     Topology changes
-  */
-  //________________________________________________________ OutputCache
-  class OutputCache  {
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    OutputCache();
-    ~OutputCache();
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class OutputCache
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    void initialize(const Configuration* config, const Integrator* integrator, const GenericTopology* topo,
-    		    const Vector3DBlock* pos, const Vector3DBlock*  vel, const ScalarStructure* energies);
+namespace ProtoMol
+{
+	class Output;
+	class Configuration;
+	class GenericTopology;
+	class ScalarStructure;
+	class Vector3DBlock;
+	class OutputFactoryDetails;
+	class Integrator;
+	struct PDB;
+	struct Atom;
 
-    // Methods to add additional data for output objects
-    void add(const std::vector<PDB::Atom>& pdbAtoms){myAtoms = pdbAtoms;}
-    void add(const PSF& psf){myPSF = psf;}
-    void add(const PAR& par){myPAR = par;}
-    void add(const iSGPAR& par){myiSGPAR = par;}
-    void add(const std::vector<Real> &REMExchangeRate) {myREMRates = REMExchangeRate;}
-    void add(const Real *replicaHistory) {myReplicaHistory = replicaHistory;}
+	/**
+	   OutputCache caches all kind of values, which may be needed
+	   by Output objects and simplifies the access to values of interest.
+	   Add new cached values, if needed ..
+	   There are some (feature) values, which will only change when the 
+	   Topology changes
+	*/
+	//________________________________________________________ OutputCache
+	class OutputCache
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		OutputCache();
+		~OutputCache();
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class OutputCache
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		void initialize(const Configuration* config, const Integrator* integrator, const GenericTopology* topo,
+		                const Vector3DBlock* pos, const Vector3DBlock* vel, const ScalarStructure* energies);
 
-    Real     totalEnergy() const;
-    Real     potentialEnergy() const;
-    Real     kineticEnergy() const;
-    Real     temperature() const;
-    Real     temperatureForWater() const;
-    Real     temperatureForNonWater() const;
-    Real     volume() const;
-    Real     time() const;
-    Real     pressure() const;
-    Real     molecularPressure() const;
-    Real     molecularTemperature() const;
-    Real     molecularKineticEnergy() const;
-    Vector3D linearMomentum() const;
-    Vector3D angularMomentum() const;
-    Vector3D centerOfMass() const;
-    Real     diffusion() const;
-    Real     density() const;
-    Real     mass() const;
-    Real     dihedralPhi(int index) const;
-    Real     brent(Real ax, Real bx, Real cx, Real tol, Real &xmin, int dihindex, bool max) const;
-    std::vector<Real>                 dihedralPhis(std::vector<int>) const;
-    std::vector<std::vector< Real > > brentMaxima(std::vector<int>, bool) const;
-    const Vector3DBlock*             minimalPositions() const;
-    const Vector3DBlock*             PositionsNoWater() const;
+		// Methods to add additional data for output objects
+		void add(const std::vector<PDB::Atom>& pdbAtoms)
+		{
+			myAtoms = pdbAtoms;
+		}
 
-    const std::vector<PDB::Atom>& pdb() const {return myAtoms;}
-    const std::vector<Real> &REMRates() const {return myREMRates;}
-    const Real        *replicaHistory() const {return myReplicaHistory;}
-    const PSF&                       psf() const {return myPSF;}
-    const PAR&                       par() const {return myPAR;}
-    const iSGPAR&                    iSGpar() const {return myiSGPAR;}
-    void uncache() const;
-    ///< To be called before every run() or finialize()
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    const Vector3DBlock* getPositions() const {return myPositions;}
-    const Vector3DBlock* getVelocities() const  {return myVelocities;}
-    const Integrator* getIntegrator() const {return myIntegrator;}
-    const ScalarStructure* getEnergies() const {return myEnergies;}
+		void add(const PSF& psf)
+		{
+			myPSF = psf;
+		}
 
-    void setRestore() {myRestore = true;}
-    void clearRestore() {myRestore = false;}
-    bool restore() const {return myRestore;}
+		void add(const PAR& par)
+		{
+			myPAR = par;
+		}
 
-  private:
-    const Configuration*   myConfig; 
-    const GenericTopology* myTopology; 
-    const Integrator*      myIntegrator;
-    const ScalarStructure* myEnergies;
-    const Vector3DBlock*   myPositions;
-    const Vector3DBlock*   myVelocities; 
-    Vector3DBlock*         myInitialPositions;
-    mutable Vector3DBlock*   myMinimalPositions;
-    mutable Vector3DBlock*   myPositionsNoWater;    
+		void add(const iSGPAR& par)
+		{
+			myiSGPAR = par;
+		}
 
-    // Additional data
-    std::vector<PDB::Atom> myAtoms;
-    std::vector<Real> myREMRates;
-    const Real *myReplicaHistory;
-    PSF myPSF;
-    PAR myPAR;
-    iSGPAR myiSGPAR;
+		void add(const std::vector<Real>& REMExchangeRate)
+		{
+			myREMRates = REMExchangeRate;
+		}
 
-    mutable bool myCachedKE;
-    mutable Real myKE;
-    mutable Real myT;
+		void add(const Real* replicaHistory)
+		{
+			myReplicaHistory = replicaHistory;
+		}
 
-    mutable bool myCachedPE;
-    mutable Real myPE;
+		Real totalEnergy() const;
+		Real potentialEnergy() const;
+		Real kineticEnergy() const;
+		Real temperature() const;
+		Real temperatureForWater() const;
+		Real temperatureForNonWater() const;
+		Real volume() const;
+		Real time() const;
+		Real pressure() const;
+		Real molecularPressure() const;
+		Real molecularTemperature() const;
+		Real molecularKineticEnergy() const;
+		Vector3D linearMomentum() const;
+		Vector3D angularMomentum() const;
+		Vector3D centerOfMass() const;
+		Real diffusion() const;
+		Real density() const;
+		Real mass() const;
+		Real dihedralPhi(int index) const;
+		Real brent(Real ax, Real bx, Real cx, Real tol, Real& xmin, int dihindex, bool max) const;
+		std::vector<Real> dihedralPhis(std::vector<int>) const;
+		std::vector<std::vector<Real>> brentMaxima(std::vector<int>, bool) const;
+		const Vector3DBlock* minimalPositions() const;
+		const Vector3DBlock* PositionsNoWater() const;
 
-    mutable bool myCachedV;
-    mutable Real myV;
+		const std::vector<PDB::Atom>& pdb() const
+		{
+			return myAtoms;
+		}
 
-    mutable bool myCachedP;
-    mutable Real myP;
-    mutable bool myCachedMolP;
-    mutable Real myMolP;
+		const std::vector<Real>& REMRates() const
+		{
+			return myREMRates;
+		}
 
-    mutable bool myCachedLinearMomentum;
-    mutable Vector3D myLinearMomentum;
+		const Real* replicaHistory() const
+		{
+			return myReplicaHistory;
+		}
 
-    mutable bool myCachedAngularMomentum;
-    mutable Vector3D myAngularMomentum;
+		const PSF& psf() const
+		{
+			return myPSF;
+		}
 
-    mutable bool myCachedCenterOfMass;
-    mutable Vector3D myCenterOfMass;
+		const PAR& par() const
+		{
+			return myPAR;
+		}
 
-    mutable bool myCachedDiffusion;
-    mutable Real myDiffusion;
+		const iSGPAR& iSGpar() const
+		{
+			return myiSGPAR;
+		}
 
-    mutable bool myCachedDensity;
-    mutable Real myDensity;
+		void uncache() const;
 
-    mutable bool myCachedMass;
-    mutable Real myMass;
+		///< To be called before every run() or finialize()
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		const Vector3DBlock* getPositions() const
+		{
+			return myPositions;
+		}
 
-    mutable int myCachedDihedralPhi;
-    mutable Real myDihedralPhi;
+		const Vector3DBlock* getVelocities() const
+		{
+			return myVelocities;
+		}
 
-    mutable bool myCachedDihedralPhis;
-    mutable std::vector<Real>* myDihedralPhis;
+		const Integrator* getIntegrator() const
+		{
+			return myIntegrator;
+		}
 
-    mutable bool myCachedBrentMaxima;
-    mutable std::vector< std::vector< Real > >* myBrentMaxima;
+		const ScalarStructure* getEnergies() const
+		{
+			return myEnergies;
+		}
 
-    mutable bool myCachedMolT;
-    mutable Real myMolT;
+		void setRestore()
+		{
+			myRestore = true;
+		}
 
-    mutable bool myCachedMolKE;
-    mutable Real myMolKE;
+		void clearRestore()
+		{
+			myRestore = false;
+		}
 
-    mutable bool myCachedWaterT;
-    mutable Real myWaterT;
+		bool restore() const
+		{
+			return myRestore;
+		}
 
-    mutable bool myCachedNonWaterT;
-    mutable Real myNonWaterT;
+	private:
+		const Configuration* myConfig;
+		const GenericTopology* myTopology;
+		const Integrator* myIntegrator;
+		const ScalarStructure* myEnergies;
+		const Vector3DBlock* myPositions;
+		const Vector3DBlock* myVelocities;
+		Vector3DBlock* myInitialPositions;
+		mutable Vector3DBlock* myMinimalPositions;
+		mutable Vector3DBlock* myPositionsNoWater;
 
-    mutable bool myCachedMinimalPositions;
+		// Additional data
+		std::vector<PDB::Atom> myAtoms;
+		std::vector<Real> myREMRates;
+		const Real* myReplicaHistory;
+		PSF myPSF;
+		PAR myPAR;
+		iSGPAR myiSGPAR;
 
-    mutable bool myCachedPositionsNoWater;
+		mutable bool myCachedKE;
+		mutable Real myKE;
+		mutable Real myT;
 
-    bool myRestore;
-  };
+		mutable bool myCachedPE;
+		mutable Real myPE;
+
+		mutable bool myCachedV;
+		mutable Real myV;
+
+		mutable bool myCachedP;
+		mutable Real myP;
+		mutable bool myCachedMolP;
+		mutable Real myMolP;
+
+		mutable bool myCachedLinearMomentum;
+		mutable Vector3D myLinearMomentum;
+
+		mutable bool myCachedAngularMomentum;
+		mutable Vector3D myAngularMomentum;
+
+		mutable bool myCachedCenterOfMass;
+		mutable Vector3D myCenterOfMass;
+
+		mutable bool myCachedDiffusion;
+		mutable Real myDiffusion;
+
+		mutable bool myCachedDensity;
+		mutable Real myDensity;
+
+		mutable bool myCachedMass;
+		mutable Real myMass;
+
+		mutable int myCachedDihedralPhi;
+		mutable Real myDihedralPhi;
+
+		mutable bool myCachedDihedralPhis;
+		mutable std::vector<Real>* myDihedralPhis;
+
+		mutable bool myCachedBrentMaxima;
+		mutable std::vector<std::vector<Real>>* myBrentMaxima;
+
+		mutable bool myCachedMolT;
+		mutable Real myMolT;
+
+		mutable bool myCachedMolKE;
+		mutable Real myMolKE;
+
+		mutable bool myCachedWaterT;
+		mutable Real myWaterT;
+
+		mutable bool myCachedNonWaterT;
+		mutable Real myNonWaterT;
+
+		mutable bool myCachedMinimalPositions;
+
+		mutable bool myCachedPositionsNoWater;
+
+		bool myRestore;
+	};
 }
 #endif

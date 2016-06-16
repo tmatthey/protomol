@@ -4,14 +4,18 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ ElectricFieldSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ ElectricFieldSystemForceBase
 
-  class ElectricFieldSystemForceBase {
-  public:
-    virtual ~ElectricFieldSystemForceBase(){}
-    static const std::string keyword;
-  };
+	class ElectricFieldSystemForceBase
+	{
+	public:
+		virtual ~ElectricFieldSystemForceBase()
+		{
+		}
+
+		static const std::string keyword;
+	};
 }
 #endif /* ELECTRICFIELDFORCEBASE_H */
-

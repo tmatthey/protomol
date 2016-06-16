@@ -1,8 +1,9 @@
 #include "ElectricFieldSystemForceBase.h"
 using std::string;
 
-namespace ProtoMol {
-  //_________________________________________________________________ ElectricFieldSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ ElectricFieldSystemForceBase
 
-  const string ElectricFieldSystemForceBase::keyword("ElectricField");
+	const string ElectricFieldSystemForceBase::keyword("ElectricField");
 }

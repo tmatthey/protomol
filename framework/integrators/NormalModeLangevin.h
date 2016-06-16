@@ -7,69 +7,74 @@
 
 #include "Vector3DBlock.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	class ScalarStructure;
+	class ForceGroup;
 
-  class ScalarStructure;
-  class ForceGroup;
+	//__________________________________________________ NormalModeLangevin
+	class NormalModeLangevin : public MTSIntegrator, public NormalModeUtilities
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		NormalModeLangevin();
+		NormalModeLangevin(int cycles, int firstmode, int nummode, Real gamma, int seed, Real temperature, bool gencn,
+		                   ForceGroup* overloadedForces, StandardIntegrator* nextIntegrator);
+		~NormalModeLangevin();
 
-  //__________________________________________________ NormalModeLangevin
-  class NormalModeLangevin : public MTSIntegrator, public NormalModeUtilities {
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    NormalModeLangevin();
-    NormalModeLangevin(int cycles, int firstmode, int nummode, Real gamma, int seed, Real temperature, bool gencn,
-                            ForceGroup *overloadedForces, StandardIntegrator *nextIntegrator);
-    ~NormalModeLangevin(); 
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class NormalModeLangevin
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	protected:
+		void drift();
+	public:
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class NormalModeLangevin
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  protected:
-    void drift();
-  public:
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Makeable
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual std::string getIdNoAlias() const
+		{
+			return keyword;
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Makeable
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual std::string getIdNoAlias() const{return keyword;}
-    virtual unsigned int getParameterSize() const{return 7;}
-    virtual void getParameters(std::vector<Parameter>& parameters) const;
+		virtual unsigned int getParameterSize() const
+		{
+			return 7;
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Integrator
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual void initialize(GenericTopology *topo,
-                Vector3DBlock   *positions,
-                Vector3DBlock   *velocities, 
-                ScalarStructure *energies);
-    virtual void run(int numTimesteps);
-  protected:
-    virtual void addModifierAfterInitialize();
+		virtual void getParameters(std::vector<Parameter>& parameters) const;
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class STSIntegrator
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    virtual MTSIntegrator* doMake(std::string& errMsg, const std::vector<Value>& values, ForceGroup* fg, StandardIntegrator *nextIntegrator)const;
-  public:
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Integrator
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual void initialize(GenericTopology* topo,
+		                        Vector3DBlock* positions,
+		                        Vector3DBlock* velocities,
+		                        ScalarStructure* energies);
+		virtual void run(int numTimesteps);
+	protected:
+		virtual void addModifierAfterInitialize();
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    static const std::string keyword;
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class STSIntegrator
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		virtual MTSIntegrator* doMake(std::string& errMsg, const std::vector<Value>& values, ForceGroup* fg, StandardIntegrator* nextIntegrator) const;
+	public:
 
-  private:
-    bool genCompNoise;
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		static const std::string keyword;
 
-  };
-
+	private:
+		bool genCompNoise;
+	};
 }
 
 #endif
-
-

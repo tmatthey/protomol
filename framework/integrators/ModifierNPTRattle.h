@@ -5,67 +5,86 @@
 #include "ModifierMetaRattle.h"
 #include "Vector3DBlock.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	//_________________________________________________________________ModifierNPTRattleDetails
+	class ModifierNPTRattleDetails : public ModifierMetaRattle
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		ModifierNPTRattleDetails(Real eps, int maxIter, int order);
 
-  //_________________________________________________________________ModifierNPTRattleDetails
-  class ModifierNPTRattleDetails : public ModifierMetaRattle {
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class ModifierNPTRattleDetails
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		virtual Real getEpsilonVel() const =0;
+		virtual Real getEtaVel() const =0;
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    ModifierNPTRattleDetails(Real eps, int maxIter, int order);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Modifier
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		virtual void doExecute();
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class ModifierNPTRattleDetails
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    virtual Real getEpsilonVel() const=0;
-    virtual Real getEtaVel() const=0;
+		virtual std::string doPrint() const
+		{
+			return std::string("NPTRattle");
+		};
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Modifier
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    virtual void doExecute();
-    virtual std::string doPrint()const{return std::string("NPTRattle");};
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-  };
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+	};
 
 
-  //_________________________________________________________________ModifierNPTRattle
-  template<class TIntegrator>
-  class ModifierNPTRattle : public ModifierNPTRattleDetails {
+	//_________________________________________________________________ModifierNPTRattle
+	template <class TIntegrator>
+	class ModifierNPTRattle : public ModifierNPTRattleDetails
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		ModifierNPTRattle(Real eps,
+		                  int maxIter,
+		                  const TIntegrator* i,
+		                  int order = Constant::MAX_INT - 400): ModifierNPTRattleDetails(eps, maxIter, order),
+		                                                        myTheIntegrator(i)
+		{
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    ModifierNPTRattle(Real eps, 
-		      int maxIter,
-		      const TIntegrator* i, 
-		      int order=Constant::MAX_INT-400):ModifierNPTRattleDetails(eps,maxIter,order),
-						       myTheIntegrator(i){}
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class ModifierMetaRattleShake
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  protected:
-    virtual Real getTimestep()const{return myTheIntegrator->getTimestep();}
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class ModifierNPTRattleDetails
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    virtual Real getEpsilonVel() const{return myTheIntegrator->getEpsilonVel();}
-    virtual Real getEtaVel() const{return myTheIntegrator->getEtaVel();}
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    const TIntegrator* myTheIntegrator;
-  };
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class ModifierMetaRattleShake
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	protected:
+		virtual Real getTimestep() const
+		{
+			return myTheIntegrator->getTimestep();
+		}
 
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class ModifierNPTRattleDetails
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		virtual Real getEpsilonVel() const
+		{
+			return myTheIntegrator->getEpsilonVel();
+		}
+
+		virtual Real getEtaVel() const
+		{
+			return myTheIntegrator->getEtaVel();
+		}
+
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		const TIntegrator* myTheIntegrator;
+	};
 }
 #endif /* MODIFIERNPTRATTLE_H */

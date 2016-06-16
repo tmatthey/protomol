@@ -1,8 +1,9 @@
 #include "MagneticDipoleMirrorSystemForceBase.h"
 using std::string;
 
-namespace ProtoMol {
-  //_________________________________________________________________ MagneticDipoleMirrorSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ MagneticDipoleMirrorSystemForceBase
 
-  const string MagneticDipoleMirrorSystemForceBase::keyword("MagneticDipoleMirror");
+	const string MagneticDipoleMirrorSystemForceBase::keyword("MagneticDipoleMirror");
 }

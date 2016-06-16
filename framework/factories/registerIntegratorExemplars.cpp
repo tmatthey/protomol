@@ -38,44 +38,43 @@
 #include "registerIntegratorExemplars.h"
 #include "Vector.h"
 
-namespace ProtoMol {
-
-  void registerIntegratorExemplars(){
-    IntegratorFactory::registerExemplar(new BBKIntegrator());
-    IntegratorFactory::registerExemplar(new BSplineMOLLYIntegrator(),Vector<std::string>("HBondMOLLY"));
-    IntegratorFactory::registerExemplar(new CGMinimizer());
-    IntegratorFactory::registerExemplar(new DLMCIntegrator());
-    IntegratorFactory::registerExemplar(new DMDLeapfrogIntegrator());
-    IntegratorFactory::registerExemplar(new DihedralHMCIntegrator());
-    IntegratorFactory::registerExemplar(new EquilibriumMOLLYIntegrator());
-    IntegratorFactory::registerExemplar(new HMCIntegrator());
-    IntegratorFactory::registerExemplar(new HessianInt());
-    IntegratorFactory::registerExemplar(new ImpulseIntegrator());
-    IntegratorFactory::registerExemplar(new LangevinImpulseIntegrator());
-    IntegratorFactory::registerExemplar(new LangevinLeapfrogIntegrator());
-    IntegratorFactory::registerExemplar(new LeapfrogIntegrator());
-    IntegratorFactory::registerExemplar(new LeapfrogTruncatedShadow());
-    IntegratorFactory::registerExemplar(new NPTVerletIntegrator());
-    IntegratorFactory::registerExemplar(new NormModeInt());
-    IntegratorFactory::registerExemplar(new NormModeMin());
-    IntegratorFactory::registerExemplar(new NormModeSmplMin());
-    IntegratorFactory::registerExemplar(new NormModeDiag());
-    IntegratorFactory::registerExemplar(new NormModeVisual());
-    IntegratorFactory::registerExemplar(new NoseNVTLeapfrogIntegrator());
-    IntegratorFactory::registerExemplar(new RMTIntegrator());
-    IntegratorFactory::registerExemplar(new BerendsenIntegrator());
-    IntegratorFactory::registerExemplar(new PLeapfrogIntegrator());
-    IntegratorFactory::registerExemplar(new PaulTrapIntegrator());
-    IntegratorFactory::registerExemplar(new S2HMCIntegrator());
-    IntegratorFactory::registerExemplar(new ShadowHMCIntegrator()); 
-    IntegratorFactory::registerExemplar(new NormalModeLangevin());
-    IntegratorFactory::registerExemplar(new NormalModeMinimizer());
-    IntegratorFactory::registerExemplar(new NormalModeDiagonalize());
-    IntegratorFactory::registerExemplar(new NormalModeMori());
-    IntegratorFactory::registerExemplar(new NormalModeRelax());
-    IntegratorFactory::registerExemplar(new NormalModeBrownian());
-    IntegratorFactory::registerExemplar(new NumericalDifferentiation());
-
-  }
+namespace ProtoMol
+{
+	void registerIntegratorExemplars()
+	{
+		IntegratorFactory::registerExemplar(new BBKIntegrator());
+		IntegratorFactory::registerExemplar(new BSplineMOLLYIntegrator(), Vector<std::string>("HBondMOLLY"));
+		IntegratorFactory::registerExemplar(new CGMinimizer());
+		IntegratorFactory::registerExemplar(new DLMCIntegrator());
+		IntegratorFactory::registerExemplar(new DMDLeapfrogIntegrator());
+		IntegratorFactory::registerExemplar(new DihedralHMCIntegrator());
+		IntegratorFactory::registerExemplar(new EquilibriumMOLLYIntegrator());
+		IntegratorFactory::registerExemplar(new HMCIntegrator());
+		IntegratorFactory::registerExemplar(new HessianInt());
+		IntegratorFactory::registerExemplar(new ImpulseIntegrator());
+		IntegratorFactory::registerExemplar(new LangevinImpulseIntegrator());
+		IntegratorFactory::registerExemplar(new LangevinLeapfrogIntegrator());
+		IntegratorFactory::registerExemplar(new LeapfrogIntegrator());
+		IntegratorFactory::registerExemplar(new LeapfrogTruncatedShadow());
+		IntegratorFactory::registerExemplar(new NPTVerletIntegrator());
+		IntegratorFactory::registerExemplar(new NormModeInt());
+		IntegratorFactory::registerExemplar(new NormModeMin());
+		IntegratorFactory::registerExemplar(new NormModeSmplMin());
+		IntegratorFactory::registerExemplar(new NormModeDiag());
+		IntegratorFactory::registerExemplar(new NormModeVisual());
+		IntegratorFactory::registerExemplar(new NoseNVTLeapfrogIntegrator());
+		IntegratorFactory::registerExemplar(new RMTIntegrator());
+		IntegratorFactory::registerExemplar(new BerendsenIntegrator());
+		IntegratorFactory::registerExemplar(new PLeapfrogIntegrator());
+		IntegratorFactory::registerExemplar(new PaulTrapIntegrator());
+		IntegratorFactory::registerExemplar(new S2HMCIntegrator());
+		IntegratorFactory::registerExemplar(new ShadowHMCIntegrator());
+		IntegratorFactory::registerExemplar(new NormalModeLangevin());
+		IntegratorFactory::registerExemplar(new NormalModeMinimizer());
+		IntegratorFactory::registerExemplar(new NormalModeDiagonalize());
+		IntegratorFactory::registerExemplar(new NormalModeMori());
+		IntegratorFactory::registerExemplar(new NormalModeRelax());
+		IntegratorFactory::registerExemplar(new NormalModeBrownian());
+		IntegratorFactory::registerExemplar(new NumericalDifferentiation());
+	}
 }
-

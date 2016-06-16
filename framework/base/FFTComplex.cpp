@@ -3,7 +3,7 @@
 //
 #ifdef HAVE_FFT_SGI
 #  include <fft.h> // !!! Include first <fft.h> then "FFTComplex.h" !!!
-                   // We use the definition of zomplex in <fft.h>
+// We use the definition of zomplex in <fft.h>
 #else
 #  ifdef HAVE_FFT_FFTW3
 #    include <fftw3.h>
@@ -20,18 +20,20 @@
 #           include <fftw_mpi.h>
 #         else /* ZFFT */
 #           include "FFTComplex.h"     // Defines zomplex
-extern "C" {
-  extern zomplex *zfftm1di(int m, zomplex *save);
-  extern int zfftm1d(int sign, int m, int n, zomplex *array, 
-                     int incI, int incJ, zomplex *save);
-  
-  extern zomplex *zfft2di( int n1, int n2, zomplex *save);
-  extern int zfft2d(int sign, int n1, int n2, zomplex *array, 
-                    int ld, zomplex *save);
-  
-  extern zomplex *zfft3di(int n1, int n2, int n3, zomplex *save);
-  extern int zfft3d(int sign, int n1, int n2, int n3, zomplex *array, 
-                    int ld1, int ld2, zomplex *save);
+
+extern "C"
+{
+	extern zomplex* zfftm1di(int m, zomplex* save);
+	extern int zfftm1d(int sign, int m, int n, zomplex* array,
+	                   int incI, int incJ, zomplex* save);
+
+	extern zomplex* zfft2di(int n1, int n2, zomplex* save);
+	extern int zfft2d(int sign, int n1, int n2, zomplex* array,
+	                  int ld, zomplex* save);
+
+	extern zomplex* zfft3di(int n1, int n2, int n3, zomplex* save);
+	extern int zfft3d(int sign, int n1, int n2, int n3, zomplex* array,
+	                  int ld1, int ld2, zomplex* save);
 }
 #         endif
 #       endif
@@ -48,59 +50,73 @@ extern "C" {
 #include "Report.h"
 using namespace ProtoMol::Report;
 
-namespace ProtoMol {
-
-  //
-  // Define the right implementation of FFTInternal
-  //
+namespace ProtoMol
+{
+	//
+	// Define the right implementation of FFTInternal
+	//
 #if defined(HAVE_FFT_SGI) || !defined(HAVE_FFT)
-  //_________________________________________________________________ FFTInternal
-  //
-  // complib.sgimath and ZFFT
-  //
-  class FFTInternal {
+	//_________________________________________________________________ FFTInternal
+	//
+	// complib.sgimath and ZFFT
+	//
+	class FFTInternal
+	{
+	public:
+		FFTInternal(): myNX(0), myNY(0), myNZ(0), myArray(NULL), myFFTCoeff(NULL)
+		{
+		}
 
-  public:
-    FFTInternal():myNX(0),myNY(0),myNZ(0),myArray(NULL),myFFTCoeff(NULL){}
-    ~FFTInternal();
+		~FFTInternal();
 
-    void initialize(int x, int y, int z,zomplex* a);
-    void forward() {zfft3d( 1,myNZ,myNY,myNX,myArray,myNZ,myNY,myFFTCoeff);}
-    void backward(){zfft3d(-1,myNZ,myNY,myNX,myArray,myNZ,myNY,myFFTCoeff);}
-  private:
-    FFTInternal(const FFTInternal&);
+		void initialize(int x, int y, int z, zomplex* a);
 
-  private:
-    int myNX;
-    int myNY;
-    int myNZ;
-    zomplex* myArray;
-    zomplex* myFFTCoeff;
-  };
+		void forward()
+		{
+			zfft3d(1, myNZ, myNY, myNX, myArray, myNZ, myNY, myFFTCoeff);
+		}
 
-  FFTInternal::~FFTInternal(){
-    if(myFFTCoeff != NULL)
-      free(myFFTCoeff);    
-  }
+		void backward()
+		{
+			zfft3d(-1, myNZ, myNY, myNX, myArray, myNZ, myNY, myFFTCoeff);
+		}
 
-  void FFTInternal::initialize(int x, int y, int z,zomplex* a){
-    if(x == myNX && y == myNY && z == myNZ && a == myArray)
-      return;
-    myNX = x;
-    myNY = y;
-    myNZ = z;
-    myArray = a;
-    if(myFFTCoeff != NULL)
-      free(myFFTCoeff);
-    myFFTCoeff = zfft3di(myNZ,myNY,myNX,NULL);    
-  }
+	private:
+		FFTInternal(const FFTInternal&);
+
+	private:
+		int myNX;
+		int myNY;
+		int myNZ;
+		zomplex* myArray;
+		zomplex* myFFTCoeff;
+	};
+
+	FFTInternal::~FFTInternal()
+	{
+		if (myFFTCoeff != NULL)
+			free(myFFTCoeff);
+	}
+
+	void FFTInternal::initialize(int x, int y, int z, zomplex* a)
+	{
+		if (x == myNX && y == myNY && z == myNZ && a == myArray)
+			return;
+		myNX = x;
+		myNY = y;
+		myNZ = z;
+		myArray = a;
+		if (myFFTCoeff != NULL)
+			free(myFFTCoeff);
+		myFFTCoeff = zfft3di(myNZ, myNY, myNX,NULL);
+	}
 
 #else
 #  ifdef HAVE_FFT_FFTW3
-  //_________________________________________________________________ FFTInternal
-  //
-  // FFTW3
-  //
+	//_________________________________________________________________ FFTInternal
+	//
+	// FFTW3
+	//
   class FFTInternal {
 
   public:
@@ -151,10 +167,10 @@ namespace ProtoMol {
 
 #  else
 #     ifdef HAVE_FFT_ESSL
-  //_________________________________________________________________ FFTInternal
-  //
-  // ESSL
-  // 
+	//_________________________________________________________________ FFTInternal
+	//
+	// ESSL
+	// 
   class FFTInternal {
 
   public:
@@ -223,10 +239,10 @@ namespace ProtoMol {
   }
 #     else
 #       ifdef HAVE_FFT_FFTW2
-  //_________________________________________________________________ FFTInternal
-  //
-  // FFTW2
-  //
+	//_________________________________________________________________ FFTInternal
+	//
+	// FFTW2
+	//
   class FFTInternal {
 
   public:
@@ -276,10 +292,10 @@ namespace ProtoMol {
   }
 #       else
 #         ifdef HAVE_FFT_FFTW2_MPI
-  //_________________________________________________________________ FFTInternal
-  //
-  // FFTW2 MPI
-  //
+	//_________________________________________________________________ FFTInternal
+	//
+	// FFTW2 MPI
+	//
 
 #ifdef USE_REAL_IS_FLOAT
 #define MY_MPI_REAL MPI_FLOAT
@@ -358,7 +374,7 @@ namespace ProtoMol {
     myNZ = z;
     myArray = (fftw_complex*)a;
 
-    // Clean
+	// Clean
     if(myPlanForward != NULL){
       fftwnd_mpi_destroy_plan(myPlanForward);
       myPlanForward = NULL;
@@ -383,13 +399,13 @@ namespace ProtoMol {
       MPI_Comm_free(&myLocalComm);    
 
 
-    // Select the right number of nodes
+	// Select the right number of nodes
     int rank, size;
     MPI_Comm_rank(myComm,&rank);
     MPI_Comm_size(myComm,&size);
     myNum = std::min(myNX,size);
     if(myNum < size){
-      // We need to remove some
+	// We need to remove some
       MPI_Group worldGroup = MPI_GROUP_NULL;
       MPI_Group slaveGroup = MPI_GROUP_NULL;
       int* excl = new int [size-myNum];
@@ -403,7 +419,7 @@ namespace ProtoMol {
       delete [] excl;    
     }
     else {
-      // Ok, use all available nodes
+	// Ok, use all available nodes
       myLocalComm = myComm;
     }
     if(size > 1)
@@ -464,7 +480,7 @@ namespace ProtoMol {
 	}
       }
     }
-    // If we excluded nodes we have to broad cast ...
+	// If we excluded nodes we have to broad cast ...
     if(myComm != myLocalComm){
       MPI_Bcast((Real*)myArray,2*myNX*myNY*myNZ, MY_MPI_REAL,0, myComm);      
     }
@@ -501,7 +517,7 @@ namespace ProtoMol {
 	}
       }
     }
-    // If we excluded nodes we have to broad cast ...
+	// If we excluded nodes we have to broad cast ...
     if(myComm != myLocalComm){
       MPI_Bcast((Real*)myArray,myNX*myNY*myNZ*2, MY_MPI_REAL,0 , myComm);      
     }
@@ -514,11 +530,11 @@ namespace ProtoMol {
       MPI_Comm_free(&myComm);
     }
     if(master < 0){
-      // All nodes are slaves, no master
+	// All nodes are slaves, no master
       myComm = MPI_COMM_WORLD;
     }
     else {
-      // Create intracommunicator only with slaves
+	// Create intracommunicator only with slaves
       MPI_Group worldGroup = MPI_GROUP_NULL;
       MPI_Group slaveGroup = MPI_GROUP_NULL;
       int excl[] = {master};
@@ -543,26 +559,31 @@ namespace ProtoMol {
 #endif
 
 
-  //_________________________________________________________________ FFTComplex
-  FFTComplex::FFTComplex():myFFTInternal(NULL){
-    myFFTInternal = new FFTInternal();
-  }
+	//_________________________________________________________________ FFTComplex
+	FFTComplex::FFTComplex(): myFFTInternal(NULL)
+	{
+		myFFTInternal = new FFTInternal();
+	}
 
-  FFTComplex::~FFTComplex(){
-    delete myFFTInternal;
-  }
+	FFTComplex::~FFTComplex()
+	{
+		delete myFFTInternal;
+	}
 
-  void FFTComplex::initialize(int x, int y, int z,zomplex* a){
-    myFFTInternal->initialize(x,y,z,a);
-  }
+	void FFTComplex::initialize(int x, int y, int z, zomplex* a)
+	{
+		myFFTInternal->initialize(x, y, z, a);
+	}
 
-  void FFTComplex::backward(){
-    myFFTInternal->backward();
-  }
+	void FFTComplex::backward()
+	{
+		myFFTInternal->backward();
+	}
 
-  void FFTComplex::forward(){
-    myFFTInternal->forward();
-  }
+	void FFTComplex::forward()
+	{
+		myFFTInternal->forward();
+	}
 
 #if defined(HAVE_FFT_FFTW2_MPI)
   void FFTComplex::FFTComplexMPIInit(int master){
@@ -577,12 +598,17 @@ namespace ProtoMol {
     return true;
   }
 #else
-  void FFTComplex::FFTComplexMPIInit(int){}
+	void FFTComplex::FFTComplexMPIInit(int)
+	{
+	}
 
-  void FFTComplex::FFTComplexMPIFinalize(){}    
+	void FFTComplex::FFTComplexMPIFinalize()
+	{
+	}
 
-  bool FFTComplex::isParallel(){
-    return false;
-  }
+	bool FFTComplex::isParallel()
+	{
+		return false;
+	}
 #endif
 }

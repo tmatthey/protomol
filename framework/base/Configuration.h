@@ -8,89 +8,104 @@
 #include <vector>
 #include <map>
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	//________________________________________________________ Configuration
+	/**
+	 * Container (map) holding a system configuration, a keyword together 
+	 * with the value  and an optional help text. The value use Value, which
+	 * comes with additional information about the type and constraints.
+	 */
+	class Configuration
+	{
+		typedef std::map<std::string, Value, ltstrNocase> ValueMapType;
+		typedef std::map<std::string, std::string, ltstrNocase> AliasMapType;
+		typedef std::map<std::string, std::string, ltstrNocase> TextMapType;
+		typedef ValueMapType::iterator iterator;
+	public:
+		typedef ValueMapType::const_iterator const_iterator;
 
-  //________________________________________________________ Configuration
-  /**
-   * Container (map) holding a system configuration, a keyword together 
-   * with the value  and an optional help text. The value use Value, which
-   * comes with additional information about the type and constraints.
-   */
-  class Configuration {
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		//Configuration(){}
+		//~Configuration(){}
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class Configuration
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		/// Register new keyword with its value
+		void registerKeyword(const std::string& keyword, Value value);
+		/// Register aliases for a given keyword
+		void registerAliases(const std::string& keyword, const std::vector<std::string>& aliases);
+		/// Unregister a keyword
+		void unregisterKeyword(const std::string& keyword);
 
-    typedef std::map<std::string,Value,ltstrNocase>       ValueMapType;
-    typedef std::map<std::string,std::string,ltstrNocase> AliasMapType;
-    typedef std::map<std::string,std::string,ltstrNocase> TextMapType;
-    typedef ValueMapType::iterator	                  iterator;
-  public:
-    typedef ValueMapType::const_iterator                  const_iterator;
+		/// Test if the keyword exists
+		bool empty(const std::string& keyword = std::string("")) const;
+		/// Test if the keyword has a defined type
+		bool defined(const std::string& keyword) const;
+		/// Test if the keyword's value is valid
+		bool valid(const std::string& keyword) const;
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    //Configuration(){}
-    //~Configuration(){}
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class Configuration
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    /// Register new keyword with its value
-    void registerKeyword(const std::string& keyword, Value value);
-    /// Register aliases for a given keyword
-    void registerAliases(const std::string& keyword, const std::vector<std::string>& aliases);
-    /// Unregister a keyword
-    void unregisterKeyword(const std::string& keyword);
+		// Set
+		bool set(const std::string& keyword, Value);
+		bool set(const std::string& keyword, const std::string& val); // Uses ValueTraits<>::init() if val == ""
+		bool set(const std::string& keyword, const std::vector<std::vector<std::string>>& values);
+		bool set(const std::vector<std::vector<std::string>>& values);
+		bool setText(const std::string& keyword, const std::string& text);
 
-    /// Test if the keyword exists
-    bool empty(const std::string& keyword=std::string("")) const;
-    /// Test if the keyword has a defined type
-    bool defined(const std::string& keyword) const;
-    /// Test if the keyword's value is valid
-    bool valid(const std::string& keyword) const;
+		// Get
+		Value get(const std::string& keyword) const;
+		std::vector<Value> get(const std::vector<Parameter>& parameters) const;
+		std::string getText(const std::string& keyword) const;
+		std::vector<std::string> getAliases(const std::string& keyword) const;
 
-    // Set
-    bool set(const std::string& keyword, Value);
-    bool set(const std::string& keyword, const std::string& val); // Uses ValueTraits<>::init() if val == ""
-    bool set(const std::string& keyword, const std::vector<std::vector<std::string> >&  values);
-    bool set(const std::vector<std::vector<std::string> >&  values);
-    bool setText(const std::string& keyword, const std::string& text);
+		// Get and set; direct access, unsafe
+		Value& operator[](const std::string& keyword);
+		const Value& operator[](const std::string& keyword) const;
 
-    // Get
-    Value get(const std::string& keyword) const;
-    std::vector<Value> get(const std::vector<Parameter>& parameters) const;
-    std::string getText(const std::string& keyword) const;
-    std::vector<std::string> getAliases(const std::string& keyword) const;
+		// Global print & test
+		std::string print() const;
+		bool validConfiguration() const;
+		bool validConfiguration(std::string& errMsg) const;
 
-    // Get and set; direct access, unsafe
-    Value& operator[](const std::string& keyword);   
-    const Value& operator[](const std::string& keyword) const;
+		// Iterators
+		const_iterator begin() const
+		{
+			return myValues.begin();
+		}
 
-    // Global print & test
-    std::string print() const;
-    bool validConfiguration() const;
-    bool validConfiguration(std::string& errMsg) const;
+		const_iterator end() const
+		{
+			return myValues.end();
+		}
 
-    // Iterators
-    const_iterator begin() const {return myValues.begin();}
-    const_iterator end() const {return myValues.end();} 
-    const_iterator find(const std::string& keyword) const;
+		const_iterator find(const std::string& keyword) const;
 
-  private:
-    iterator begin() {return myValues.begin();}
-    iterator end() {return myValues.end();}
-    iterator find(const std::string& keyword);
-    
-  private:
+	private:
+		iterator begin()
+		{
+			return myValues.begin();
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // private data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    ValueMapType myValues;
-    AliasMapType myAliases;
-    TextMapType  myTexts;
+		iterator end()
+		{
+			return myValues.end();
+		}
 
-  };
+		iterator find(const std::string& keyword);
+
+	private:
+
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// private data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		ValueMapType myValues;
+		AliasMapType myAliases;
+		TextMapType myTexts;
+	};
 }
 #endif

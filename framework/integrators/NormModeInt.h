@@ -5,91 +5,96 @@
 #include "MTSIntegrator.h"
 #include "Vector3DBlock.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	class ScalarStructure;
+	class ForceGroup;
 
-  class ScalarStructure;
-  class ForceGroup;
+	//__________________________________________________ NormModeInt
+	class NormModeInt : public MTSIntegrator
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		NormModeInt();
+		NormModeInt(int cycles, int fixmodes, Real gamma, int seed, Real temperature, int nve, Real bertau, int fdof, ForceGroup* overloadedForces, StandardIntegrator* nextIntegrator);
+		~NormModeInt();
 
-  //__________________________________________________ NormModeInt
-  class NormModeInt : public MTSIntegrator {
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    NormModeInt();
-    NormModeInt(int cycles, int fixmodes, Real gamma, int seed, Real temperature, int nve, Real bertau, int fdof, ForceGroup *overloadedForces, StandardIntegrator *nextIntegrator);
-    ~NormModeInt(); 
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class NormModeInt
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	protected:
+		void drift();
+	public:
+		Vector3DBlock* subspaceForce(Vector3DBlock* force, Vector3DBlock* iPforce);
+		Vector3DBlock* subspaceVelocity(Vector3DBlock* force, Vector3DBlock* iPforce);
+		Vector3DBlock* nonSubspaceForce(Vector3DBlock* force, Vector3DBlock* iPforce);
+		Vector3DBlock* nonSubspacePosition(Vector3DBlock* force, Vector3DBlock* iPforce);
+		void subSpaceSift();
+		Real expansionPe(Real* hatpe, Real* coupl, int typ);
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class NormModeInt
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  protected:
-	void drift();
-  public:
-	Vector3DBlock *subspaceForce(Vector3DBlock * force, Vector3DBlock * iPforce);
-	Vector3DBlock *subspaceVelocity(Vector3DBlock * force, Vector3DBlock * iPforce);
-	Vector3DBlock *nonSubspaceForce(Vector3DBlock * force, Vector3DBlock * iPforce);
-	Vector3DBlock *nonSubspacePosition(Vector3DBlock * force, Vector3DBlock * iPforce);
-	void subSpaceSift();
-	Real expansionPe(Real *hatpe, Real *coupl, int typ);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Makeable
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual std::string getIdNoAlias() const
+		{
+			return keyword;
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Makeable
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual std::string getIdNoAlias() const{return keyword;}
-    virtual unsigned int getParameterSize() const{return 8;}
-    virtual void getParameters(std::vector<Parameter>& parameters) const;
+		virtual unsigned int getParameterSize() const
+		{
+			return 8;
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Integrator
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual void initialize(GenericTopology *topo,
-			    Vector3DBlock   *positions,
-			    Vector3DBlock   *velocities, 
-			    ScalarStructure *energies);
-    virtual void run(int numTimesteps);
+		virtual void getParameters(std::vector<Parameter>& parameters) const;
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class STSIntegrator
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    virtual MTSIntegrator* doMake(std::string& errMsg, const std::vector<Value>& values, ForceGroup* fg, StandardIntegrator *nextIntegrator)const;
-  public:
-	double *vector3DBlockTOvect(Vector3DBlock* blkDat, double* vecDat);
-	Vector3DBlock *vectTOvector3DBlock(double* vecDat, Vector3DBlock* blkDat);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Integrator
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual void initialize(GenericTopology* topo,
+		                        Vector3DBlock* positions,
+		                        Vector3DBlock* velocities,
+		                        ScalarStructure* energies);
+		virtual void run(int numTimesteps);
 
-    void restoreState(CheckpointInputStream&);
-    void saveState(CheckpointOutputStream&);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class STSIntegrator
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		virtual MTSIntegrator* doMake(std::string& errMsg, const std::vector<Value>& values, ForceGroup* fg, StandardIntegrator* nextIntegrator) const;
+	public:
+		double* vector3DBlockTOvect(Vector3DBlock* blkDat, double* vecDat);
+		Vector3DBlock* vectTOvector3DBlock(double* vecDat, Vector3DBlock* blkDat);
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    static const std::string keyword;
-    int _N, _m, _rfM, _3N, avItrs, itrs, avMinForceCalc, minForceCalc;
-	double *tmpFX, *tmpC;
-	Vector3DBlock gaussRandCoordM;
+		void restoreState(CheckpointInputStream&);
+		void saveState(CheckpointOutputStream&);
 
-  private:
-    Vector3DBlock* ex0;
-	int fixMod;
-	Real myGamma;
-	int mySeed;
-	Real myTemp;
-	int myNVE;
-	Real myBerendsen;
-	int fDof;
-	double *invSqrtMass, *sqrtMass;
-    int numSteps;
-    Vector3DBlock gaussRandCoord1, gaussRandCoord2, posUpdt;
-	Real orgEnergy;
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		static const std::string keyword;
+		int _N, _m, _rfM, _3N, avItrs, itrs, avMinForceCalc, minForceCalc;
+		double *tmpFX, *tmpC;
+		Vector3DBlock gaussRandCoordM;
 
-  };
-
+	private:
+		Vector3DBlock* ex0;
+		int fixMod;
+		Real myGamma;
+		int mySeed;
+		Real myTemp;
+		int myNVE;
+		Real myBerendsen;
+		int fDof;
+		double *invSqrtMass, *sqrtMass;
+		int numSteps;
+		Vector3DBlock gaussRandCoord1, gaussRandCoord2, posUpdt;
+		Real orgEnergy;
+	};
 }
 
 #endif
-
-

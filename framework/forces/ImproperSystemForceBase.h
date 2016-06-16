@@ -4,15 +4,18 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ ImproperSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ ImproperSystemForceBase
 
-  class ImproperSystemForceBase {
-  public:
-    virtual ~ImproperSystemForceBase(){}
-    static const std::string keyword;
-  };
+	class ImproperSystemForceBase
+	{
+	public:
+		virtual ~ImproperSystemForceBase()
+		{
+		}
+
+		static const std::string keyword;
+	};
 }
 #endif /* IMPROPERSYSTEMFORCEBASE_H */
-
-  

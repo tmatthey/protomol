@@ -3,6 +3,7 @@ using std::string;
 
 //_________________________________________________________________ LennardJonesForce
 
-namespace ProtoMol {
-  const string LennardJonesForce::keyword("LennardJones");
+namespace ProtoMol
+{
+	const string LennardJonesForce::keyword("LennardJones");
 }

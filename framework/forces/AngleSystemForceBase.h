@@ -4,14 +4,18 @@
 
 #include <string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ AngleSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ AngleSystemForceBase
 
-  class AngleSystemForceBase {
-  public:
-    virtual ~AngleSystemForceBase(){}
-    static const std::string keyword;
-  };
+	class AngleSystemForceBase
+	{
+	public:
+		virtual ~AngleSystemForceBase()
+		{
+		}
+
+		static const std::string keyword;
+	};
 }
 #endif /* ANGLESYSTEMFORCEBASE_H */
-

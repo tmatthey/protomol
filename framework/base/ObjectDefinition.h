@@ -5,25 +5,31 @@
 #include <vector>
 #include "Parameter.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	//________________________________________________________ ObjectDefinition
+	struct ObjectDefinition
+	{
+		// Container struct for object definitions
 
-  //________________________________________________________ ObjectDefinition
-  struct ObjectDefinition {
-    // Container struct for object definitions
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		ObjectDefinition()
+		{
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    ObjectDefinition(){}
-    ObjectDefinition(const std::string& i,const std::vector<Parameter>& p):id(i),parameters(p){}
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    std::string            id;
-    std::vector<Parameter> parameters;
-  };
+		ObjectDefinition(const std::string& i, const std::vector<Parameter>& p): id(i), parameters(p)
+		{
+		}
 
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		std::string id;
+		std::vector<Parameter> parameters;
+	};
 }
 #endif /* OBJECTDEFINITION_H */

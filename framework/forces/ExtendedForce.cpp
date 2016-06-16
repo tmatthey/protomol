@@ -3,18 +3,22 @@
 #include "ExtendedCompareForce.h"
 #include "ExtendedTimeForce.h"
 
-namespace ProtoMol {
-  //_________________________________________________________________ ExtendedForce
+namespace ProtoMol
+{
+	//_________________________________________________________________ ExtendedForce
 
-  void ExtendedForce::addToForceGroup(ForceGroup* forceGroup){
-    forceGroup->addExtendedForce(this);
-  }
+	void ExtendedForce::addToForceGroup(ForceGroup* forceGroup)
+	{
+		forceGroup->addExtendedForce(this);
+	}
 
-  CompareForce* ExtendedForce::makeCompareForce(Force* actualForce, CompareForce* compareForce) const{
-    return (new ExtendedCompareForce(actualForce,compareForce));
-  }
+	CompareForce* ExtendedForce::makeCompareForce(Force* actualForce, CompareForce* compareForce) const
+	{
+		return (new ExtendedCompareForce(actualForce, compareForce));
+	}
 
-  TimeForce* ExtendedForce::makeTimeForce(Force* actualForce) const{
-    return (new ExtendedTimeForce(actualForce));
-  }
+	TimeForce* ExtendedForce::makeTimeForce(Force* actualForce) const
+	{
+		return (new ExtendedTimeForce(actualForce));
+	}
 }

@@ -9,18 +9,16 @@
 #define USE_REAL_IS_DOUBLE
 #endif
 
-namespace ProtoMol {
-
-
-  /// The standard Real number type, settable by the user: double
+namespace ProtoMol
+{
+	/// The standard Real number type, settable by the user: double
 #ifdef USE_REAL_IS_DOUBLE
-  typedef double Real;
+	typedef double Real;
 #endif
 
-  /// The standard Real number type, settable by the user: float
+	/// The standard Real number type, settable by the user: float
 #ifdef USE_REAL_IS_FLOAT
   typedef float Real;
 #endif
-
 }
 #endif /*REAL_H*/

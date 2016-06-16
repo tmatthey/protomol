@@ -5,34 +5,38 @@
 #include "TimeForce.h"
 #include "SystemForce.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	//_________________________________________________________________ SystemTimeForce
 
-  //_________________________________________________________________ SystemTimeForce
+	class SystemTimeForce : public TimeForce, public SystemForce
+	{
+		// This class contains the definition of one force
 
-  class SystemTimeForce : public TimeForce, public SystemForce {
-    // This class contains the definition of one force
-  
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    SystemTimeForce(Force* actualForce);
-    virtual ~SystemTimeForce(){};
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class SystemForce
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    virtual void evaluate(const GenericTopology* topo, 
-			  const Vector3DBlock* positions,
-			  Vector3DBlock* forces, 
-			  ScalarStructure* energies);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		SystemTimeForce(Force* actualForce);
 
-    virtual void parallelEvaluate(const GenericTopology* topo, 
-				  const Vector3DBlock* positions, 
-				  Vector3DBlock* forces, 
-				  ScalarStructure* energies);
+		virtual ~SystemTimeForce()
+		{
+		};
 
-  };
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class SystemForce
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		virtual void evaluate(const GenericTopology* topo,
+		                      const Vector3DBlock* positions,
+		                      Vector3DBlock* forces,
+		                      ScalarStructure* energies);
 
-  //______________________________________________________________________ INLINES
+		virtual void parallelEvaluate(const GenericTopology* topo,
+		                              const Vector3DBlock* positions,
+		                              Vector3DBlock* forces,
+		                              ScalarStructure* energies);
+	};
+
+	//______________________________________________________________________ INLINES
 }
 #endif /* SYSTEMTIMEFORCE_H */

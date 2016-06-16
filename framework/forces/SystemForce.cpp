@@ -6,19 +6,23 @@
 using std::vector;
 using std::string;
 using namespace ProtoMol::Report;
-namespace ProtoMol {
 
-  //_________________________________________________________________ SystemForce
+namespace ProtoMol
+{
+	//_________________________________________________________________ SystemForce
 
-  void SystemForce::addToForceGroup(ForceGroup* forceGroup){
-    forceGroup->addSystemForce(this);
-  }
+	void SystemForce::addToForceGroup(ForceGroup* forceGroup)
+	{
+		forceGroup->addSystemForce(this);
+	}
 
-  CompareForce* SystemForce::makeCompareForce(Force* actualForce, CompareForce* compareForce) const{
-    return new SystemCompareForce(actualForce,compareForce);
-  }
-  
-  TimeForce* SystemForce::makeTimeForce(Force* actualForce) const{
-    return new SystemTimeForce(actualForce);
-  }
+	CompareForce* SystemForce::makeCompareForce(Force* actualForce, CompareForce* compareForce) const
+	{
+		return new SystemCompareForce(actualForce, compareForce);
+	}
+
+	TimeForce* SystemForce::makeTimeForce(Force* actualForce) const
+	{
+		return new SystemTimeForce(actualForce);
+	}
 }

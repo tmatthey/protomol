@@ -4,14 +4,18 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ NonbondedCutoffForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ NonbondedCutoffForceBase
 
-  class NonbondedCutoffForceBase {
-  public:
-    virtual ~NonbondedCutoffForceBase(){}
-    static const std::string keyword;
-  };
+	class NonbondedCutoffForceBase
+	{
+	public:
+		virtual ~NonbondedCutoffForceBase()
+		{
+		}
+
+		static const std::string keyword;
+	};
 }
 #endif /* NONBONDEDCUTOFFFORCEBASE_H */
-

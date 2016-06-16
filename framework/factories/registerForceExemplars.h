@@ -3,12 +3,11 @@
 #define REGISTERFORCEEXEMPLARS_H
 
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	class GenericTopology;
 
-  class GenericTopology;
-
-  /// registers all force prototypes by calling all registerForceExemplars* to be recognized by the parser
-  void registerForceExemplars(const GenericTopology* topo);
-
+	/// registers all force prototypes by calling all registerForceExemplars* to be recognized by the parser
+	void registerForceExemplars(const GenericTopology* topo);
 }
 #endif /* REGISTERFORCEEXEMPLARS_H */

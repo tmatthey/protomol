@@ -6,10 +6,10 @@
 
 //_________________________________________________________________ HapticSystemForceBase
 
-class HapticSystemForceBase {
- public:
-  static const std::string keyword;
+class HapticSystemForceBase
+{
+public:
+	static const std::string keyword;
 };
 
 #endif /* HAPTICSYSTEMFORCEBASE_H */
-

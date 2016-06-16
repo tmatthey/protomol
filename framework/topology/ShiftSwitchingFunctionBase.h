@@ -4,13 +4,14 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ ShiftSwitchingFunctionBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ ShiftSwitchingFunctionBase
 
-  class ShiftSwitchingFunctionBase {
-  public:
-    static const std::string keyword;
-  };
-
+	class ShiftSwitchingFunctionBase
+	{
+	public:
+		static const std::string keyword;
+	};
 }
 #endif /* SHIFTSWITCHINGFUNCTIONBASE_H */

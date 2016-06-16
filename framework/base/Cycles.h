@@ -4,91 +4,92 @@
 
 #include "protomol.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	// Private namespace to hide internals
 
-  // Private namespace to hide internals
+	namespace Private
+	{
+		/*
+		 * Copyright (c) 2003 Matteo Frigo
+		 * Copyright (c) 2003 Massachusetts Institute of Technology
+		 *
+		 * Permission is hereby granted, free of charge, to any person obtaining
+		 * a copy of this software and associated documentation files (the
+		 * "Software"), to deal in the Software without restriction, including
+		 * without limitation the rights to use, copy, modify, merge, publish,
+		 * distribute, sublicense, and/or sell copies of the Software, and to
+		 * permit persons to whom the Software is furnished to do so, subject to
+		 * the following conditions:
+		 *
+		 * The above copyright notice and this permission notice shall be
+		 * included in all copies or substantial portions of the Software.
+		 *
+		 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+		 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+		 * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+		 * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+		 * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+		 * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+		 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+		 *
+		 */
 
-  namespace Private {
-    /*
-     * Copyright (c) 2003 Matteo Frigo
-     * Copyright (c) 2003 Massachusetts Institute of Technology
-     *
-     * Permission is hereby granted, free of charge, to any person obtaining
-     * a copy of this software and associated documentation files (the
-     * "Software"), to deal in the Software without restriction, including
-     * without limitation the rights to use, copy, modify, merge, publish,
-     * distribute, sublicense, and/or sell copies of the Software, and to
-     * permit persons to whom the Software is furnished to do so, subject to
-     * the following conditions:
-     *
-     * The above copyright notice and this permission notice shall be
-     * included in all copies or substantial portions of the Software.
-     *
-     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-     * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-     * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-     * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-     * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-     * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-     *
-     */
+		/* $Id: Cycles.h,v 1.5 2005/01/10 16:08:32 tmatthey Exp $ */
 
-    /* $Id: Cycles.h,v 1.5 2005/01/10 16:08:32 tmatthey Exp $ */
+		/* machine-dependent cycle counters code. Needs to be inlined. */
 
-    /* machine-dependent cycle counters code. Needs to be inlined. */
+		/***************************************************************************/
+		/* To use the cycle counters in your code, simply #include "cycle.h" (this
+		   file), and then use the functions/macros:
+	
+		   ticks getticks(void);
+	
+		   ticks is an opaque typedef defined below, representing the current time.
+		   You extract the elapsed time between two calls to gettick() via:
+	
+		   double elapsed(ticks t1, ticks t0);
+	
+		   which returns a double-precision variable in arbitrary units.  You
+		   are not expected to convert this into human units like seconds; it
+		   is intended only for *comparisons* of time intervals.
+	
+		   (In order to use some of the OS-dependent timer routines like
+		   Solaris' gethrtime, you need to paste the autoconf snippet below
+		   into your configure.ac file and #include "config.h" before cycle.h,
+		   or define the relevant macros manually if you are not using autoconf.)
+		*/
 
-    /***************************************************************************/
-    /* To use the cycle counters in your code, simply #include "cycle.h" (this
-       file), and then use the functions/macros:
+		/***************************************************************************/
+		/* This file uses macros like HAVE_GETHRTIME that are assumed to be
+		   defined according to whether the corresponding function/type/header
+		   is available on your system.  The necessary macros are most
+		   conveniently defined if you are using GNU autoconf, via the tests:
+	 
+		   dnl ---------------------------------------------------------------------
+	
+		   AC_C_INLINE
+		   AC_HEADER_TIME
+		   AC_CHECK_HEADERS([sys/time.h c_asm.h intrinsics.h])
+	
+		   AC_CHECK_TYPE([hrtime_t],[AC_DEFINE(HAVE_HRTIME_T, 1, [Define to 1 if hrtime_t is defined in <sys/time.h>])],,[#if HAVE_SYS_TIME_H
+		   #include <sys/time.h>
+		   #endif])
+	
+		   AC_CHECK_FUNCS([gethrtime read_real_time time_base_to_time clock_gettime])
+	
+		   dnl Cray UNICOS _rtc() (real-time clock) intrinsic
+		   AC_MSG_CHECKING([for _rtc intrinsic])
+		   rtc_ok=yes
+		   AC_TRY_LINK([#ifdef HAVE_INTRINSICS_H
+		   #include <intrinsics.h>
+		   #endif], [_rtc()], [AC_DEFINE(HAVE__RTC,1,[Define if you have the UNICOS _rtc() intrinsic.])], [rtc_ok=no])
+		   AC_MSG_RESULT($rtc_ok)
+	
+		   dnl ---------------------------------------------------------------------
+		*/
 
-       ticks getticks(void);
-
-       ticks is an opaque typedef defined below, representing the current time.
-       You extract the elapsed time between two calls to gettick() via:
-
-       double elapsed(ticks t1, ticks t0);
-
-       which returns a double-precision variable in arbitrary units.  You
-       are not expected to convert this into human units like seconds; it
-       is intended only for *comparisons* of time intervals.
-
-       (In order to use some of the OS-dependent timer routines like
-       Solaris' gethrtime, you need to paste the autoconf snippet below
-       into your configure.ac file and #include "config.h" before cycle.h,
-       or define the relevant macros manually if you are not using autoconf.)
-    */
-
-    /***************************************************************************/
-    /* This file uses macros like HAVE_GETHRTIME that are assumed to be
-       defined according to whether the corresponding function/type/header
-       is available on your system.  The necessary macros are most
-       conveniently defined if you are using GNU autoconf, via the tests:
-   
-       dnl ---------------------------------------------------------------------
-
-       AC_C_INLINE
-       AC_HEADER_TIME
-       AC_CHECK_HEADERS([sys/time.h c_asm.h intrinsics.h])
-
-       AC_CHECK_TYPE([hrtime_t],[AC_DEFINE(HAVE_HRTIME_T, 1, [Define to 1 if hrtime_t is defined in <sys/time.h>])],,[#if HAVE_SYS_TIME_H
-       #include <sys/time.h>
-       #endif])
-
-       AC_CHECK_FUNCS([gethrtime read_real_time time_base_to_time clock_gettime])
-
-       dnl Cray UNICOS _rtc() (real-time clock) intrinsic
-       AC_MSG_CHECKING([for _rtc intrinsic])
-       rtc_ok=yes
-       AC_TRY_LINK([#ifdef HAVE_INTRINSICS_H
-       #include <intrinsics.h>
-       #endif], [_rtc()], [AC_DEFINE(HAVE__RTC,1,[Define if you have the UNICOS _rtc() intrinsic.])], [rtc_ok=no])
-       AC_MSG_RESULT($rtc_ok)
-
-       dnl ---------------------------------------------------------------------
-    */
-
-    /***************************************************************************/
+		/***************************************************************************/
 
 #if TIME_WITH_SYS_TIME
 # include <sys/time.h>
@@ -106,8 +107,8 @@ namespace ProtoMol {
      return (double)(t1 - t0);						  \
 }
 
-    /*----------------------------------------------------------------*/
-    /* Solaris */
+		/*----------------------------------------------------------------*/
+		/* Solaris */
 #if defined(HAVE_GETHRTIME) && defined(HAVE_HRTIME_T) && !defined(HAVE_TICK_COUNTER)
     typedef hrtime_t ticks;
 
@@ -118,8 +119,8 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-      /*----------------------------------------------------------------*/
-      /* AIX v. 4+ routines to read the real-time clock or time-base register */
+		/*----------------------------------------------------------------*/
+		/* AIX v. 4+ routines to read the real-time clock or time-base register */
 #if defined(HAVE_READ_REAL_TIME) && defined(HAVE_TIME_BASE_TO_TIME) && !defined(HAVE_TICK_COUNTER)
       typedef timebasestruct_t ticks;
 
@@ -140,10 +141,10 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-    /*----------------------------------------------------------------*/
-    /*
-     * PowerPC ``cycle'' counter using the time base register.
-     */
+		/*----------------------------------------------------------------*/
+		/*
+		 * PowerPC ``cycle'' counter using the time base register.
+		 */
 #if ((defined(__GNUC__) && (defined(__powerpc__) || defined(__ppc__))) || (defined(__MWERKS__) && defined(macintosh)))  && !defined(HAVE_TICK_COUNTER)
     typedef unsigned long long ticks;
 
@@ -164,10 +165,10 @@ namespace ProtoMol {
 
 #define HAVE_TICK_COUNTER
 #endif
-      /*----------------------------------------------------------------*/
-      /*
-       * Pentium cycle counter 
-       */
+		/*----------------------------------------------------------------*/
+		/*
+		 * Pentium cycle counter 
+		 */
 #if (defined(__GNUC__) || defined(__ICC)) && defined(__i386__)  && !defined(HAVE_TICK_COUNTER)
       typedef unsigned long long ticks;
 
@@ -176,7 +177,7 @@ namespace ProtoMol {
 	ticks ret;
 
 	__asm__ __volatile__("rdtsc": "=A" (ret));
-	/* no input, nothing else clobbered */
+		/* no input, nothing else clobbered */
 	return ret;
       }
 
@@ -185,36 +186,36 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-      /* Visual C++ -- thanks to Morten Nissov for his help with this */
+		/* Visual C++ -- thanks to Morten Nissov for his help with this */
 #if _MSC_VER >= 1200 && _M_IX86 >= 500 && !defined(HAVE_TICK_COUNTER)
 #include <windows.h>
-      typedef LARGE_INTEGER ticks;
+		typedef LARGE_INTEGER ticks;
 #define RDTSC __asm __emit 0fh __asm __emit 031h /* hack for VC++ 5.0 */
 
-    static __inline ticks getticks(void)
-      {
-	ticks ret;
+		static __inline ticks getticks(void)
+		{
+			ticks ret;
 
-	__asm {
-	  RDTSC
-	    mov ret.HighPart, edx
-	    mov ret.LowPart, eax
-	    }
-	return ret;
-      }
+			__asm {
+				RDTSC
+				mov ret.HighPart, edx
+				mov ret.LowPart, eax
+			}
+			return ret;
+		}
 
-    static __inline double elapsed(ticks t1, ticks t0)
-      {  
-	return (double)(t1.QuadPart - t0.QuadPart);
-      }  
+		static __inline double elapsed(ticks t1, ticks t0)
+		{
+			return (double)(t1.QuadPart - t0.QuadPart);
+		}
 
 #define HAVE_TICK_COUNTER
 #endif
 
-    /*----------------------------------------------------------------*/
-    /*
-     * X86-64 cycle counter
-     */
+		/*----------------------------------------------------------------*/
+		/*
+		 * X86-64 cycle counter
+		 */
 #if defined(__GNUC__) && defined(__x86_64__)  && !defined(HAVE_TICK_COUNTER)
     typedef unsigned long long ticks;
 
@@ -230,7 +231,7 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-      /* Visual C++ (FIXME: how to detect compilation for x86-64?) */
+		/* Visual C++ (FIXME: how to detect compilation for x86-64?) */
 #if _MSC_VER >= 1400 && !defined(HAVE_TICK_COUNTER)
       typedef ULONG64 ticks;
 
@@ -241,10 +242,10 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-      /*----------------------------------------------------------------*/
-      /*
-       * IA64 cycle counter
-       */
+		/*----------------------------------------------------------------*/
+		/*
+		 * IA64 cycle counter
+		 */
 #if defined(__GNUC__) && defined(__ia64__) && !defined(HAVE_TICK_COUNTER)
       typedef unsigned long ticks;
 
@@ -261,7 +262,7 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-      /* HP/UX IA64 compiler, courtesy Teresa L. Johnson: */
+		/* HP/UX IA64 compiler, courtesy Teresa L. Johnson: */
 #if defined(__hpux) && defined(__ia64) && !defined(HAVE_TICK_COUNTER)
 #include <machine/sys/inline.h>
       typedef unsigned long ticks;
@@ -279,7 +280,7 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-      /* intel's ecc compiler */
+		/* intel's ecc compiler */
 #if defined(__ECC) && defined(__ia64__) && !defined(HAVE_TICK_COUNTER)
       typedef unsigned long ticks;
 #include <ia64intrin.h>
@@ -294,10 +295,10 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-      /*----------------------------------------------------------------*/
-      /*
-       * PA-RISC cycle counter 
-       */
+		/*----------------------------------------------------------------*/
+		/*
+		 * PA-RISC cycle counter 
+		 */
 #if defined(__hppa__) || defined(__hppa) && !defined(HAVE_TICK_COUNTER)
       typedef unsigned long ticks;
 
@@ -307,7 +308,7 @@ namespace ProtoMol {
 	ticks ret;
 
 	__asm__ __volatile__("mfctl 16, %0": "=r" (ret));
-	/* no input, nothing else clobbered */
+		/* no input, nothing else clobbered */
 	return ret;
       }
 #  else
@@ -325,8 +326,8 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-      /*----------------------------------------------------------------*/
-      /* S390, courtesy of James Treacy */
+		/*----------------------------------------------------------------*/
+		/* S390, courtesy of James Treacy */
 #if defined(__GNUC__) && defined(__s390__) && !defined(HAVE_TICK_COUNTER)
       typedef unsigned long long ticks;
 
@@ -341,12 +342,12 @@ namespace ProtoMol {
 
 #define HAVE_TICK_COUNTER
 #endif
-      /*----------------------------------------------------------------*/
+		/*----------------------------------------------------------------*/
 #if defined(__GNUC__) && defined(__alpha__) && !defined(HAVE_TICK_COUNTER)
-      /*
-       * The 32-bit cycle counter on alpha overflows pretty quickly, 
-       * unfortunately.  A 1GHz machine overflows in 4 seconds.
-       */
+		/*
+		 * The 32-bit cycle counter on alpha overflows pretty quickly, 
+		 * unfortunately.  A 1GHz machine overflows in 4 seconds.
+		 */
       typedef unsigned int ticks;
 
     static __inline__ ticks getticks(void)
@@ -361,7 +362,7 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-      /*----------------------------------------------------------------*/
+		/*----------------------------------------------------------------*/
 #if defined(__GNUC__) && defined(__sparc_v9__) && !defined(HAVE_TICK_COUNTER)
       typedef unsigned long ticks;
 
@@ -377,7 +378,7 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-      /*----------------------------------------------------------------*/
+		/*----------------------------------------------------------------*/
 #if defined(__DECC) && defined(__alpha) && defined(HAVE_C_ASM_H) && !defined(HAVE_TICK_COUNTER)
 #  include <c_asm.h>
       typedef unsigned int ticks;
@@ -393,8 +394,8 @@ namespace ProtoMol {
 
 #define HAVE_TICK_COUNTER
 #endif
-      /*----------------------------------------------------------------*/
-      /* SGI/Irix */
+		/*----------------------------------------------------------------*/
+		/* SGI/Irix */
 #if defined(HAVE_CLOCK_GETTIME) && defined(CLOCK_SGI_CYCLE) && !defined(HAVE_TICK_COUNTER)
       typedef struct timespec ticks;
 
@@ -413,8 +414,8 @@ namespace ProtoMol {
 #define HAVE_TICK_COUNTER
 #endif
 
-    /*----------------------------------------------------------------*/
-    /* Cray UNICOS _rtc() intrinsic function */
+		/*----------------------------------------------------------------*/
+		/* Cray UNICOS _rtc() intrinsic function */
 #if defined(HAVE__RTC) && !defined(HAVE_TICK_COUNTER)
 #ifdef HAVE_INTRINSICS_H
 #  include <intrinsics.h>
@@ -428,50 +429,72 @@ namespace ProtoMol {
 
 #define HAVE_TICK_COUNTER
 #endif
+	}
 
+	//________________________________________________________________________ Cycles
 
+	/**
+  
+	A simple and precise CPU cycle counter a la Timer. 
+  
+	*/
+	class Cycles
+	{
+	public:
+		typedef Private::ticks ticks;
 
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		Cycles(): myRunningFlag(false)
+		{
+		}
 
-      }
+		// Time(const Time&);             // Use default version.
+		// ~Time();                       // Use default version.
+		// Time& operator=(const Time&);  // Use default version.
 
-  //________________________________________________________________________ Cycles
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class Cycles
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		void start()
+		{
+			if (myRunningFlag) return;
+			myRunningFlag = true;
+			myStartTime = Private::getticks();
+		}
 
-  /**
+		void stop()
+		{
+			if (!myRunningFlag) return;
+			myEndTime = Private::getticks();
+			myRunningFlag = false;
+		}
 
-  A simple and precise CPU cycle counter a la Timer. 
+		void reset()
+		{
+			myRunningFlag = false;
+		}
 
-  */
-  class Cycles {
-  public:
-    typedef Private::ticks ticks;
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Cycles():myRunningFlag(false){}
-    // Time(const Time&);             // Use default version.
-    // ~Time();                       // Use default version.
-    // Time& operator=(const Time&);  // Use default version.
+		double getCycles() const
+		{
+			return elapsed(myEndTime, myStartTime);
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class Cycles
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    void start(){if( myRunningFlag) return;myRunningFlag = true ; myStartTime = Private::getticks();}
-    void stop() {if(!myRunningFlag) return;myEndTime = Private::getticks(); myRunningFlag = false; }
-    void reset(){myRunningFlag = false;}
+		/// Direct access of the CPU cycle counter - hopefully inlined
+		static ticks getCounter()
+		{
+			return Private::getticks();
+		}
 
-    double getCycles() const{return elapsed(myEndTime,myStartTime);}
-
-    /// Direct access of the CPU cycle counter - hopefully inlined
-    static ticks getCounter(){return Private::getticks();}
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    bool  myRunningFlag;
-    ticks myStartTime;
-    ticks myEndTime;
-  };
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		bool myRunningFlag;
+		ticks myStartTime;
+		ticks myEndTime;
+	};
 }
 #endif // _TIMER_H

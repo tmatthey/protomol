@@ -39,101 +39,104 @@
 
 #include "Report.h"
 
-namespace ProtoMol {
-  //_____________________________________________________________________ TimeRep
-  /**
-   * Class representation and container of Time
-   */
-  class TimeRep {
-    friend class Timer;
-  public:
-    TimeRep();
-    // TimeRep(const TimeRep&);             // Use default version.
-    TimeRep(double realTime, double userTime, double sysTime);
-    // ~TimeRep();                          // Use default version.
-    // TimeRep& operator=(const TimeRep&);  // Use default version.
+namespace ProtoMol
+{
+	//_____________________________________________________________________ TimeRep
+	/**
+	 * Class representation and container of Time
+	 */
+	class TimeRep
+	{
+		friend class Timer;
+	public:
+		TimeRep();
+		// TimeRep(const TimeRep&);             // Use default version.
+		TimeRep(double realTime, double userTime, double sysTime);
+		// ~TimeRep();                          // Use default version.
+		// TimeRep& operator=(const TimeRep&);  // Use default version.
 
-    /// Elapsed time
-    double getRealTime() const;
-    /// Time spent by this task/thread
-    double getUserTime() const;
-    /// Time spent on system operations
-    double getSystemTime() const;
-    /// User + System time
-    double getProcessTime() const; // User & Sys
+		/// Elapsed time
+		double getRealTime() const;
+		/// Time spent by this task/thread
+		double getUserTime() const;
+		/// Time spent on system operations
+		double getSystemTime() const;
+		/// User + System time
+		double getProcessTime() const; // User & Sys
 
-    TimeRep operator+(const TimeRep& time) const;
-    TimeRep operator-(const TimeRep& time) const;
-    TimeRep& operator+=(const TimeRep& time);
-    TimeRep& operator-=(const TimeRep& time);
+		TimeRep operator+(const TimeRep& time) const;
+		TimeRep operator-(const TimeRep& time) const;
+		TimeRep& operator+=(const TimeRep& time);
+		TimeRep& operator-=(const TimeRep& time);
 
-    friend Report::MyStreamer& operator<<(Report::MyStreamer& os, const TimeRep& time);
+		friend Report::MyStreamer& operator<<(Report::MyStreamer& os, const TimeRep& time);
 
-  private:
-    double myRealTime;
-    double myUserTime;
-    double mySystemTime;
+	private:
+		double myRealTime;
+		double myUserTime;
+		double mySystemTime;
 
-  private:
-    void set(double realTime, double userTime, double sysTime);
-    void reset();
-  };
+	private:
+		void set(double realTime, double userTime, double sysTime);
+		void reset();
+	};
 
-  //______________________________________________________________ INLINE TimerRep
+	//______________________________________________________________ INLINE TimerRep
 
-  inline double TimeRep::getRealTime() const 
-  { 
-    return myRealTime; 
-  }
+	inline double TimeRep::getRealTime() const
+	{
+		return myRealTime;
+	}
 
-  inline double TimeRep::getUserTime() const 
-  { 
-    return myUserTime; 
-  }
+	inline double TimeRep::getUserTime() const
+	{
+		return myUserTime;
+	}
 
-  inline double TimeRep::getSystemTime() const 
-  { 
-    return mySystemTime;  
-  }
+	inline double TimeRep::getSystemTime() const
+	{
+		return mySystemTime;
+	}
 
-  inline double TimeRep::getProcessTime() const
-  {
-    return myUserTime + mySystemTime;
-  }
+	inline double TimeRep::getProcessTime() const
+	{
+		return myUserTime + mySystemTime;
+	}
 
-  //________________________________________________________________________ Timer
+	//________________________________________________________________________ Timer
 
-  class Timer {
-  public:
-    Timer();
-    // Time(const Time&);             // Use default version.
-    // ~Time();                       // Use default version.
-    // Time& operator=(const Time&);  // Use default version.
+	class Timer
+	{
+	public:
+		Timer();
+		// Time(const Time&);             // Use default version.
+		// ~Time();                       // Use default version.
+		// Time& operator=(const Time&);  // Use default version.
 
-    void start();
-    void stop();
-    TimeRep lap();
-    void reset();
+		void start();
+		void stop();
+		TimeRep lap();
+		void reset();
 
-    TimeRep getTime() const;
-    TimeRep getLapTime() const;
-    TimeRep getActualTime() const;
+		TimeRep getTime() const;
+		TimeRep getLapTime() const;
+		TimeRep getActualTime() const;
 
-    static TimeRep getCurrentTime();
+		static TimeRep getCurrentTime();
 
-    Timer& operator+=(const TimeRep& time);
-    Timer& operator-=(const TimeRep& time);
+		Timer& operator+=(const TimeRep& time);
+		Timer& operator-=(const TimeRep& time);
 
-    friend Report::MyStreamer& operator<<(Report::MyStreamer& os, const Timer& timer);
-       
-  private:
-    bool myRunningFlag;
-    TimeRep myStartTime;
-    TimeRep myTotalTime;
-    TimeRep myLastLapTime;
-    TimeRep myLapTime;
+		friend Report::MyStreamer& operator<<(Report::MyStreamer& os, const Timer& timer);
 
-  private:
-  };
+	private:
+		bool myRunningFlag;
+		TimeRep myStartTime;
+		TimeRep myTotalTime;
+		TimeRep myLastLapTime;
+		TimeRep myLapTime;
+
+	private:
+	};
 }
 #endif // _TIMER_H

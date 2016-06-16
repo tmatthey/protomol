@@ -5,83 +5,91 @@
 #include "StandardIntegrator.h"
 #include "GenericTopology.h"
 
-namespace ProtoMol {
+namespace ProtoMol
+{
+	class ScalarStructure;
+	class ForceGroup;
 
-  class ScalarStructure;
-  class ForceGroup;
+	//_________________________________________________________________ STSIntegrator
 
-  //_________________________________________________________________ STSIntegrator
+	class STSIntegrator: public StandardIntegrator
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		STSIntegrator();
+		STSIntegrator(Real timestep, ForceGroup* overloadedForces);
 
-  class STSIntegrator: public StandardIntegrator {
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    STSIntegrator();
-    STSIntegrator(Real timestep, ForceGroup *overloadedForces);
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class STSIntegrator
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    STSIntegrator* make(std::string& errMsg, const std::vector<Value>& values, ForceGroup* fg)const;
-    virtual Real setTimestep( Real );
-  protected:
-    virtual void doDrift();
-  private:
-    virtual STSIntegrator* doMake(std::string& errMsg, const std::vector<Value>& values, ForceGroup* fg)const=0;
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class STSIntegrator
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		STSIntegrator* make(std::string& errMsg, const std::vector<Value>& values, ForceGroup* fg) const;
+		virtual Real setTimestep(Real);
+	protected:
+		virtual void doDrift();
+	private:
+		virtual STSIntegrator* doMake(std::string& errMsg, const std::vector<Value>& values, ForceGroup* fg) const =0;
 
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Makeable
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual void getParameters(std::vector<Parameter> &parameter) const;
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Makeable
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual void getParameters(std::vector<Parameter>& parameter) const;
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Integrator
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual void initialize(GenericTopology *topo, 
-			    Vector3DBlock   *positions, 
-			    Vector3DBlock   *velocities, 
-			    ScalarStructure *energies);
-    virtual Integrator* next(){return NULL;}
-    virtual const Integrator* next() const {return NULL;}
-    virtual Real getTimestep() const;
-  protected:
-    virtual void addModifierAfterInitialize();
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Integrator
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual void initialize(GenericTopology* topo,
+		                        Vector3DBlock* positions,
+		                        Vector3DBlock* velocities,
+		                        ScalarStructure* energies);
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class StandardIntegrator
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  protected:
-    virtual void doDriftOrNextIntegrator();
-    virtual void calculateForces();
-  public:
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  private:
-    Real myTimestep;
+		virtual Integrator* next()
+		{
+			return NULL;
+		}
 
-  };
-  //______________________________________________________________________ INLINES
+		virtual const Integrator* next() const
+		{
+			return NULL;
+		}
 
-  inline Real STSIntegrator::getTimestep() const {
-    return ( isForward() ? myTimestep : -myTimestep );
-  }
+		virtual Real getTimestep() const;
+	protected:
+		virtual void addModifierAfterInitialize();
 
-  inline Real STSIntegrator::setTimestep( Real newTimestep ) {
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class StandardIntegrator
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	protected:
+		virtual void doDriftOrNextIntegrator();
+		virtual void calculateForces();
+	public:
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private:
+		Real myTimestep;
+	};
 
-    Real oldTimestep = myTimestep;
+	//______________________________________________________________________ INLINES
 
-    myTimestep = newTimestep;
+	inline Real STSIntegrator::getTimestep() const
+	{
+		return (isForward() ? myTimestep : -myTimestep);
+	}
 
-    return ( oldTimestep );
+	inline Real STSIntegrator::setTimestep(Real newTimestep)
+	{
+		Real oldTimestep = myTimestep;
 
-  }
+		myTimestep = newTimestep;
 
+		return (oldTimestep);
+	}
 }
 #endif

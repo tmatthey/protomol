@@ -4,31 +4,37 @@
 
 #include "Integrator.h"
 
-namespace ProtoMol {
-  //_________________________________________________________________ NonStandardIntegrator
-  class ForceGroup;
+namespace ProtoMol
+{
+	//_________________________________________________________________ NonStandardIntegrator
+	class ForceGroup;
 
-  class NonStandardIntegrator: public Integrator {
+	class NonStandardIntegrator: public Integrator
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		NonStandardIntegrator()
+		{
+		};
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    NonStandardIntegrator(){};
-    NonStandardIntegrator(ForceGroup* forceGroup):Integrator(forceGroup){};
+		NonStandardIntegrator(ForceGroup* forceGroup): Integrator(forceGroup)
+		{
+		};
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class NonStandardIntegrator
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    virtual NonStandardIntegrator* make(std::string& errMsg, std::vector<Value> values, ForceGroup* fg)const=0;
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class NonStandardIntegrator
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		virtual NonStandardIntegrator* make(std::string& errMsg, std::vector<Value> values, ForceGroup* fg) const =0;
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // From class Integrator
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-  };
-  //______________________________________________________________________ INLINES
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// From class Integrator
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+	};
 
+	//______________________________________________________________________ INLINES
 }
 #endif

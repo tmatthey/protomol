@@ -9,60 +9,90 @@
 #include "ExclusionTable.h"
 #include <string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ GravitationForce
+namespace ProtoMol
+{
+	//_________________________________________________________________ GravitationForce
 
 
-  class GravitationForce {
-  public:
-    enum {DIST_R2=1};
-    enum {CUTOFF=0};
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Constructors, destructors, assignment
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    GravitationForce():myG(0.0){}
-    GravitationForce(Real g):myG(g){}
+	class GravitationForce
+	{
+	public:
+		enum
+		{
+			DIST_R2=1
+		};
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // New methods of class GravitationForce
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    void operator()(Real &energy, 
-		    Real &force, 
-		    Real /*distSquared*/,
-		    Real rDistSquared,
-		    const Vector3D &, 
-		    const GenericTopology* topo, 
-		    int atom1, int atom2,
-		    ExclusionClass) const {
+		enum
+		{
+			CUTOFF=0
+		};
 
-      Real m1 = topo->atoms[atom1].scaledMass;
-      Real m2 = topo->atoms[atom2].scaledMass;
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// Constructors, destructors, assignment
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		GravitationForce(): myG(0.0)
+		{
+		}
 
-      //Gravitational force:
-      energy = -m1*m2*myG*sqrt(rDistSquared);
-      force = energy*rDistSquared;
-    }
+		GravitationForce(Real g): myG(g)
+		{
+		}
 
-    static void accumulateEnergy(ScalarStructure* energies, Real energy) {(*energies)[ScalarStructure::OTHER] += energy;}
-    static Real getEnergy(const ScalarStructure* energies) {return (*energies)[ScalarStructure::OTHER];}
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// New methods of class GravitationForce
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		void operator()(Real& energy,
+		                Real& force,
+		                Real /*distSquared*/,
+		                Real rDistSquared,
+		                const Vector3D&,
+		                const GenericTopology* topo,
+		                int atom1, int atom2,
+		                ExclusionClass) const
+		{
+			Real m1 = topo->atoms[atom1].scaledMass;
+			Real m2 = topo->atoms[atom2].scaledMass;
 
-    // Parsing
-    static std::string getId() {return keyword;}
-    static unsigned int getParameterSize() {return 1;}
-    void getParameters(std::vector<Parameter>& parameters) const;
-    static GravitationForce make(std::string& , const std::vector<Value>& values);
+			//Gravitational force:
+			energy = -m1 * m2 * myG * sqrt(rDistSquared);
+			force = energy * rDistSquared;
+		}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // My data members
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  public:
-    static const std::string keyword;      
-  private:
-    Real myG;
-  };
+		static void accumulateEnergy(ScalarStructure* energies, Real energy)
+		{
+			(*energies)[ScalarStructure::OTHER] += energy;
+		}
 
-  //______________________________________________________________________ INLINES
+		static Real getEnergy(const ScalarStructure* energies)
+		{
+			return (*energies)[ScalarStructure::OTHER];
+		}
+
+		// Parsing
+		static std::string getId()
+		{
+			return keyword;
+		}
+
+		static unsigned int getParameterSize()
+		{
+			return 1;
+		}
+
+		void getParameters(std::vector<Parameter>& parameters) const;
+		static GravitationForce make(std::string&, const std::vector<Value>& values);
+
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// My data members
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public:
+		static const std::string keyword;
+	private:
+		Real myG;
+	};
+
+	//______________________________________________________________________ INLINES
 }
 #endif /* GRAVITATIONFORCE_H */

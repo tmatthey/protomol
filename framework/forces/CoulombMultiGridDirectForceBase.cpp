@@ -1,8 +1,9 @@
 #include "CoulombMultiGridDirectForceBase.h"
 using std::string;
 
-namespace ProtoMol {
-  //_________________________________________________________________ CoulombMultiGridDirectForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ CoulombMultiGridDirectForceBase
 
-  const string CoulombMultiGridDirectForceBase::keyword("CoulombMultiGridDirect");
+	const string CoulombMultiGridDirectForceBase::keyword("CoulombMultiGridDirect");
 }

@@ -3,7 +3,8 @@
 #define INTEGRATORFACTORY_H
 #include "IntegratorFactoryDetails.h"
 
-namespace ProtoMol {
-  typedef Factory<Integrator> IntegratorFactory;
+namespace ProtoMol
+{
+	typedef Factory<Integrator> IntegratorFactory;
 }
 #endif /* INTEGRATORFACTORY_H */

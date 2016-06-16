@@ -4,15 +4,18 @@
 
 #include <string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ UniversalSwitchingFunctionBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ UniversalSwitchingFunctionBase
 
-  class UniversalSwitchingFunctionBase {
-  public:
-    virtual ~UniversalSwitchingFunctionBase(){}
-    static const std::string keyword;
-  };
+	class UniversalSwitchingFunctionBase
+	{
+	public:
+		virtual ~UniversalSwitchingFunctionBase()
+		{
+		}
 
+		static const std::string keyword;
+	};
 }
 #endif /* COMPLEMENTSWITCHINGFUNCTIONBASE_H */
-

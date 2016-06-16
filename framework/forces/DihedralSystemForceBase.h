@@ -4,14 +4,18 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ DihedralSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ DihedralSystemForceBase
 
-  class DihedralSystemForceBase {
-  public:
-    virtual ~DihedralSystemForceBase(){}
-    static const std::string keyword;
-  };
+	class DihedralSystemForceBase
+	{
+	public:
+		virtual ~DihedralSystemForceBase()
+		{
+		}
+
+		static const std::string keyword;
+	};
 }
 #endif /* DIHEDRALSYSTEMFORCEBASE_H */
-

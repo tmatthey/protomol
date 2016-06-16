@@ -4,13 +4,18 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ BondSystemForceBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ BondSystemForceBase
 
-  class BondSystemForceBase {
-  public:
-    virtual ~BondSystemForceBase(){}
-    static const std::string keyword;
-  };
+	class BondSystemForceBase
+	{
+	public:
+		virtual ~BondSystemForceBase()
+		{
+		}
+
+		static const std::string keyword;
+	};
 }
 #endif /* BONDSYSTEMFORCEBASE_H */

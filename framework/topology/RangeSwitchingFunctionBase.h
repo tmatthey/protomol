@@ -4,14 +4,14 @@
 
 #include<string>
 
-namespace ProtoMol {
-  //_________________________________________________________________ RangeSwitchingFunctionBase
+namespace ProtoMol
+{
+	//_________________________________________________________________ RangeSwitchingFunctionBase
 
-  class RangeSwitchingFunctionBase {
-  public:
-    static const std::string keyword;
-  };
-
+	class RangeSwitchingFunctionBase
+	{
+	public:
+		static const std::string keyword;
+	};
 }
 #endif /* RANGESWITCHINGFUNCTION_H */
-

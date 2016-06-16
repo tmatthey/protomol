@@ -29,124 +29,145 @@
 
 using std::string;
 
-namespace ProtoMol {
-
-  //_____________________________________________________________________ changeDirectory
-  bool changeDirectory(const string& fileName){
-    char *confFile = (char*)fileName.c_str();
-    char *currentdir = confFile;
-    char *tmp = NULL;
+namespace ProtoMol
+{
+	//_____________________________________________________________________ changeDirectory
+	bool changeDirectory(const string& fileName)
+	{
+		char* confFile = (char*)fileName.c_str();
+		char* currentdir = confFile;
+		char* tmp = NULL;
 
 #ifdef WIN32
-    // Replace all '/' by '\'
-    for(tmp=confFile;*tmp;++tmp){
-      if(*tmp == '/')
-	*tmp = '\\';
-    }
+		// Replace all '/' by '\'
+		for (tmp = confFile; *tmp; ++tmp)
+		{
+			if (*tmp == '/')
+				*tmp = '\\';
+		}
 #endif
 
-    for(tmp=confFile;*tmp;++tmp); // find final null
-    for(;tmp != confFile && *tmp != PATHSEP; --tmp); // find last '/'
-    if (tmp != confFile ){
-      *tmp = 0; 
-      confFile = tmp + 1;
-      if (CHDIR(currentdir))
-	return false;
-    }
-    else if (*tmp == PATHSEP) // config file in / is odd, but it might happen
-      if (CHDIR(PATHSEPSTR)){
-	return false;
-      }
+		for (tmp = confFile; *tmp; ++tmp); // find final null
+		for (; tmp != confFile && *tmp != PATHSEP; --tmp); // find last '/'
+		if (tmp != confFile)
+		{
+			*tmp = 0;
+			confFile = tmp + 1;
+			if (CHDIR(currentdir))
+				return false;
+		}
+		else if (*tmp == PATHSEP) // config file in / is odd, but it might happen
+			if (CHDIR(PATHSEPSTR))
+			{
+				return false;
+			}
 
-    return true;
-  }
+		return true;
+	}
 
-  //_____________________________________________________________________ isAccessible
-  bool isAccessible(const string& fileName){
-    return (::access(fileName.c_str(), F_OK) == 0);
-  }
-
-
-  //_____________________________________________________________________ protomolAbort
-
-  static void (*myAbortFunction)() = NULL;
-
-  void protomolAbort(){
-    if(myAbortFunction != NULL){
-      (*myAbortFunction)();    
-    }
-    exit(EXIT_FAILURE);
-  }
-
-  //_____________________________________________________________________ setProtomolAbort
-  void setProtomolAbort(void (*abortFunction)()){
-    myAbortFunction = abortFunction;
-  }
-
-  //_____________________________________________________________________ protomolExit
-
-  static void (*myExitFunction)() = NULL;
-
-  void protomolExit(){
-    if(myExitFunction != NULL){
-      (*myExitFunction)();    
-    }
-    exit(EXIT_SUCCESS);
-  }
-
-  //_____________________________________________________________________ setProtomolExit
-  void setProtomolExit(void (*exitFunction)()){
-    myExitFunction = exitFunction;
-  }
+	//_____________________________________________________________________ isAccessible
+	bool isAccessible(const string& fileName)
+	{
+		return (::access(fileName.c_str(), F_OK) == 0);
+	}
 
 
-  //_____________________________________________________________________ protomolStartSerial
-  static void (*myStartSerial)(bool) = NULL;
+	//_____________________________________________________________________ protomolAbort
 
-  void protomolStartSerial(bool exludeMaster){
-    if(myStartSerial != NULL){
-      (*myStartSerial)(exludeMaster);    
-    }
-  }
+	static void (*myAbortFunction)() = NULL;
 
-  //_____________________________________________________________________ setProtomolExit
-  void setProtomolStartSerial(void (*startSerialFunction)(bool)){
-    myStartSerial = startSerialFunction;
-  }
+	void protomolAbort()
+	{
+		if (myAbortFunction != NULL)
+		{
+			(*myAbortFunction)();
+		}
+		exit(EXIT_FAILURE);
+	}
 
-  //_____________________________________________________________________ protomolEndSerial
-  static void (*myEndSerial)(bool) = NULL;
+	//_____________________________________________________________________ setProtomolAbort
+	void setProtomolAbort(void (*abortFunction)())
+	{
+		myAbortFunction = abortFunction;
+	}
 
-  void protomolEndSerial(bool exludeMaster){
-    if(myEndSerial != NULL){
-      (*myEndSerial)(exludeMaster);    
-    }
-  }
+	//_____________________________________________________________________ protomolExit
 
-  //_____________________________________________________________________ setProtomolExit
-  void setProtomolEndSerial(void (*endSerialFunction)(bool)){
-    myEndSerial = endSerialFunction;
-  }
+	static void (*myExitFunction)() = NULL;
 
-  //_____________________________________________________________________ ISLITTLEENDIAN
-  struct Endian {
-    // Helper class to make sure that we get endianess correct ... M$
-    static bool isLittleEndian(){
-      unsigned int tmp = 1;
-      return (0 != *(reinterpret_cast<const char*>(&tmp)));
-    }
-  };
-  const bool ISLITTLEENDIAN = Endian::isLittleEndian();
+	void protomolExit()
+	{
+		if (myExitFunction != NULL)
+		{
+			(*myExitFunction)();
+		}
+		exit(EXIT_SUCCESS);
+	}
 
-  //_____________________________________________________________________ getUserName
-  string getUserName(){
+	//_____________________________________________________________________ setProtomolExit
+	void setProtomolExit(void (*exitFunction)())
+	{
+		myExitFunction = exitFunction;
+	}
+
+
+	//_____________________________________________________________________ protomolStartSerial
+	static void (*myStartSerial)(bool) = NULL;
+
+	void protomolStartSerial(bool exludeMaster)
+	{
+		if (myStartSerial != NULL)
+		{
+			(*myStartSerial)(exludeMaster);
+		}
+	}
+
+	//_____________________________________________________________________ setProtomolExit
+	void setProtomolStartSerial(void (*startSerialFunction)(bool))
+	{
+		myStartSerial = startSerialFunction;
+	}
+
+	//_____________________________________________________________________ protomolEndSerial
+	static void (*myEndSerial)(bool) = NULL;
+
+	void protomolEndSerial(bool exludeMaster)
+	{
+		if (myEndSerial != NULL)
+		{
+			(*myEndSerial)(exludeMaster);
+		}
+	}
+
+	//_____________________________________________________________________ setProtomolExit
+	void setProtomolEndSerial(void (*endSerialFunction)(bool))
+	{
+		myEndSerial = endSerialFunction;
+	}
+
+	//_____________________________________________________________________ ISLITTLEENDIAN
+	struct Endian
+	{
+		// Helper class to make sure that we get endianess correct ... M$
+		static bool isLittleEndian()
+		{
+			unsigned int tmp = 1;
+			return (0 != *(reinterpret_cast<const char*>(&tmp)));
+		}
+	};
+
+	const bool ISLITTLEENDIAN = Endian::isLittleEndian();
+
+	//_____________________________________________________________________ getUserName
+	string getUserName()
+	{
 #ifdef WIN32
-    return "Win32";
+		return "Win32";
 #else
     if (getpwuid(getuid()) != NULL)
       return string(getpwuid(getuid())->pw_name);
     else 
       return toString(getuid());
 #endif
-  }
+	}
 }
